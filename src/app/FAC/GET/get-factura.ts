@@ -23,8 +23,8 @@ export class getFactura{
       return this.http.get<any>(this._Cnx.Url() + "Factura/DatosSucursal?CodBodega=" + CodBodega + "&TipoFactura=" + TipoFactura);
    }
     
-    public Datos_Factura() : Observable<string>{
-       return this.http.get<any>(this._Cnx.Url() + "Factura/Datos");
+    public Datos_Factura(user : string) : Observable<string>{
+       return this.http.get<any>(this._Cnx.Url() + "Factura/Datos?user=" + user);
     }
     
     public Datos_Credito(CodCliente : string) : Observable<string>{
@@ -38,15 +38,18 @@ export class getFactura{
 
 
 
-     public Cargar_Productos() : Observable<string>{
-        return this.http.get<any>(this._Cnx.Url() + "Factura/CargarProductos");
+     public Cargar_Productos(CodBodega : string) : Observable<string>{
+        return this.http.get<any>(this._Cnx.Url() + "Factura/CargarProductos?CodBodega=" + CodBodega);
      }
 
 
-     public Datos_Producto(CodProducto : string, CodBodega : string, CodCliente : string) : Observable<string>{
-        return this.http.get<any>(this._Cnx.Url() + "Factura/DatosProducto?CodProducto=" + CodProducto + "&CodBodega=" + CodBodega + "&CodCliente=" + CodCliente);
+     public Datos_Producto(CodProducto : string, CodBodega : string, CodCliente : string, user : string) : Observable<string>{
+        return this.http.get<any>(this._Cnx.Url() + "Factura/DatosProducto?CodProducto=" + CodProducto + "&CodBodega=" + CodBodega + "&CodCliente=" + CodCliente + "&user=" + user);
      }
      
+     public BonificacionLibre(CodCliente : string, CodBodega : string) : Observable<string>{
+      return this.http.get<any>(this._Cnx.Url() + "Factura/BonificacionLibre?&CodCliente=" + CodCliente + "&CodBodega=" + CodBodega);
+   }
      
      public Direcciones(CodCliente : string) : Observable<string>{
       return this.http.get<any>(this._Cnx.Url() + "Factura/Direcciones?CodCliente=" + CodCliente);

@@ -1,9 +1,9 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.globalvet.app',
-  appName: 'GlobalVet',
-  webDir: 'dist/gv-app',
+  appId: 'com.escasan.app',
+  appName: 'EscasanFactura',
+  webDir: 'dist/factura-app',
   /*server: {
     androidScheme: 'https'
   }*/

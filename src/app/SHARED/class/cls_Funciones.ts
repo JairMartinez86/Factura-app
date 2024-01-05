@@ -20,12 +20,13 @@ export class Funciones {
 
   private datePipe: DatePipe = new DatePipe('en-US');
 
-  public MonedaLocal = "C";
+  public MonedaLocal = "COR";
 
   public User: string = "";
   public Nombre: string = "";
   public Rol: string = "";
   public Bodega: string = "";
+
 
   constructor(public DIALOG: MatDialog) {
 

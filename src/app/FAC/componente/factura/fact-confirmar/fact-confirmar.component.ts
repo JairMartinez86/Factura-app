@@ -115,7 +115,7 @@ export class FactConfirmarComponent {
 
 
     this.SimboloMonedaCliente = "U$";
-    if (Moneda == "C") this.SimboloMonedaCliente = "C$";
+    if (Moneda == this.cFunciones.MonedaLocal) this.SimboloMonedaCliente = "C$";
 
 
 
@@ -124,7 +124,7 @@ export class FactConfirmarComponent {
     this.val.Get("txtVendedor").setValue([this.CodVendedor]);
     this.val.Get("txtNombre_Confirmar").setValue(this.Nombre);
     this.val.Get("txtBodega").setValue([this.CodBodega]);
-    this.val.Get("txtMoneda").setValue(this.MonedaCliente == "C" ? "Cordoba" : "Dolar");
+    this.val.Get("txtMoneda").setValue(this.MonedaCliente == this.cFunciones.MonedaLocal ? "Cordoba" : "Dolar");
 
     this.TipoPago = TipoPago;
 
@@ -379,7 +379,7 @@ export class FactConfirmarComponent {
 
               this.MonedaCliente = this.i_Credito[0].Moneda;
               this.SimboloMonedaCliente = "U$";
-              if (this.i_Credito[0].Moneda == "C") this.SimboloMonedaCliente = "C$";
+              if (this.i_Credito[0].Moneda == this.cFunciones.MonedaLocal) this.SimboloMonedaCliente = "C$";
 
               this.val.Get("txtFecha").setValue(this.cFunciones.DateFormat(this.Fecha, "yyyy-MM-dd"));
               this.val.Get("txtPlazo").setValue(this.Plazo);

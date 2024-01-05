@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { TablaDatosComponent } from "../../tabla-datos/tabla-datos.component";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Observable, map, startWith } from "rxjs";
@@ -15,6 +15,9 @@ import { iDetalleFactura } from "src/app/FAC/interface/i-detalle-factura";
 import { iExistencia } from "src/app/FAC/interface/i-Existencia";
 import { iBonificacion } from "src/app/FAC/interface/i-Bonificacion";
 import { iDescuento } from "src/app/FAC/interface/i-Descuento";
+import { GlobalPositionStrategy, IgxComboComponent, OverlaySettings } from "igniteui-angular";
+import { scaleInCenter, scaleOutCenter } from "igniteui-angular/animations";
+import { iBonifLibre } from "src/app/FAC/interface/i-Bonif-Libre";
 
 @Component({
   selector: "app-fact-ficha-producto",
@@ -48,6 +51,7 @@ export class FactFichaProductoComponent {
   private lstDescuento: iDescuento[] = [];
   public TipoExoneracion: string;
 
+
   public SubTotal: number = 0;
   public Descuento: number = 0;
   public Adicional: number = 0;
@@ -56,7 +60,10 @@ export class FactFichaProductoComponent {
   public TotalCordoba: number = 0;
   public TotalDolar: number = 0;
 
-  private EsModal : boolean = false;
+  private EsModal: boolean = false;
+
+  public overlaySettings: OverlaySettings = {};
+
 
   public constructor(
     private GET: getFactura,
@@ -107,7 +114,7 @@ export class FactFichaProductoComponent {
     this._Evento("Limpiar");
   }
 
-  public Iniciar(CodBodega: string, CodCliente: string, MonedaCliente: string, TipoExoneracion: string, Exportacion: boolean, EsModal : boolean): void {
+  public Iniciar(CodBodega: string, CodCliente: string, MonedaCliente: string, TipoExoneracion: string, Exportacion: boolean, EsModal: boolean): void {
     this._Evento("Limpiar");
     this.CodBodega = CodBodega;
     this.CodCliente = CodCliente;
@@ -166,11 +173,16 @@ export class FactFichaProductoComponent {
 
   //████████████████████████████████████████████FICHA PRODUCTO████████████████████████████████████████████████████████████████████████
 
+  @ViewChild("cmbProducto", { static: false })
+  public cmbProducto: IgxComboComponent;
+
+
   private v_Cargar_Productos(): void {
 
     this.lstPrecios.splice(0, this.lstPrecios.length);
     this.lstExistencia.splice(0, this.lstExistencia.length);
     this.lstBonificacion.splice(0, this.lstBonificacion.length);
+
 
     document
       .getElementById("btnRefrescarProductos")
@@ -184,7 +196,7 @@ export class FactFichaProductoComponent {
       }
     );
 
-    this.GET.Cargar_Productos().subscribe(
+    this.GET.Cargar_Productos(this.CodBodega).subscribe(
       {
         next: (s) => {
 
@@ -195,7 +207,7 @@ export class FactFichaProductoComponent {
           let _json = JSON.parse(s);
 
           if (_json["esError"] == 1) {
-            if(this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined){
+            if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
               this.cFunciones.DIALOG.open(DialogErrorComponent, {
                 id: "error-servidor-msj",
                 data: _json["msj"].Mensaje,
@@ -224,8 +236,7 @@ export class FactFichaProductoComponent {
             ?.removeAttribute("disabled");
           dialogRef.close();
 
-          if(this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) 
-          {
+          if (this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) {
             this.cFunciones.DIALOG.open(DialogErrorComponent, {
               id: "error-servidor",
               data: "<b class='error'>" + err.message + "</b>",
@@ -242,23 +253,25 @@ export class FactFichaProductoComponent {
   }
 
   public v_Select_Producto(event: any): void {
-    let Producto: iProducto[] = this.lstProductos.filter(
-      (f) => f.Codigo == event.option.value
-    );
-
-    this.CodProducto = "";
-    this.bol_EsPrecioLiberado = false;
-    this.val.Get("txtProducto").setValue("");
-    this.val.Get("txtPrecioCor").setValue("0.0000");
-    this.val.Get("txtPrecioDol").setValue("0.0000");
-    this.val.Get("txtCantidad").setValue("1");
-    this.val.Get("txtProcDescuento").setValue("0.00");
 
 
-    if (Producto.length > 0) {
+    if (event.added.length) {
+      if (event.newValue.length > 1) event.newValue.splice(0, 1);
 
-      this.CodProducto = Producto[0].Codigo;
-      this.val.Get("txtProducto").setValue(Producto[0].Producto);
+      let _Item: iProducto = this.cmbProducto.dropdown.focusedItem.value;
+
+
+      this.CodProducto = "";
+      this.bol_EsPrecioLiberado = false;
+      this.val.Get("txtProducto").setValue("");
+      this.val.Get("txtPrecioCor").setValue("0.0000");
+      this.val.Get("txtPrecioDol").setValue("0.0000");
+      this.val.Get("txtCantidad").setValue("1");
+      this.val.Get("txtProcDescuento").setValue("0.00");
+
+
+      this.CodProducto = _Item.Codigo;
+      this.val.Get("txtProducto").setValue(_Item.Producto);
       this.val.Get("txtCodProducto").disable();
       this.val.Get("txtProducto").disable();
       //this.val.Get("txtPrecioCor").enable();
@@ -269,10 +282,27 @@ export class FactFichaProductoComponent {
       //document?.getElementById("txtPrecioCor")?.focus();
 
       this.v_Datos_Producto();
+
+
     }
 
 
 
+
+  }
+
+
+  public v_Enter_Producto(event: any) {
+    if (event.key == "Enter") {
+      let _Item: iProducto = this.cmbProducto.dropdown.focusedItem.value;
+      this.cmbProducto.setSelectedItem(_Item.Codigo);
+      this.val.Get("txtCodProducto").setValue([_Item.Codigo]);
+      this.CodProducto = _Item.Codigo;
+    }
+  }
+
+  public v_Close_Producto() {
+    this.CodProducto = this.cmbProducto.value[0];
   }
 
   private LlenarPrecio(): void {
@@ -324,15 +354,15 @@ export class FactFichaProductoComponent {
       }
     );
 
-    this.GET.Datos_Producto(this.CodProducto, this.CodBodega, this.CodCliente).subscribe(
+    this.GET.Datos_Producto(this.CodProducto, this.CodBodega, this.CodCliente, this.cFunciones.User).subscribe(
       {
         next: (s) => {
 
           dialogRef.close();
           let _json = JSON.parse(s);
-  
+
           if (_json["esError"] == 1) {
-            if(this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined){
+            if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
               this.cFunciones.DIALOG.open(DialogErrorComponent, {
                 id: "error-servidor-msj",
                 data: _json["msj"].Mensaje,
@@ -340,36 +370,36 @@ export class FactFichaProductoComponent {
             }
           } else {
             let Datos: iDatos[] = _json["d"];
-  
+
             this.lstExistencia = Datos[0].d;
             this.lstBonificacion = Datos[1].d;
             this.lstPrecios = Datos[2].d;
             this.lstDescuento = Datos[3].d;
-  
-  
+
+
+
             this.lstExistencia.filter(f => f.Bodega == this.CodBodega && f.CodProducto == this.CodProducto).forEach(f => {
-  
+
               let CantFact: number = this.lstDetalle.filter(item => item.Codigo === f.CodProducto).reduce((sum, current) => sum + current.Cantidad, 0);
               f.Existencia = this.cFunciones.Redondeo(f.Existencia - CantFact, "0");
             });
-  
+
             this.lstPrecios.forEach((f) => {
               f.PrecioCordoba = this.cFunciones.Redondeo(f.PrecioCordoba, "4");
               f.PrecioDolar = this.cFunciones.Redondeo(f.PrecioDolar, "4");
             });
-  
-  
+
+
             this.LlenarPrecio();
             if (this.bol_BonificacionLibre) this.v_Agregar_Producto();
-  
+
           }
 
         },
         error: (err) => {
           dialogRef.close();
 
-          if(this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) 
-          {
+          if (this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) {
             this.cFunciones.DIALOG.open(DialogErrorComponent, {
               id: "error-servidor",
               data: "<b class='error'>" + err.message + "</b>",
@@ -484,44 +514,104 @@ export class FactFichaProductoComponent {
   }
 
   public v_Bonificacion_Libre(): void {
-    let dialogRef: MatDialogRef<FactBonificacionLibreComponent> =
-      this.cFunciones.DIALOG.open(FactBonificacionLibreComponent, {
-        panelClass: "escasan-dialog-full",//window.innerWidth < 992 ? "escasan-dialog-full" : "",
-        data: this.lstProductos,
-        disableClose: true
-      });
-
-    dialogRef.afterOpened().subscribe(s => {
 
 
-      if (this.bol_BonificacionLibre) {
-        this.bol_BonificacionLibre = false;
-
-        dialogRef.componentInstance.valBonif.Get("txtCantidadBonif").setValue(this.val.Get("txtCantidad").value);
-        this.val.Get("txtCantidad").setValue("1");
-        dialogRef.componentInstance.v_ForzarSeleccionar(this.i_Bonif.Codigo);
-        this.i_Bonif = undefined;
-
+    let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(
+      WaitComponent,
+      {
+        panelClass: "escasan-dialog-full-blur",
+        data: "",
       }
-    });
+    );
+
+    this.GET.BonificacionLibre(this.CodCliente, this.CodBodega).subscribe(
+      {
+        next: (s) => {
+
+          dialogRef.close();
+          let _json = JSON.parse(s);
+
+          if (_json["esError"] == 1) {
+            if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
+              this.cFunciones.DIALOG.open(DialogErrorComponent, {
+                id: "error-servidor-msj",
+                data: _json["msj"].Mensaje,
+              });
+            }
+          } else {
+            let Datos: iDatos = _json["d"];
+
+            this.lstExistencia = Datos.d;
 
 
-    dialogRef.afterClosed().subscribe(s => {
 
-      if (dialogRef.componentInstance.i_Bonif != undefined) {
-        this.i_Bonif = dialogRef.componentInstance.i_Bonif;
-        this.CodProducto = this.i_Bonif.Codigo;
-        this.val.Get("txtCodProducto").setValue(this.i_Bonif.Producto)
-        this.val.Get("txtCantidad").setValue(dialogRef.componentInstance.valBonif.Get("txtCantidadBonif").value);
-        this.bol_BonificacionLibre = true;
-        this.v_Datos_Producto();
+
+            let dialogRefBonif: MatDialogRef<FactBonificacionLibreComponent> =
+              this.cFunciones.DIALOG.open(FactBonificacionLibreComponent, {
+                panelClass: "escasan-dialog-full",//window.innerWidth < 992 ? "escasan-dialog-full" : "",
+                data: Datos.d,
+                disableClose: true
+              });
+
+            dialogRefBonif.afterOpened().subscribe(s => {
+
+
+              if (this.bol_BonificacionLibre) {
+                this.bol_BonificacionLibre = false;
+
+                dialogRefBonif.componentInstance.valBonif.Get("txtCantidadBonif").setValue(this.val.Get("txtCantidad").value);
+                this.val.Get("txtCantidad").setValue("1");
+                dialogRefBonif.componentInstance.v_ForzarSeleccionar(this.i_Bonif.Codigo);
+                this.i_Bonif = undefined;
+
+              }
+            });
+
+
+            dialogRefBonif.afterClosed().subscribe(s => {
+
+              if (dialogRefBonif.componentInstance.i_Bonif != undefined) {
+                this.i_Bonif = dialogRefBonif.componentInstance.i_Bonif;
+                this.CodProducto = this.i_Bonif.Codigo;
+                this.val.Get("txtCodProducto").setValue([this.i_Bonif.Codigo]);
+                this.cmbProducto.setSelectedItem(this.i_Bonif.Codigo);
+                this.val.Get("txtCantidad").setValue(dialogRefBonif.componentInstance.valBonif.Get("txtCantidadBonif").value);
+                this.bol_BonificacionLibre = true;
+                this.v_Datos_Producto();
+              }
+              else {
+                this.bol_BonificacionLibre = false;
+                this.i_Bonif = undefined;
+              }
+
+            });
+
+
+
+
+
+          }
+
+        },
+        error: (err) => {
+          dialogRef.close();
+
+          if (this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) {
+            this.cFunciones.DIALOG.open(DialogErrorComponent, {
+              id: "error-servidor",
+              data: "<b class='error'>" + err.message + "</b>",
+            });
+          }
+        },
+        complete: () => {
+
+        }
       }
-      else {
-        this.bol_BonificacionLibre = false;
-        this.i_Bonif = undefined;
-      }
+    );
 
-    });
+
+
+
 
   }
 
@@ -537,7 +627,9 @@ export class FactFichaProductoComponent {
     let AgregarBonificado: boolean = false;
     let DetalleBonificado: iDetalleFactura = {} as iDetalleFactura;
     let Descuento = this.lstDescuento.find(f => f.Descripcion == "GENERAL");
-    let PrecioProd = this.lstPrecios.find(f => f.CodProducto == this.CodProducto && f.EsPrincipal);
+    let PrecioProd = this.lstPrecios.find(f => f.CodProducto == this.CodProducto && f.EsPrincipal && f.EsEscala);
+
+    if(PrecioProd == undefined) PrecioProd = this.lstPrecios.find(f => f.CodProducto == this.CodProducto && f.EsPrincipal);
 
     if (Descuento == undefined) Descuento = this.lstDescuento.find(f => f.Descripcion == "MARGEN");
     if (Descuento != undefined) {
@@ -556,8 +648,8 @@ export class FactFichaProductoComponent {
     if (det.Precio == 0) MsjError += "<li class='error-etiqueta'>Precio<ul><li class='error-mensaje'>El producto no tiene precio.</li></ul>";
     if (det.PorcDescuento > 100) MsjError += "<li class='error-etiqueta'>Descuento<ul><li class='error-mensaje'>Por favor revise el descuento.</li></ul>";
 
-    if (Number(Existencia?.Existencia) <= 0) MsjError += "<li class='error-etiqueta'>Existencia<ul><li class='error-mensaje'>El producto no tiene existencia.</li></ul>";
-    if (Number(Existencia?.Existencia) > 0 && Number(Existencia?.Existencia) < det.Cantidad) MsjError += "<li class='error-etiqueta'>Cantidad<ul><li class='error-mensaje'>La cantidad supera la existencia. " + this.cFunciones.NumFormat(Number(Existencia?.Existencia), "0") + "</li></ul>";
+    if (Number(Existencia?.Existencia) <= 0 && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Existencia<ul><li class='error-mensaje'>El producto no tiene existencia.</li></ul>";
+    if (Number(Existencia?.Existencia) > 0 && Number(Existencia?.Existencia) < det.Cantidad && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Cantidad<ul><li class='error-mensaje'>La cantidad supera la existencia. " + this.cFunciones.NumFormat(Number(Existencia?.Existencia), "0") + "</li></ul>";
 
     if (Descuento == undefined && det.PorcDescuento != 0) MsjError += "<li class='error-etiqueta'>Descuento<ul><li class='error-mensaje'>No se permite el descuento.</li></ul>";
     if (Descuento != undefined) {
@@ -598,13 +690,18 @@ export class FactFichaProductoComponent {
         DetalleBonificado.EsBonifLibre = false;
         DetalleBonificado.EsExonerado = false;
         DetalleBonificado.EsExento = false;
-        if(this.bol_Exportacion)  DetalleBonificado.EsExento = true;
+        if (this.bol_Exportacion) DetalleBonificado.EsExento = true;
         DetalleBonificado.PrecioLiberado = false;
         DetalleBonificado.Margen = 0;
         DetalleBonificado.PedirAutorizado = false;
         DetalleBonificado.Autorizado = false;
         DetalleBonificado.IndexUnion = det.Index;
         DetalleBonificado.UsuarioAutoriza = "";
+        DetalleBonificado.IdPrecioFAC = det.IdPrecioFAC;
+        DetalleBonificado.IdEscala = Bonificado.IdEscala;
+        DetalleBonificado.IdDescuentoDet = 0;
+        DetalleBonificado.IdLiberacionBonif = 0;
+        DetalleBonificado.FacturaNegativo = det.FacturaNegativo;
 
         AgregarBonificado = true;
 
@@ -659,12 +756,13 @@ export class FactFichaProductoComponent {
       det.EsBonifLibre = true;
       det.EsExonerado = false;
       det.EsExento = false;
-      if(this.bol_Exportacion)  DetalleBonificado.EsExento = true;
+      if (this.bol_Exportacion) DetalleBonificado.EsExento = true;
       det.PrecioLiberado = false;
       det.PedirAutorizado = false;
       det.Autorizado = false;
       det.UsuarioAutoriza = "";
       det.Margen = 0;
+      det.IdLiberacionBonif = this.i_Bonif.IdLiberacionBonif;
       this.bol_BonificacionLibre = false;
       this.i_Bonif = undefined;
 
@@ -676,26 +774,25 @@ export class FactFichaProductoComponent {
       this.TotalCordoba = 0;
       this.TotalDolar = 0;
     }
-    else
-    {
+    else {
       det.PedirAutorizado = false;
       det.UsuarioAutoriza = "";
-      if(det.Autorizado == undefined) det.Autorizado = false;
+      if (det.Autorizado == undefined) det.Autorizado = false;
 
-      if (AgregarBonificado && det.Descuento == 0){
-        let PrecioDist  = this.lstPrecios.find(f => f.CodProducto == this.CodProducto && f.Tipo.includes("Distribuid"));
+      if (AgregarBonificado && det.Descuento == 0) {
+        let PrecioDist = this.lstPrecios.find(f => f.CodProducto == this.CodProducto && f.Tipo.includes("Distribuid"));
 
         det.Margen = this.cFunciones.Redondeo(det.Cantidad * det.PrecioCordoba, "2");
         det.Margen = this.cFunciones.Redondeo(det.Margen / DetalleBonificado.Cantidad, "2");
-        if(det.Margen < Number(PrecioDist?.PrecioCordoba) && !this.EsModal) det.PedirAutorizado = true;
+        if (det.Margen < Number(PrecioDist?.PrecioCordoba) && !this.EsModal) det.PedirAutorizado = true;
 
       }
-     
+
     }
 
 
- 
-    
+
+
 
     this.lstDetalle.push(det);
     if (AgregarBonificado && det.Descuento == 0) this.lstDetalle.push(DetalleBonificado);
@@ -721,11 +818,42 @@ export class FactFichaProductoComponent {
     this.Calcular();
   }
 
+  private PrecioEscala(){
+    let Cantidad: number = Number(this.val.Get("txtCantidad").value.replaceAll(",", ""));
+
+    this.lstPrecios.filter(w => w.EsEscala).forEach(f =>{ f.EsPrincipal = false});
+
+    let iPrec = this.lstPrecios.find(f => f.EsEscala && f.Desde <= Cantidad && f.Hasta >= Cantidad);
+
+    if(iPrec != undefined)iPrec.EsPrincipal = true;
+
+
+    if(iPrec == undefined){
+       iPrec = this.lstPrecios.find(f => f.EsPrincipal && !f.EsEscala);
+    }
+
+    this.val
+        .Get("txtPrecioCor")
+        .setValue(this.cFunciones.NumFormat(iPrec!.PrecioCordoba, "4"));
+      this.val
+        .Get("txtPrecioDol")
+        .setValue(this.cFunciones.NumFormat(iPrec!.PrecioDolar, "4"));
+
+
+
+ 
+  }
+
   public Calcular(): void {
 
+
+    this.PrecioEscala();
+
+
     this.Detalle = {} as iDetalleFactura;
-    let iDesc = this.lstDescuento.find(f => f.Descripcion == "ADICIONAL");
-    
+    let iDescG = this.lstDescuento.find(f => f.Descripcion == "GENERAL");
+    let iDescA = this.lstDescuento.find(f => f.Descripcion == "ADICIONAL");
+
 
     this.SubTotal = 0;
     this.Descuento = 0;
@@ -737,7 +865,13 @@ export class FactFichaProductoComponent {
 
     if (this.CodProducto == "") return;
 
-    let iPrec = this.lstPrecios.find(f => f.EsPrincipal && f.CodProducto == this.CodProducto);
+    let iPrec = this.lstPrecios.find(f => f.EsPrincipal && f.EsEscala && f.CodProducto == this.CodProducto);
+    if(iPrec == undefined) iPrec = this.lstPrecios.find(f => f.EsPrincipal && f.CodProducto == this.CodProducto);
+
+
+    
+
+
 
 
     let Producto: iProducto[] = this.lstProductos.filter(
@@ -751,10 +885,10 @@ export class FactFichaProductoComponent {
     let PrecioDolar: number = Number(String(this.val.Get("txtPrecioDol").value).replaceAll(",", ""));
     let Cantidad: number = Number(this.val.Get("txtCantidad").value.replaceAll(",", ""));
     let PorDescuento: number = Number(String(this.val.Get("txtProcDescuento").value.replaceAll(",", ""))) / 100;
-    let PorcDescuentoAdicional: number = this.cFunciones.Redondeo(Number(iDesc?.PorcDescuento) / 100, "4");
+    let PorcDescuentoAdicional: number = this.cFunciones.Redondeo(Number(iDescA?.PorcDescuento) / 100, "4");
     let PorcImpuesto: number = Producto[0].ConImpuesto ? 0.15 : 0;
     let ImpuestoExo: number = 0;
-    let CambioPrecio : boolean = false;
+    let CambioPrecio: boolean = false;
 
     if (PorcDescuentoAdicional == undefined) PorcDescuentoAdicional = 0;
     if (PorDescuento == undefined) PorDescuento = 0;
@@ -772,7 +906,7 @@ export class FactFichaProductoComponent {
 
     if (this.cFunciones.MonedaLocal == this.MonedaCliente) {
 
-      if(iPrec?.PrecioCordoba != PrecioCordoba) CambioPrecio = true;
+      if (iPrec?.PrecioCordoba != PrecioCordoba) CambioPrecio = true;
 
 
       this.SubTotal = this.cFunciones.Redondeo(PrecioCordoba * Cantidad, "2");
@@ -805,7 +939,7 @@ export class FactFichaProductoComponent {
       );
     } else {
 
-      if(iPrec?.PrecioDolar != PrecioDolar) CambioPrecio = true;
+      if (iPrec?.PrecioDolar != PrecioDolar) CambioPrecio = true;
 
 
       this.SubTotal = this.cFunciones.Redondeo(PrecioDolar * Cantidad, "2");
@@ -867,14 +1001,33 @@ export class FactFichaProductoComponent {
     this.Detalle.EsBonifLibre = false;
     this.Detalle.EsExonerado = this.TipoExoneracion == "Exonerado" ? true : false;
     this.Detalle.EsExento = !Producto[0].ConImpuesto
-    if(this.bol_Exportacion)  this.Detalle.EsExento = true;
+    if (this.bol_Exportacion) this.Detalle.EsExento = true;
     this.Detalle.PrecioLiberado = false;
     this.Detalle.PrecioLiberado = this.bol_EsPrecioLiberado;
     this.Detalle.PrecioLiberado = CambioPrecio;
     this.Detalle.IndexUnion = -1;
-
+    this.Detalle.IdPrecioFAC = iPrec == undefined ? 0 : iPrec.IdPrecioFAC;
+    this.Detalle.IdEscala = 0;
+    this.Detalle.IdDescuentoDet = Number(PorDescuento != 0 ?  iDescA == undefined ? 0 : iDescA.IdDescuentoDet : 0);
+    this.Detalle.IdLiberacion = iPrec == undefined && this.Detalle.PrecioLiberado ? 0 : iPrec!.IdLiberacion;
+    this.Detalle.IdLiberacionBonif = 0;
+    this.Detalle.FacturaNegativo = Producto[0].FacturaNegativo;
   }
 
+
+  ngDoCheck() {
+
+    this.overlaySettings = {};
+
+    if (window.innerWidth <= 992) {
+      this.overlaySettings = {
+        positionStrategy: new GlobalPositionStrategy({ openAnimation: scaleInCenter, closeAnimation: scaleOutCenter }),
+        modal: true,
+        closeOnOutsideClick: true
+      };
+    }
+
+  }
 
 
   private ngOnInit() {

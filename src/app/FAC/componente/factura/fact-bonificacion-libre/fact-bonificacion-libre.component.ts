@@ -29,9 +29,7 @@ export class FactBonificacionLibreComponent {
     this.valBonif.add("txtCantidadBonif", "1", "NUM>", "0", "Cantidad", "Ingrese una cantidad valida.");
 
     this.i_Bonif = undefined;
-    data.filter((f:any) => f.Bonificable).forEach((f:any) =>{
-      this.lstProductos.push({Codigo: f.Codigo, Producto: f.Producto, Filtro : f.Key, Seleccionar : false});
-    });
+    this.lstProductos = data;
 
     this.lstFilter = this.lstProductos.map((obj : any) => ({...obj}));
     this.valBonif.Get("txtCantidadBonif").setValue("1");
@@ -87,8 +85,15 @@ export class FactBonificacionLibreComponent {
 
   public v_Aceptar() :void{
 
+
+    this.valBonif.add("txtCantidadBonif", "2", "NUM<=", this.i_Bonif.CantidadMax, "Cantidad", "La Cantidad maxima permitaida es: " + this.cFunciones.NumFormat(this.i_Bonif.CantidadMax, "2") );
+
+
     this.valBonif.EsValido();
     let Error : string = "";
+
+    this.valBonif.delRule("txtCantidadBonif", "2");
+
     
     
 

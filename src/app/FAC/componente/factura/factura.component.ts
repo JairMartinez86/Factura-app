@@ -61,6 +61,8 @@ export class FacturaComponent {
   private bol_Referescar: boolean = false;
   private Disponible : number = 0;
   public EsModal : boolean = false;
+  private LoadExportacion : boolean = false;
+  private LoadContraEntrega : boolean = false;
 
   public SimboloMonedaCliente: string = "U$";
   private MonedaCliente: string;
@@ -159,8 +161,8 @@ export class FacturaComponent {
 
         this.Disponible = 0;
         this.CodCliente == "";
-        this.val.Get("txtBodega").disable();
-        this.val.Get("txtCliente").enable();
+        //this.val.Get("txtBodega").disable();
+        this.val.Get("txtCliente").disable();
         this.val.Get("txtLimite").disable();
         this.val.Get("txtDisponible").disable();
 
@@ -178,7 +180,7 @@ export class FacturaComponent {
             this.val.Get("txtCliente").disable();
             this.MonedaCliente = cl.Moneda;
             this.SimboloMonedaCliente = "U$";
-            if (cl.Moneda == "C") this.SimboloMonedaCliente = "C$";
+            if (cl.Moneda == this.cFunciones.MonedaLocal) this.SimboloMonedaCliente = "C$";
             
           }
         }
@@ -225,7 +227,7 @@ export class FacturaComponent {
       }
     );
 
-    this.GET.Datos_Factura().subscribe(
+    this.GET.Datos_Factura(this.cFunciones.User).subscribe(
       {
         next: (s) => {
 
@@ -257,15 +259,16 @@ export class FacturaComponent {
               let cl = this.lstClientes.find((f) => f.Codigo == _iBodega?.ClienteContado);
   
               if (cl != undefined) {
+                this.cmbCliente.setSelectedItem(cl.Codigo);
                 this.CodCliente = cl.Codigo;
                 this.MonedaCliente = cl.Moneda;
-                this.val.Get("txtCliente").setValue(cl.Cliente);
+                this.val.Get("txtCliente").setValue([cl.Codigo]);
                 this.val.Get("txtVendedor").setValue([_iBodega.Vendedor]);
                 this.val.Get("txtCliente").disable();
   
                 this.MonedaCliente = cl.Moneda;
                 this.SimboloMonedaCliente = "U$";
-                if (cl.Moneda == "C") this.SimboloMonedaCliente = "C$";
+                if (cl.Moneda == this.cFunciones.MonedaLocal) this.SimboloMonedaCliente = "C$";
               }
             }
   
@@ -305,6 +308,10 @@ export class FacturaComponent {
 
   //████████████████████████████████████████████DATOS CLIENTE████████████████████████████████████████████████████████████████████████
 
+   //CLIENTE
+   @ViewChild("cmbCliente", { static: false })
+   public cmbCliente: IgxComboComponent;
+
   public v_Select_Cliente(event: any): void {
     this.FichaProducto.lstDetalle.splice(
       0,
@@ -319,7 +326,28 @@ export class FacturaComponent {
     this.cmbVendedor.setSelectedItem("");
     this.val.Get("txtVendedor").setValue([]);
 
-    this.LlenarDatosCliente(event.option.value);
+    if (event.added.length) {
+      if(event.newValue.length > 1) event.newValue.splice(0, 1);
+      this.LlenarDatosCliente(event.newValue[0]);
+    }
+
+
+    //this.LlenarDatosCliente(event.option.value);
+    
+    
+  }
+
+  public v_Enter_Cliente(event: any) {
+    if (event.key == "Enter") {
+      let _Item: iCliente = this.cmbCliente.dropdown.focusedItem.value;
+      this.cmbCliente.setSelectedItem(_Item.Codigo);
+      this.val.Get("txtCliente").setValue([_Item.Codigo]);
+      this.CodCliente = _Item.Codigo;
+    }
+  }
+
+  public v_Close_Cliente() {
+    this.CodCliente = this.cmbCliente.value[0];
   }
 
   public v_Borrar_Cliente(): void {
@@ -367,7 +395,7 @@ export class FacturaComponent {
           (f) => f.Codigo == Cliente[0].CodVendedor
         );
 
-        if (index == -1) {
+        if (index == -1 && Cliente[0].CodVendedor != "") {
           this.cFunciones.DIALOG.open(DialogErrorComponent, {
             data:
               "<p>No se cuentra el Vendedor: <b class='error'>" +
@@ -375,35 +403,31 @@ export class FacturaComponent {
               "</b></p>",
           });
         }
+
+        if(true)
+        {
+
+          
+        let _iBodega  = this.lstBodega.find(f => f.Codigo == this.CodBodega);
+
+        if(_iBodega != undefined && this.val.Get("txtVendedor").value == "" && !Cliente[0].EsClave)
+        {
+          this.val.Get("txtVendedor").setValue([_iBodega.Vendedor]);
+        }
+
+
+        }
       }
 
       this.MonedaCliente = Cliente[0].Moneda;
       this.SimboloMonedaCliente = "U$";
-      if (Cliente[0].Moneda == "C") this.SimboloMonedaCliente = "C$";
+      if (Cliente[0].Moneda == this.cFunciones.MonedaLocal) this.SimboloMonedaCliente = "C$";
 
       this.val.Get("txtCliente").disable();
     }
   }
 
-  /*
- 
- 
 
-
-
-
-
-public customSettings: OverlaySettings = {
-  positionStrategy: new GlobalPositionStrategy(
-      {
-          openAnimation: scaleInCenter,
-          closeAnimation: scaleOutCenter,
-      }),
-  modal: true,
-  closeOnOutsideClick: true,
-};
-
-*/
 
   //████████████████████████████████████████████FICHA FACTURA████████████████████████████████████████████████████████████████████████
 
@@ -422,6 +446,26 @@ public customSettings: OverlaySettings = {
         1,
         this.FichaProducto.lstDetalle.length
       );
+
+
+
+      if(!_Item?.EsExportacion)
+      {
+        let chkExport: any = document.querySelector("#chkExportacion");
+        if(chkExport != undefined)chkExport.bootstrapToggle("off");
+      }
+     
+
+      if(!_Item?.EsContraEntrega)
+      {
+        let chkContra: any = document.querySelector("#chkContraEntrega");
+        if(chkContra != undefined)chkContra.bootstrapToggle("off");
+      }
+     
+
+      
+
+
     }
   }
 
@@ -504,7 +548,7 @@ public customSettings: OverlaySettings = {
             let Clave: any = Datos[0].d;
   
             if (Clave.length > 0) {
-              if (Clave[0].EsClave && Clave[0].CodVendedor != CodNewVend[0]) {
+              if (Clave[0].EsClave && Clave[0].CodVendedor != CodNewVend) {
                 this.cmbVendedor.setSelectedItem(Clave[0].CodVendedor);
                 this.val.Get("txtVendedor").setValue(Clave[0].CodVendedor);
                 this.cmbVendedor.close();
@@ -609,7 +653,7 @@ public customSettings: OverlaySettings = {
   
               this.MonedaCliente = Credito[0].Moneda;
               this.SimboloMonedaCliente = "U$";
-              if (Credito[0].Moneda == "C") this.SimboloMonedaCliente = "C$";
+              if (Credito[0].Moneda == this.cFunciones.MonedaLocal) this.SimboloMonedaCliente = "C$";
   
               if (Credito[0].Plazo == 0) {
                 this.Plazo = 0;
@@ -686,16 +730,91 @@ public customSettings: OverlaySettings = {
   }
 
   public v_ContraEntrega(event: any): void {
+    if(this.LoadContraEntrega) return;
+
+    let chkContra: any = document.querySelector("#chkContraEntrega");
+
+    let Bod = this.lstBodega.find(f => f.Codigo == this.CodBodega);
+
+    
+
+    if(Bod == undefined)
+    {
+      
+      this.cFunciones.DIALOG.open(DialogErrorComponent, {
+        data: "Seleccione una Bodega que permita ContraEntrega"
+      });
+
+      this.LoadContraEntrega = true;
+      if(chkContra != undefined)chkContra.bootstrapToggle("off");
+      this.LoadContraEntrega = false;
+      return;
+    }
+
+    if(!Bod?.EsContraEntrega)
+    {
+
+      this.cFunciones.DIALOG.open(DialogErrorComponent, {
+        data: "La Bodega no permite ContraEntrega"
+      });
+
+      this.LoadContraEntrega = true;
+      if(chkContra != undefined)chkContra.bootstrapToggle("off");
+      this.LoadContraEntrega = false;
+
+      return;
+    }
+
+    
+
     this.EsContraEntrega = event.target.checked;
   }
 
+
   public v_Exportacion(event: any): void {
+    if(this.LoadExportacion) return;
 
+    let chkExport: any = document.querySelector("#chkExportacion");
 
+    if(event.target.checked)
+    {
+      let Bod = this.lstBodega.find(f => f.Codigo == this.CodBodega);
+
+      if(Bod == undefined)
+      {
+        
+        this.cFunciones.DIALOG.open(DialogErrorComponent, {
+          data: "Seleccione una Bodega que permita Exportacion"
+        });
+  
+        this.LoadExportacion = true;
+        if(chkExport != undefined)chkExport.bootstrapToggle("off");
+        this.LoadExportacion = false;
+        return;
+      }
+  
+      if(!Bod?.EsExportacion)
+      {
+  
+        this.cFunciones.DIALOG.open(DialogErrorComponent, {
+          data: "La Bodega no permite Exportación"
+        });
+  
+        this.LoadExportacion = true;
+        if(chkExport != undefined)chkExport.bootstrapToggle("off");
+        this.LoadExportacion = false;
+  
+        return;
+      }
+  
+  
+    }
+    
+    
     if(this.ConfirmarFactura!.TipoExoneracion == "Exonerado")
     {
 
-      let chkExport: any = document.querySelector("#chkExportacion");
+      
       if(chkExport != undefined)chkExport.bootstrapToggle("off");
       return;
     }
@@ -975,7 +1094,7 @@ public customSettings: OverlaySettings = {
       let Total : number = 0;
       let Restante : number = 0;
       Total = this.cFunciones.Redondeo(this.ConfirmarFactura.TotalDolar, "2");
-      if(this.MonedaCliente == "C")  Total = this.cFunciones.Redondeo(this.ConfirmarFactura.TotalCordoba, "2");
+      if(this.MonedaCliente == this.cFunciones.MonedaLocal)  Total = this.cFunciones.Redondeo(this.ConfirmarFactura.TotalCordoba, "2");
 
       Restante = this.cFunciones.Redondeo(this.ConfirmarFactura.Disponible - Total, "2");
       

@@ -23,7 +23,12 @@
          
           <tbody>
             <tr *ngFor="let det of lstDetalle" [ngClass]="(det.EsPrincipal ==true) ? 'Seleccionar': '' ">
-              <th scope="row"><span class="liberado"><span>{{det.col1}}</span><i [ngClass]="det.Liberado ? 'fa-solid fa-unlock unlock': 'fa-solid fa-lock' "  *ngIf="MostrarCandado"></i></span></th>
+              <th scope="row">
+                <span class="liberado">
+                  <i [ngClass]="det.EsEscala ? 'fa-solid fa-check': '' "  *ngIf="MostrarCandado && det.EsPrincipal"></i>
+                  <span>{{det.col1}}</span><i [ngClass]="det.Liberado ? 'fa-solid fa-unlock unlock': 'fa-solid fa-lock' "  *ngIf="MostrarCandado"></i>
+                </span>
+              </th>
               <td class="aling-number">{{det.col2}}</td>
               <td class="aling-number" *ngIf="Encabezado_3 !=''">{{det.col3}}</td>
             </tr>

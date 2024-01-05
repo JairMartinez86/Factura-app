@@ -5,4 +5,5 @@ export interface iBonificacion{
     Hasta: number;
     Bonifica: number;
     Descripcion: string;
+    IdEscala: number;
 }

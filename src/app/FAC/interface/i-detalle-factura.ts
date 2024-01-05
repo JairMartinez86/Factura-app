@@ -42,4 +42,10 @@ export interface iDetalleFactura{
     Autorizado: boolean;
     UsuarioAutoriza: string,
     IndexUnion : number;
+    IdPrecioFAC :number;
+    IdEscala :number;
+    IdDescuentoDet :number;
+    IdLiberacion : number;
+    IdLiberacionBonif : number;
+    FacturaNegativo :boolean;
 }

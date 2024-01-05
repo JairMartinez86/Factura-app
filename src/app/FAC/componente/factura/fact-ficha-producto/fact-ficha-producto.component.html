@@ -3,13 +3,51 @@
         <div class="row">
             <span class="linea"></span>
             <div class="mb-3">
-                 
+
                 <div class="card">
                     <div>
                         <div class="card-header card-escasan-header">FICHA DE PRODUCTO</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-3 mb-1">
+
+
+                                    <div class="row">
+                                        
+                                        <div class="col-12 col-sm-12 col-md-8 col-lg-2">
+                                            <button type="button" class="btn i-boton btn-borrar-producto"
+                                                (click)="v_Borrar_Producto();"><i
+                                                        [ngClass]="CodProducto == '' ? 'bi bi-upc-scan fa-xl' : 'fa-solid fa-eraser fa-beat-fade fa-xl'"></i></button>
+                                        </div>
+
+
+                                        <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                                            <igx-combo #cmbProducto [data]="lstProductos" valueKey="Codigo"
+                                                displayKey="Key" id="txtCodProducto" formControlName="txtCodProducto"
+                                                placeholder="Producto" searchPlaceholder="Seleccione un producto..."
+                                                [autoFocusSearch]="true" [overlaySettings]="overlaySettings"
+                                                (selectionChanging)="v_Select_Producto($event)"
+                                                (keyup)="v_Enter_Producto($event);" (closed)="v_Close_Producto()">
+                                                <label igxLabel>Producto</label>
+                                            </igx-combo>
+                                        </div>
+
+                                        <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+
+                                            <button type="button" class="btn i-boton btn-existencia-producto"
+                                            (click)="v_tabla_Producto('E');"><i
+                                                class="fa-solid fa-warehouse fa-beat-fade fa-xl"></i></button>
+                                            
+                                        </div>
+
+
+
+                                    </div>
+
+
+
+
+                                    <!--
                                     <div class="input-group">
                                         <span class="input-group-text"><button type="button" class="btn i-boton"
                                             (click)="v_Borrar_Producto();"><i
@@ -34,13 +72,15 @@
                                             </mat-option>
                                         </mat-autocomplete>
                                     </div>
+                                -->
+
                                 </div>
 
 
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-9 mb-1">
                                     <div class="input-group">
                                         <div class="form-floating">
-                                            <textarea type="text" id="txtProducto" class="form-control" placeholder="" 
+                                            <textarea type="text" id="txtProducto" class="form-control" placeholder=""
                                                 aria-label="Producto" formControlName="txtProducto"></textarea>
                                             <label for="txtProducto">Nombre</label>
                                         </div>
@@ -54,9 +94,10 @@
                             <div class="row">
                                 <div class="col-12 col-ms-12 col-md-6 mb-1">
                                     <div class="input-group">
-                                        
-                                        <span class="input-group-text"><button type="button" class="btn i-boton texto-efecto"
-                                            (click)="v_tabla_Producto('P');">C$</button></span>
+
+                                        <span class="input-group-text"><button type="button"
+                                                class="btn i-boton texto-efecto"
+                                                (click)="v_tabla_Producto('P');">C$</button></span>
                                         <div class="form-floating">
                                             <input type="text" id="txtPrecioCor" class="form-control" placeholder=""
                                                 aria-label="Precio" formControlName="txtPrecioCor"
@@ -72,8 +113,9 @@
 
                                 <div class="col-12 col-ms-12 col-md-6 mb-1">
                                     <div class="input-group">
-                                        <span class="input-group-text"><button type="button" class="btn i-boton texto-efecto"
-                                            (click)="v_tabla_Producto('P');">U$</button></span>
+                                        <span class="input-group-text"><button type="button"
+                                                class="btn i-boton texto-efecto"
+                                                (click)="v_tabla_Producto('P');">U$</button></span>
                                         <div class="form-floating">
                                             <input type="text" id="txtPrecioDol" class="form-control" placeholder=""
                                                 aria-label="Precio" formControlName="txtPrecioDol"
@@ -100,18 +142,15 @@
                                             <input type="text" id="txtCantidad" class="form-control" placeholder=""
                                                 aria-label="Cantidad" formControlName="txtCantidad"
                                                 (keydown)="this.cFunciones.v_Prevent_IsNumber($event,  'Entero');"
-                                                (change)="Calcular();"
-                                                (focusout)="v_FocusOut('txtCantidad', '0');">
+                                                (change)="Calcular();" (focusout)="v_FocusOut('txtCantidad', '0');">
                                             <label for="txtCantidad">Cantidad</label>
                                         </div>
                                         <span class="input-group-text input-group-simbolo">
                                             <div class="number-simbolo">
 
-                                                <button type="button" class="simbolo-mas"><i
-                                                        class="fa-solid fa-plus"
+                                                <button type="button" class="simbolo-mas"><i class="fa-solid fa-plus"
                                                         (click)="v_minus_mas('+', 'txtCantidad');"></i></button>
-                                                <button type="button" class="simbolo-minus"><i
-                                                        class="fa-solid fa-minus"
+                                                <button type="button" class="simbolo-minus"><i class="fa-solid fa-minus"
                                                         (click)="v_minus_mas('-', 'txtCantidad');"></i></button>
 
                                             </div>
@@ -121,7 +160,8 @@
                                                 class="btn i-boton texto-efecto"
                                                 (click)="v_tabla_Producto('B');">BO</button></span>
 
-                                        <span class="input-group-text i-bonif"><button type="button" class="btn i-boton texto-efecto"
+                                        <span class="input-group-text i-bonif"><button type="button"
+                                                class="btn i-boton texto-efecto"
                                                 (click)="v_Bonificacion_Libre();">BOL</button></span>
 
                                     </div>
@@ -130,8 +170,8 @@
                                 <div class="col-12 col-ms-12 col-md-6 mb-1">
                                     <div class="input-group">
                                         <div class="form-floating">
-                                            <input type="text" id="txtProcDescuento" class="form-control"
-                                                placeholder="" aria-label="ProcDescuento" formControlName="txtProcDescuento"
+                                            <input type="text" id="txtProcDescuento" class="form-control" placeholder=""
+                                                aria-label="ProcDescuento" formControlName="txtProcDescuento"
                                                 (keydown)="this.cFunciones.v_Prevent_IsNumber($event,  'Decimal');"
                                                 (change)="Calcular();"
                                                 (focusout)="v_FocusOut('txtProcDescuento', '2');">
@@ -140,12 +180,10 @@
                                         <span class="input-group-text input-group-simbolo">
                                             <div class="number-simbolo">
 
-                                                <button type="button" class="simbolo-mas"><i
-                                                    class="fa-solid fa-plus"
-                                                    (click)="v_minus_mas('+', 'txtProcDescuento');"></i></button>
-                                            <button type="button" class="simbolo-minus"><i
-                                                    class="fa-solid fa-minus"
-                                                    (click)="v_minus_mas('-', 'txtProcDescuento');"></i></button>
+                                                <button type="button" class="simbolo-mas"><i class="fa-solid fa-plus"
+                                                        (click)="v_minus_mas('+', 'txtProcDescuento');"></i></button>
+                                                <button type="button" class="simbolo-minus"><i class="fa-solid fa-minus"
+                                                        (click)="v_minus_mas('-', 'txtProcDescuento');"></i></button>
 
                                             </div>
 
@@ -159,11 +197,13 @@
 
                             <div class="row">
                                 <div class="btn-contenedor">
-                                    <button type="button" class="btn btn-secundario" id="btnRefrescarProductos" (click)="v_Refrescar();"><i class="fa-solid fa-arrows-rotate fa-spin fa-lg"></i> Refrescar</button>
+                                    <button type="button" class="btn btn-secundario" id="btnRefrescarProductos"
+                                        (click)="v_Refrescar();"><i class="fa-solid fa-arrows-rotate fa-spin fa-lg"></i>
+                                        Refrescar</button>
 
                                     <button type="button" class="btn btn-primario" id="btnAgregarProducto"
-                                        (click)="v_Agregar_Producto();"><i
-                                        class="bi bi-plus-circle-fill"></i> Agregar Producto</button>
+                                        (click)="v_Agregar_Producto();"><i class="bi bi-plus-circle-fill"></i> Agregar
+                                        Producto</button>
                                 </div>
                             </div>
 
@@ -174,70 +214,70 @@
         </div>
         <div class="row">
 
-           <div class="contenedor">
+            <div class="contenedor">
 
 
-                    <div class="row">
-                        <div class="col-12 contenedor-totales">
-                            <div class="etiqueta-totales">SUB TOTAL:</div>
-                            <div class="valores-totales"><b>{{SubTotal| number : '1.2-2'}}</b></div>
-                        </div>
+                <div class="row">
+                    <div class="col-12 contenedor-totales">
+                        <div class="etiqueta-totales">SUB TOTAL:</div>
+                        <div class="valores-totales"><b>{{SubTotal| number : '1.2-2'}}</b></div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-12 contenedor-totales">
-                            <div class="etiqueta-totales">DECUENTO:</div>
-                            <div class="valores-totales"><b>{{Descuento| number : '1.2-2'}}</b></div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12 contenedor-totales">
-                            <div class="etiqueta-totales">ADICIONAL:</div>
-                            <div class="valores-totales"><b>{{Adicional| number : '1.2-2'}}</b></div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12 contenedor-totales">
-                            <div class="etiqueta-totales">SUB.T NETO:</div>
-                            <div class="valores-totales"><b>{{SubTotalNeto| number : '1.2-2'}}</b></div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12 contenedor-totales">
-                            <div class="etiqueta-totales">IMPUESTO:</div>
-                            <div class="valores-totales"><b>{{Impuesto| number : '1.2-2'}}</b></div>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-12 contenedor-totales">
-                            <div class="etiqueta-totales">TOTAL C$</div>
-                            <div class="valores-totales"><b class="cordoba">{{TotalCordoba| number : '1.2-2'}}</b></div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12 contenedor-totales">
-                            <div class="etiqueta-totales">TOTAL U$:</div>
-                            <div class="valores-totales"><b class="dolar">{{TotalDolar| number : '1.2-2'}}</b></div>
-                        </div>
-                    </div>
-
-        
-
-                    <div class="row">
-                        <div class="col-12 contenedor-totales">
-                            <div class="etiqueta-totales">TC:</div>
-                            <div class="valores-totales"><b class="tasa">{{TC| number : '1.4-4'}}</b></div>
-                        </div>
-                    </div>
-
                 </div>
-           
+
+                <div class="row">
+                    <div class="col-12 contenedor-totales">
+                        <div class="etiqueta-totales">DECUENTO:</div>
+                        <div class="valores-totales"><b>{{Descuento| number : '1.2-2'}}</b></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 contenedor-totales">
+                        <div class="etiqueta-totales">ADICIONAL:</div>
+                        <div class="valores-totales"><b>{{Adicional| number : '1.2-2'}}</b></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 contenedor-totales">
+                        <div class="etiqueta-totales">SUB.T NETO:</div>
+                        <div class="valores-totales"><b>{{SubTotalNeto| number : '1.2-2'}}</b></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 contenedor-totales">
+                        <div class="etiqueta-totales">IMPUESTO:</div>
+                        <div class="valores-totales"><b>{{Impuesto| number : '1.2-2'}}</b></div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-12 contenedor-totales">
+                        <div class="etiqueta-totales">TOTAL C$</div>
+                        <div class="valores-totales"><b class="cordoba">{{TotalCordoba| number : '1.2-2'}}</b></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 contenedor-totales">
+                        <div class="etiqueta-totales">TOTAL U$:</div>
+                        <div class="valores-totales"><b class="dolar">{{TotalDolar| number : '1.2-2'}}</b></div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-12 contenedor-totales">
+                        <div class="etiqueta-totales">TC:</div>
+                        <div class="valores-totales"><b class="tasa">{{TC| number : '1.4-4'}}</b></div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
 

@@ -9,7 +9,7 @@ import { DisableService } from './SHARED/service/disable.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Global Vet';
+  title = 'Factura Escasan';
 
   public constructor(private _SrvLogin: LoginService, private Disable : DisableService){
     this._SrvLogin.isLogin();
@@ -20,9 +20,9 @@ export class AppComponent {
   ngOnInit(){
 
 
-    this.Disable.disable_DevTool();
-    this.Disable.disable_RightClick();
-    this.Disable.disable_Reload();
+    //this.Disable.disable_DevTool();
+    //this.Disable.disable_RightClick();
+    //this.Disable.disable_Reload();
   }
   
 }

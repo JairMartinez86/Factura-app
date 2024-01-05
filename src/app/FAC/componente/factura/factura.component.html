@@ -30,20 +30,38 @@
                                
                                         <div> <!--<div class="card-body">-->
                                             <div class="row mb-1">
+
+                                                <div class="row">
+
+                                                    <div class="col-12 col-sm-12 col-md-10 col-lg-10">
+                                                        <igx-combo #cmbCliente  [data]="lstClientes" valueKey="Codigo"
+                                                        displayKey="Key" id="txtCliente" formControlName="txtCliente"
+                                                        placeholder="Cliente" searchPlaceholder="Seleccione un cliente..."
+                                                        [autoFocusSearch]="true"
+                                                        [overlaySettings]="overlaySettings"
+                                                        (selectionChanging)="v_Select_Cliente($event)"
+                                                        (keyup)="v_Enter_Cliente($event);"
+                                                        (closed)="v_Close_Cliente()">
+                                                        <label igxLabel>Cliente</label>
+                                                    </igx-combo>
+                                                    </div>
+
+                                                    <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+
+                                                        <button type="button" class="btn i-boton btn-borrar-cliente"
+                                                        (click)="v_Borrar_Cliente();"><i
+                                                                [ngClass]="CodCliente == '' ? 'bi bi-people-fill' : 'fa-solid fa-eraser fa-beat-fade fa-lg'"></i>{{CodCliente}}</button>
+                                                    </div>
+
+                                                </div>
                     
-                                                <!--
-                                                        <igx-combo #cmbCliente #withValueKey [data]="lstClientes" valueKey="Codigo"
-                                                            displayKey="Key" id="txtCliente" formControlName="txtCliente"
-                                                            placeholder="Cliente" searchPlaceholder="Seleccione un cliente..."
-                                                            [autoFocusSearch]="true"
-                                                            [overlaySettings]="customSettings"
-                                                            (selectionChanging)="v_Select_Cliente($event)"
-                                                            (keyup)="v_Enter_Cliente($event);" (closed)="v_Close_Cliente()">
-                                                            <label igxLabel>Cliente</label>
-                                                            <igx-prefix><i class="bi bi-people-fill"></i></igx-prefix>
-                                                        </igx-combo>
-                                                    -->
-                    
+                                      
+
+
+
+                                                       
+                                                    
+                    <!--
                                                 <div class="input-group">
                     
                                                     <span class="input-group-text"><button type="button" class="btn i-boton"
@@ -66,7 +84,7 @@
                                                     </div>
                     
                                                 </div>
-                    
+                    -->
                                             </div>
                     
                                             <div class="row mb-1">
