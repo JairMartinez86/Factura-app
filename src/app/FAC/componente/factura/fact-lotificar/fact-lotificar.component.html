@@ -18,8 +18,7 @@
          
 
 
-            <div class="mat-elevation-z8">
-                <table class="table table-hover tabla-producto  table-sm tabla-layout mat-elevation-z8" mat-table [dataSource]="lstDetalle">
+             <table class="table table-hover tabla-producto  table-sm tabla-layout mat-elevation-z8" mat-table [dataSource]="lstDetalle">
         
         
         
@@ -68,7 +67,7 @@
                                             <span ><b>Lotificado </b></span>
                                         </div>
                                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                            <span >{{ cFunciones.NumFormat(det.Lotificado, "2")}}</span>
+                                            <span >{{ cFunciones.NumFormat(det.Lotificado, "2")}} <span [ngClass]="det.Cantidad == det.Lotificado ? 'fa-solid fa-check-double primario' : 'fa-solid fa-xmark secundario'"></span></span>
                                         </div>
                                         
                                     </div>
@@ -137,8 +136,6 @@
         
         
                 </table>
-   
-            </div>
 
 
 
