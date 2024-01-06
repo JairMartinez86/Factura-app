@@ -22,11 +22,6 @@
     margin-right: 10px;
 }
 
-
-.span-fila {
-    height: 54px;
-}
-
 .contenedor-tabla {
     height: 216px;
 }
@@ -41,7 +36,7 @@
     width: 100%;
 }
 .header-linea{
-    visibility: hidden;
+    display: none;
 }
 
 .numero {
@@ -66,41 +61,35 @@
     font-weight: bold;
 }
 
-.mobile-col {
-    visibility: visible;
-}
 
 .mobile-col-lote-etiqueta{
-    visibility: hidden;
+    display: none;
 }
 
 
 @include Tamano_Menor(md) {
 
-    .header-linea{
-        visibility: visible;
-    }
+    
 
 
-    .header-lote {
-        visibility: hidden;
-    }
-
-
-    .mobile-col-cantidad {
-        visibility: hidden;
-    }
-
-
-    .mobile-col-lote {
+    .mobile-col {
         display: block;
-
-        .mobile-col-lote-etiqueta {
-            visibility: visible;
-        }
-
+    }
+    
+    .header-linea{
+        display: initial;
     }
 
+
+    .tabla-lote{
+        thead{
+            display: none;
+        }
+    }
+
+    .mobile-col-lote-etiqueta {
+        display: inline;
+    }
 
 
 
