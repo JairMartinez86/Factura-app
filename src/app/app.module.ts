@@ -36,6 +36,7 @@ import { DialogoConfirmarComponent } from './SHARED/componente/dialogo-confirmar
 import { ImprimirFacturaComponent } from './FAC/componente/factura/registro-factura/imprimir-factura/imprimir-factura.component';
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { FactLotificarComponent } from './FAC/componente/factura/fact-lotificar/fact-lotificar.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     AnularComponent,
     DialogoConfirmarComponent,
     ImprimirFacturaComponent,
+    FactLotificarComponent
   ],
   imports: [
     BrowserModule,

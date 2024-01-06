@@ -1,0 +1,107 @@
+@import "/src/assets/scss/media.scss";
+
+
+
+
+
+.bold {
+    font-weight: bold;
+}
+
+
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.Cantidad {
+    margin-right: 10px;
+}
+
+
+.span-fila {
+    height: 54px;
+}
+
+.contenedor-tabla {
+    height: 216px;
+}
+
+//████████████████████████████████████████████TABLA████████████████████████████████████████████████████████████████████████
+
+.tabla-producto{
+    margin-top: 5px;
+}
+
+.tabla-lote{
+    width: 100%;
+}
+.header-linea{
+    visibility: hidden;
+}
+
+.numero {
+    text-align: right;
+}
+
+.tabla-producto.tr:first-child {
+    border-top: 2px solid var(--escan-secundario);
+
+}
+
+
+
+.btn-contenedor-custom {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.bonif {
+    color: var(--escan-primario);
+    font-weight: bold;
+}
+
+.mobile-col {
+    visibility: visible;
+}
+
+.mobile-col-lote-etiqueta{
+    visibility: hidden;
+}
+
+
+@include Tamano_Menor(md) {
+
+    .header-linea{
+        visibility: visible;
+    }
+
+
+    .header-lote {
+        visibility: hidden;
+    }
+
+
+    .mobile-col-cantidad {
+        visibility: hidden;
+    }
+
+
+    .mobile-col-lote {
+        display: block;
+
+        .mobile-col-lote-etiqueta {
+            visibility: visible;
+        }
+
+    }
+
+
+
+
+}

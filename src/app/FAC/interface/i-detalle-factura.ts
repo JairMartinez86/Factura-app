@@ -48,4 +48,5 @@ export interface iDetalleFactura{
     IdLiberacion : number;
     IdLiberacionBonif : number;
     FacturaNegativo :boolean;
+    Lotificado:number;
 }

@@ -72,4 +72,9 @@ export class getFactura{
    }
    
 
+   public GetExistenciaUbicacion(CodProducto : string, CodBodega : string) : Observable<string>{
+      return this.http.get<any>("http://192.168.0.118:140/api/INV/Kardex/ExistenciaUbicacion?CodProducto=" + CodProducto +"&CodBodega=" +CodBodega);
+   }
+
+
 }
