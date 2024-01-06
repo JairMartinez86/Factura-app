@@ -82,10 +82,10 @@
                                             <tr class="row linea header-table">
                                                 <th scope="col" class="col-12">
                                                     <div class="row">
-                                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 header-lote">Ubicacion</div>
-                                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 header-lote">Lote</div>
-                                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 header-lote">Vence</div>
-                                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 header-lote">Cantidad</div>
+                                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 left">Ubicacion</div>
+                                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 left">Lote</div>
+                                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 left">Vence</div>
+                                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 right"> <span class="margin-right">Cantidad</span></div>
                                                     </div>
                                                    
                                                 </th>
@@ -104,7 +104,7 @@
                                                         <div class="col-12 col-sm-12 col-md-3 col-lg-3"><span><b class="mobile-col-lote-etiqueta">U:</b></span><span>{{l.Ubicacion}}</span></div>
                                                         <div class="col-12 col-sm-12 col-md-3 col-lg-3"><span><span><b class="mobile-col-lote-etiqueta">L:</b></span>{{l.NoLote}}</span></div>
                                                         <div class="col-12 col-sm-12 col-md-3 col-lg-3"><span><span><b class="mobile-col-lote-etiqueta">V:</b></span>{{l.Vence| date: 'dd/MM/yyyy'}}</span></div>
-                                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3"><span class="right"><span><b class="mobile-col-lote-etiqueta">C:</b></span>{{ cFunciones.NumFormat(l.Cantidad, "2")}}</span></div>
+                                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 right"><span class="margin-right"><span><b class="mobile-col-lote-etiqueta">C:</b></span>{{ cFunciones.NumFormat(l.Cantidad, "2")}}</span></div>
                                                     </div>
 
                                       

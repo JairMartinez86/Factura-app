@@ -192,7 +192,7 @@ export class FactRevisionComponent {
 
 
       this.SubTotal += this.cFunciones.Redondeo(f.SubTotal, "2");
-      this.Descuento += this.cFunciones.Redondeo(f.Descuento, "2");
+      this.Descuento += this.cFunciones.Redondeo( f.EsBonif ? 0 : f.Descuento, "2");
       this.Adicional += this.cFunciones.Redondeo(f.DescuentoAdicional, "2");
       this.SubTotalNeto += this.cFunciones.Redondeo(f.SubTotalNeto, "2");
       this.Impuesto += this.cFunciones.Redondeo(f.Impuesto, "2");

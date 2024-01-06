@@ -9,7 +9,9 @@
 }
 
 
-
+.left{
+    text-align: left;
+}
 .center {
     text-align: center;
 }
@@ -18,7 +20,7 @@
     text-align: right;
 }
 
-.Cantidad {
+.margin-right {
     margin-right: 10px;
 }
 
@@ -70,7 +72,10 @@
 @include Tamano_Menor(md) {
 
     
-
+    .right {
+        text-align: left;
+    }
+    
 
     .mobile-col {
         display: block;
