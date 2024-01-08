@@ -56,7 +56,7 @@ export class FactLotificarComponent {
 
     if( (this.lstExistencia.filter( f=> f.CodProducto == CodProducto).reduce((acc, cur) => acc + Number(cur.Existencia), 0) - Cantidad) < 0 ) AgregarFaltante = true;
 
-    this.lstExistencia.filter(o => o.CodProducto == CodProducto).sort((a,b) => (String(a.Vence) + String(a.Existencia)).localeCompare(String(b.Vence) + String(b.Existencia))).forEach(f=>{
+   for(let f of  (this.lstExistencia.filter(o => o.CodProducto == CodProducto).sort((a,b) => (String(a.Vence) + String(a.Existencia)).localeCompare(String(b.Vence) + String(b.Existencia))))){
 
       f.Existencia = this.V_CalcularExistencias(f, CodProducto);
 
@@ -82,14 +82,14 @@ export class FactLotificarComponent {
           Cantidad -= f.Existencia;
        
 
-          if(Cantidad <= 0) return;
-          if(f.Existencia <= 0) return;
+          if(Cantidad <= 0) break;
+          if(f.Existencia <= 0) break;
 
         }
         else
         {
           Lotificado += this.V_AgregarLote(f.Key, CodProducto, Cantidad, f.Ubicacion, f.NoLote, f.Vence, f.Existencia, EsBonificado, false, Index);
-          return;
+          break;
         }
 
       }
@@ -103,12 +103,12 @@ export class FactLotificarComponent {
           let Key : string = CodProducto + this.CodBodega + "A00-00S/L";
 
           Lotificado += this.V_AgregarLote(Key, CodProducto, Cantidad, "A00-00", "S/L", undefined, 0, EsBonificado, true, Index);
-          return;
+          break;
         }
       }
 
 
-    });
+    }
 
 
 
@@ -177,6 +177,25 @@ export class FactLotificarComponent {
     return this.lstLote.filter(f => f.IndexDet == Index);
 
   }
+
+  
+  public V_Agregar(det: iDetalleFactura){
+
+
+  }
+
+
+  public V_Eliminar(det: iDetalleFactura, l : iExitenciaLote){
+
+
+    let index : number = this.lstLote.findIndex(f=> f.Index == l.Index);
+    this.lstLote.splice(index, 1);
+
+    det.Lotificado -= l.Cantidad;
+    
+
+  }
+
 
   public EsValido() : string{
 

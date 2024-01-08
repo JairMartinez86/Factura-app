@@ -1,67 +1,65 @@
 
 #frmlogin{
-    background-color: var(--escan-primario);
+  background-color: var(--escan-primario);
 }
 
 #frmlogin {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-  font-size: 1.2em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+position: absolute;
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;
+overflow: hidden;
+font-size: 1.2em;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 .form-signin {
-  background-color: var(--escan-fondo);
-  box-shadow: 3px 4px 14px 6px rgba(0, 0, 0, 0.76);
-  border: 5px solid var(--escan-primario);
-  color: var(--escan-primario);
-  text-align: center;
-  min-width: 350px;
-  max-width: 450px;
+background-color: var(--escan-fondo);
+box-shadow: 3px 4px 14px 6px rgba(0, 0, 0, 0.76);
+border: 5px solid var(--escan-primario);
+color: var(--escan-primario);
+text-align: center;
+min-width: 350px;
+max-width: 450px;
 }
 
 .form-signin {
-    border-radius: 20px;
-  }
-
-  
-#lblTitulo1 {
-  margin: 0;
-  padding: 0;
-  color: var(--escan-primario);
-  font-size: 3.5em;
-  text-align: center;
+  border-radius: 20px;
 }
 
-#lblTitulo2 {
-  margin: 0;
-  padding: 0;
-  color: var(--escan-secundario);
-  font-size: 1em;
-  text-align: center;
-}
 
 .form-signin input {
-  color: var(--escan-primario);
-  //font-family: "SavingsBond";
-  text-align: center;
+color: var(--escan-opcional);
+//font-family: "SavingsBond";
+text-align: center;
 }
 
 button {
 span{
-    color: var(--escan-fondo);
-  }
-  height: 60px;
+  color: var(--escan-fondo);
+}
+
+height: 60px;
 }
 
 input{
-    color: var(--escan-primario);
-   // font-family: 'SavingsBond';
-    text-align: center;
-  }
+  color: var(--escan-primario);
+ // font-family: 'SavingsBond';
+  text-align: center;
+}
+
+.logo-login{
+padding-top: 40px;
+padding-bottom: 40px;
+}
+
+
+p {
+margin: 0;
+color: var(--escan-secundario);
+font-size: 1em;
+text-align: center;
+}

@@ -9,9 +9,10 @@
 }
 
 
-.left{
+.left {
     text-align: left;
 }
+
 .center {
     text-align: center;
 }
@@ -32,10 +33,11 @@
 
 
 
-.tabla-lote{
+.tabla-lote {
     width: 100%;
 }
-.header-linea{
+
+.header-linea {
     display: none;
 }
 
@@ -62,30 +64,59 @@
 }
 
 
-.mobile-col-lote-etiqueta{
+.mobile-col-lote-etiqueta {
     display: none;
 }
+
+.ocultar {
+    display: none;
+}
+
+.tr-lote-primario {
+    border-top: 1px solid var(--escan-primario);
+}
+
+.tr-lote-secundario {
+    border-top: 1px dashed var(--escan-secundario);
+}
+
+
+/*
+tr:first{
+
+    border-top: 1px dashed var(--escan-primario);
+    
+  }
+  
+  tr:not(:first-child){
+  
+    border-bottom: 1px dashed var(--escan-secundario);
+    
+  }
+  */
+
+
 
 
 @include Tamano_Menor(md) {
 
-    
+
     .right {
         text-align: left;
     }
-    
+
 
     .mobile-col {
         display: block;
     }
-    
-    .header-linea{
+
+    .header-linea {
         display: initial;
     }
 
 
-    .tabla-lote{
-        thead{
+    .tabla-lote {
+        thead {
             display: none;
         }
     }

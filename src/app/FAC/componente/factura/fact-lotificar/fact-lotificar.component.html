@@ -71,6 +71,18 @@
                                         </div>
                                         
                                     </div>
+
+                                    <div class="row">
+                
+                                        
+                                    <button type="button" class="btn btn-primario" (click)="V_Agregar(det);">Agregar Lote  <i class="fa-solid fa-plus fa-beat-fade fa-xl"></i>
+                                    </button>
+                                        
+                                    </div>
+
+
+
+                           
         
                                 </div>
 
@@ -81,9 +93,9 @@
                                             <tr class="row linea header-table">
                                                 <th scope="col" class="col-12">
                                                     <div class="row">
-                                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 left">Ubicacion</div>
                                                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 left">Lote</div>
                                                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 left">Vence</div>
+                                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 left">Ubicacion</div>
                                                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 right"> <span class="margin-right">Cantidad</span></div>
                                                     </div>
                                                    
@@ -91,19 +103,18 @@
                                             </tr>
                                            
                                         </thead>
-                                        <tbody *ngFor="let l of FiltrarLote(det.Index)">
+                                        <tbody *ngFor="let l of FiltrarLote(det.Index),  let i = index;" class="tbody">
                     
-                                            <tr class="header-linea">
-                                                <div class="linea"></div>
-                                            </tr>
+                                     
 
-                                            <tr class="row">
+                                            <tr class="row" [ngClass]="i == 0 ? 'tr-lote-primario' : 'tr-lote-secundario'">
                                                 <td class="col-12">
                                                     <div class="row mobile-col">
-                                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3"><span><b class="mobile-col-lote-etiqueta">U:</b></span><span>{{l.Ubicacion}}</span></div>
                                                         <div class="col-12 col-sm-12 col-md-3 col-lg-3"><span><span><b class="mobile-col-lote-etiqueta">L:</b></span>{{l.NoLote}}</span></div>
                                                         <div class="col-12 col-sm-12 col-md-3 col-lg-3"><span><span><b class="mobile-col-lote-etiqueta">V:</b></span>{{l.Vence| date: 'dd/MM/yyyy'}}</span></div>
-                                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 right"><span class="margin-right"><span><b class="mobile-col-lote-etiqueta">C:</b></span>{{ cFunciones.NumFormat(l.Cantidad, "2")}}</span></div>
+                                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3"><span><b class="mobile-col-lote-etiqueta">U:</b></span><span><i class="fa-solid fa-eraser fa-xl ocultar"></i>{{l.Ubicacion}}</span></div>
+                                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 right"><span class="margin-right"><span><b class="mobile-col-lote-etiqueta">C:</b></span>{{ cFunciones.NumFormat(l.Cantidad, "2")}}   <button type="button" class="btn" (click)="V_Eliminar(det, l);"><i class="fa-solid fa-eraser fa-beat-fade fa-xl"></i>
+                                                        </button></span></div>
                                                     </div>
 
                                       
