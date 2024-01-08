@@ -1,7 +1,7 @@
 export interface iExitenciaLote{
     Index: number;
     IndexDet: number;
-    Key: string;
+    Key: any;
     Codigo: string;
     Ubicacion: string;
     Cantidad : number;

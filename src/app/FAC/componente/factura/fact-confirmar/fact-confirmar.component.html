@@ -128,6 +128,10 @@
                                         (keyup)="v_Enter_Vendedor($event);">
                                     <label igxLabel>Vendedor</label>
                                     <igx-prefix><i class="bi bi-person-fill"></i></igx-prefix>
+
+                                    <ng-template igxComboClearIcon>
+                                        <igx-icon></igx-icon>
+                                    </ng-template>
                                 </igx-combo>
                                 </div>
                             </div>
@@ -154,6 +158,10 @@
                                         (selectionChanging)="v_Select($event)">
                                         <label igxLabel>Bodega</label>
                                         <igx-prefix><i class="bi bi-shop"></i></igx-prefix>
+
+                                        <ng-template igxComboClearIcon>
+                                            <igx-icon></igx-icon>
+                                        </ng-template>
                                     </igx-combo>
                                 </div>
 

@@ -1,5 +1,5 @@
 export interface iExistenciaUbicacion{
-    Key: string;
+    Key: any;
     CodProducto: string;
     Bodega: string;
     Ubicacion : string;

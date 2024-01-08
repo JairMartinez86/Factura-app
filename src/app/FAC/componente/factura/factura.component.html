@@ -43,7 +43,12 @@
                                                         (keyup)="v_Enter_Cliente($event);"
                                                         (closed)="v_Close_Cliente()">
                                                         <label igxLabel>Cliente</label>
+
+                                                        <ng-template igxComboClearIcon>
+                                                            <igx-icon></igx-icon>
+                                                        </ng-template>
                                                     </igx-combo>
+                                                   
                                                     </div>
 
                                                     <div class="col-12 col-sm-12 col-md-2 col-lg-2">
@@ -194,6 +199,10 @@
                                                             (keyup)="v_Enter_Bodega($event);" (closed)="v_Close_Bodega()">
                                                             <label igxLabel>Bodega</label>
                                                             <igx-prefix><i class="bi bi-shop"></i></igx-prefix>
+
+                                                            <ng-template igxComboClearIcon>
+                                                                <igx-icon></igx-icon>
+                                                            </ng-template>
                                                         </igx-combo>
                     
                                                 <!--
@@ -230,6 +239,10 @@
                                                 (keyup)="v_Enter_Vendedor($event);">
                                                 <label igxLabel>Vendedor</label>
                                                 <igx-prefix><i class="bi bi-person-fill"></i></igx-prefix>
+
+                                                <ng-template igxComboClearIcon>
+                                                    <igx-icon></igx-icon>
+                                                </ng-template>
                                             </igx-combo>
                     
                                             </div>

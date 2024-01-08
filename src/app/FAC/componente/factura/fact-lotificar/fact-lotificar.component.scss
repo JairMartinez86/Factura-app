@@ -81,21 +81,36 @@
 }
 
 
-/*
-tr:first{
+.combo-header
+.combo-footer {
+    text-align: center;
+    padding: 4px;
+}
 
-    border-top: 1px dashed var(--escan-primario);
-    
-  }
-  
-  tr:not(:first-child){
-  
-    border-bottom: 1px dashed var(--escan-secundario);
-    
-  }
-  */
+.header-etiqueta,
+.header-valor{
+    font-size: 1.5em;
+}
 
 
+.header-etiqueta{
+    color: black;
+}
+
+.header-valor{
+    color: var(--escan-secundario);
+}
+
+
+
+.combo-item{
+    margin-bottom: 1px dashed var(--escan-secundario);
+}
+
+
+.como-valor-existencia{
+    text-align: right;
+}
 
 
 @include Tamano_Menor(md) {
