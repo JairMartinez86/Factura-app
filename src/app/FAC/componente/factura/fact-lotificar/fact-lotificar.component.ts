@@ -391,13 +391,14 @@ public V_Total_Lotificado(det: iDetalleFactura, l: iExitenciaLote)
   ngDoCheck(){
 
 
+    
+
     ///CAMBIO DE FOCO
     this.valTabla.Combo(this.cmbLote);
 
    
 
    this.lstLote.forEach(f => {
-
      this.valTabla.addFocus("cmbLote" + f.Index, "txtCantidad" + f.Index, undefined);
      this.valTabla.addNumberFocus("txtCantidad" + f.Index, 2);
 

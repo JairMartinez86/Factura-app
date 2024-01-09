@@ -1008,7 +1008,8 @@ export class FacturaComponent {
       this.FichaProducto.TC,
       this.MonedaCliente,
       this.ConfirmarFactura.TipoExoneracion,
-      this.EsExportacion
+      this.EsExportacion,
+      this.FichaProducto
     );
   }
 
@@ -1220,7 +1221,7 @@ export class FacturaComponent {
     let lstUb: iExistenciaUbicacion[] = [];
     let Reg: number = 0;
     let TotalReg: number = 0;
-    let Prod : any[] = [];
+    let Prod : string[] = [];
 
 
     from(this.RevisionFactura.lstDetalle).pipe(
@@ -1502,6 +1503,14 @@ export class FacturaComponent {
 
   ngDoCheck() {
 
+    if(this.cmbCliente != undefined) this.cmbCliente.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth):  "720") + "px";
+    if(this.cmbBodega != undefined) this.cmbBodega.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth):  "720") + "px";
+    if(this.cmbVendedor != undefined) this.cmbVendedor.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth):  "720") + "px";
+
+
+
+
+ 
     this.overlaySettings = {};
 
     if (window.innerWidth <= 992) {
@@ -1515,8 +1524,6 @@ export class FacturaComponent {
   }
 
   private ngOnInit() {
-
-
 
 
 

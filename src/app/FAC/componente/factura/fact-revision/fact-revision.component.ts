@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { iFactPed } from 'src/app/FAC/interface/i-Factura-Pedido';
 import { iDetalleFactura } from 'src/app/FAC/interface/i-detalle-factura';
 import { Funciones } from 'src/app/SHARED/class/cls_Funciones';
+import { FactFichaProductoComponent } from '../fact-ficha-producto/fact-ficha-producto.component';
 
 @Component({
   selector: 'app-fact-revision',
@@ -23,16 +24,18 @@ export class FactRevisionComponent {
   private TipoExoneracion: string;
   private bol_Exportacion : boolean = false;
   public EsModal: boolean;
+  private ComponenteProducto : FactFichaProductoComponent; 
 
   constructor(public cFunciones: Funciones) { }
 
 
-  public Iniciar(lst: iDetalleFactura[], TC: number, MonedaCliente: string, TipoExoneracion: string, Exportacion : boolean) {
+  public Iniciar(lst: iDetalleFactura[], TC: number, MonedaCliente: string, TipoExoneracion: string, Exportacion : boolean,  ComponenteProducto : FactFichaProductoComponent) {
     this.lstDetalle = lst;
     this.TC = TC;
     this.MonedaCliente = MonedaCliente;
     this.TipoExoneracion = TipoExoneracion;
     this.bol_Exportacion = Exportacion;
+    this.ComponenteProducto = ComponenteProducto;
     this.Calcular();
   }
 
@@ -203,4 +206,16 @@ export class FactRevisionComponent {
     });
 
   }
+
+
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+
+    if (event.key == "F4") this.ComponenteProducto.V_Productos_Liberados_Web_INESCASAN();
+
+
+  }
+
+
 }

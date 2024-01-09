@@ -879,6 +879,10 @@ this.val.Get("chkDelivery").setValue(event.target.checked);
 
   ngDoCheck() {
 
+
+    if(this.cmbBodega != undefined) this.cmbBodega.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth):  "720") + "px";
+    if(this.cmbVendedor != undefined) this.cmbVendedor.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth):  "720") + "px";
+
     this.overlaySettings = {};
 
     if (window.innerWidth <= 992) {

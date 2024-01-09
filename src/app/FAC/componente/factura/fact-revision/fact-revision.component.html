@@ -53,15 +53,16 @@
                                 <div class="valores">{{det.SubTotalNeto| number : '1.2-2'}}</div>
                             </td>
 
-                            <td class="col-sm-12" *ngIf="det.EsBonif || det.EsExonerado || det.EsExento">
+                            <td class="col-sm-12" *ngIf="det.EsBonif || det.EsExonerado || det.EsExento || det.EsLibInvEscasan">
                                 <div class="etiqueta pie-fila"></div>
                                 <div class="valores pie-fila">
                                     <span *ngIf="det.EsBonif" class="bonif">BO{{det.EsBonifLibre ? '-L' : ''}}</span>
                                     <span *ngIf="det.EsExonerado" class="exo">EXO</span>
                                     <span *ngIf="det.EsExento" class="exe">EXE</span>
+                                    <span *ngIf="det.EsLibInvEscasan"><i class="fa-solid fa-handshake opcional"></i></span>
                                 </div>
                             </td>
-
+                            
                             <td class="col-sm-12 linea">
 
                                 <span class="input-group-tex">

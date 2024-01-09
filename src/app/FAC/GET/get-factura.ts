@@ -56,6 +56,11 @@ export class getFactura{
    }
    
 
+
+   public Productos_Liberados_Web_INESCASAN(CodCliente : string, CodBodega : String) : Observable<string>{
+      return this.http.get<any>(this._Cnx.Url() + "Factura/ProductoLiberadosInvEscasan?CodCliente=" + CodCliente + "&CodBodega=" + CodBodega);
+   }
+
     
    public Get(Fecha1 :Date, Fecha2 : Date, Tipo : string, EsCola : boolean) : Observable<string>{
       return this.http.get<any>(this._Cnx.Url() + "Factura/Get?Fecha1=" + Fecha1 + "&Fecha2=" + Fecha2 + "&Tipo=" + Tipo + "&EsCola=" + EsCola);

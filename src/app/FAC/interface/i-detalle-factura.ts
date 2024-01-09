@@ -34,6 +34,7 @@ export interface iDetalleFactura{
     TotalDolar:number;
     EsBonif : boolean;
     EsBonifLibre : boolean;
+    EsLibInvEscasan : boolean;
     EsExonerado : boolean;
     EsExento : boolean;
     PrecioLiberado : boolean;
