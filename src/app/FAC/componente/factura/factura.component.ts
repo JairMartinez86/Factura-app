@@ -1419,12 +1419,14 @@ export class FacturaComponent {
     this.ConfirmarFactura.EsModal = true;
     this.CodCliente = this.Fila_Doc.CodCliente;
     this.MonedaCliente = this.Fila_Doc.Moneda;
-    this.val.Get("txtCliente").setValue(this.Fila_Doc.NomCliente);
+    this.cmbCliente.setSelectedItem(this.CodCliente);
+    this.val.Get("txtCliente").setValue([this.CodCliente]);
     this.val.Get("txtNombre").setValue(this.Fila_Doc.Nombre);
     this.val.Get("txtIdentificacion").setValue(this.Fila_Doc.RucCedula);
     this.val.Get("txtContacto").setValue(this.Fila_Doc.Contacto);
     this.val.Get("txtLimite").setValue(this.Fila_Doc.Limite);
     this.val.Get("txtDisponible").setValue(this.Fila_Doc.Disponible);
+   
 
     this.CodBodega = this.Fila_Doc.CodBodega;
     this.cmbBodega.setSelectedItem(this.Fila_Doc.CodBodega);
