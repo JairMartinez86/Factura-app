@@ -28,7 +28,7 @@ export class FactConfirmarComponent {
 
   public lstDetalle: iDetalleFactura[] = [];
 
-  public TipoFactura: string = "Pedido";
+  public TipoFactura: string = "Proforma";
   public TipoExoneracion: string = "Sin Exoneración";
   public TipoPago: string = "Contado";
   public TipoImpuesto: string = "Iva";
@@ -476,7 +476,7 @@ export class FactConfirmarComponent {
     }
 
     if (!event.target.checked) {
-      this.TipoFactura = "Pedido";
+      this.TipoFactura = "Proforma";
       this.v_Refrescar();
       return;
     }

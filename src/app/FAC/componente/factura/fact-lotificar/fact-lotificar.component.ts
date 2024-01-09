@@ -9,6 +9,7 @@ import { iExistenciaUbicacion } from 'src/app/FAC/interface/i-Existencia-Ubicaci
 import { Validacion } from 'src/app/SHARED/class/validacion';
 import { GlobalPositionStrategy, IgxComboComponent, OverlaySettings } from 'igniteui-angular';
 import { scaleInCenter, scaleOutCenter } from 'igniteui-angular/animations';
+import { DialogErrorComponent } from 'src/app/SHARED/componente/dialog-error/dialog-error.component';
 
 @Component({
   selector: 'app-fact-lotificar',
@@ -26,6 +27,7 @@ export class FactLotificarComponent {
   private lstLote: iExitenciaLote[] = [];
   private CodBodega: string = "";
   public DatosComboLote : iExistenciaUbicacion[] = [];
+  public Repuesta : number = 0;
   
 
 
@@ -360,12 +362,53 @@ public V_Total_Lotificado(det: iDetalleFactura, l: iExitenciaLote)
   }
 
 
-  public EsValido() : string{
+  private EsValido() : string{
+
+    let msj : string = "";
 
 
-    return "true";
+    this.lstDetalle.data.filter(f => f.Cantidad != f.Lotificado).forEach(f =>{
+
+      if(!msj.includes(f.Codigo)) msj = "<li class='error-mensaje'>" + f.Codigo  + "</li>";
+
+    });
+    
+    if(msj!= "")
+    {
+      msj = "<li class='error-etiqueta'>Error en lotificacion:<ul>" + msj + "</ul></li>"
+    }
+
+    return msj;
+  }
+
+  public V_Aceptar() : void{
+
+    let msj = this.EsValido();
+
+    if(msj != "")
+    {
+
+      this.cFunciones.DIALOG.open(DialogErrorComponent, {
+        data:
+          "<ul>" + msj + "</ul>",
+      });
+      return;
+   
+    }
+    this.Repuesta = 1;
+    this.dialogRef.close();
 
   }
+
+  public V_Cancelar() : void{
+
+
+    this.Repuesta = 0;
+    this.dialogRef.close();
+
+  }
+
+
 
 
   ngOnInit(): void {

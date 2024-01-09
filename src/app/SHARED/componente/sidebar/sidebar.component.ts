@@ -96,11 +96,11 @@ export class SidebarComponent {
       Factura.instance.TipoFactura = "Factura";
     }
 
-    if (id == "aNewPedido") {
+    if (id == "aNewProforma") {
       $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
-      let Pedido: ComponentRef<FacturaComponent> = this.DynamicFrom.viewContainerRef.createComponent(FacturaComponent);
-      Pedido.instance.TipoFactura = "Pedido";
+      let Proforma: ComponentRef<FacturaComponent> = this.DynamicFrom.viewContainerRef.createComponent(FacturaComponent);
+      Proforma.instance.TipoFactura = "Proforma";
     }
 
     if (id == "aRegistroFactura") {
@@ -109,18 +109,18 @@ export class SidebarComponent {
       RegFactura.instance.TipoDocumento = "Factura";
     }
 
-    if (id == "aRegistroPedido") {
+    if (id == "aRegistroProforma") {
       this.DynamicFrom.viewContainerRef.clear();
-      let RegPedido: ComponentRef<RegistroFacturaComponent> = this.DynamicFrom.viewContainerRef.createComponent(RegistroFacturaComponent);
-      RegPedido.instance.TipoDocumento = "Pedido";
+      let RegProforma: ComponentRef<RegistroFacturaComponent> = this.DynamicFrom.viewContainerRef.createComponent(RegistroFacturaComponent);
+      RegProforma.instance.TipoDocumento = "Proforma";
     }
 
 
     if (id == "aRegistroCola") {
       this.DynamicFrom.viewContainerRef.clear();
-      let RegPedido: ComponentRef<RegistroFacturaComponent> = this.DynamicFrom.viewContainerRef.createComponent(RegistroFacturaComponent);
-      RegPedido.instance.TipoDocumento = "Factura";
-      RegPedido.instance.EsCola = true;
+      let RegProforma: ComponentRef<RegistroFacturaComponent> = this.DynamicFrom.viewContainerRef.createComponent(RegistroFacturaComponent);
+      RegProforma.instance.TipoDocumento = "Factura";
+      RegProforma.instance.EsCola = true;
     }
 
 

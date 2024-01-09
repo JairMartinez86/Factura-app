@@ -256,7 +256,7 @@ export class FacturaComponent {
             this.cmbBodega.setSelectedItem(this.CodBodega);
 
 
-            if (this.CodCliente == "" && _iBodega != undefined) {
+            if ((this.CodCliente == "" || this.cmbCliente.value.length == 0) && _iBodega != undefined) {
               let cl = this.lstClientes.find((f) => f.Codigo == _iBodega?.ClienteContado);
 
               if (cl != undefined) {
@@ -378,7 +378,7 @@ export class FacturaComponent {
 
     if (Cliente.length > 0) {
       this.CodCliente = Cliente[0].Codigo;
-      this.val.Get("txtCliente").setValue(Cliente[0].Cliente);
+      this.val.Get("txtCliente").setValue([Cliente[0].Codigo]);
       this.val
         .Get("txtIdentificacion")
         .setValue(Cliente[0].Ruc + "/" + Cliente[0].Cedula);
@@ -946,12 +946,12 @@ export class FacturaComponent {
 
     if (evento == "Siguiente" && this.Panel == "Revision") {
       this.Panel = "Confirmar";
-      this.BotonSiguienteLabel = this.TipoFactura == "Factura" ? "Facturar" : "Pedido";
+      this.BotonSiguienteLabel = this.TipoFactura == "Factura" ? "Facturar" : "Proforma";
       (
         document.querySelector("#frmConfirmarFactura") as HTMLElement
       ).setAttribute("style", "display:initial;");
 
-      if (this.TipoFactura == "Pedido" && this.EsModal) {
+      if (this.TipoFactura == "Proforma" && this.EsModal) {
         let TotalPorAutorizar = this.RevisionFactura.lstDetalle.filter(f => f.PedirAutorizado || f.PrecioLiberado).length;
         let TotalAutorizado = this.RevisionFactura.lstDetalle.filter(f => f.Autorizado).length;
 
@@ -967,7 +967,7 @@ export class FacturaComponent {
 
     if (evento == "Siguiente" && this.Panel == "Confirmar") {
       this.Panel = "Confirmar";
-      this.BotonSiguienteLabel = this.TipoFactura == "Factura" ? "Facturar" : "Pedido";
+      this.BotonSiguienteLabel = this.TipoFactura == "Factura" ? "Facturar" : "Proforma";
 
 
       (
@@ -1137,7 +1137,7 @@ export class FacturaComponent {
     this.Fila_Doc.TipoDocumento = this.ConfirmarFactura.TipoFactura;
     this.Fila_Doc.Serie = this.ConfirmarFactura.Serie;
     if (this.ConfirmarFactura.TipoFactura == "Factura") this.Fila_Doc.NoFactura = this.ConfirmarFactura.val.Get("txtNoDoc").value;
-    if (this.ConfirmarFactura.TipoFactura == "Pedido") this.Fila_Doc.NoPedido = this.ConfirmarFactura.val.Get("txtNoDoc").value;
+    if (this.ConfirmarFactura.TipoFactura == "Proforma") this.Fila_Doc.NoPedido = this.ConfirmarFactura.val.Get("txtNoDoc").value;
     this.Fila_Doc.CodCliente = this.ConfirmarFactura.CodCliente;
     this.Fila_Doc.NomCliente = iCLiente!.Cliente;
     this.Fila_Doc.Nombre = this.ConfirmarFactura.val.Get("txtNombre_Confirmar").value;
@@ -1280,19 +1280,9 @@ export class FacturaComponent {
 
 
                 dialogRefLote.afterClosed().subscribe(s => {
+;
 
-                  let Mensaje: string = dialogRefLote.componentInstance.EsValido();
-
-                  if (Mensaje != "") {
-                    this.cFunciones.DIALOG.open(DialogErrorComponent, {
-                      data:
-                        "<ul>" + Mensaje + "</ul>",
-                    });
-                  }
-                  else {
-                    //this.EnviarDatos();
-                  }
-
+                  if (dialogRefLote.componentInstance.Repuesta == 1) this.EnviarDatos();
 
                 });
 
@@ -1471,7 +1461,7 @@ export class FacturaComponent {
     this.ConfirmarFactura.TipoFactura = this.Fila_Doc.TipoDocumento;
     this.ConfirmarFactura.Serie = this.Fila_Doc.Serie;
     if (this.Fila_Doc.TipoDocumento == "Factura") this.ConfirmarFactura.val.Get("txtNoDoc").setValue(this.Fila_Doc.NoFactura);
-    if (this.Fila_Doc.TipoDocumento == "Pedido") this.ConfirmarFactura.val.Get("txtNoDoc").setValue(this.Fila_Doc.NoPedido);
+    if (this.Fila_Doc.TipoDocumento == "Proforma") this.ConfirmarFactura.val.Get("txtNoDoc").setValue(this.Fila_Doc.NoPedido);
 
     this.Plazo = this.Fila_Doc.Plazo;
     this.ConfirmarFactura.Fecha = new Date(this.cFunciones.DateFormat(this.Fila_Doc.Fecha, 'yyyy-MM-dd hh:mm:ss'));
