@@ -438,7 +438,7 @@ export class FacturaComponent {
     if (event.added.length) {
       if (event.newValue.length > 1) event.newValue.splice(0, 1);
       let _Item = this.lstBodega.find(f => f.Codigo == event.newValue[0]);
-
+ 
       this.val.Get("txtBodega").setValue(event.newValue[0]);
       this.CodBodega = event.newValue[0];
       this.FichaProducto.lstDetalle.splice(
@@ -993,6 +993,7 @@ export class FacturaComponent {
       this.MonedaCliente,
       this.ConfirmarFactura.TipoExoneracion,
       this.EsExportacion,
+      this.TipoFactura,
       this.EsModal
     );
   }
@@ -1195,14 +1196,14 @@ export class FacturaComponent {
         if (dialogoConfirmar.componentInstance.retorno == "1") {
           this.Fila_Doc.PedirAutorizacion = true;
           if (TotalPorAutorizar == TotalAutorizado) this.Fila_Doc.PedirAutorizacion = false;
-          this.V_Lotificar();
+          this.TipoFactura == "Factura" ? this.V_Lotificar() : this.EnviarDatos();
         }
 
       });
 
     }
     else {
-      this.V_Lotificar();
+      this.TipoFactura == "Factura" ? this.V_Lotificar() : this.EnviarDatos();
     }
 
 
@@ -1222,15 +1223,15 @@ export class FacturaComponent {
 
 
 
-    dialogRefLote.afterOpened().subscribe(s => {
-
-    });
-
-
     dialogRefLote.afterClosed().subscribe(s => {
 
 
-      if (dialogRefLote.componentInstance.Repuesta == 1) this.EnviarDatos();
+      if (dialogRefLote.componentInstance.Repuesta == 1){
+        this.Fila_Doc.VentaLote = JSON.parse(JSON.stringify(dialogRefLote.componentInstance.lstLote));
+        this.Fila_Doc.VentaLote.forEach(f =>{ f.Key = f.Key[0]});
+        console.log(this.Fila_Doc.VentaLote)
+        this.EnviarDatos();
+      }
 
     });
 

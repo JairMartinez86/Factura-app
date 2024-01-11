@@ -1,3 +1,5 @@
+import { iVentaLote } from "./i-Venta-Lote";
+
 export interface iDetalleFactura{
     IdVentaDetalle :string;
     IdVenta: string;

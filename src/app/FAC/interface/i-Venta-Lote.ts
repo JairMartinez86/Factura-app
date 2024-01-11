@@ -1,4 +1,6 @@
-export interface iExitenciaLote{
+export interface iVentaLote{
+    IdDetLote : any;
+    IdVenta : any;
     Index: number;
     IndexDet: number;
     Key: any;
@@ -10,5 +12,4 @@ export interface iExitenciaLote{
     EsBonificado : boolean;
     Existencia : number
     FacturaNegativo : boolean;
-    strEvento : string;
 }

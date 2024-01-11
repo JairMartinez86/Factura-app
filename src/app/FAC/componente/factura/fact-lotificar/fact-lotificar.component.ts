@@ -4,7 +4,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Funciones } from 'src/app/SHARED/class/cls_Funciones';
 import { MatTableDataSource } from '@angular/material/table';
 import { iDetalleFactura } from 'src/app/FAC/interface/i-detalle-factura';
-import { iExitenciaLote } from 'src/app/FAC/interface/i-Exitencia-Lote';
 import { iExistenciaUbicacion } from 'src/app/FAC/interface/i-Existencia-Ubicacion';
 import { Validacion } from 'src/app/SHARED/class/validacion';
 import { GlobalPositionStrategy, IgxComboComponent, OverlaySettings } from 'igniteui-angular';
@@ -13,6 +12,7 @@ import { DialogErrorComponent } from 'src/app/SHARED/componente/dialog-error/dia
 import { WaitComponent } from 'src/app/SHARED/componente/wait/wait.component';
 import { from, groupBy } from 'rxjs';
 import { getFactura } from 'src/app/FAC/GET/get-factura';
+import { iVentaLote } from 'src/app/FAC/interface/i-Venta-Lote';
 
 @Component({
   selector: 'app-fact-lotificar',
@@ -27,7 +27,7 @@ export class FactLotificarComponent {
   displayedColumns: string[] = ["col1"];
   public lstDetalle = new MatTableDataSource<iDetalleFactura>;
   private lstExistencia : iExistenciaUbicacion[] = [];
-  private lstLote: iExitenciaLote[] = [];
+  public lstLote: iVentaLote[] = [];
   private CodBodega: string = "";
   public DatosComboLote : iExistenciaUbicacion[] = [];
   public Repuesta : number = 0;
@@ -56,7 +56,7 @@ export class FactLotificarComponent {
 
   }
 
-  private async Lotificar(Index : number, CodProducto : string,  Cantidad : number,  EsBonificado : boolean,  FactNegativo : boolean, Exits : iExistenciaUbicacion[]) : Promise<number>{
+  private async Lotificar(IdVenta : any, Index : number, CodProducto : string,  Cantidad : number,  EsBonificado : boolean,  FactNegativo : boolean, Exits : iExistenciaUbicacion[]) : Promise<number>{
 
     let Lotificado : number = 0;
     
@@ -86,12 +86,12 @@ export class FactLotificarComponent {
 
           if(f.Existencia < Cantidad )
           {
-            Lotificado += this.V_AgregarLote(f.Key, CodProducto, f.Existencia, f.Ubicacion, f.NoLote, f.Vence, f.Existencia, EsBonificado, false, Index, true)
+            Lotificado += this.V_AgregarLote( IdVenta ,f.Key, CodProducto, f.Existencia, f.Ubicacion, f.NoLote, f.Vence, f.Existencia, EsBonificado, false, Index, true)
 
           }
           else
           {
-            Lotificado += this.V_AgregarLote(f.Key, CodProducto, Cantidad, f.Ubicacion, f.NoLote, f.Vence, f.Existencia, EsBonificado, false, Index, true)
+            Lotificado += this.V_AgregarLote(IdVenta, f.Key, CodProducto, Cantidad, f.Ubicacion, f.NoLote, f.Vence, f.Existencia, EsBonificado, false, Index, true)
 
           }
 
@@ -105,7 +105,7 @@ export class FactLotificarComponent {
         }
         else
         {
-          Lotificado += this.V_AgregarLote(f.Key, CodProducto, Cantidad, f.Ubicacion, f.NoLote, f.Vence, f.Existencia, EsBonificado, false, Index, true);
+          Lotificado += this.V_AgregarLote(IdVenta, f.Key, CodProducto, Cantidad, f.Ubicacion, f.NoLote, f.Vence, f.Existencia, EsBonificado, false, Index, true);
           break;
         }
 
@@ -119,7 +119,7 @@ export class FactLotificarComponent {
 
           let Key : string = CodProducto + this.CodBodega + "A00-00S/L";
 
-          Lotificado += this.V_AgregarLote(Key, CodProducto, Cantidad, "A00-00", "S/L", undefined, 0, EsBonificado, true, Index, true);
+          Lotificado += this.V_AgregarLote(IdVenta, Key, CodProducto, Cantidad, "A00-00", "S/L", undefined, 0, EsBonificado, true, Index, true);
           break;
         }
       }
@@ -132,7 +132,7 @@ export class FactLotificarComponent {
     if(FactNegativo && AgregarFaltante)
     {
       let Key : string = CodProducto + this.CodBodega + "A00-00S/L";
-      Lotificado += this.V_AgregarLote(Key, CodProducto, Cantidad, "A00-00", "S/L", undefined, 0, EsBonificado, true, Index, true);
+      Lotificado += this.V_AgregarLote(IdVenta, Key, CodProducto, Cantidad, "A00-00", "S/L", undefined, 0, EsBonificado, true, Index, true);
     }
 
 
@@ -157,9 +157,9 @@ export class FactLotificarComponent {
   }
 
 
-  private V_AgregarLote(Key : string, CodProducto : string,  Cantidad : number, Ubicacion : string, NoLote : string, Vence : any, Existencia : number, EsBonificado : boolean, FacturaNegativo : boolean,  Index : number, Automatico : boolean) : number
+  private V_AgregarLote(IdVenta : any, Key : string, CodProducto : string,  Cantidad : number, Ubicacion : string, NoLote : string, Vence : any, Existencia : number, EsBonificado : boolean, FacturaNegativo : boolean,  Index : number, Automatico : boolean) : number
   {
-    let l : iExitenciaLote = {} as iExitenciaLote;
+    let l : iVentaLote = {} as iVentaLote;
     let x : number = 0;
 
     if(this.lstLote.length > 0) x = Math.max(...this.lstLote.map(o => o.Index));
@@ -169,12 +169,13 @@ export class FactLotificarComponent {
     this.valTabla.add("cmbLote" + x, "1", "LEN>", "0", "Lote", "Seleccione un número de lote.");
     this.valTabla.add("txtCantidad" + x, "1", "LEN>", "0", "Lote", "Ingrese lacantidad a lotificar.");
 
-   
+    l.IdDetLote = "00000000-0000-0000-0000-000000000000";
+    l.IdVenta = IdVenta
     l.IndexDet = Index;
     l.Codigo = CodProducto;
     l.EsBonificado = EsBonificado;
     l.FacturaNegativo = FacturaNegativo;
-    l.strEvento  = "";
+ 
 
     l.Index = x;
     l.Key = [Key];
@@ -209,7 +210,7 @@ export class FactLotificarComponent {
   }
 
 
-  public V_Filtrar_Existencia_Lote(Index : number) : iExitenciaLote[]{
+  public V_Filtrar_Existencia_Lote(Index : number) : iVentaLote[]{
 
     return this.lstLote.filter(f => f.IndexDet == Index);
 
@@ -233,7 +234,7 @@ export class FactLotificarComponent {
   }
 
   
-  public V_Filtrar_Lote(CodProducto : string, l : iExitenciaLote){
+  public V_Filtrar_Lote(CodProducto : string, l : iVentaLote){
 
 
     let cmb: IgxComboComponent = this.cmbLote.find(f => f.id == "cmbLote" + l.Index)!;
@@ -258,7 +259,7 @@ export class FactLotificarComponent {
 
 
 
-  public v_Select_Lote(event: any, det: iDetalleFactura, l: iExitenciaLote): void {
+  public v_Select_Lote(event: any, det: iDetalleFactura, l: iVentaLote): void {
     this.valTabla.Get("cmbLote" + l.Index).setValue("");
     
     if (event.added.length == 1) {
@@ -290,7 +291,7 @@ export class FactLotificarComponent {
 
   }
 
-  public v_Enter_Lote(event: any, l: iExitenciaLote) {
+  public v_Enter_Lote(event: any, l: iVentaLote) {
 
     if (event.key == "Enter") {
 
@@ -312,7 +313,7 @@ export class FactLotificarComponent {
 
   }
 
-public V_Total_Lotificado(det: iDetalleFactura, l: iExitenciaLote)
+public V_Total_Lotificado(det: iDetalleFactura, l: iVentaLote)
 {
   
   let DatosCombo = JSON.parse(JSON.stringify(this.lstExistencia.filter(f =>  f.Key == l.Key)));
@@ -335,11 +336,11 @@ public V_Total_Lotificado(det: iDetalleFactura, l: iExitenciaLote)
   
   public V_Agregar(det: iDetalleFactura){
 
-    this.V_AgregarLote("", det.Codigo, 0, "", "", undefined, 0, det.EsBonif, det.FacturaNegativo, det.Index, false);
+    this.V_AgregarLote(det.IdVenta, "", det.Codigo, 0, "", "", undefined, 0, det.EsBonif, det.FacturaNegativo, det.Index, false);
   }
 
 
-  public V_Eliminar(det: iDetalleFactura, l : iExitenciaLote){
+  public V_Eliminar(det: iDetalleFactura, l : iVentaLote){
 
 
     let index : number = this.lstLote.findIndex(f=> f.Index == l.Index);
@@ -386,6 +387,9 @@ public V_Total_Lotificado(det: iDetalleFactura, l: iExitenciaLote)
       return;
    
     }
+
+
+
     this.Repuesta = 1;
     this.dialogRef.close();
 
@@ -470,7 +474,7 @@ public V_Total_Lotificado(det: iDetalleFactura, l: iExitenciaLote)
             
                 this.lstDetalle.data.forEach(async (f : iDetalleFactura) =>{
             
-                  f.Lotificado =  await this.Lotificar(f.Index, f.Codigo, f.Cantidad, f.EsBonif, f.FacturaNegativo, Exits);
+                  f.Lotificado =  await this.Lotificar( f.IdVenta, f.Index, f.Codigo, f.Cantidad, f.EsBonif, f.FacturaNegativo, Exits);
             
                 });
             

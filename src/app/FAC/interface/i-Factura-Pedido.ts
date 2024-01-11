@@ -41,4 +41,5 @@ export interface iFactPed{
     Estado : string;
     MotivoAnulacion : string;
     VentaDetalle : any[];
+    VentaLote : any[];
 }

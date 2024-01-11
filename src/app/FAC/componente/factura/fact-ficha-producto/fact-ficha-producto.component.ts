@@ -67,6 +67,7 @@ export class FactFichaProductoComponent {
   public Impuesto: number = 0;
   public TotalCordoba: number = 0;
   public TotalDolar: number = 0;
+  private TipoFactura : string = "";
 
   private EsModal: boolean = false;
 
@@ -122,13 +123,14 @@ export class FactFichaProductoComponent {
     this._Evento("Limpiar");
   }
 
-  public Iniciar(CodBodega: string, CodCliente: string, MonedaCliente: string, TipoExoneracion: string, Exportacion: boolean, EsModal: boolean): void {
+  public Iniciar(CodBodega: string, CodCliente: string, MonedaCliente: string, TipoExoneracion: string, Exportacion: boolean, TipoFactura : string, EsModal: boolean): void {
     this._Evento("Limpiar");
     this.CodBodega = CodBodega;
     this.CodCliente = CodCliente;
     this.MonedaCliente = MonedaCliente;
     this.TipoExoneracion = TipoExoneracion;
     this.bol_Exportacion = Exportacion;
+    this.TipoFactura = TipoFactura;
     this.EsModal = EsModal;
 
     document.getElementById("btnAgregarProducto")?.setAttribute("disabled", "disabled");
@@ -682,9 +684,9 @@ export class FactFichaProductoComponent {
     if (det.Precio == 0) MsjError += "<li class='error-etiqueta'>Precio<ul><li class='error-mensaje'>El producto no tiene precio.</li></ul>";
     if (det.PorcDescuento > 100) MsjError += "<li class='error-etiqueta'>Descuento<ul><li class='error-mensaje'>Por favor revise el descuento.</li></ul>";
 
-    if (Existencia == undefined && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Existencia<ul><li class='error-mensaje'>El producto no tiene existencia.</li></ul>";
-    if (Existencia != undefined )if (Number(Existencia?.Existencia) <= 0 && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Existencia<ul><li class='error-mensaje'>El producto no tiene existencia.</li></ul>";
-    if (Existencia != undefined )if (Number(Existencia?.Existencia) > 0 && Number(Existencia?.Existencia) < det.Cantidad && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Cantidad<ul><li class='error-mensaje'>La cantidad supera la existencia. " + this.cFunciones.NumFormat(Number(Existencia?.Existencia), "0") + "</li></ul>";
+    if (Existencia == undefined && !det.FacturaNegativo && this.TipoFactura == "Factura") MsjError += "<li class='error-etiqueta'>Existencia<ul><li class='error-mensaje'>El producto no tiene existencia.</li></ul>";
+    if (Existencia != undefined && this.TipoFactura == "Factura")if (Number(Existencia?.Existencia) <= 0 && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Existencia<ul><li class='error-mensaje'>El producto no tiene existencia.</li></ul>";
+    if (Existencia != undefined && this.TipoFactura == "Factura")if (Number(Existencia?.Existencia) > 0 && Number(Existencia?.Existencia) < det.Cantidad && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Cantidad<ul><li class='error-mensaje'>La cantidad supera la existencia. " + this.cFunciones.NumFormat(Number(Existencia?.Existencia), "0") + "</li></ul>";
 
     if (Descuento == undefined && det.PorcDescuento != 0) MsjError += "<li class='error-etiqueta'>Descuento<ul><li class='error-mensaje'>No se permite el descuento.</li></ul>";
     if (Descuento != undefined) {
