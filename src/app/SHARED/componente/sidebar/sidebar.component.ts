@@ -157,6 +157,7 @@ export class SidebarComponent {
           this.cFunciones.FechaServidor(Datos[0].d);
           this.cFunciones.SetTiempoDesconexion(Number(Datos[1].d));
           this._SrvLogin.UpdFecha(String(Datos[0].d));
+          this.cFunciones.Lotificar = Datos[2].d;
         }
 		
 		 if(this.cFunciones.DIALOG.getDialogById("error-servidor") != undefined) 

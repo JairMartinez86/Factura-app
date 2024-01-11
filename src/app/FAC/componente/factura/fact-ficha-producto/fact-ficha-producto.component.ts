@@ -655,6 +655,7 @@ export class FactFichaProductoComponent {
     let DetalleBonificado: iDetalleFactura = {} as iDetalleFactura;
     let Descuento = this.lstDescuento.find(f => f.Descripcion == "GENERAL" && f.CodProducto == this.CodProducto);
     let PrecioProd = this.lstPrecios.find(f => f.CodProducto == this.CodProducto && f.EsPrincipal && f.EsEscala);
+    let iProd = this.lstProductos.find(f => f.Codigo == det.Codigo);
 
     if (PrecioProd == undefined) PrecioProd = this.lstPrecios.find(f => f.CodProducto == this.CodProducto && f.EsPrincipal);
 
@@ -669,14 +670,21 @@ export class FactFichaProductoComponent {
 
     det.Index = index;
     det.IndexUnion = index;
+    det.IdProducto = iProd!.IdProducto;
+    det.IdUnidad = iProd!.IdUnidad;
+    det.IdImpuesto = iProd?.IdImpuesto;
+    det.Existencia = this.lstExistencia.filter(f => f.EsPrincipal && f.Bodega == this.CodBodega)[0]?.Existencia;
+    det.TasaCambio = this.TC;
+    if(det.Existencia == undefined) det.Existencia = 0;
 
     this.val.EsValido();
 
     if (det.Precio == 0) MsjError += "<li class='error-etiqueta'>Precio<ul><li class='error-mensaje'>El producto no tiene precio.</li></ul>";
     if (det.PorcDescuento > 100) MsjError += "<li class='error-etiqueta'>Descuento<ul><li class='error-mensaje'>Por favor revise el descuento.</li></ul>";
 
-    if (Number(Existencia?.Existencia) <= 0 && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Existencia<ul><li class='error-mensaje'>El producto no tiene existencia.</li></ul>";
-    if (Number(Existencia?.Existencia) > 0 && Number(Existencia?.Existencia) < det.Cantidad && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Cantidad<ul><li class='error-mensaje'>La cantidad supera la existencia. " + this.cFunciones.NumFormat(Number(Existencia?.Existencia), "0") + "</li></ul>";
+    if (Existencia == undefined && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Existencia<ul><li class='error-mensaje'>El producto no tiene existencia.</li></ul>";
+    if (Existencia != undefined )if (Number(Existencia?.Existencia) <= 0 && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Existencia<ul><li class='error-mensaje'>El producto no tiene existencia.</li></ul>";
+    if (Existencia != undefined )if (Number(Existencia?.Existencia) > 0 && Number(Existencia?.Existencia) < det.Cantidad && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Cantidad<ul><li class='error-mensaje'>La cantidad supera la existencia. " + this.cFunciones.NumFormat(Number(Existencia?.Existencia), "0") + "</li></ul>";
 
     if (Descuento == undefined && det.PorcDescuento != 0) MsjError += "<li class='error-etiqueta'>Descuento<ul><li class='error-mensaje'>No se permite el descuento.</li></ul>";
     if (Descuento != undefined) {
@@ -729,6 +737,14 @@ export class FactFichaProductoComponent {
         DetalleBonificado.IdDescuentoDet = 0;
         DetalleBonificado.IdLiberacionBonif = 0;
         DetalleBonificado.FacturaNegativo = det.FacturaNegativo;
+
+
+        DetalleBonificado.IdProducto = iProd!.IdProducto;
+        DetalleBonificado.IdUnidad = iProd!.IdUnidad;
+        DetalleBonificado.IdImpuesto = iProd?.IdImpuesto;
+        DetalleBonificado.Existencia = this.lstExistencia.filter(f => f.EsPrincipal && f.Bodega == this.CodBodega)[0]?.Existencia;
+        DetalleBonificado.TasaCambio = this.TC;
+        if(DetalleBonificado.Existencia == undefined) DetalleBonificado.Existencia = 0;
 
         AgregarBonificado = true;
 

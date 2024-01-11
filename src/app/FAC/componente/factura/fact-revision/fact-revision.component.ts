@@ -88,6 +88,8 @@ export class FactRevisionComponent {
 
     this.lstDetalle.forEach(f => {
 
+      f.TasaCambio = this.TC;
+
       let Precio: number = this.MonedaCliente == this.cFunciones.MonedaLocal ? f.PrecioCordoba : f.PrecioDolar;
 
       if (this.cFunciones.MonedaLocal == this.MonedaCliente) {

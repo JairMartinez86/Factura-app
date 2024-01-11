@@ -26,6 +26,7 @@ export class Funciones {
   public Nombre: string = "";
   public Rol: string = "";
   public Bodega: string = "";
+  public Lotificar : boolean = false;
 
 
   constructor(public DIALOG: MatDialog) {
@@ -193,6 +194,59 @@ export class Funciones {
     if ((tem = userAgent.match(/version\/(\d+)/i)) != null) matchTest.splice(1, 1, tem[1]);
     return matchTest.join(' ');
   }
+
+
+
+
+  private getProperty<t, K extends keyof any>(obj: any, key: K): any[K] {
+    return obj[key];
+  }
+ 
+
+public InterfaceToString(datos : any[], Excluir : string[]) : string{
+
+  let cadena : string = "";
+    
+
+    datos.forEach( item =>{
+
+      let Columnas  : string[] = Object.keys(item);
+
+      Columnas.forEach(c =>{
+        if(!Excluir.includes(c))cadena += this.getProperty(item, c) + "|";
+
+      });
+
+      cadena += "@";
+
+    });
+
+
+    return cadena;
+}
+
+
+
+public InterfaceColToString(datos : any[], Columnas : string[]) : string{
+
+  let cadena : string = "";
+    
+
+    datos.forEach( item =>{
+
+      Columnas.forEach(c =>{
+        cadena += this.getProperty(item, c) + "|";
+      });
+
+      cadena += "@";
+
+    });
+
+
+    return cadena;
+}
+
+
 
 
 }

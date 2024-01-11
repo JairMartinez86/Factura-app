@@ -81,7 +81,7 @@
 
 
                                         <button type="button" class="btn btn-primario" (click)="V_Agregar(det);"
-                                            *ngIf="det.Cantidad != det.Lotificado">Agregar
+                                            *ngIf="det.Cantidad != det.Lotificado && this.cFunciones.Lotificar">Agregar
                                             Lote <i class="fa-solid fa-plus fa-beat-fade fa-xl"></i>
                                         </button>
 
@@ -274,7 +274,7 @@
 
                                                                 <span class="input-group-text">
 
-                                                                    <button type="button" class="btn"
+                                                                    <button type="button" class="btn" *ngIf="this.cFunciones.Lotificar"
                                                                         (click)="V_Eliminar(det, l);"><i
                                                                             class="fa-solid fa-eraser fa-beat-fade fa-xl"></i>
                                                                     </button>
@@ -327,10 +327,15 @@
 
         </div>
         <div mat-dialog-actions class="btn-contenedor">
-            <button type="button" class="btn btn-secundario" (click)="V_Aceptar()"
-                cdkFocusInitial>Guardar</button>
-            <button type="button" class="btn btn-secundario" (click)="V_Cancelar()"
-                cdkFocusInitial>Cerrar</button>
+            <div>
+                <button type="button" class="btn btn-opcional btn-refrescar" (click)="V_Refrescar()"><i class="fa-solid fa-arrows-rotate fa-spin fa-lg"></i> Refrescar</button>
+            </div>
+
+            <div>
+                <button type="button" class="btn btn-primario btn-aceptar" (click)="V_Aceptar()">Guardar</button>
+                <button type="button" class="btn btn-secundario btn-cancelar" (click)="V_Cancelar()">Cerrar</button>
+            </div>
+           
         </div>
     </div>
 

@@ -352,7 +352,7 @@ export class FacturaComponent {
 
   public v_Borrar_Cliente(): void {
     this.CodCliente = "";
-	this.cmbCliente.setSelectedItem([]);
+    this.cmbCliente.setSelectedItem([]);
     this.FichaProducto.lstDetalle.splice(
       0,
       this.FichaProducto.lstDetalle.length
@@ -1047,6 +1047,7 @@ export class FacturaComponent {
     let ErrorConfirmar: string = "";
     let ErrorOtros: string = "";
     let PedirAutorizacion: boolean = false;
+    let str_Detalle: string = "";
 
     this.val.EsValido();
     this.ConfirmarFactura.val.EsValido();
@@ -1175,6 +1176,8 @@ export class FacturaComponent {
     this.Fila_Doc.MotivoAnulacion = "";
     this.Fila_Doc.VentaDetalle = this.RevisionFactura.lstDetalle;
 
+
+
     let TotalPorAutorizar = this.RevisionFactura.lstDetalle.filter(f => f.PedirAutorizado || f.PrecioLiberado).length;
     let TotalAutorizado = this.RevisionFactura.lstDetalle.filter(f => f.Autorizado).length;
 
@@ -1209,126 +1212,27 @@ export class FacturaComponent {
 
   private V_Lotificar(): void {
 
-    let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(
-      WaitComponent,
-      {
-        panelClass: "escasan-dialog-full-blur",
-        data: "",
-      }
-    );
-
-
-    let lstUb: iExistenciaUbicacion[] = [];
-    let Reg: number = 0;
-    let TotalReg: number = 0;
-    let Prod : string[] = [];
-
-
-    from(this.RevisionFactura.lstDetalle).pipe(
-      groupBy(item => item.Codigo)
-    ).subscribe( f => { Prod.push(f.key)});
-      
-  
-    
-   
-    
-      TotalReg = Prod.length - 1;
-
-      Prod.forEach(async (w : any) => {
-
-      await this.GET.GetExistenciaUbicacion(w, this.CodBodega).subscribe(
-        {
-          next: (s) => {
-
-
-            let _json: any = s;
-
-            if (_json.esError == 1) {
-
-              if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
-                this.cFunciones.DIALOG.open(DialogErrorComponent, {
-                  id: "error-servidor-msj",
-                  data: _json["msj"].Mensaje,
-                });
-              }
-            } else {
-
-              
-              JSON.parse(_json.d).forEach((fila : any) =>{
-                lstUb.push(fila);
-              });
-              
-              
-
-
-              if (Reg >= TotalReg) {
-
-
-                let dialogRefLote: MatDialogRef<FactLotificarComponent> =
-                  this.cFunciones.DIALOG.open(FactLotificarComponent, {
-                    panelClass: "escasan-dialog-full",
-                    data: [this.CodBodega, lstUb, this.RevisionFactura.lstDetalle],
-                    disableClose: true
-                  });
+    let dialogRefLote: MatDialogRef<FactLotificarComponent> =
+      this.cFunciones.DIALOG.open(FactLotificarComponent, {
+        panelClass: "escasan-dialog-full",
+        data: [this.CodBodega, this.RevisionFactura.lstDetalle],
+        disableClose: true
+      });
 
 
 
 
-                dialogRefLote.afterOpened().subscribe(s => {
-
-                });
-
-
-                dialogRefLote.afterClosed().subscribe(s => {
-;
-
-                  if (dialogRefLote.componentInstance.Repuesta == 1) this.EnviarDatos();
-
-                });
-
-              }
-
-
-              Reg += 1;
-
-            }
-
-          },
-          error: (err) => {
-            dialogRef.close();
-
-            if (this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) {
-              this.cFunciones.DIALOG.open(DialogErrorComponent, {
-                id: "error-servidor",
-                data: "<b class='error'>" + err.message + "</b>",
-              });
-            }
-            return;
-          },
-          complete: () => {
-            if (Reg >= TotalReg) dialogRef.close();
-          }
-        }
-      );
-
-     
-    
+    dialogRefLote.afterOpened().subscribe(s => {
 
     });
 
 
+    dialogRefLote.afterClosed().subscribe(s => {
 
 
+      if (dialogRefLote.componentInstance.Repuesta == 1) this.EnviarDatos();
 
-
-
-
-
-
-
-
-
-
+    });
 
 
   }
@@ -1426,7 +1330,7 @@ export class FacturaComponent {
     this.val.Get("txtContacto").setValue(this.Fila_Doc.Contacto);
     this.val.Get("txtLimite").setValue(this.Fila_Doc.Limite);
     this.val.Get("txtDisponible").setValue(this.Fila_Doc.Disponible);
-   
+
 
     this.CodBodega = this.Fila_Doc.CodBodega;
     this.cmbBodega.setSelectedItem(this.Fila_Doc.CodBodega);
@@ -1495,14 +1399,14 @@ export class FacturaComponent {
 
   ngDoCheck() {
 
-    if(this.cmbCliente != undefined) this.cmbCliente.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth):  "720") + "px";
-    if(this.cmbBodega != undefined) this.cmbBodega.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth):  "720") + "px";
-    if(this.cmbVendedor != undefined) this.cmbVendedor.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth):  "720") + "px";
+    if (this.cmbCliente != undefined) this.cmbCliente.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+    if (this.cmbBodega != undefined) this.cmbBodega.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+    if (this.cmbVendedor != undefined) this.cmbVendedor.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
 
 
 
 
- 
+
     this.overlaySettings = {};
 
     if (window.innerWidth <= 992) {

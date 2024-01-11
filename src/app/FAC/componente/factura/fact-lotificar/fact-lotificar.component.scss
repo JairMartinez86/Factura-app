@@ -52,9 +52,27 @@
 
 
 
-.btn-contenedor-custom {
+.btn-contenedor {
     display: flex;
     justify-content: flex-end;
+
+    div{
+        width: 50%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    div:first-child{
+        display: flex;
+        justify-content:flex-start;
+    }
+
+
+    .btn-aceptar{
+        margin-right: 10px;
+    }
+    
+
 }
 
 

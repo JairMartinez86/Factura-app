@@ -53,6 +53,7 @@ export class LoginService {
             this.cFunciones.Nombre = l.Nombre;
             this.cFunciones.Rol = l.Rol;
             this.cFunciones.Bodega = l.Bodega;
+            this.cFunciones.Lotificar = l.Lotificar;
             this.cFunciones.FechaServidor(datos[1].d);
             this.cFunciones.SetTiempoDesconexion(Number(datos[2].d));
             l.FechaServer = datos[1].d;
@@ -112,6 +113,7 @@ export class LoginService {
       this.cFunciones.Nombre = l.Nombre;
       this.cFunciones.Rol = l.Rol;
       this.cFunciones.Bodega = l.Bodega;
+      this.cFunciones.Lotificar = l.Lotificar;
       this.cFunciones.FechaServidor(new Date(l.FechaServer));
       this.cFunciones.SetTiempoDesconexion(l.TimeOut);
     }

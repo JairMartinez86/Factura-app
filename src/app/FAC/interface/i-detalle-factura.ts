@@ -2,8 +2,13 @@ export interface iDetalleFactura{
     IdVentaDetalle :string;
     IdVenta: string;
     Index:number;
+    IdProducto:number;
     Codigo: string;
     Producto: string;
+    IdUnidad : number;
+    IdImpuesto : any;
+    TasaCambio : number;
+    Existencia : number;
     Precio: number;
     PrecioCordoba: number;
     PrecioDolar: number;

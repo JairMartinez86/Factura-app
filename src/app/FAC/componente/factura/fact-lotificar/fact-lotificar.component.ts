@@ -10,6 +10,9 @@ import { Validacion } from 'src/app/SHARED/class/validacion';
 import { GlobalPositionStrategy, IgxComboComponent, OverlaySettings } from 'igniteui-angular';
 import { scaleInCenter, scaleOutCenter } from 'igniteui-angular/animations';
 import { DialogErrorComponent } from 'src/app/SHARED/componente/dialog-error/dialog-error.component';
+import { WaitComponent } from 'src/app/SHARED/componente/wait/wait.component';
+import { from, groupBy } from 'rxjs';
+import { getFactura } from 'src/app/FAC/GET/get-factura';
 
 @Component({
   selector: 'app-fact-lotificar',
@@ -35,30 +38,18 @@ export class FactLotificarComponent {
   public cmbLote: QueryList<IgxComboComponent>;
 
   
-  constructor(public cFunciones: Funciones,
+  constructor(public cFunciones: Funciones,  private GET: getFactura,
     public dialogRef: MatDialogRef<FactLotificarComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any[],
   ) {
 
 
     this.CodBodega = data[0];
-    this.lstExistencia = data[1];
-    this.lstDetalle.data = data[2];
-   
+    this.lstDetalle.data = data[1];
 
-
-    let Exits =  JSON.parse(JSON.stringify(this.lstExistencia ));
-
-
-    this.lstDetalle.data.forEach(async (f : iDetalleFactura) =>{
-
-      f.Lotificado =  await this.Lotificar(f.Index, f.Codigo, f.Cantidad, f.EsBonif, f.FacturaNegativo, Exits);
-
-    });
-
+    this.V_Refrescar();
 
     
-    this.lstDetalle._updateChangeSubscription();
 
 
 
@@ -409,6 +400,128 @@ public V_Total_Lotificado(det: iDetalleFactura, l: iExitenciaLote)
   }
 
 
+  public V_Refrescar() : void{
+
+
+    this.lstLote.splice(0, this.lstLote.length);
+
+
+    
+    let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(
+      WaitComponent,
+      {
+        panelClass: "escasan-dialog-full-blur",
+        data: "",
+      }
+    );
+
+
+    let lstUb: iExistenciaUbicacion[] = [];
+    let Reg: number = 0;
+    let TotalReg: number = 0;
+    let Prod : string[] = [];
+
+
+    from(this.lstDetalle.data).pipe(
+      groupBy(item => item.Codigo)
+    ).subscribe( f => { Prod.push(f.key)});
+      
+  
+    
+   
+    
+      TotalReg = Prod.length - 1;
+
+      Prod.forEach(async (w : any) => {
+
+      await this.GET.GetExistenciaUbicacion(w, this.CodBodega).subscribe(
+        {
+          next: (s) => {
+
+
+            let _json: any = s;
+
+            if (_json.esError == 1) {
+
+              if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
+                this.cFunciones.DIALOG.open(DialogErrorComponent, {
+                  id: "error-servidor-msj",
+                  data: _json["msj"].Mensaje,
+                });
+              }
+            } else {
+
+              
+              JSON.parse(_json.d).forEach((fila : any) =>{
+                lstUb.push(fila);
+              });
+              
+              
+
+
+              if (Reg >= TotalReg) {
+
+             
+                this.lstExistencia = lstUb;
+         
+
+                let Exits =  JSON.parse(JSON.stringify(this.lstExistencia ));
+            
+            
+                this.lstDetalle.data.forEach(async (f : iDetalleFactura) =>{
+            
+                  f.Lotificado =  await this.Lotificar(f.Index, f.Codigo, f.Cantidad, f.EsBonif, f.FacturaNegativo, Exits);
+            
+                });
+            
+            
+                
+                this.lstDetalle._updateChangeSubscription();
+
+
+              }
+
+
+              Reg += 1;
+
+            }
+
+          },
+          error: (err) => {
+            dialogRef.close();
+
+            if (this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) {
+              this.cFunciones.DIALOG.open(DialogErrorComponent, {
+                id: "error-servidor",
+                data: "<b class='error'>" + err.message + "</b>",
+              });
+            }
+            return;
+          },
+          complete: () => {
+            if (Reg >= TotalReg) dialogRef.close();
+          }
+        }
+      );
+
+     
+    
+
+    });
+
+
+
+
+
+
+
+
+    
+
+
+
+
+  }
 
 
   ngOnInit(): void {
