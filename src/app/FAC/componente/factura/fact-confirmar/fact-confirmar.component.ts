@@ -55,6 +55,7 @@ export class FactConfirmarComponent {
   public i_Credito: iCredito[];
   public bol_Exportacion : boolean = false;
   public EsModal: boolean = false;
+  public LoadEditar : boolean = false;
 
 
 
@@ -145,6 +146,7 @@ export class FactConfirmarComponent {
     chk.bootstrapToggle(this.TipoFactura == "Factura" ? "on" : "off");
     this.isEvent = false;
     this.val.Get("chkEsPedido").disable();
+    
 
 
     this.v_Refrescar();
@@ -325,8 +327,10 @@ export class FactConfirmarComponent {
       this.val.Get("txtDisponible_Confirmar").setValue("0.00");
       this.Disponible = 0;
       this.Plazo = 0;
+      if(this.TipoFactura == "Proforma") this.Plazo = 30;
       this.val.Get("txtPlazo").setValue(this.Plazo);
       this.val.Get("txtVence").setValue(this.cFunciones.DateAdd("Day", this.Fecha, this.Plazo + (this.Plazo != 0 ? 1 : 0)));
+  
 
       return;
     }
@@ -381,6 +385,7 @@ export class FactConfirmarComponent {
               this.SimboloMonedaCliente = "U$";
               if (this.i_Credito[0].Moneda == this.cFunciones.MonedaLocal) this.SimboloMonedaCliente = "C$";
 
+              if(this.TipoFactura == "Proforma") this.Plazo = 30;
               this.val.Get("txtFecha").setValue(this.cFunciones.DateFormat(this.Fecha, "yyyy-MM-dd"));
               this.val.Get("txtPlazo").setValue(this.Plazo);
               this.val.Get("txtVence").setValue(this.cFunciones.DateAdd("Day", this.Fecha, this.Plazo + (this.Plazo != 0 ? 1 : 0)));
@@ -394,6 +399,7 @@ export class FactConfirmarComponent {
                 this.TipoPago = "Contado";
                 chk.bootstrapToggle("off");
 
+                if(this.TipoFactura == "Proforma") this.Plazo = 30;
                 this.val.Get("txtPlazo").setValue(this.Plazo);
                 this.val.Get("txtVence").setValue(this.cFunciones.DateAdd("Day", this.Fecha, this.Plazo + (this.Plazo != 0 ? 1 : 0)));
                 this.Calcular();
@@ -463,6 +469,7 @@ export class FactConfirmarComponent {
   //████████████████████████████████████████████VER FACTURA████████████████████████████████████████████████████████████████████████
 
   public v_TipoFactura(event: any): void {
+    if(this.LoadEditar) return;
 
     if (this.isEvent) {
       this.isEvent = false;
@@ -675,6 +682,7 @@ this.val.Get("chkDelivery").setValue(event.target.checked);
             }
 
 
+            if(this.TipoFactura == "Proforma") this.Plazo = 30;
             this.val.Get("txtPlazo").setValue(this.Plazo);
             this.val.Get("txtVence").setValue(this.cFunciones.DateAdd("Day", this.Fecha, this.Plazo + (this.Plazo != 0 ? 1 : 0)));
 

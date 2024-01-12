@@ -30,4 +30,13 @@ export class postFactura{
 
     }
 
+    
+   public ConvertirFactura(det: iFactPed) : Observable<string>{
+
+    return this.http.post<any>(this._Cnx.Url() + "Factura/ConvertirFactura", JSON.stringify(det), { headers: { 'content-type': 'application/json' } });
+
+
+ }
+ 
+
 }

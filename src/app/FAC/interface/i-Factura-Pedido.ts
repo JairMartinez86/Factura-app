@@ -8,7 +8,9 @@ export interface iFactPed{
     CodCliente : string;
     NomCliente : string;
     Nombre : string;
-    RucCedula: string;
+    Cedula: string;
+    Ruc: string;
+    Correo: string;
     Contacto: string;
     Limite: number;
     Disponible: number;

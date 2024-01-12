@@ -3,6 +3,7 @@ export interface iCliente{
     Cliente: string;
     Ruc: string;
     Cedula: string;
+    Correo : string;
     Contacto: string;
     Limite : number;
     Moneda : string

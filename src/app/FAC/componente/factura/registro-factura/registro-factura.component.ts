@@ -16,6 +16,8 @@ import { PDFDocument } from 'pdf-lib';
 import { FactConfirmarComponent } from '../fact-confirmar/fact-confirmar.component';
 import { DialogoConfirmarComponent } from 'src/app/SHARED/componente/dialogo-confirmar/dialogo-confirmar.component';
 import { ImprimirFacturaComponent } from './imprimir-factura/imprimir-factura.component';
+import { FactLotificarComponent } from '../fact-lotificar/fact-lotificar.component';
+import { postFactura } from 'src/app/FAC/POST/post-factura';
 
 let DatosImpresion: iDatos[];
 
@@ -41,6 +43,7 @@ export class RegistroFacturaComponent {
   constructor(
     private GET: getFactura,
     public cFunciones: Funciones,
+    private POST: postFactura
   ) {
 
     this.val.add("txtFecha1", "1", "LEN>", "0", "Fecha Inicio", "Ingrese una fecha valida.");
@@ -163,15 +166,8 @@ export class RegistroFacturaComponent {
             let Datos: iDatos[] = _json["d"];
 
 
-            if(Datos[1].d != "")
-            {
-              this.cFunciones.DIALOG.open(DialogErrorComponent, {
-                data: Datos[1].d ,
-              });
-              return;
-            }
-
-            
+ 
+            console.log(Datos[1].d )
 
             det.VentaDetalle = Datos[0].d;
 
@@ -184,7 +180,7 @@ export class RegistroFacturaComponent {
               });
 
             dialogRef.afterOpened().subscribe(s => {
-              dialogRef.componentInstance.v_Editar(det);
+              dialogRef.componentInstance.v_Editar(det, Datos[1].d);
 
             });
 
@@ -216,8 +212,7 @@ export class RegistroFacturaComponent {
 
   }
 
-  public v_Imprimir(det: iFactPed): void {
-
+  public V_Imprimir(det: iFactPed): void {
     let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(
       WaitComponent,
       {
@@ -241,8 +236,9 @@ export class RegistroFacturaComponent {
               });
             }
           } else {
-            DatosImpresion = _json["d"];
 
+
+            DatosImpresion = _json["d"];
             this.CargarDocumentos();
             //this.printPDFS();
             
@@ -267,6 +263,152 @@ export class RegistroFacturaComponent {
     );
 
   }
+
+  public V_ConvertirFactura(det: iFactPed): void {
+
+    let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(
+      WaitComponent,
+      {
+        panelClass: "escasan-dialog-full-blur",
+        data: "",
+      }
+    );
+
+    this.POST.ConvertirFactura(det).subscribe(
+      {
+        next: (s) => {
+
+
+          let _json = JSON.parse(s);
+
+          if (_json["esError"] == 1) {
+            if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
+              this.cFunciones.DIALOG.open(DialogErrorComponent, {
+                id: "error-servidor-msj",
+                data: _json["msj"].Mensaje,
+              });
+            }
+          } else {
+
+            this.CargarDocumentos();
+
+          }
+
+        },
+        error: (err) => {
+          dialogRef.close();
+
+          if (this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) {
+            this.cFunciones.DIALOG.open(DialogErrorComponent, {
+              id: "error-servidor",
+              data: "<b class='error'>" + err.message + "</b>",
+            });
+          }
+        },
+        complete: () => {
+          dialogRef.close();
+        }
+      }
+    );
+
+  }
+
+
+  public V_Lotificar(det: iFactPed): void {
+
+
+
+    let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(
+      WaitComponent,
+      {
+        panelClass: "escasan-dialog-full-blur",
+        data: "",
+      }
+    );
+
+
+    this.GET.GetDetalle(det.IdVenta, this.cFunciones.User).subscribe(
+      {
+        next: (s) => {
+
+
+          let _json = JSON.parse(s);
+
+          if (_json["esError"] == 1) {
+            if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
+              this.cFunciones.DIALOG.open(DialogErrorComponent, {
+                id: "error-servidor-msj",
+                data: _json["msj"].Mensaje,
+              });
+            }
+          } else {
+            let Datos: iDatos[] = _json["d"];
+
+
+            if(Datos[1].d != "")
+            {
+              this.cFunciones.DIALOG.open(DialogErrorComponent, {
+                data: Datos[1].d ,
+              });
+              return;
+            }
+
+            
+
+            det.VentaDetalle = Datos[0].d;
+
+
+           
+            let dialogRefLote: MatDialogRef<FactLotificarComponent> =
+            this.cFunciones.DIALOG.open(FactLotificarComponent, {
+              panelClass: "escasan-dialog-full",
+              data: [det.CodBodega, det.VentaDetalle],
+              disableClose: true
+            });
+
+
+
+
+          dialogRefLote.afterClosed().subscribe(s => {
+
+
+            if (dialogRefLote.componentInstance.Repuesta == 1){
+              det.VentaDetalle = JSON.parse(JSON.stringify(dialogRefLote.componentInstance.lstDetalle.data));
+              det.VentaLote = JSON.parse(JSON.stringify(dialogRefLote.componentInstance.lstLote));
+              det.VentaLote.forEach(f =>{ f.Key = f.Key[0]});
+ 
+              this.V_ConvertirFactura(det);
+            }
+
+          });
+
+
+
+           
+          }
+
+        },
+        error: (err) => {
+          dialogRef.close();
+
+          if (this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) {
+            this.cFunciones.DIALOG.open(DialogErrorComponent, {
+              id: "error-servidor",
+              data: "<b class='error'>" + err.message + "</b>",
+            });
+          }
+        },
+        complete: () => {
+          dialogRef.close();
+        }
+      }
+    );
+
+
+
+  }
+
+
 
 
 

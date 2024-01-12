@@ -46,6 +46,7 @@ export class FacturaComponent {
   filteredClientes: Observable<iCliente[]> | undefined;
   private Fila_Doc: iFactPed = {} as iFactPed;
   public TipoFactura: string = "Factura";
+  public Permiso : any;
 
   lstBodega: iBodega[] = [];
   lstVendedores: iVendedor[] = [];
@@ -65,6 +66,7 @@ export class FacturaComponent {
   public EsModal: boolean = false;
   private LoadExportacion: boolean = false;
   private LoadContraEntrega: boolean = false;
+  private LoadEditar : boolean = false;
 
   public SimboloMonedaCliente: string = "U$";
   private MonedaCliente: string;
@@ -90,6 +92,8 @@ export class FacturaComponent {
 
     this.val.add("txtNombre", "1", "LEN>=", "0", "Nombre", "");
     this.val.add("txtIdentificacion", "1", "LEN>=", "0", "Ruc/Cedula", "");
+    this.val.add("txtRuc", "1", "LEN>=", "0", "Ruc/Cedula", "");
+    this.val.add("txtCorreo", "1", "LEN>=", "0", "Correo", "");
     this.val.add("txtLimite", "1", "LEN>=", "0", "Limite", "");
     this.val.add("txtContacto", "1", "LEN>=", "0", "Contacto", "");
     this.val.add("txtDisponible", "1", "LEN>=", "0", "Disponible", "");
@@ -139,6 +143,8 @@ export class FacturaComponent {
         this.val.Get("txtCliente").setValue("");
         this.val.Get("txtNombre").setValue("");
         this.val.Get("txtIdentificacion").setValue("");
+        this.val.Get("txtRuc").setValue("");
+        this.val.Get("txtCorreo").setValue("");
         this.val.Get("txtLimite").setValue("0.00");
         this.val.Get("txtContacto").setValue("");
         this.val.Get("txtDisponible").setValue("0.00");
@@ -320,6 +326,8 @@ export class FacturaComponent {
     this.CodCliente = "";
     this.val.Get("txtCliente").setValue("");
     this.val.Get("txtIdentificacion").setValue("");
+    this.val.Get("txtRuc").setValue("");
+    this.val.Get("txtCorreo").setValue("");
     this.val.Get("txtLimite").setValue("0.00");
     this.val.Get("txtContacto").setValue("");
     this.val.Get("txtDisponible").setValue("0.00");
@@ -379,12 +387,10 @@ export class FacturaComponent {
     if (Cliente.length > 0) {
       this.CodCliente = Cliente[0].Codigo;
       this.val.Get("txtCliente").setValue([Cliente[0].Codigo]);
-      this.val
-        .Get("txtIdentificacion")
-        .setValue(Cliente[0].Ruc + "/" + Cliente[0].Cedula);
-      this.val
-        .Get("txtLimite")
-        .setValue(this.cFunciones.NumFormat(Cliente[0].Limite, "2"));
+      this.val.Get("txtIdentificacion").setValue(Cliente[0].Cedula);
+      this.val.Get("txtRuc").setValue(Cliente[0].Ruc);
+      this.val.Get("txtCorreo").setValue(Cliente[0].Correo);
+      this.val.Get("txtLimite").setValue(this.cFunciones.NumFormat(Cliente[0].Limite, "2"));
       this.val.Get("txtContacto").setValue(Cliente[0].Contacto);
       this.val.Get("txtDisponible").setValue("0.00");
 
@@ -827,7 +833,9 @@ export class FacturaComponent {
   }
 
   public v_FichaPanel(evento: string): void {
+
     this.val.EsValido();
+    
 
     if (this.val.Errores != "") {
       this.cFunciones.DIALOG.open(DialogErrorComponent, {
@@ -1043,12 +1051,13 @@ export class FacturaComponent {
 
   public v_Guardar(): void {
 
+  
 
     let ErrorFicha: string = "";
     let ErrorConfirmar: string = "";
     let ErrorOtros: string = "";
     let PedirAutorizacion: boolean = false;
-    let str_Detalle: string = "";
+ 
 
     this.val.EsValido();
     this.ConfirmarFactura.val.EsValido();
@@ -1143,7 +1152,9 @@ export class FacturaComponent {
     this.Fila_Doc.CodCliente = this.ConfirmarFactura.CodCliente;
     this.Fila_Doc.NomCliente = iCLiente!.Cliente;
     this.Fila_Doc.Nombre = this.ConfirmarFactura.val.Get("txtNombre_Confirmar").value;
-    this.Fila_Doc.RucCedula = this.val.Get("txtIdentificacion").value;
+    this.Fila_Doc.Cedula = this.val.Get("txtIdentificacion").value;
+    this.Fila_Doc.Ruc = this.val.Get("txtRuc").value;
+    this.Fila_Doc.Correo = this.val.Get("txtCorreo").value;
     this.Fila_Doc.Contacto = this.val.Get("txtContacto").value;
     this.Fila_Doc.Limite = this.ConfirmarFactura.val.Get("txtLimite_Confirmar").value;
     this.Fila_Doc.Disponible = this.ConfirmarFactura.val.Get("txtDisponible_Confirmar").value;
@@ -1229,7 +1240,7 @@ export class FacturaComponent {
       if (dialogRefLote.componentInstance.Repuesta == 1){
         this.Fila_Doc.VentaLote = JSON.parse(JSON.stringify(dialogRefLote.componentInstance.lstLote));
         this.Fila_Doc.VentaLote.forEach(f =>{ f.Key = f.Key[0]});
-        console.log(this.Fila_Doc.VentaLote)
+  
         this.EnviarDatos();
       }
 
@@ -1312,30 +1323,46 @@ export class FacturaComponent {
     );
   }
 
-  public v_Editar(det: iFactPed) {
+  public v_Editar(det: iFactPed, Permiso : any) {
     this.EsModal = true;
     this.isEvent = false;
     this.Fila_Doc = det;
+    this.Permiso = Permiso;
+    this.LoadExportacion = true;
+    this.LoadContraEntrega = true;
+    this.LoadEditar = true;
+    this.ConfirmarFactura.LoadEditar = this.LoadEditar;
 
 
 
+    
+   
+    this.cmbBodega.setSelectedItem(this.Fila_Doc.CodBodega);
+    this.val.Get("txtBodega").setValue([this.Fila_Doc.CodBodega]);
 
+     
+    this.cmbCliente.setSelectedItem(this.Fila_Doc.CodCliente);
+    this.val.Get("txtCliente").setValue([this.Fila_Doc.CodCliente]);
+
+
+    
     this.RevisionFactura.EsModal = true;
     this.ConfirmarFactura.EsModal = true;
     this.CodCliente = this.Fila_Doc.CodCliente;
     this.MonedaCliente = this.Fila_Doc.Moneda;
-    this.cmbCliente.setSelectedItem(this.CodCliente);
-    this.val.Get("txtCliente").setValue([this.CodCliente]);
+    this.CodBodega = this.Fila_Doc.CodBodega;
+
+
+   
     this.val.Get("txtNombre").setValue(this.Fila_Doc.Nombre);
-    this.val.Get("txtIdentificacion").setValue(this.Fila_Doc.RucCedula);
+    this.val.Get("txtIdentificacion").setValue(this.Fila_Doc.Cedula);
+    this.val.Get("txtRuc").setValue(this.Fila_Doc.Ruc);
+    this.val.Get("txtCorreo").setValue(this.Fila_Doc.Correo);
     this.val.Get("txtContacto").setValue(this.Fila_Doc.Contacto);
     this.val.Get("txtLimite").setValue(this.Fila_Doc.Limite);
     this.val.Get("txtDisponible").setValue(this.Fila_Doc.Disponible);
 
 
-    this.CodBodega = this.Fila_Doc.CodBodega;
-    this.cmbBodega.setSelectedItem(this.Fila_Doc.CodBodega);
-    this.val.Get("txtBodega").setValue([this.Fila_Doc.CodBodega]);
 
     this.cmbVendedor.setSelectedItem(this.Fila_Doc.CodVendedor);
     this.val.Get("txtVendedor").setValue([this.Fila_Doc.CodVendedor]);
@@ -1348,6 +1375,7 @@ export class FacturaComponent {
     if (this.Fila_Doc.TipoVenta == "Credito") chk1.bootstrapToggle("on");
 
 
+    
     let chk2: any = document.querySelector("#chkExportacion");
     chk2.bootstrapToggle("off");
     if (this.Fila_Doc.EsExportacion) chk2.bootstrapToggle("on");
@@ -1395,6 +1423,10 @@ export class FacturaComponent {
 
     if (det.TipoDocumento == "Factura") this.PermitirGuardar = false;
 
+    this.LoadExportacion = false;
+    this.LoadContraEntrega = false;
+    this.LoadEditar = true;
+    this.ConfirmarFactura.LoadEditar = this.LoadEditar;
 
   }
 
@@ -1428,7 +1460,9 @@ export class FacturaComponent {
     ///CAMBIO DE FOCO
     this.val.addFocus("txtCliente", "txtNombre", undefined);
     this.val.addFocus("txtNombre", "txtIdentificacion", undefined);
-    this.val.addFocus("txtIdentificacion", "txtContacto", undefined);
+    this.val.addFocus("txtIdentificacion", "txtRuc", undefined);
+    this.val.addFocus("txtRuc", "txtCorreo", undefined);
+    this.val.addFocus("txtCorreo", "txtContacto", undefined);
     this.val.addFocus("txtContacto", "txtOC", undefined);
     this.val.addFocus("txtOC", "btnSiguiente", "click");
 

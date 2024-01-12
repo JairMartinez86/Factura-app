@@ -139,6 +139,15 @@ table{
 .header-table-doc {
     background-color: var(--escan-primario);
     color: var(--escan-fondo);
+
+    b{
+        color: black;
+        font-weight: bold;
+    }
+    span{
+        color: var(--escan-fondo);
+        font-weight: bold;
+    }
 }
 
 
