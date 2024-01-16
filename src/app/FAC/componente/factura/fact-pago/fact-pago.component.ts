@@ -365,7 +365,7 @@ export class FactPagoComponent {
     VueltoDolar = this.cFunciones.Redondeo(VueltoDolar, "2");
     VueltoCordoba = this.cFunciones.Redondeo(VueltoCordoba, "2");
 
-    this.str
+    // this.str
 
     if(PagoDolar == 0) this.str_Pago_Dol = "-";
     if(PagoCordoba == 0) this.str_Pago_Dol = "-";
