@@ -18,6 +18,7 @@ import { DialogoConfirmarComponent } from 'src/app/SHARED/componente/dialogo-con
 import { ImprimirFacturaComponent } from './imprimir-factura/imprimir-factura.component';
 import { FactLotificarComponent } from '../fact-lotificar/fact-lotificar.component';
 import { postFactura } from 'src/app/FAC/POST/post-factura';
+import { FactPagoComponent } from '../fact-pago/fact-pago.component';
 
 let DatosImpresion: iDatos[];
 
@@ -264,6 +265,32 @@ export class RegistroFacturaComponent {
 
   }
 
+
+  public V_Pago(det: iFactPed)
+  {
+  
+    let dialogRefPago: MatDialogRef<FactPagoComponent> =
+    this.cFunciones.DIALOG.open(FactPagoComponent, {
+      panelClass: "escasan-dialog-full",
+      data: [det.TotalCordoba, det.TotalDolar, det.TasaCambio],
+      disableClose: true
+    });
+
+
+
+    
+
+    dialogRefPago.afterClosed().subscribe(s => {
+
+
+
+
+    });
+
+
+
+
+  }
   public V_ConvertirFactura(det: iFactPed): void {
 
     let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(

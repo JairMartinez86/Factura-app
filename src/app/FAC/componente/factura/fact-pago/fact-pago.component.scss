@@ -1,0 +1,229 @@
+@import "/src/assets/scss/media.scss";
+
+.totales.total {
+    background-color: var(--escan-secundario);
+
+}
+
+.totales.pago {
+    background-color: var(--escan-opcional);
+
+}
+
+.totales.vuelto {
+    background-color: var(--escan-primario);
+    ;
+
+}
+
+.totales {
+
+
+
+    .totales-header {
+        text-align: center;
+        margin-bottom: 10px;
+        padding: 10px;
+
+        b {
+            color: var(--escan-fondo);
+            font-size: 2em;
+
+        }
+    }
+
+
+    .totales-etiqueta {
+        width: 20%;
+    }
+
+    .totales-valor {
+        width: 80%;
+    }
+
+
+    .totales-etiqueta,
+    .totales-valor {
+        text-align: right;
+        height: 32px;
+
+        b {
+            color: var(--escan-fondo);
+            font-size: 1.5em;
+        }
+
+    }
+
+
+    @include Tamano_Menor(md) {
+
+        margin-bottom: 5px;
+        padding: 5px;
+
+
+        .totales-header{
+
+
+            b{
+                font-size: 1.5em;
+            }
+            
+        }
+
+
+        .totales-etiqueta,
+        .totales-valor {
+            b {
+                font-size: 1em;
+            }
+        }
+
+    }
+
+    @include Tamano_Menor(sm) {
+
+        .totales-header{
+
+            padding: 3px;
+            margin-bottom: 3px;
+
+            b{
+                font-size: 1em;
+            }
+            
+        }
+
+        .totales-etiqueta {
+            padding: 0 10px 0 10px;
+        }
+    
+        .totales-valor {
+            padding: 0 10px 0 0;
+        }
+
+        
+        .totales-etiqueta,
+        .totales-valor {
+            b {
+                font-size: 0.7em;
+            }
+        }
+
+    }
+
+}
+
+
+.bold {
+    font-weight: bold;
+}
+
+
+.left {
+    text-align: left;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.margin-right {
+    margin-right: 10px;
+}
+
+.contenedor-tabla {
+    height: 216px;
+}
+
+//████████████████████████████████████████████TABLA████████████████████████████████████████████████████████████████████████
+
+
+
+.tabla-pago {
+    width: 100%;
+}
+
+.header-linea {
+    display: none;
+}
+
+.numero {
+    text-align: right;
+}
+
+.tabla-lote.tr:first-child {
+    border-top: 2px solid var(--escan-secundario);
+
+}
+
+
+
+.btn-contenedor {
+    display: flex;
+    justify-content: flex-end;
+
+    div {
+        width: 50%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    div:first-child {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+
+    .btn-aceptar {
+        margin-right: 10px;
+    }
+
+
+}
+
+
+
+
+.tr-pago-primario {
+    border-top: 1px solid var(--escan-primario);
+}
+
+.tr-pago-secundario {
+    border-top: 1px dashed var(--escan-secundario);
+}
+
+
+.combo-header, .combo-footer {
+    text-align: center;
+    padding: 4px;
+}
+
+
+.header-etiqueta,
+.header-valor{
+    font-size: 1.5em;
+}
+
+
+.header-valor{
+    color: var(--escan-secundario);
+}
+
+.combo-item {
+    margin-bottom: 1px dashed var(--escan-secundario);
+    min-width: 100%;
+}
+
+
+.combo-item-contenedor{
+    width: 100%;
+}
+
+
+
+
+@include Tamano_Menor(md) {}

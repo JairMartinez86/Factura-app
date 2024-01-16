@@ -82,4 +82,8 @@ export class getFactura{
    }
 
 
+   public GetFormaPago() : Observable<string>{
+      return this.http.get<any>(this._Cnx.Url() + "Factura/GetFormaPago");
+   }
+
 }

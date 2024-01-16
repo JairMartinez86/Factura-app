@@ -1,0 +1,262 @@
+<div id="div-tabla-pago">
+    <div class="escasan-dialog">
+        <div class="btn-contenedor">
+            <button class="close-button custom-cerrar" [mat-dialog-close]="true">
+                <mat-icon class="close-icon" color="warn">close</mat-icon>
+            </button>
+        </div>
+
+
+        <div class="row">
+            <h1 mat-dialog-title>PAGO DE FACTURA</h1>
+        </div>
+
+     
+
+        
+        
+
+        <div mat-dialog-content>
+
+            <div class="row  mb-3">
+
+                <div class="col-4 totales total">
+                    <div class="row">
+                        <div class="totales-header"><b>TOTAL</b></div>
+                    </div>
+                    <div class="row">
+                        <div class="totales-etiqueta"><b>C$</b></div>
+                            <div class="totales-valor"><b>{{str_Total_Cor}}</b></div>
+                      
+                    </div>
+                    <div class="row">
+                        <div class="totales-etiqueta"><b>$</b></div>
+                        <div class="totales-valor"><b>{{str_Total_Dol}}</b></div>
+                       
+                    </div>
+                </div>
+                <div class="col-4 totales pago">
+                    <div class="row">
+                        <div class="totales-header"><b>PAGO</b></div>
+                    </div>
+                    <div class="row">
+                        <div class="totales-etiqueta"><b>C$</b></div>
+                            <div class="totales-valor"><b>{{str_Pago_Cod}}</b></div>
+                      
+                    </div>
+                    <div class="row">
+                        <div class="totales-etiqueta"><b>$</b></div>
+                        <div class="totales-valor"><b>{{str_Pago_Dol}}</b></div>
+                       
+                    </div>
+                </div>
+    
+                <div class="col-4 totales vuelto">
+                    <div class="row">
+                        <div class="totales-header"><b>{{str_Etiqueta_Vuelto}}</b></div>
+                    </div>
+                    <div class="row">
+                        <div class="totales-etiqueta"><b>C$</b></div>
+                            <div class="totales-valor"><b>{{str_Vuelto_Cod}}</b></div>
+                      
+                    </div>
+                    <div class="row">
+                        <div class="totales-etiqueta"><b>$</b></div>
+                        <div class="totales-valor"><b>{{str_Vuelto_Dol}}</b></div>
+                       
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row escan-table">
+
+
+
+                <table class="table table-hover tabla-pago  table-sm tabla-layout mat-elevation-z8" mat-table
+                    [dataSource]="lstDetalle">
+
+
+
+                    <ng-container matColumnDef="col1">
+                        <td mat-cell *matCellDef="let det ;  let i = index;">
+
+                            <div class="row">
+
+                               
+                                <div class="col-lg-4 mb-1">
+    
+                                    <div class="row">
+
+
+                                        <div class="row">
+                                            <span> <form autocomplete="off" [formGroup]="valTabla.ValForm">
+                                                <igx-combo [(ngModel)]="det.Key"
+                                                [data]="lstFormaPago" 
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    valueKey="Key" displayKey="Descripcion2"
+                                                    [groupKey]="'Banco'" placeholder="Forma Pago"
+                                                    searchPlaceholder="Seleccione una forma de pago..."
+                                                    id="cmbPago{{det.Index}}" [autoFocusSearch]="true"
+                                                    [overlaySettings]="overlaySettings"
+                                                    (selectionChanging)="V_Select_Pago($event, det);"
+                                                    (keyup)="V_Enter_Pago($event, det);"
+                                                    [itemsMaxHeight]="250"
+                                                    [allowCustomValues]="true"
+                                                    [itemsWidth] = '"360px"'
+                                                    [itemHeight]='64'>
+    
+    
+    
+    
+    
+                                                    <ng-template igxComboItem let-display
+                                                        let-key="valueKey">
+                                                        <div class="combo-item">
+                                                            <div class="row combo-item-contenedor">
+    
+                                                                <div class="col-12 col-sm-12 col-md-6  col-lg-6">
+                                                                    {{display.Descripcion
+                                                                    }}
+                                                                </div>
+
+                                                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                                                    {{display.Moneda}}
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+    
+                                                    </ng-template>
+    
+                                                    <ng-template igxComboHeaderItem let-display
+                                                        let-key="valueKey">
+                                                        <div class="combo-header">
+                                                            <span><b
+                                                                    class="header-etiqueta">Banco:</b></span>
+                                                            <span class="header-valor banco">{{
+                                                                display.Banco }}</span>
+                                                        </div>
+                                                    </ng-template>
+    
+    
+                                                    <ng-template igxComboClearIcon>
+                                                        <igx-icon></igx-icon>
+                                                    </ng-template>
+    
+    
+                                                </igx-combo>
+                                            </form>
+                                           </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+
+                                <div class="col-lg-4 mb-1">
+                                    <div class="row">
+                                        <div class="input-group">
+                                                                
+                                            <form class="form-floating" autocomplete="off">
+                                                <input type="text"
+                                                    class="form-control margin-right right"
+                                                    id="txtImporte{{det.Index}}"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    [(ngModel)]="det.Importe"
+                                                    (keydown)="this.cFunciones.v_Prevent_IsNumber($event,  'Decimal');"
+                                                    (change)="valTabla.ActulizarValores('txtImporte' + det.Index, det.Importe); V_Calcular();">
+    
+                                                <label for="txtImporte{{det.Index}}"><b>Importe:</b>
+                                                </label>
+    
+                                            </form>
+    
+                            
+                                        </div>
+    
+                                    </div>
+    
+                                </div>
+
+                                <div class="col-lg-4 mb-1">
+
+                                    <div class="row">
+                                        <div class="input-group">
+                                                                
+                                            <form class="form-floating" autocomplete="off">
+                                                <input type="text"
+                                                    class="form-control margin-right right"
+                                                    id="txtReferencia{{det.Index}}"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    [(ngModel)]="det.Referencia"
+                                                    (change)="valTabla.ActulizarValores('txtReferencia' + det.Index, det.Referencia);"
+                                                    (keydown)="this.cFunciones.v_Prevent_IsNumber($event,  'decimal');">
+    
+                                                <label for="txtReferencia{{det.Index}}"><b>Referencia:</b>
+                                                </label>
+    
+                                            </form>
+    
+                                            <span class="input-group-text">
+    
+                                                <button type="button" class="btn"
+                                                    (click)="V_Eliminar(det.Index);" *ngIf="this.lstDetalle.data.length > 1"><i
+                                                        class="fa-solid fa-eraser fa-beat-fade fa-xl"></i>
+                                                </button>
+                                                <button type="button" class="btn"
+                                                (click)="V_Agrega();" *ngIf="det.Index == V_UltimoIndex();"><i
+                                                    class="fa-solid fa-plus fa-beat-fade fa-xl"></i>
+                                            </button>
+                                            </span>
+    
+                                        </div>
+    
+                                    </div>
+                                </div>
+
+
+                             
+
+
+
+
+                            </div>
+
+
+                        </td>
+                    </ng-container>
+
+
+
+
+
+
+
+
+
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="linea-bottom-secundario dashed">
+                    </tr>
+
+
+                </table>
+
+
+
+            </div>
+
+        </div>
+        <div mat-dialog-actions class="btn-contenedor">
+            <div>
+                <button type="button" class="btn btn-opcional btn-refrescar" (click)="V_Refrescar()"><i class="fa-solid fa-arrows-rotate fa-spin fa-lg"></i> Refrescar</button>
+            </div>
+
+            <div>
+                <button type="button" class="btn btn-primario btn-aceptar" (click)="V_Aceptar()">Guardar</button>
+                <button type="button" class="btn btn-secundario btn-cancelar" (click)="V_Cancelar()">Cerrar</button>
+            </div>
+           
+        </div>
+    </div>
+
+</div>

@@ -99,7 +99,7 @@
 }
 
 
-.combo-header
+.combo-header,
 .combo-footer {
     text-align: center;
     padding: 4px;
@@ -108,6 +108,10 @@
 .header-etiqueta,
 .header-valor{
     font-size: 1.5em;
+}
+
+.banco{
+    color: var(--escan-secundario);
 }
 
 
@@ -123,6 +127,13 @@
 
 .combo-item{
     margin-bottom: 1px dashed var(--escan-secundario);
+
+    
+   
+}
+
+.combo-item-contenedor{
+    width: 360px;
 }
 
 
