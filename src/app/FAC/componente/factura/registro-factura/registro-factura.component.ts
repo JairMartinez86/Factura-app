@@ -211,52 +211,61 @@ export class RegistroFacturaComponent {
 
   }
 
-  public V_Imprimir(det: iFactPed): void {
+  public V_Imprimir(det: iFactPed, ImprimirProforma : boolean): void {
    
-    if(det.TipoDocumento == "Proforma")
+    if(det.TipoDocumento == "Proforma" || ImprimirProforma)
     {
       
+
+      if(det.Correo != "")
+      {
+        let dialogRef: MatDialogRef<DialogoConfirmarComponent> =
+        this.cFunciones.DIALOG.open(DialogoConfirmarComponent, {
+          disableClose: true
+        });
+  
+  
+        dialogRef.afterOpened().subscribe(s => {
+          dialogRef.componentInstance.mensaje = "Enviar por Correo?";
+          dialogRef.componentInstance.textBoton1 = "Si";
+          dialogRef.componentInstance.textBoton2 = "No";
+  
+        });
+  
+  
+  
+        dialogRef.afterClosed().subscribe(s => {
+  
+  
+          if (dialogRef.componentInstance.retorno == "1") {
+          
+            this.V_ImprimirDOC(det, true, true);
+          }
+          else
+          {
+            this.V_ImprimirDOC(det, true, false);
+          }
+  
+        });
+  
+      }
+      else
+      {
+        this.V_ImprimirDOC(det, true, false);
+      }
       
-      let dialogRef: MatDialogRef<DialogoConfirmarComponent> =
-      this.cFunciones.DIALOG.open(DialogoConfirmarComponent, {
-        disableClose: true
-      });
-
-
-      dialogRef.afterOpened().subscribe(s => {
-        dialogRef.componentInstance.mensaje = "Enviar por Correo?";
-        dialogRef.componentInstance.textBoton1 = "Si";
-        dialogRef.componentInstance.textBoton2 = "No";
-
-      });
-
-
-
-      dialogRef.afterClosed().subscribe(s => {
-
-
-        if (dialogRef.componentInstance.retorno == "1") {
-        
-          this.V_ImprimirDOC(det, true);
-        }
-        else
-        {
-          this.V_ImprimirDOC(det, false);
-        }
-
-      });
-
+     
 
 
     }
     else
     {
-      this.V_ImprimirDOC(det, false);
+      this.V_ImprimirDOC(det, false, false);
     }
 
   }
 
-  private V_ImprimirDOC(det: iFactPed, enviarCorreo : boolean)
+  private V_ImprimirDOC(det: iFactPed, ImprimirProforma : boolean, enviarCorreo : boolean)
   {
 
     
@@ -268,7 +277,7 @@ export class RegistroFacturaComponent {
       }
     );
      
-    this.GET.Imprimir(det.IdVenta, enviarCorreo).subscribe(
+    this.GET.Imprimir(det.IdVenta, ImprimirProforma, enviarCorreo).subscribe(
       {
         next: (s) => {
 
@@ -287,7 +296,7 @@ export class RegistroFacturaComponent {
 
             let Datos: iDatos[] = _json["d"];
 
-            if(det.TipoDocumento == "Proforma")
+            if(det.TipoDocumento == "Proforma" || ImprimirProforma)
             {
               this.printPDFS(Datos[0].d);
               if(Datos[1].d != undefined)this.printPDFS(Datos[1].d);
@@ -396,6 +405,23 @@ export class RegistroFacturaComponent {
 
   public V_Lotificar(det: iFactPed): void {
 
+    if(det.TipoDocumento == "Proforma")
+    {
+      let Vence : Date = new Date(this.cFunciones.DateFormat(det.Vence, "yyyy-MM-dd"));
+
+      let fServidor : Date = new Date(this.cFunciones.ShortFechaServidor());
+
+      if(Vence < fServidor)
+      {
+        this.cFunciones.DIALOG.open(DialogErrorComponent, {
+          id: "error-servidor-msj",
+          data: "La Proforma se encuentra Vencida"
+        });
+
+        return;
+      }
+      
+    }
 
 
     let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(

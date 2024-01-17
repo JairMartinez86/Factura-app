@@ -72,8 +72,8 @@ export class getFactura{
    }
 
 
-   public Imprimir(IdVenta : string, enviarCorreo: boolean) : Observable<string>{
-      return this.http.get<any>(this._Cnx.Url() + "Factura/Imprimir?IdVenta=" + IdVenta + "&enviarCorreo=" + enviarCorreo);
+   public Imprimir(IdVenta : string, ImprimirProforma : boolean, enviarCorreo: boolean) : Observable<string>{
+      return this.http.get<any>(this._Cnx.Url() + "Factura/Imprimir?IdVenta=" + IdVenta + "&ImprimirProforma=" + ImprimirProforma + "&enviarCorreo=" + enviarCorreo);
    }
    
 

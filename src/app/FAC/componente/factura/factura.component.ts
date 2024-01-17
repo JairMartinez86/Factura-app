@@ -156,6 +156,8 @@ export class FacturaComponent {
         this.val.Get("chkExportacion").setValue(false);
         this.val.Get("txtBodega").setValue([this.CodBodega]);
         this.val.Get("txtVendedor").setValue([]);
+   
+
 
         this.FichaProducto?.lstDetalle.splice(
           0,
@@ -182,7 +184,8 @@ export class FacturaComponent {
           if (cl != undefined) {
             this.CodCliente = cl.Codigo;
             this.MonedaCliente = cl.Moneda;
-            this.val.Get("txtCliente").setValue(cl.Cliente);
+            this.cmbCliente.setSelectedItem([cl.Codigo]);
+            this.val.Get("txtCliente").setValue([cl.Codigo]);
             this.val.Get("txtVendedor").setValue([_iBodega.Vendedor]);
             this.val.Get("txtCliente").disable();
             this.MonedaCliente = cl.Moneda;
@@ -1291,7 +1294,7 @@ export class FacturaComponent {
             });
 
 
-            this._Evento("Iniciar");
+            this._Evento("Limpiar");
 
             (document.querySelector("#frmFichaFactura") as HTMLElement).setAttribute(
               "style",
