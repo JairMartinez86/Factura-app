@@ -19,5 +19,4 @@ export class Conexion {
         return "http://"+this.IP+":"+this.PORT+"/api/"; 
     }*/
 
-
 }
