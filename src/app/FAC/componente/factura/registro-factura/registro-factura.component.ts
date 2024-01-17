@@ -168,9 +168,6 @@ export class RegistroFacturaComponent {
             let Datos: iDatos[] = _json["d"];
 
 
-
-            console.log(Datos[1].d)
-
             det.VentaDetalle = Datos[0].d;
 
 
@@ -290,11 +287,15 @@ export class RegistroFacturaComponent {
 
             let Datos: iDatos[] = _json["d"];
 
-            this.printPDFS(Datos[0].d);
-            if(Datos[1].d != undefined)this.printPDFS(Datos[1].d);
+            if(det.TipoDocumento == "Proforma")
+            {
+              this.printPDFS(Datos[0].d);
+              if(Datos[1].d != undefined)this.printPDFS(Datos[1].d);
+              
+            }
+
             
             this.CargarDocumentos();
-            //this.printPDFS();
 
 
           }
