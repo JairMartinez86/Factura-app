@@ -19,6 +19,7 @@ import { ImprimirFacturaComponent } from './imprimir-factura/imprimir-factura.co
 import { FactLotificarComponent } from '../fact-lotificar/fact-lotificar.component';
 import { postFactura } from 'src/app/FAC/POST/post-factura';
 import { FactPagoComponent } from '../fact-pago/fact-pago.component';
+import { iFacturaPagoCancelacion } from 'src/app/FAC/interface/i-Factura-Pago-Cancelacion';
 
 let DatosImpresion: iDatos[];
 
@@ -167,8 +168,8 @@ export class RegistroFacturaComponent {
             let Datos: iDatos[] = _json["d"];
 
 
- 
-            console.log(Datos[1].d )
+
+            console.log(Datos[1].d)
 
             det.VentaDetalle = Datos[0].d;
 
@@ -214,6 +215,54 @@ export class RegistroFacturaComponent {
   }
 
   public V_Imprimir(det: iFactPed): void {
+   
+    if(det.TipoDocumento == "Proforma")
+    {
+      
+      
+      let dialogRef: MatDialogRef<DialogoConfirmarComponent> =
+      this.cFunciones.DIALOG.open(DialogoConfirmarComponent, {
+        disableClose: true
+      });
+
+
+      dialogRef.afterOpened().subscribe(s => {
+        dialogRef.componentInstance.mensaje = "Enviar por Correo?";
+        dialogRef.componentInstance.textBoton1 = "Si";
+        dialogRef.componentInstance.textBoton2 = "No";
+
+      });
+
+
+
+      dialogRef.afterClosed().subscribe(s => {
+
+
+        if (dialogRef.componentInstance.retorno == "1") {
+        
+          this.V_ImprimirDOC(det, true);
+        }
+        else
+        {
+          this.V_ImprimirDOC(det, false);
+        }
+
+      });
+
+
+
+    }
+    else
+    {
+      this.V_ImprimirDOC(det, false);
+    }
+
+  }
+
+  private V_ImprimirDOC(det: iFactPed, enviarCorreo : boolean)
+  {
+
+    
     let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(
       WaitComponent,
       {
@@ -221,8 +270,8 @@ export class RegistroFacturaComponent {
         data: "",
       }
     );
-
-    this.GET.Imprimir(det.IdVenta).subscribe(
+     
+    this.GET.Imprimir(det.IdVenta, enviarCorreo).subscribe(
       {
         next: (s) => {
 
@@ -239,11 +288,15 @@ export class RegistroFacturaComponent {
           } else {
 
 
-            DatosImpresion = _json["d"];
+            let Datos: iDatos[] = _json["d"];
+
+            this.printPDFS(Datos[0].d);
+            if(Datos[1].d != undefined)this.printPDFS(Datos[1].d);
+            
             this.CargarDocumentos();
             //this.printPDFS();
-            
-    
+
+
           }
 
         },
@@ -262,28 +315,27 @@ export class RegistroFacturaComponent {
         }
       }
     );
-
   }
 
 
-  public V_Pago(det: iFactPed)
-  {
-  
+  public V_Pago(det: iFactPed) {
+
     let dialogRefPago: MatDialogRef<FactPagoComponent> =
-    this.cFunciones.DIALOG.open(FactPagoComponent, {
-      panelClass: "escasan-dialog-full",
-      data: [det.TotalCordoba, det.TotalDolar, det.TasaCambio],
-      disableClose: true
-    });
+      this.cFunciones.DIALOG.open(FactPagoComponent, {
+        panelClass: "escasan-dialog-full",
+        data: [det.TotalCordoba, det.TotalDolar, det.TasaCambio, det.Fecha, det.IdFactura],
+        disableClose: true
+      });
 
 
 
-    
+
 
     dialogRefPago.afterClosed().subscribe(s => {
 
-
-
+      if (dialogRefPago.componentInstance.Repuesta == 1) {
+       this.CargarDocumentos();
+      }
 
     });
 
@@ -372,46 +424,45 @@ export class RegistroFacturaComponent {
             let Datos: iDatos[] = _json["d"];
 
 
-            if(Datos[1].d != "")
-            {
+            if (Datos[1].d != "") {
               this.cFunciones.DIALOG.open(DialogErrorComponent, {
-                data: Datos[1].d ,
+                data: Datos[1].d,
               });
               return;
             }
 
-            
+
 
             det.VentaDetalle = Datos[0].d;
 
 
-           
+
             let dialogRefLote: MatDialogRef<FactLotificarComponent> =
-            this.cFunciones.DIALOG.open(FactLotificarComponent, {
-              panelClass: "escasan-dialog-full",
-              data: [det.CodBodega, det.VentaDetalle],
-              disableClose: true
+              this.cFunciones.DIALOG.open(FactLotificarComponent, {
+                panelClass: "escasan-dialog-full",
+                data: [det.CodBodega, det.VentaDetalle],
+                disableClose: true
+              });
+
+
+
+
+            dialogRefLote.afterClosed().subscribe(s => {
+
+
+              if (dialogRefLote.componentInstance.Repuesta == 1) {
+                det.VentaDetalle = JSON.parse(JSON.stringify(dialogRefLote.componentInstance.lstDetalle.data));
+                det.VentaLote = JSON.parse(JSON.stringify(dialogRefLote.componentInstance.lstLote));
+                det.VentaLote.forEach(f => { f.Key = f.Key[0] });
+
+                this.V_ConvertirFactura(det);
+              }
+
             });
 
 
 
 
-          dialogRefLote.afterClosed().subscribe(s => {
-
-
-            if (dialogRefLote.componentInstance.Repuesta == 1){
-              det.VentaDetalle = JSON.parse(JSON.stringify(dialogRefLote.componentInstance.lstDetalle.data));
-              det.VentaLote = JSON.parse(JSON.stringify(dialogRefLote.componentInstance.lstLote));
-              det.VentaLote.forEach(f =>{ f.Key = f.Key[0]});
- 
-              this.V_ConvertirFactura(det);
-            }
-
-          });
-
-
-
-           
           }
 
         },
@@ -453,76 +504,23 @@ export class RegistroFacturaComponent {
   }
 
 
-  async printPDFS() {
+  async printPDFS(datos: any) {
 
-   
-    
-    let byteArray = new Uint8Array(atob(DatosImpresion[0].d).split('').map(char => char.charCodeAt(0)));
-    let byteArray2 = new Uint8Array(atob(DatosImpresion[1].d).split('').map(char => char.charCodeAt(0)));
+    if(datos == null) return;
 
+    let byteArray = new Uint8Array(atob(datos).split('').map(char => char.charCodeAt(0)));
 
     var file = new Blob([byteArray], { type: 'application/pdf' });
-    var file2 = new Blob([byteArray2], { type: 'application/pdf' });
 
     let url = URL.createObjectURL(file);
-    let url2 = URL.createObjectURL(file2);
 
-     /* Array of pdf urls */
-     let pdfsToMerge = [url, url2];
+    let tabOrWindow : any = window.open(url, '_blank');
+    tabOrWindow.focus();
 
-   // if (window.innerWidth > 992)
-   // {
 
-      if (this.cFunciones.MyBrowser() == "Firefox")
-      {
-        let dialogRef: MatDialogRef<ImprimirFacturaComponent> = this.cFunciones.DIALOG.open(
-          ImprimirFacturaComponent,
-          {
-            panelClass: window.innerWidth < 992 ? "escasan-dialog-full" : "escasan-dialog",
-            data : pdfsToMerge,
-            disableClose: true
-          }
-        );
-      }
-      else
-      {
-        pdfsToMerge = [url]; //  let pdfsToMerge = [url, url2] imprimir multiples pdf en una sola ventana;
-        const mergedPdf = await PDFDocument.create();
-        for (const pdfCopyDoc of pdfsToMerge) {
-          const pdfBytes = await fetch(pdfCopyDoc).then(res => res.arrayBuffer())
-          //const pdfBytes = fs.readFileSync(pdfCopyDoc);
-          const pdf = await PDFDocument.load(pdfBytes);
-          const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-          copiedPages.forEach((page : any) => {
-            mergedPdf.addPage(page);
-          });
-        }
-        const mergedPdfFile = await mergedPdf.save();
-        this.downloadFile(mergedPdfFile);
-   
-      }
 
-      
- //   }
- /*   else
-    {
-      var a = document.createElement("a");
-      a.href = url;
-      a.download = DatosImpresion[0].Nombre + ".pdf";
-      document.body.appendChild(a);
-      a.click();
-      a.remove()
 
-      a = document.createElement("a");
-      a.href = url2;
-      a.download = DatosImpresion[1].Nombre + ".pdf";
-      document.body.appendChild(a);
-      a.click();
-      a.remove()
 
-    }
-
-*/
   }
 
 

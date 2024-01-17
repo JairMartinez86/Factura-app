@@ -3,6 +3,8 @@ export interface iFactPed{
     ID : number;
     TipoDocumento : string;
     Serie : string;
+    IdFactura : number;
+    IdProforma : number;
     NoFactura: string;
     NoPedido: string;
     CodCliente : string;

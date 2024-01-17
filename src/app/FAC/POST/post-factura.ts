@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/internal/Observable";
 import { Conexion } from "src/app/SHARED/class/Cadena_Conexion";
 import { iFactPed } from "../interface/i-Factura-Pedido";
+import { iFacturaPagoCancelacion } from "../interface/i-Factura-Pago-Cancelacion";
 
 @Injectable({
     providedIn: 'root',
@@ -35,6 +36,11 @@ export class postFactura{
 
     return this.http.post<any>(this._Cnx.Url() + "Factura/ConvertirFactura", JSON.stringify(det), { headers: { 'content-type': 'application/json' } });
 
+ }
+
+ public PagarFactura(det: iFacturaPagoCancelacion) : Observable<string>{
+
+    return this.http.post<any>(this._Cnx.Url() + "Factura/PagarFactura", JSON.stringify(det), { headers: { 'content-type': 'application/json' } });
 
  }
  

@@ -21,7 +21,7 @@ export class AnularComponent {
   constructor(public dialogRef: MatDialogRef<AnularComponent>,
     private POST: postFactura, public cFunciones: Funciones) {
 
-    this.val.add("txtNoDoc", "1", "LEN>", "0", "No Documento", "Error con el número del documento.");
+    this.val.add("txtNoDoc", "1", "LEN>=", "0", "No Documento", "Error con el número del documento.");
     this.val.add("txtSerie", "1", "LEN>", "0", "Serie", "Error con la serie del documento.");
     this.val.add("txtBodega", "1", "LEN>=", "0", "Bodega", "");
     this.val.add("txtFecha", "1", "LEN>=", "0", "Fecha", "");

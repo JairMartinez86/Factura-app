@@ -11,6 +11,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DialogErrorComponent } from 'src/app/SHARED/componente/dialog-error/dialog-error.component';
 import { WaitComponent } from 'src/app/SHARED/componente/wait/wait.component';
 import { iDatos } from 'src/app/SHARED/interface/i-Datos';
+import { postFactura } from 'src/app/FAC/POST/post-factura';
+import { iFacturaPagoCancelacion } from 'src/app/FAC/interface/i-Factura-Pago-Cancelacion';
 
 @Component({
   selector: 'app-fact-pago',
@@ -44,11 +46,16 @@ export class FactPagoComponent {
   public str_Pago_Dol: string = "0.00";
   public str_Vuelto_Dol : string = "0.00";
   public str_Etiqueta_Vuelto = "DEBE";
+  private VueltoCordoba : number = 0;
+  private VueltoDolar : number = 0;
+  private Fecha: Date;
+  private  IdFactura : number = 0;
+
 
   public TC : number;
 
   
-  constructor(public cFunciones: Funciones,  private GET: getFactura,
+  constructor(public cFunciones: Funciones,  private GET: getFactura, private POST: postFactura,
     public dialogRef: MatDialogRef<FactPagoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any[],
   ) {
@@ -57,6 +64,8 @@ export class FactPagoComponent {
     this.str_Total_Cor = this.cFunciones.NumFormat(data[0], "2");
     this.str_Total_Dol = this.cFunciones.NumFormat(data[1], "2");
     this.TC = data[2];
+    this.Fecha = data[3];
+    this.IdFactura = data[4];
     this.V_Agrega();
     this.V_Refrescar();
   }
@@ -78,7 +87,7 @@ export class FactPagoComponent {
 
       det.IdFormaPago = item?.IdFormaPago;
       det.NoDoc = "";
-      det.Fecha = "NULL";
+      det.Fecha = this.cFunciones.DateFormat(this.Fecha, "yyyy-MM-dd");
       if(det.Importe ==  undefined || item.EsTransaccion) det.Referencia = "";
       det.IdBanco = item?.IdBanco;
       if(det.Importe ==  undefined) det.Importe = "0.00";
@@ -108,7 +117,7 @@ export class FactPagoComponent {
       }
 
    
-     
+     this.V_Calcular();
 
     }
 
@@ -142,6 +151,7 @@ export class FactPagoComponent {
 
     this.valTabla.EsValido();
 
+
     if(this.valTabla.Errores != "")
     {
 
@@ -154,9 +164,186 @@ export class FactPagoComponent {
     }
 
 
+    let datos : iFormaPago[] = [];
+    let strError : string = "";
 
-    this.Repuesta = 1;
-    this.dialogRef.close();
+    if(this.str_Etiqueta_Vuelto == "DEBE"){
+      strError = "<li>No se ha pagado la totalidad de la factura.</li>";
+    }
+
+
+
+    if(strError != "")
+    {
+
+      this.cFunciones.DIALOG.open(DialogErrorComponent, {
+        data:
+          "<ul>" + strError + "</ul>",
+      });
+      return;
+   
+    }
+
+
+    this.lstDetalle.data.filter(f => Number(String(f.Importe).replaceAll(",", "")) > 0 && !f.EsTransaccion && f.IdFormaPago == 1 ).forEach(x =>{
+      datos.push(x);
+    });
+
+
+    this.lstDetalle.data.filter(f => Number(String(f.Importe).replaceAll(",", "")) > 0 && f.EsTransaccion && f.IdFormaPago == 4 ).forEach(x =>{
+      datos.push(x);
+    });
+
+
+
+    if(this.lstDetalle.data.filter(f => f.IdFormaPago == 1 && f.IdMoneda == this.cFunciones.MonedaLocal).length > 1){
+      strError = "<li>Solo se permiten 1 forma de pago en " + this.cFunciones.MonedaLocal + "</li>";
+    }
+
+
+    if(this.lstDetalle.data.filter(f => f.IdFormaPago == 1 && f.IdMoneda != this.cFunciones.MonedaLocal).length > 1){
+      strError = "<li>Solo se permiten 1 forma de pago en US</li>";
+    }
+
+
+    if(this.lstDetalle.data.filter(f => f.IdFormaPago == 4).length > 1){
+      strError = "<li>Solo se permiten 2 tarjetas como forma de pago.</li>";
+    }
+
+    
+    if(this.lstDetalle.data.filter(f => f.IdFormaPago == 5).length > 1){
+      strError = "<li>Retencion duplicada</li>";
+    }
+
+
+    if(this.lstDetalle.data.filter(f => f.IdFormaPago == 6).length > 2){
+      strError = "<li>Retencion duplicada</li>";
+    }
+
+
+    if(this.lstDetalle.data.filter(f => f.IdFormaPago == 4).length > 0 && (this.VueltoDolar > 0 || this.VueltoCordoba > 0)){
+
+
+      if(this.lstDetalle.data.filter(f => f.IdFormaPago == 1).length == 0){
+        strError = "<li>Por favor revise la forma de pago.</li>";
+      }
+      else
+      {
+        let TCordoba : number = 0;
+        this.lstDetalle.data.filter(f => f.IdFormaPago == 1).forEach(a => TCordoba += a.ImporteCordoba)
+
+        if(TCordoba < this.VueltoCordoba ){
+          strError = "<li>Por favor revise la forma de pago.<li>";
+        }
+       
+      }
+
+      
+      
+    }
+
+
+    if(strError != "")
+    {
+
+      this.cFunciones.DIALOG.open(DialogErrorComponent, {
+        data:
+          "<ul>" + strError + "</ul>",
+      });
+      return;
+   
+    }
+
+    
+
+
+
+    if(this.str_Etiqueta_Vuelto = "VUELTO"){
+
+      let _Fila_Vuelto : iFormaPago = this.lstDetalle.data.sort(o => o.IdFormaPago)[0];
+
+
+      let p : iFormaPago = {} as iFormaPago;
+      p.Index = (datos.length + 1) * -1;
+      p.IdRecDetPago = -1;
+      p.IdRecibo = -1;
+      p.IdPago = [];
+      p.IdFormaPago = _Fila_Vuelto.IdFormaPago;
+      p.NoDoc = ""
+      p.Fecha = this.cFunciones.DateFormat(this.Fecha, "yyyy-MM-dd");
+      p.Referencia = _Fila_Vuelto.Referencia;
+      p.IdBanco = _Fila_Vuelto.IdBanco;
+      p.IdMoneda = _Fila_Vuelto.IdMoneda;
+      p.Importe = this.cFunciones.Redondeo((_Fila_Vuelto.IdMoneda == this.cFunciones.MonedaLocal? this.VueltoCordoba : this.VueltoDolar )  * -1, "2");
+      p.ImporteCordoba =  this.cFunciones.Redondeo(this.VueltoCordoba * -1, "2");
+      p.ImporteDolar = this.cFunciones.Redondeo(this.VueltoDolar * -1, "2");
+      p.EsTransaccion = _Fila_Vuelto.EsTransaccion;
+      p.strEvento =  "AGREGAR";
+      datos.push(p);
+
+    }
+
+    datos.forEach(f =>{ f.Importe = Number(String(f.Importe).replaceAll(",", "")) });
+
+
+    let DatosPago = this.cFunciones.InterfaceColToString(datos , ["IdRecibo", "IdFormaPago", "NoDoc", "Fecha", "Referencia", "IdBanco", "IdMoneda", "Importe", "ImporteDolar", "ImporteCordoba", "strEvento"]);
+   
+   
+
+
+    let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(
+      WaitComponent,
+      {
+        panelClass: "escasan-dialog-full-blur",
+        data: "",
+      }
+    );
+
+    let Pago : iFacturaPagoCancelacion = {} as iFacturaPagoCancelacion;
+    Pago.IdFactura = this.IdFactura;
+    Pago.Pago = DatosPago;
+    
+    this.POST.PagarFactura(Pago).subscribe(
+      {
+        next: (s) => {
+          dialogRef.close();
+
+
+          let _json = JSON.parse(s);
+
+          if (_json["esError"] == 1) {
+            if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
+              this.cFunciones.DIALOG.open(DialogErrorComponent, {
+                id: "error-servidor-msj",
+                data: _json["msj"].Mensaje,
+              });
+            }
+          } else {
+
+            this.Repuesta = 1;
+            this.dialogRef.close();
+
+          }
+
+        },
+        error: (err) => {
+          dialogRef.close();
+
+          if (this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) {
+            this.cFunciones.DIALOG.open(DialogErrorComponent, {
+              id: "error-servidor",
+              data: "<b class='error'>" + err.message + "</b>",
+            });
+          }
+        },
+        complete: () => {
+          dialogRef.close();
+        }
+      }
+    );
+   
+   
+  
 
   }
 
@@ -249,6 +436,7 @@ export class FactPagoComponent {
     if(i != undefined) this.lstDetalle.data.splice(i, 1);
 
     this.lstDetalle._updateChangeSubscription();
+    this.V_Calcular();
   }
 
 
@@ -273,7 +461,7 @@ export class FactPagoComponent {
     p.IdPago = undefined;
     p.IdFormaPago = -1;
     p.NoDoc = "";
-    p.Fecha = "NULL";
+    p.Fecha = this.cFunciones.DateFormat(this.Fecha, "yyyy-MM-dd");
     p.Referencia = "";
     p.IdBanco = "NULL";
     p.IdMoneda =  this.cFunciones.MonedaLocal;;
@@ -324,8 +512,8 @@ export class FactPagoComponent {
     let PagoCordoba : number = 0;
     let TotalCordoba : number = Number(this.str_Total_Cor.replaceAll(",", ""));
     let TotaDolar : number = Number(this.str_Total_Dol.replaceAll(",", ""));
-    let VueltoCordoba : number = 0;
-    let VueltoDolar : number = 0;
+    this.VueltoCordoba  = 0;
+    this.VueltoDolar  = 0;
 
 
     this.lstDetalle.data.forEach(_Fila =>{
@@ -354,29 +542,35 @@ export class FactPagoComponent {
     });
 
 
-    VueltoDolar = this.cFunciones.Redondeo(PagoDolar -  TotaDolar, "2");
-    VueltoCordoba =  this.cFunciones.Redondeo(PagoCordoba - TotalCordoba, "2")
+    this.VueltoDolar = this.cFunciones.Redondeo(PagoDolar -  TotaDolar, "2");
+    this.VueltoCordoba =  this.cFunciones.Redondeo(PagoCordoba - TotalCordoba, "2")
 
-    if(VueltoDolar >= 0 && VueltoCordoba >= 0) this.str_Etiqueta_Vuelto = "VUELTO";
+    if(this.VueltoDolar >= 0 && this.VueltoCordoba >= 0) this.str_Etiqueta_Vuelto = "VUELTO";
 
     PagoDolar = this.cFunciones.Redondeo(PagoDolar, "2");
     PagoCordoba = this.cFunciones.Redondeo(PagoCordoba, "2");
 
-    VueltoDolar = this.cFunciones.Redondeo(VueltoDolar, "2");
-    VueltoCordoba = this.cFunciones.Redondeo(VueltoCordoba, "2");
+    this.VueltoDolar = this.cFunciones.Redondeo(this.VueltoDolar, "2");
+    this.VueltoCordoba = this.cFunciones.Redondeo(this.VueltoCordoba, "2");
 
-    // this.str
+    this.str_Pago_Cod = this.cFunciones.NumFormat(PagoCordoba, "2");
+     this.str_Pago_Dol = this.cFunciones.NumFormat(PagoDolar, "2");
+
+     this.str_Vuelto_Cod = this.cFunciones.NumFormat(this.VueltoCordoba, "2");
+     this.str_Vuelto_Dol = this.cFunciones.NumFormat(this.VueltoDolar, "2");
 
     if(PagoDolar == 0) this.str_Pago_Dol = "-";
     if(PagoCordoba == 0) this.str_Pago_Dol = "-";
 
-    if(VueltoDolar == 0) this.str_Vuelto_Cod = "-";
-    if(VueltoCordoba == 0) this.str_Vuelto_Dol = "-";
+    if(this.VueltoDolar == 0) this.str_Vuelto_Cod = "-";
+    if(this.VueltoCordoba == 0) this.str_Vuelto_Dol = "-";
 
 
 
   }
 
+
+  
   ngOnInit(): void {
 
   

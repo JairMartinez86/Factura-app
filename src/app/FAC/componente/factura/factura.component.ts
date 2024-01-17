@@ -1291,7 +1291,7 @@ export class FacturaComponent {
             });
 
 
-            this._Evento("Limpiar");
+            this._Evento("Iniciar");
 
             (document.querySelector("#frmFichaFactura") as HTMLElement).setAttribute(
               "style",
