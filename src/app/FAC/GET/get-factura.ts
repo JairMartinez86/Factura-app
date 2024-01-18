@@ -78,7 +78,7 @@ export class getFactura{
    
 
    public GetExistenciaUbicacion(CodProducto : string, CodBodega : string) : Observable<string>{
-      return this.http.get<any>("http://Factura/GetExistenciaUbicacion?CodProducto=" + CodProducto +"&CodBodega=" +CodBodega);
+      return this.http.get<any>(this._Cnx.Url() +  "Factura/GetExistenciaUbicacion?CodProducto=" + CodProducto +"&CodBodega=" +CodBodega);
    }
 
 

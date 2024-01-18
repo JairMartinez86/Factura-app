@@ -443,52 +443,41 @@ public V_Total_Lotificado(det: iDetalleFactura, l: iVentaLote)
           next: (s) => {
 
 
-            let _json: any = s;
+    
+            let datos : any = s;
+   
+            datos.forEach((fila : any) =>{
+              lstUb.push(fila);
+            });
+            
+            
 
-            if (_json.esError == 1) {
 
-              if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
-                this.cFunciones.DIALOG.open(DialogErrorComponent, {
-                  id: "error-servidor-msj",
-                  data: _json["msj"].Mensaje,
-                });
-              }
-            } else {
+            if (Reg >= TotalReg) {
 
-              
-              JSON.parse(_json.d).forEach((fila : any) =>{
-                lstUb.push(fila);
+           
+              this.lstExistencia = lstUb;
+       
+
+              let Exits =  JSON.parse(JSON.stringify(this.lstExistencia ));
+          
+          
+              this.lstDetalle.data.forEach(async (f : iDetalleFactura) =>{
+          
+                f.Lotificado =  await this.Lotificar( f.IdVenta, f.Index, f.Codigo, f.Cantidad, f.EsBonif, f.FacturaNegativo, Exits);
+          
               });
+          
+          
               
-              
+              this.lstDetalle._updateChangeSubscription();
 
-
-              if (Reg >= TotalReg) {
-
-             
-                this.lstExistencia = lstUb;
-         
-
-                let Exits =  JSON.parse(JSON.stringify(this.lstExistencia ));
-            
-            
-                this.lstDetalle.data.forEach(async (f : iDetalleFactura) =>{
-            
-                  f.Lotificado =  await this.Lotificar( f.IdVenta, f.Index, f.Codigo, f.Cantidad, f.EsBonif, f.FacturaNegativo, Exits);
-            
-                });
-            
-            
-                
-                this.lstDetalle._updateChangeSubscription();
-
-
-              }
-
-
-              Reg += 1;
 
             }
+
+
+            Reg += 1;
+
 
           },
           error: (err) => {
