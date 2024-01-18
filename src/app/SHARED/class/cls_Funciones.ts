@@ -27,6 +27,7 @@ export class Funciones {
   public Rol: string = "";
   public Bodega: string = "";
   public Lotificar : boolean = false;
+  public ColaImpresionWeb : boolean = false;
 
 
   constructor(public DIALOG: MatDialog) {

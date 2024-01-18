@@ -34,7 +34,7 @@ export class SidebarComponent {
     @Inject(DOCUMENT) private document: HTMLDocument,
     private _SrvLogin: LoginService,
     private Conexion: getServidor,
-    private cFunciones: Funciones,
+    public cFunciones: Funciones,
   ) {
   }
 

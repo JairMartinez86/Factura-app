@@ -7,6 +7,7 @@ export interface iLogin{
     Lotificar : boolean;
     FechaLogin: string;
     Desconecion : boolean;
+    ColaImpresionWeb : boolean;
     FechaServer : string;
     TimeOut: number;
 }
