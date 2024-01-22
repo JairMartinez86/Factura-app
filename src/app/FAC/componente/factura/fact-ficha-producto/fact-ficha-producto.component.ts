@@ -153,7 +153,7 @@ export class FactFichaProductoComponent {
         this.val.Get("txtProducto").setValue("");
         this.val.Get("txtPrecioCor").setValue("0.0000");
         this.val.Get("txtPrecioDol").setValue("0.0000");
-        this.val.Get("txtCantidad").setValue("1.00");
+        this.val.Get("txtCantidad").setValue("1");
         this.val.Get("txtProcDescuento").setValue("0.00");
 
         this.val.Get("txtCodProducto").enable();
@@ -277,7 +277,7 @@ export class FactFichaProductoComponent {
       this.val.Get("txtProducto").setValue("");
       this.val.Get("txtPrecioCor").setValue("0.0000");
       this.val.Get("txtPrecioDol").setValue("0.0000");
-      this.val.Get("txtCantidad").setValue("1.00");
+      this.val.Get("txtCantidad").setValue("1");
       this.val.Get("txtProcDescuento").setValue("0.00");
 
 
@@ -459,7 +459,7 @@ export class FactFichaProductoComponent {
     this.val.Get("txtProducto").setValue("");
     this.val.Get("txtPrecioCor").setValue("0.0000");
     this.val.Get("txtPrecioDol").setValue("0.0000");
-    if (!this.bol_BonificacionLibre) this.val.Get("txtCantidad").setValue("1.00");
+    if (!this.bol_BonificacionLibre) this.val.Get("txtCantidad").setValue("1");
     this.val.Get("txtProcDescuento").setValue("0.00");
 
     this.val.Get("txtCodProducto").enable();
@@ -592,7 +592,7 @@ export class FactFichaProductoComponent {
                 this.bol_BonificacionLibre = false;
 
                 dialogRefBonif.componentInstance.valBonif.Get("txtCantidadBonif").setValue(this.val.Get("txtCantidad").value);
-                this.val.Get("txtCantidad").setValue("1.00");
+                this.val.Get("txtCantidad").setValue("1");
                 dialogRefBonif.componentInstance.v_ForzarSeleccionar(this.i_Bonif.Codigo);
                 this.i_Bonif = undefined;
 
@@ -868,7 +868,7 @@ export class FactFichaProductoComponent {
 
     if (s == "-") num -= 1;
 
-    this.val.Get(id).setValue(this.cFunciones.NumFormat(num, "2"));
+    this.val.Get(id).setValue(this.cFunciones.NumFormat(num, (id == "txtCantidad" ? (this.Servicios ? "2" : "0") : "2")));
 
     this.Calcular();
   }
@@ -1075,6 +1075,20 @@ export class FactFichaProductoComponent {
   ngDoCheck() {
 
 
+      ///CAMBIO DE FOCO
+      this.val.addFocus("txtCodProducto", "txtPrecioCor", undefined);
+      this.val.addFocus("txtPrecioCor", "txtCantidad", undefined);
+  
+      this.val.addFocus("txtPrecioDol", "txtCantidad", undefined);
+      this.val.addFocus("txtCantidad", "txtProcDescuento", undefined);
+      this.val.addFocus("txtProcDescuento", "btnAgregarProducto", "click");
+  
+  
+      this.val.addNumberFocus("txtCantidad", (this.Servicios ? 2 : 0));
+      this.val.addNumberFocus("txtPrecioCor", 4);
+      this.val.addNumberFocus("txtProcDescuento", 2);
+
+      
 
     if (this.cmbProducto != undefined) this.cmbProducto.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
 
@@ -1093,22 +1107,10 @@ export class FactFichaProductoComponent {
 
   private ngOnInit() {
 
-    ///CAMBIO DE FOCO
-    this.val.addFocus("txtCodProducto", "txtPrecioCor", undefined);
-    this.val.addFocus("txtPrecioCor", "txtCantidad", undefined);
-
-    this.val.addFocus("txtPrecioDol", "txtCantidad", undefined);
-    this.val.addFocus("txtCantidad", "txtProcDescuento", undefined);
-    this.val.addFocus("txtProcDescuento", "btnAgregarProducto", "click");
-
-
-    this.val.addNumberFocus("txtCantidad", 2);
-    this.val.addNumberFocus("txtPrecioCor", 4);
-    this.val.addNumberFocus("txtProcDescuento", 2);
-
+  
 
     //FILTRO PRODUCTO
-    this.filteredProductos = this.val.Get("txtCodProducto").valueChanges.pipe(
+  /*  this.filteredProductos = this.val.Get("txtCodProducto").valueChanges.pipe(
       startWith(""),
       map((value: string) => {
         return this.lstProductos.filter((option) =>
@@ -1117,7 +1119,7 @@ export class FactFichaProductoComponent {
           )
         );
       })
-    );
+    );*/
   }
 
 
