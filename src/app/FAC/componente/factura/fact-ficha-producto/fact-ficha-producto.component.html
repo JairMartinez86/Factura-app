@@ -145,8 +145,8 @@
                                         <div class="form-floating">
                                             <input type="text" id="txtCantidad" class="form-control" placeholder=""
                                                 aria-label="Cantidad" formControlName="txtCantidad"
-                                                (keydown)="this.cFunciones.v_Prevent_IsNumber($event,  'Entero');"
-                                                (change)="Calcular();" (focusout)="v_FocusOut('txtCantidad', '0');">
+                                                (keydown)="this.cFunciones.v_Prevent_IsNumber($event,  (Servicios? 'Decimal' :  'Entero') );"
+                                                (change)="Calcular();" (focusout)="v_FocusOut('txtCantidad', (Servicios? '2' :  '0') );">
                                             <label for="txtCantidad">Cantidad</label>
                                         </div>
                                         <span class="input-group-text input-group-simbolo">

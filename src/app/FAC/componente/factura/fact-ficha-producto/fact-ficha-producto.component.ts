@@ -68,6 +68,7 @@ export class FactFichaProductoComponent {
   public TotalCordoba: number = 0;
   public TotalDolar: number = 0;
   private TipoFactura : string = "";
+  public Servicios : boolean = false;
 
   private EsModal: boolean = false;
 
@@ -152,7 +153,7 @@ export class FactFichaProductoComponent {
         this.val.Get("txtProducto").setValue("");
         this.val.Get("txtPrecioCor").setValue("0.0000");
         this.val.Get("txtPrecioDol").setValue("0.0000");
-        this.val.Get("txtCantidad").setValue("1");
+        this.val.Get("txtCantidad").setValue("1.00");
         this.val.Get("txtProcDescuento").setValue("0.00");
 
         this.val.Get("txtCodProducto").enable();
@@ -276,10 +277,11 @@ export class FactFichaProductoComponent {
       this.val.Get("txtProducto").setValue("");
       this.val.Get("txtPrecioCor").setValue("0.0000");
       this.val.Get("txtPrecioDol").setValue("0.0000");
-      this.val.Get("txtCantidad").setValue("1");
+      this.val.Get("txtCantidad").setValue("1.00");
       this.val.Get("txtProcDescuento").setValue("0.00");
 
 
+      this.Servicios = _Item.Servicios;
       this.CodProducto = _Item.Codigo;
       this.val.Get("txtProducto").setValue(_Item.Producto);
       this.val.Get("txtCodProducto").disable();
@@ -448,6 +450,7 @@ export class FactFichaProductoComponent {
 
   public v_Borrar_Producto(): void {
     this.CodProducto = "";
+    this.Servicios = false;
     this.bol_EsPrecioLiberado = false;
     this.lstPrecios.splice(0, this.lstPrecios.length);
     this.lstBonificacion.splice(0, this.lstBonificacion.length);
@@ -456,7 +459,7 @@ export class FactFichaProductoComponent {
     this.val.Get("txtProducto").setValue("");
     this.val.Get("txtPrecioCor").setValue("0.0000");
     this.val.Get("txtPrecioDol").setValue("0.0000");
-    if (!this.bol_BonificacionLibre) this.val.Get("txtCantidad").setValue("1");
+    if (!this.bol_BonificacionLibre) this.val.Get("txtCantidad").setValue("1.00");
     this.val.Get("txtProcDescuento").setValue("0.00");
 
     this.val.Get("txtCodProducto").enable();
@@ -589,7 +592,7 @@ export class FactFichaProductoComponent {
                 this.bol_BonificacionLibre = false;
 
                 dialogRefBonif.componentInstance.valBonif.Get("txtCantidadBonif").setValue(this.val.Get("txtCantidad").value);
-                this.val.Get("txtCantidad").setValue("1");
+                this.val.Get("txtCantidad").setValue("1.00");
                 dialogRefBonif.componentInstance.v_ForzarSeleccionar(this.i_Bonif.Codigo);
                 this.i_Bonif = undefined;
 
@@ -684,9 +687,13 @@ export class FactFichaProductoComponent {
     if (det.Precio == 0) MsjError += "<li class='error-etiqueta'>Precio<ul><li class='error-mensaje'>El producto no tiene precio.</li></ul>";
     if (det.PorcDescuento > 100) MsjError += "<li class='error-etiqueta'>Descuento<ul><li class='error-mensaje'>Por favor revise el descuento.</li></ul>";
 
-    if (Existencia == undefined && !det.FacturaNegativo && this.TipoFactura == "Factura") MsjError += "<li class='error-etiqueta'>Existencia<ul><li class='error-mensaje'>El producto no tiene existencia.</li></ul>";
-    if (Existencia != undefined && this.TipoFactura == "Factura")if (Number(Existencia?.Existencia) <= 0 && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Existencia<ul><li class='error-mensaje'>El producto no tiene existencia.</li></ul>";
-    if (Existencia != undefined && this.TipoFactura == "Factura")if (Number(Existencia?.Existencia) > 0 && Number(Existencia?.Existencia) < det.Cantidad && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Cantidad<ul><li class='error-mensaje'>La cantidad supera la existencia. " + this.cFunciones.NumFormat(Number(Existencia?.Existencia), "0") + "</li></ul>";
+    if(!det.Servicios)
+    {
+      if (Existencia == undefined && !det.FacturaNegativo && this.TipoFactura == "Factura") MsjError += "<li class='error-etiqueta'>Existencia<ul><li class='error-mensaje'>El producto no tiene existencia.</li></ul>";
+      if (Existencia != undefined && this.TipoFactura == "Factura")if (Number(Existencia?.Existencia) <= 0 && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Existencia<ul><li class='error-mensaje'>El producto no tiene existencia.</li></ul>";
+      if (Existencia != undefined && this.TipoFactura == "Factura")if (Number(Existencia?.Existencia) > 0 && Number(Existencia?.Existencia) < det.Cantidad && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Cantidad<ul><li class='error-mensaje'>La cantidad supera la existencia. " + this.cFunciones.NumFormat(Number(Existencia?.Existencia), "0") + "</li></ul>";
+  
+    }
 
     if (Descuento == undefined && det.PorcDescuento != 0) MsjError += "<li class='error-etiqueta'>Descuento<ul><li class='error-mensaje'>No se permite el descuento.</li></ul>";
     if (Descuento != undefined) {
@@ -739,6 +746,7 @@ export class FactFichaProductoComponent {
         DetalleBonificado.IdDescuentoDet = 0;
         DetalleBonificado.IdLiberacionBonif = 0;
         DetalleBonificado.FacturaNegativo = det.FacturaNegativo;
+        DetalleBonificado.Servicios = det.Servicios;
 
 
         DetalleBonificado.IdProducto = iProd!.IdProducto;
@@ -860,7 +868,7 @@ export class FactFichaProductoComponent {
 
     if (s == "-") num -= 1;
 
-    this.val.Get(id).setValue(this.cFunciones.NumFormat(num, (id == "txtCantidad" ? "0" : "2")));
+    this.val.Get(id).setValue(this.cFunciones.NumFormat(num, "2"));
 
     this.Calcular();
   }
@@ -1060,6 +1068,7 @@ export class FactFichaProductoComponent {
     this.Detalle.IdLiberacion = iPrec == undefined && this.Detalle.PrecioLiberado ? 0 : iPrec!.IdLiberacion;
     this.Detalle.IdLiberacionBonif = 0;
     this.Detalle.FacturaNegativo = Producto[0].FacturaNegativo;
+    this.Detalle.Servicios = Producto[0].Servicios;
   }
 
 
@@ -1093,7 +1102,7 @@ export class FactFichaProductoComponent {
     this.val.addFocus("txtProcDescuento", "btnAgregarProducto", "click");
 
 
-    this.val.addNumberFocus("txtCantidad", 0);
+    this.val.addNumberFocus("txtCantidad", 2);
     this.val.addNumberFocus("txtPrecioCor", 4);
     this.val.addNumberFocus("txtProcDescuento", 2);
 

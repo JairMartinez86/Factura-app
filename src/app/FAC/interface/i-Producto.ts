@@ -8,5 +8,6 @@ export interface iProducto{
     Filtro: string;
     Key: string;
     Bonificable: boolean;
+    Servicios : boolean;
     FacturaNegativo : boolean;
 }

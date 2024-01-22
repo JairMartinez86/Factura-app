@@ -56,7 +56,7 @@ export class FactLotificarComponent {
 
   }
 
-  private async Lotificar(IdVenta : any, Index : number, CodProducto : string,  Cantidad : number,  EsBonificado : boolean,  FactNegativo : boolean, Exits : iExistenciaUbicacion[]) : Promise<number>{
+  private async Lotificar(IdVenta : any, Index : number, CodProducto : string,  Cantidad : number,  EsBonificado : boolean,  FactNegativo : boolean, Servicios : boolean, Exits : iExistenciaUbicacion[]) : Promise<number>{
 
     let Lotificado : number = 0;
     
@@ -86,12 +86,12 @@ export class FactLotificarComponent {
 
           if(f.Existencia < Cantidad )
           {
-            Lotificado += this.V_AgregarLote( IdVenta ,f.Key, CodProducto, f.Existencia, f.Ubicacion, f.NoLote, f.Vence, f.Existencia, EsBonificado, false, Index, true)
+            Lotificado += this.V_AgregarLote( IdVenta ,f.Key, CodProducto, f.Existencia, f.Ubicacion, f.NoLote, f.Vence, f.Existencia, EsBonificado, false, false, Index, true)
 
           }
           else
           {
-            Lotificado += this.V_AgregarLote(IdVenta, f.Key, CodProducto, Cantidad, f.Ubicacion, f.NoLote, f.Vence, f.Existencia, EsBonificado, false, Index, true)
+            Lotificado += this.V_AgregarLote(IdVenta, f.Key, CodProducto, Cantidad, f.Ubicacion, f.NoLote, f.Vence, f.Existencia, EsBonificado, false, false, Index, true)
 
           }
 
@@ -105,21 +105,21 @@ export class FactLotificarComponent {
         }
         else
         {
-          Lotificado += this.V_AgregarLote(IdVenta, f.Key, CodProducto, Cantidad, f.Ubicacion, f.NoLote, f.Vence, f.Existencia, EsBonificado, false, Index, true);
+          Lotificado += this.V_AgregarLote(IdVenta, f.Key, CodProducto, Cantidad, f.Ubicacion, f.NoLote, f.Vence, f.Existencia, EsBonificado, false, false, Index, true);
           break;
         }
 
       }
       else
       {
-        if(FactNegativo)
+        if(FactNegativo || Servicios)
         {
 
           AgregarFaltante = false
 
           let Key : string = CodProducto + this.CodBodega + "A00-00S/L";
 
-          Lotificado += this.V_AgregarLote(IdVenta, Key, CodProducto, Cantidad, "A00-00", "S/L", undefined, 0, EsBonificado, true, Index, true);
+          Lotificado += this.V_AgregarLote(IdVenta, Key, CodProducto, Cantidad, "A00-00", "S/L", undefined, 0, EsBonificado, FactNegativo, Servicios, Index, true);
           break;
         }
       }
@@ -129,10 +129,10 @@ export class FactLotificarComponent {
 
 
 
-    if(FactNegativo && AgregarFaltante)
+    if((FactNegativo || Servicios) && AgregarFaltante)
     {
       let Key : string = CodProducto + this.CodBodega + "A00-00S/L";
-      Lotificado += this.V_AgregarLote(IdVenta, Key, CodProducto, Cantidad, "A00-00", "S/L", undefined, 0, EsBonificado, true, Index, true);
+      Lotificado += this.V_AgregarLote(IdVenta, Key, CodProducto, Cantidad, "A00-00", "S/L", undefined, 0, EsBonificado, FactNegativo, Servicios, Index, true);
     }
 
 
@@ -157,7 +157,7 @@ export class FactLotificarComponent {
   }
 
 
-  private V_AgregarLote(IdVenta : any, Key : string, CodProducto : string,  Cantidad : number, Ubicacion : string, NoLote : string, Vence : any, Existencia : number, EsBonificado : boolean, FacturaNegativo : boolean,  Index : number, Automatico : boolean) : number
+  private V_AgregarLote(IdVenta : any, Key : string, CodProducto : string,  Cantidad : number, Ubicacion : string, NoLote : string, Vence : any, Existencia : number, EsBonificado : boolean, FacturaNegativo : boolean, Servicios : boolean,  Index : number, Automatico : boolean) : number
   {
     let l : iVentaLote = {} as iVentaLote;
     let x : number = 0;
@@ -175,6 +175,7 @@ export class FactLotificarComponent {
     l.Codigo = CodProducto;
     l.EsBonificado = EsBonificado;
     l.FacturaNegativo = FacturaNegativo;
+    l.Servicios = Servicios;
  
 
     l.Index = x;
@@ -336,7 +337,7 @@ public V_Total_Lotificado(det: iDetalleFactura, l: iVentaLote)
   
   public V_Agregar(det: iDetalleFactura){
 
-    this.V_AgregarLote(det.IdVenta, "", det.Codigo, 0, "", "", undefined, 0, det.EsBonif, det.FacturaNegativo, det.Index, false);
+    this.V_AgregarLote(det.IdVenta, "", det.Codigo, 0, "", "", undefined, 0, det.EsBonif, det.FacturaNegativo, det.Servicios, det.Index, false);
   }
 
 
@@ -464,7 +465,7 @@ public V_Total_Lotificado(det: iDetalleFactura, l: iVentaLote)
           
               this.lstDetalle.data.forEach(async (f : iDetalleFactura) =>{
           
-                f.Lotificado =  await this.Lotificar( f.IdVenta, f.Index, f.Codigo, f.Cantidad, f.EsBonif, f.FacturaNegativo, Exits);
+                f.Lotificado =  await this.Lotificar( f.IdVenta, f.Index, f.Codigo, f.Cantidad, f.EsBonif,   f.FacturaNegativo, f.Servicios, Exits);
           
               });
           

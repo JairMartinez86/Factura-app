@@ -12,4 +12,5 @@ export interface iVentaLote{
     EsBonificado : boolean;
     Existencia : number
     FacturaNegativo : boolean;
+    Servicios :boolean;
 }
