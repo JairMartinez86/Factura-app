@@ -274,7 +274,8 @@ export class FactFichaProductoComponent {
     if (event.added.length) {
       if (event.newValue.length > 1) event.newValue.splice(0, 1);
 
-      let _Item: iProducto = this.cmbProducto.dropdown.focusedItem.value;
+      let cmb : any = this.cmbProducto.dropdown;
+      let _Item: iProducto = cmb._focusedItem.value;
 
 
       this.CodProducto = "";
