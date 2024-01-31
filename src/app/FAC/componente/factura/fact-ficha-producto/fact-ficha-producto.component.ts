@@ -143,6 +143,10 @@ export class FactFichaProductoComponent {
     switch (e) {
       case "Limpiar":
 
+		this.lstPrecios.splice(0, this.lstPrecios.length);
+		this.lstBonificacion.splice(0, this.lstBonificacion.length);
+		this.lstExistencia.splice(0, this.lstExistencia.length);
+	
         this.Detalle = {} as iDetalleFactura;
         this.bol_Referescar = false;
         this.bol_BonificacionLibre = false;
@@ -307,7 +311,8 @@ export class FactFichaProductoComponent {
 
   public v_Enter_Producto(event: any) {
     if (event.key == "Enter") {
-      let _Item: iProducto = this.cmbProducto.dropdown.focusedItem.value;
+      let cmb: any = this.cmbProducto.dropdown;
+      let _Item: iProducto = cmb._focusedItem.value;
       this.cmbProducto.setSelectedItem(_Item.Codigo);
       this.val.Get("txtCodProducto").setValue([_Item.Codigo]);
       this.CodProducto = _Item.Codigo;
