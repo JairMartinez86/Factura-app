@@ -149,6 +149,7 @@ export class FactFichaProductoComponent {
         this.bol_EsPrecioLiberado = false;
         this.i_Bonif = undefined;
         this.CodProducto = "";
+        this.cmbProducto.deselectAllItems();
         this.val.Get("txtCodProducto").setValue("");
         this.val.Get("txtProducto").setValue("");
         this.val.Get("txtPrecioCor").setValue("0.0000");
@@ -455,6 +456,7 @@ export class FactFichaProductoComponent {
     this.lstPrecios.splice(0, this.lstPrecios.length);
     this.lstBonificacion.splice(0, this.lstBonificacion.length);
     this.lstExistencia.splice(0, this.lstExistencia.length);
+    this.cmbProducto.deselectAllItems();
     this.val.Get("txtCodProducto").setValue("");
     this.val.Get("txtProducto").setValue("");
     this.val.Get("txtPrecioCor").setValue("0.0000");
