@@ -237,7 +237,7 @@ export class FactConfirmarComponent {
         this.v_EsClienteClave(event.added);
       }
 
-      if(window.innerWidth <= this.cFunciones.TamanoPantalla("sm")) this.cmbVendedor.close();
+      if(window.innerWidth <= this.cFunciones.TamanoPantalla("md")) this.cmbVendedor.close();
     }
   }
 

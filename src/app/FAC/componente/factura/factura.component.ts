@@ -341,7 +341,7 @@ export class FacturaComponent {
       if (event.newValue.length > 1) event.newValue.splice(0, 1);
       this.LlenarDatosCliente(event.newValue[0]);
 
-      if(window.innerWidth <= this.cFunciones.TamanoPantalla("sm")) this.cmbCliente.close();
+      if(window.innerWidth <= this.cFunciones.TamanoPantalla("md")) this.cmbCliente.close();
 
     }
 
@@ -474,7 +474,7 @@ export class FacturaComponent {
       }
 
 
-      if(window.innerWidth <= this.cFunciones.TamanoPantalla("sm")) this.cmbBodega.close();
+      if(window.innerWidth <= this.cFunciones.TamanoPantalla("md")) this.cmbBodega.close();
 
 
     }
@@ -513,7 +513,7 @@ export class FacturaComponent {
         this.v_EsClienteClave(event.newValue[0]);
       }
 
-      if(window.innerWidth <= this.cFunciones.TamanoPantalla("sm")) this.cmbVendedor.close();
+      if(window.innerWidth <= this.cFunciones.TamanoPantalla("md")) this.cmbVendedor.close();
     }
   }
 
