@@ -285,6 +285,8 @@ export class FactLotificarComponent {
    
       document.getElementById("txtCantidad" + l.Index)?.removeAttribute("disabled");
 
+      if(window.innerWidth <= this.cFunciones.TamanoPantalla("md")) cmb.close();
+
    
     }
 

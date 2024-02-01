@@ -26,8 +26,8 @@ export class Funciones {
   public Nombre: string = "";
   public Rol: string = "";
   public Bodega: string = "";
-  public Lotificar : boolean = false;
-  public ColaImpresionWeb : boolean = false;
+  public Lotificar: boolean = false;
+  public ColaImpresionWeb: boolean = false;
 
 
   constructor(public DIALOG: MatDialog) {
@@ -202,19 +202,19 @@ export class Funciones {
   private getProperty<t, K extends keyof any>(obj: any, key: K): any[K] {
     return obj[key];
   }
- 
 
-public InterfaceToString(datos : any[], Excluir : string[]) : string{
 
-  let cadena : string = "";
-    
+  public InterfaceToString(datos: any[], Excluir: string[]): string {
 
-    datos.forEach( item =>{
+    let cadena: string = "";
 
-      let Columnas  : string[] = Object.keys(item);
 
-      Columnas.forEach(c =>{
-        if(!Excluir.includes(c))cadena += this.getProperty(item, c) + "|";
+    datos.forEach(item => {
+
+      let Columnas: string[] = Object.keys(item);
+
+      Columnas.forEach(c => {
+        if (!Excluir.includes(c)) cadena += this.getProperty(item, c) + "|";
 
       });
 
@@ -224,18 +224,18 @@ public InterfaceToString(datos : any[], Excluir : string[]) : string{
 
 
     return cadena;
-}
+  }
 
 
 
-public InterfaceColToString(datos : any[], Columnas : string[]) : string{
+  public InterfaceColToString(datos: any[], Columnas: string[]): string {
 
-  let cadena : string = "";
-    
+    let cadena: string = "";
 
-    datos.forEach( item =>{
 
-      Columnas.forEach(c =>{
+    datos.forEach(item => {
+
+      Columnas.forEach(c => {
         cadena += this.getProperty(item, c) + "|";
       });
 
@@ -245,9 +245,36 @@ public InterfaceColToString(datos : any[], Columnas : string[]) : string{
 
 
     return cadena;
-}
+  }
 
 
+  public TamanoPantalla(t: string): number {
 
+    let x: number = 0;
+    switch (t) {
+
+      case "sm":
+        x = 576
+        break;
+
+      case "md":
+        x = 768;
+        break;
+
+      case "lg":
+        x = 992;
+        break;
+      
+      case "xl":
+        x = 1200;
+        break;
+
+
+    }
+
+
+    return x;
+
+  }
 
 }
