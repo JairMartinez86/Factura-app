@@ -595,17 +595,22 @@ export class RegistroFacturaComponent {
       } else {
 
 
-        if(!this.Load && this.EsCola) this.CargarDocumentos();
+        if(!this.Load) this.CargarDocumentos();
 
         this.timeLeft = 1;
       }
     },2000)
   }
 
+  ngOnDestroy()
+  {
+    if(this.EsCola)clearInterval(this.interval);
+  }
 
   private ngAfterViewInit() {
 
-    this.startTimer();
+
+    if(this.EsCola)this.startTimer();
 
     ///CAMBIO DE FOCO
     this.val.addFocus("txtFecha1", "txtFecha2", undefined);
