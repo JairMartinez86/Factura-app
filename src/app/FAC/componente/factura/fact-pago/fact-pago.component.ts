@@ -116,7 +116,7 @@ export class FactPagoComponent {
         document.getElementById("txtReferencia" + det.Index)?.removeAttribute("disabled");
       }
 
-   
+      if(window.innerWidth <= this.cFunciones.TamanoPantalla("md")) cmb.close();
      this.V_Calcular();
 
     }

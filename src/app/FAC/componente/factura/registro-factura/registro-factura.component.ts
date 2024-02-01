@@ -37,6 +37,7 @@ export class RegistroFacturaComponent {
 
   public TipoDocumento: string;
   public EsCola: boolean = false;
+  private Load : boolean = false;
 
 
 
@@ -117,6 +118,7 @@ export class RegistroFacturaComponent {
     );
 
     dialogRef.afterOpened().subscribe(s => {
+      this.Load = true;
       dialogRef.componentInstance.val.Get("txtNoDoc").setValue(det.TipoDocumento == "Factura" ? det.NoFactura : det.NoPedido);
       dialogRef.componentInstance.val.Get("txtSerie").setValue(det.Serie);
       dialogRef.componentInstance.val.Get("txtBodega").setValue(det.CodBodega);
@@ -127,6 +129,7 @@ export class RegistroFacturaComponent {
 
 
     dialogRef.afterClosed().subscribe(s => {
+      this.Load = false;
       this.CargarDocumentos();
     });
 
@@ -140,6 +143,7 @@ export class RegistroFacturaComponent {
 
   public v_Editar(det: iFactPed) {
 
+    this.Load = true;
 
 
     let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(
@@ -163,6 +167,8 @@ export class RegistroFacturaComponent {
                 id: "error-servidor-msj",
                 data: _json["msj"].Mensaje,
               });
+
+              this.Load = false;
             }
           } else {
             let Datos: iDatos[] = _json["d"];
@@ -185,7 +191,7 @@ export class RegistroFacturaComponent {
 
             dialogRef.afterClosed().subscribe(s => {
               this.CargarDocumentos();
-
+              this.Load = false;
             });
 
           }
@@ -226,6 +232,7 @@ export class RegistroFacturaComponent {
   
   
         dialogRef.afterOpened().subscribe(s => {
+          this.Load = true;
           dialogRef.componentInstance.mensaje = "Enviar por Correo?";
           dialogRef.componentInstance.textBoton1 = "Si";
           dialogRef.componentInstance.textBoton2 = "No";
@@ -236,7 +243,7 @@ export class RegistroFacturaComponent {
   
         dialogRef.afterClosed().subscribe(s => {
   
-  
+          this.Load = false;
           if (dialogRef.componentInstance.retorno == "1") {
           
             this.V_ImprimirDOC(det, true, true);
@@ -330,6 +337,8 @@ export class RegistroFacturaComponent {
 
   public V_Pago(det: iFactPed) {
 
+    this.Load = true;
+
     let dialogRefPago: MatDialogRef<FactPagoComponent> =
       this.cFunciones.DIALOG.open(FactPagoComponent, {
         panelClass: "escasan-dialog-full",
@@ -343,6 +352,7 @@ export class RegistroFacturaComponent {
 
     dialogRefPago.afterClosed().subscribe(s => {
 
+      this.Load = false;
       if (dialogRefPago.componentInstance.Repuesta == 1) {
        this.CargarDocumentos();
       }
@@ -405,6 +415,8 @@ export class RegistroFacturaComponent {
 
   public V_Lotificar(det: iFactPed): void {
 
+
+
     if(det.TipoDocumento == "Proforma")
     {
       let Vence : Date = new Date(this.cFunciones.DateFormat(det.Vence, "yyyy-MM-dd"));
@@ -424,6 +436,7 @@ export class RegistroFacturaComponent {
     }
 
 
+
     let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(
       WaitComponent,
       {
@@ -432,7 +445,7 @@ export class RegistroFacturaComponent {
       }
     );
 
-
+    this.Load = true;
     this.GET.GetDetalle(det.IdVenta, this.cFunciones.User).subscribe(
       {
         next: (s) => {
@@ -446,6 +459,8 @@ export class RegistroFacturaComponent {
                 id: "error-servidor-msj",
                 data: _json["msj"].Mensaje,
               });
+
+              this.Load = false;
             }
           } else {
             let Datos: iDatos[] = _json["d"];
@@ -455,10 +470,12 @@ export class RegistroFacturaComponent {
               this.cFunciones.DIALOG.open(DialogErrorComponent, {
                 data: Datos[1].d,
               });
+              this.Load = false;
               return;
+              
             }
 
-
+            
 
             det.VentaDetalle = Datos[0].d;
 
@@ -483,6 +500,7 @@ export class RegistroFacturaComponent {
                 det.VentaLote.forEach(f => { f.Key = f.Key[0] });
 
                 this.V_ConvertirFactura(det);
+                this.Load = false;
               }
 
             });
@@ -564,8 +582,30 @@ export class RegistroFacturaComponent {
 
 
 
+
+  timeLeft: number = 1;
+  interval : any;
+
+  
+  startTimer() {
+    this.interval = setInterval(() => {
+      if(this.timeLeft > 0) {
+        this.timeLeft--;
+        history.pushState(null, '');
+      } else {
+
+
+        if(!this.Load && this.EsCola) this.CargarDocumentos();
+
+        this.timeLeft = 1;
+      }
+    },2000)
+  }
+
+
   private ngAfterViewInit() {
 
+    this.startTimer();
 
     ///CAMBIO DE FOCO
     this.val.addFocus("txtFecha1", "txtFecha2", undefined);
