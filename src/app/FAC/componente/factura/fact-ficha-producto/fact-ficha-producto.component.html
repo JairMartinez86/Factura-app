@@ -14,14 +14,15 @@
 
                                     <div class="row">
                                         
-                                        <div class="col-12 col-sm-12 col-md-8 col-lg-2">
+                                        <div class="col-2 col-sm-12 col-md-2 col-lg-2">
                                             <button type="button" class="btn i-boton btn-borrar-producto"
                                                 (click)="v_Borrar_Producto();"><i
                                                         [ngClass]="CodProducto == '' ? 'bi bi-upc-scan fa-xl' : 'fa-solid fa-eraser fa-beat-fade fa-xl'"></i></button>
                                         </div>
 
 
-                                        <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                                        <div class="col-8 col-sm-12 col-md-8 col-lg-8">
+                                            <b>{{CodProducto}}</b>
                                             <igx-combo #cmbProducto [data]="lstProductos" valueKey="Codigo"
                                                 displayKey="Key" id="txtCodProducto" formControlName="txtCodProducto"
                                                 placeholder="Producto" searchPlaceholder="Seleccione un producto..."
@@ -36,7 +37,7 @@
                                             </igx-combo>
                                         </div>
 
-                                        <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+                                        <div class="col-2 col-sm-12 col-md-2 col-lg-2">
 
                                             <button type="button" class="btn i-boton btn-existencia-producto"
                                             (click)="v_tabla_Producto('E');"><i
