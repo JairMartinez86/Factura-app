@@ -456,7 +456,7 @@ export class FacturaComponent {
       this.val.Get("txtBodega").setValue(event.newValue[0]);
       this.CodBodega = event.newValue[0];
       this.FichaProducto.lstDetalle.splice(
-        1,
+        0,
         this.FichaProducto.lstDetalle.length
       );
 
