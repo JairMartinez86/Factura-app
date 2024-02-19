@@ -565,8 +565,14 @@ export class FacturaComponent {
 
             if (Clave.length > 0) {
               if (Clave[0].EsClave && Clave[0].CodVendedor != CodNewVend) {
-                this.cmbVendedor.setSelectedItem(Clave[0].CodVendedor);
-                this.val.Get("txtVendedor").setValue(Clave[0].CodVendedor);
+
+                if(Clave[0].CodVendedor != this.val.Get("txtVendedor").value[0])
+                {
+                  this.cmbVendedor.setSelectedItem(Clave[0].CodVendedor);
+                  this.val.Get("txtVendedor").setValue(Clave[0].CodVendedor);
+                }
+                
+               
                 this.cmbVendedor.close();
 
                 this.cFunciones.DIALOG.open(DialogErrorComponent, {

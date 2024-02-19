@@ -56,7 +56,7 @@ export class FactConfirmarComponent {
   public bol_Exportacion : boolean = false;
   public EsModal: boolean = false;
   public LoadEditar : boolean = false;
-
+  public LoadVenedor : boolean = false;
 
 
   public lstBodega: iBodega[] = [];
@@ -223,10 +223,12 @@ export class FactConfirmarComponent {
 
 
   public v_Select_Vendedor(event: any) {
+    
     if (event.added.length) {
       if(event.newValue.length > 1) event.newValue.splice(0, 1);
+
       let cmb : any = this.cmbVendedor.dropdown;
-      let _Item: iVendedor = cmb._focusedItem.value;
+      let _Item: iVendedor = event.added[0]//cmb._focusedItem.value;
 
       this.val.Get("txtVendedor").setValue(event.added);
 
@@ -234,9 +236,10 @@ export class FactConfirmarComponent {
         this.isEvent = false;
         return;
       } else {
-        this.v_EsClienteClave(event.added);
+        this.v_EsClienteClave(_Item.Codigo);
       }
 
+      this.LoadVenedor = false;
       if(window.innerWidth <= this.cFunciones.TamanoPantalla("md")) this.cmbVendedor.close();
     }
   }
@@ -287,9 +290,13 @@ export class FactConfirmarComponent {
             let Clave: any = Datos[0].d;
 
             if (Clave.length > 0) {
-              if (Clave[0].EsClave && Clave[0].CodVendedor != CodNewVend[0]) {
+              if (Clave[0].EsClave && Clave[0].CodVendedor != CodNewVend) {
+
                 this.cmbVendedor.setSelectedItem(Clave[0].CodVendedor);
-                this.val.Get("txtVendedor").setValue(Clave[0].CodVendedor);
+                  this.val.Get("txtVendedor").setValue(Clave[0].CodVendedor);
+
+
+               
                 this.cmbVendedor.close();
 
                 this.cFunciones.DIALOG.open(DialogErrorComponent, {
