@@ -1300,6 +1300,11 @@ export class FacturaComponent {
             let Datos: iDatos[] = _json["d"];
             let Consecutivo: string = Datos[0].d;
 
+            if(Datos[1].d != undefined && this.Fila_Doc.TipoDocumento == "Factura") this.printPDFS(Datos[1].d);
+
+
+            
+
             if (this.EsModal) {
               if (this.cFunciones.DIALOG.getDialogById("dialog-factura-editar") != undefined) this.cFunciones.DIALOG.getDialogById("dialog-factura-editar")?.close();
 
@@ -1450,6 +1455,25 @@ export class FacturaComponent {
     this.ConfirmarFactura.LoadEditar = this.LoadEditar;
 
   }
+
+
+  async printPDFS(datos: any) {
+
+    if(datos == null) return;
+
+    let byteArray = new Uint8Array(atob(datos).split('').map(char => char.charCodeAt(0)));
+
+    var file = new Blob([byteArray], { type: 'application/pdf' });
+
+    let url = URL.createObjectURL(file);
+
+    let tabOrWindow : any = window.open(url, '_blank');
+    tabOrWindow.focus();
+
+
+
+  }
+
 
   ngDoCheck() {
 

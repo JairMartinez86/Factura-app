@@ -697,9 +697,9 @@ export class FactFichaProductoComponent {
 
     if(!det.Servicios)
     {
-      if (Existencia == undefined && !det.FacturaNegativo && this.TipoFactura == "Factura") MsjError += "<li class='error-etiqueta'>Existencia<ul><li class='error-mensaje'>El producto no tiene existencia.</li></ul>";
-      if (Existencia != undefined && this.TipoFactura == "Factura")if (Number(Existencia?.Existencia) <= 0 && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Existencia<ul><li class='error-mensaje'>El producto no tiene existencia.</li></ul>";
-      if (Existencia != undefined && this.TipoFactura == "Factura")if (Number(Existencia?.Existencia) > 0 && Number(Existencia?.Existencia) < det.Cantidad && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Cantidad<ul><li class='error-mensaje'>La cantidad supera la existencia. " + this.cFunciones.NumFormat(Number(Existencia?.Existencia), "0") + "</li></ul>";
+      if (Existencia == undefined && !det.FacturaNegativo && this.TipoFactura == "Factura") MsjError += "<li class='error-etiqueta'>Existencia<ul><li class='error-mensaje'>" + this.CodProducto + " El producto no tiene existencia.</li></ul>";
+      if (Existencia != undefined && this.TipoFactura == "Factura")if (Number(Existencia?.Existencia) <= 0 && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Existencia<ul><li class='error-mensaje'>" + this.CodProducto + " El producto no tiene existencia.</li></ul>";
+      if (Existencia != undefined && this.TipoFactura == "Factura")if (Number(Existencia?.Existencia) > 0 && Number(Existencia?.Existencia) < det.Cantidad && !det.FacturaNegativo) MsjError += "<li class='error-etiqueta'>Cantidad<ul><li class='error-mensaje'>" + this.CodProducto + " La cantidad supera la existencia. " + this.cFunciones.NumFormat(Number(Existencia?.Existencia), "0") + "</li></ul>";
   
     }
 

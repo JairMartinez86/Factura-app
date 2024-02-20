@@ -303,11 +303,16 @@ export class RegistroFacturaComponent {
 
             let Datos: iDatos[] = _json["d"];
 
-            if(det.TipoDocumento == "Proforma" || ImprimirProforma)
+            if(det.TipoDocumento == "Factura" || ImprimirProforma)
             {
               this.printPDFS(Datos[0].d);
               if(Datos[1].d != undefined)this.printPDFS(Datos[1].d);
               
+            }
+            else
+            {
+              this.printPDFS(Datos[0].d);
+              if(Datos[1].d != undefined)this.printPDFS(Datos[1].d);
             }
 
             

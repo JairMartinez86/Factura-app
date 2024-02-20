@@ -24,7 +24,7 @@ export class FactRevisionComponent {
   private TipoExoneracion: string;
   private bol_Exportacion : boolean = false;
   public EsModal: boolean;
-  private ComponenteProducto : FactFichaProductoComponent; 
+  public ComponenteProducto : FactFichaProductoComponent; 
 
   constructor(public cFunciones: Funciones) { }
 
