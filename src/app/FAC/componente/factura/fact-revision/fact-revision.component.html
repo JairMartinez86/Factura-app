@@ -6,9 +6,15 @@
                 <table class="table table-hover table-sm">
                     <thead>
                         <tr class="row linea header-table">
-                            <th scope="col" class="col-12 etiqueta-producto"><button type="button" class="btn btn-primario" (click)="this.ComponenteProducto.V_Productos_Liberados_Web_INESCASAN();
+                            <th scope="col" class="col-12 etiqueta-producto">
+                                <div>
+                                    <button type="button" class="btn btn-primario" (click)="this.ComponenteProducto.V_Productos_Liberados_Web_INESCASAN();
                                 "> NEGOCIACION DE PRECIO
-                        </button></th>
+                                    </button>
+                                </div>
+
+                                <div><i class="fa-solid fa-truck-fast secundario" *ngIf="FactDelivery"></i></div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody *ngFor="let det of lstDetalle">
@@ -36,17 +42,21 @@
                             <td class="col-sm-12">
                                 <div class="etiqueta">Descuento:</div>
                                 <div class="valores">
-                                    <div class="valores-descuento"><span class="porc">{{ (det.EsBonif? 0 : det.PorcDescuento)  * 100| number
+                                    <div class="valores-descuento"><span class="porc">{{ (det.EsBonif? 0 :
+                                            det.PorcDescuento) * 100| number
                                             :
-                                            '1.2-2'}} %</span><span>{{ det.EsBonif ? '0.00' : det.Descuento| number : '1.2-2'}}</span></div>
+                                            '1.2-2'}} %</span><span>{{ det.EsBonif ? '0.00' : det.Descuento| number :
+                                            '1.2-2'}}</span></div>
                                 </div>
                             </td>
                             <td class="col-sm-12">
                                 <div class="etiqueta">Adicional:</div>
                                 <div class="valores">
-                                    <div class="valores-descuento"><span class="porc">{{(det.EsBonif? 0 : det.PorcDescuentoAdicional)  *
+                                    <div class="valores-descuento"><span class="porc">{{(det.EsBonif? 0 :
+                                            det.PorcDescuentoAdicional) *
                                             100| number :
-                                            '1.2-2'}} %</span><span>{{ det.EsBonif? '0.00' : det.DescuentoAdicional| number : '1.2-2'}}</span>
+                                            '1.2-2'}} %</span><span>{{ det.EsBonif? '0.00' : det.DescuentoAdicional|
+                                            number : '1.2-2'}}</span>
                                     </div>
                                 </div>
                             </td>
@@ -55,16 +65,18 @@
                                 <div class="valores">{{det.SubTotalNeto| number : '1.2-2'}}</div>
                             </td>
 
-                            <td class="col-sm-12" *ngIf="det.EsBonif || det.EsExonerado || det.EsExento || det.EsLibInvEscasan">
+                            <td class="col-sm-12"
+                                *ngIf="det.EsBonif || det.EsExonerado || det.EsExento || det.EsLibInvEscasan">
                                 <div class="etiqueta pie-fila"></div>
                                 <div class="valores pie-fila">
                                     <span *ngIf="det.EsBonif" class="bonif">BO{{det.EsBonifLibre ? '-L' : ''}}</span>
                                     <span *ngIf="det.EsExonerado" class="exo">EXO</span>
                                     <span *ngIf="det.EsExento" class="exe">EXE</span>
-                                    <span *ngIf="det.EsLibInvEscasan"><i class="fa-solid fa-handshake opcional"></i></span>
+                                    <span *ngIf="det.EsLibInvEscasan"><i
+                                            class="fa-solid fa-handshake opcional"></i></span>
                                 </div>
                             </td>
-                            
+
                             <td class="col-sm-12 linea">
 
                                 <span class="input-group-tex">

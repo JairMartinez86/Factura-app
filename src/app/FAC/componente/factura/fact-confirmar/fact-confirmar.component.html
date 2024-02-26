@@ -6,7 +6,7 @@
                 
                 <div class="col-12 card-escasan">
                     <div class="card card-confirmar">
-                        <div class="card-header card-escasan-header">CONFIRMAR</div>
+                        <div class="card-header card-escasan-header">CONFIRMAR <i class="fa-solid fa-truck-fast fa-2xl fondo" *ngIf="FactDelivery"></i></div>
                         <div class="card-body">
 
                             <div class="row linea">
@@ -284,7 +284,7 @@
                                     <div class="input-group">
                                         <span class="input-group-text">
                                             <input id="chkDelivery" class="form-check-input check-escasan"
-                                                type="checkbox" formControlName="chkDelivery" (change)="v_ActivarDelivery($event)">
+                                                type="checkbox" formControlName="chkDelivery" (change)="v_ActivarDelivery($event.target)" [ngModel]="FactDelivery">
                                             <label for="chkDelivery" class="form-check-label"></label>
                                         </span>
                                         <span class="input-group-text"><button type="button" class="btn i-boton" id="btnDelivery">

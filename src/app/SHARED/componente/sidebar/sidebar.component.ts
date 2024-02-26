@@ -88,12 +88,14 @@ export class SidebarComponent {
       return;
     }
 
-    if (id == "aNewFactura") {
+    if (id == "aNewFactura" || id == "aNewDelivery") {
       $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
 
       let Factura: ComponentRef<FacturaComponent> = this.DynamicFrom.viewContainerRef.createComponent(FacturaComponent);
       Factura.instance.TipoFactura = "Factura";
+      Factura.instance.FactDelivery = false;
+      if (id == "aNewDelivery") Factura.instance.FactDelivery = true;
     }
 
     if (id == "aNewProforma") {

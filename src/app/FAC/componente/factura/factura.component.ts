@@ -31,6 +31,7 @@ import { iFactPed } from "../../interface/i-Factura-Pedido";
 import { DialogoConfirmarComponent } from "src/app/SHARED/componente/dialogo-confirmar/dialogo-confirmar.component";
 import { FactLotificarComponent } from "./fact-lotificar/fact-lotificar.component";
 import { iExistenciaUbicacion } from "../../interface/i-Existencia-Ubicacion";
+import { stripe } from "@igniteui/material-icons-extended";
 
 @Component({
   selector: "app-factura",
@@ -67,6 +68,7 @@ export class FacturaComponent {
   private LoadExportacion: boolean = false;
   private LoadContraEntrega: boolean = false;
   private LoadEditar : boolean = false;
+  public FactDelivery : boolean = false;
 
   public SimboloMonedaCliente: string = "U$";
   private MonedaCliente: string;
@@ -237,6 +239,7 @@ export class FacturaComponent {
       }
     );
 
+
     this.GET.Datos_Factura(this.cFunciones.User).subscribe(
       {
         next: (s) => {
@@ -258,6 +261,16 @@ export class FacturaComponent {
             this.lstClientes = Datos[0].d;
             this.lstBodega = Datos[1].d;
             this.lstVendedores = Datos[2].d;
+
+            if(!this.FactDelivery)
+            {
+              this.lstBodega = this.lstBodega.filter(f => f.Usuario == this.cFunciones.User);
+            }
+            else
+            {
+              this.lstBodega = this.lstBodega.filter(f => f.EsDelivery);
+            }
+       
 
             let _iBodega = this.lstBodega.find(f => f.Codigo == this.CodBodega);
 
@@ -1021,6 +1034,7 @@ export class FacturaComponent {
       this.ConfirmarFactura.TipoExoneracion,
       this.EsExportacion,
       this.TipoFactura,
+      this.FactDelivery,
       this.EsModal
     );
   }
@@ -1037,6 +1051,7 @@ export class FacturaComponent {
       this.MonedaCliente,
       this.ConfirmarFactura.TipoExoneracion,
       this.EsExportacion,
+      this.FactDelivery,
       this.FichaProducto
     );
   }
@@ -1064,7 +1079,8 @@ export class FacturaComponent {
       this.TipoPago,
       this.EsExportacion,
       this.RevisionFactura.TC,
-      this.RevisionFactura.lstDetalle
+      this.RevisionFactura.lstDetalle,
+      this.FactDelivery
     );
   }
 
@@ -1358,6 +1374,7 @@ export class FacturaComponent {
     this.LoadContraEntrega = true;
     this.LoadEditar = true;
     this.ConfirmarFactura.LoadEditar = this.LoadEditar;
+    this.FactDelivery = det.EsDelivery;
 
 
 

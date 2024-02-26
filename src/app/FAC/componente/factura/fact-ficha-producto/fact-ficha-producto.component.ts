@@ -42,6 +42,7 @@ export class FactFichaProductoComponent {
   private bol_BonificacionLibre = false;
   private bol_EsPrecioLiberado = false;
   private bol_Exportacion = false;
+  public FactDelivery : boolean = false;
 
 
   public CodProducto: string = "";
@@ -124,7 +125,7 @@ export class FactFichaProductoComponent {
     this._Evento("Limpiar");
   }
 
-  public Iniciar(CodBodega: string, CodCliente: string, MonedaCliente: string, TipoExoneracion: string, Exportacion: boolean, TipoFactura : string, EsModal: boolean): void {
+  public Iniciar(CodBodega: string, CodCliente: string, MonedaCliente: string, TipoExoneracion: string, Exportacion: boolean, TipoFactura : string, FactDelivery : boolean, EsModal: boolean, ): void {
     this._Evento("Limpiar");
     this.CodBodega = CodBodega;
     this.CodCliente = CodCliente;
@@ -133,6 +134,7 @@ export class FactFichaProductoComponent {
     this.bol_Exportacion = Exportacion;
     this.TipoFactura = TipoFactura;
     this.EsModal = EsModal;
+    this.FactDelivery = FactDelivery;
 
     document.getElementById("btnAgregarProducto")?.setAttribute("disabled", "disabled");
 

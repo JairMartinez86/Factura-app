@@ -16,6 +16,7 @@ import { WaitComponent } from "src/app/SHARED/componente/wait/wait.component";
 import { iCredito } from "src/app/FAC/interface/i-Credito";
 import { iDetalleFactura } from "src/app/FAC/interface/i-detalle-factura";
 import { iDireccion } from "src/app/FAC/interface/i-Direccion";
+import { isObject } from "igniteui-angular/lib/core/utils";
 
 @Component({
   selector: "app-fact-confirmar",
@@ -62,6 +63,7 @@ export class FactConfirmarComponent {
   public lstBodega: iBodega[] = [];
   public lstVendedores: iVendedor[] = [];
   private lstDirecciones: iDireccion[] = [];
+  public FactDelivery : boolean = false;
 
   @ViewChild("cmbBodega", { static: false })
   public cmbBodega: IgxComboComponent;
@@ -93,7 +95,7 @@ export class FactConfirmarComponent {
   }
 
   public Iniciar(TipoFactura: string, CodBodega: string, CodCliente: string, Plazo: number, NombreCliente: string, Nombre: string, CodVendedor: string, Moneda: string,
-    TipoPago: string, Exportacion : boolean, TC: number, lst: iDetalleFactura[]): void {
+    TipoPago: string, Exportacion : boolean, TC: number, lst: iDetalleFactura[], FactDelivery : boolean): void {
 
     this._Evento("Limpiar");
     this.Vizualizado = true;
@@ -108,6 +110,7 @@ export class FactConfirmarComponent {
     this.TC = TC;
     this.TipoPago = TipoPago;
     this.TipoFactura = TipoFactura;
+    this.FactDelivery = FactDelivery;
 
 
     this.lstDetalle = lst;
@@ -126,6 +129,7 @@ export class FactConfirmarComponent {
     this.val.Get("txtNombre_Confirmar").setValue(this.Nombre);
     this.val.Get("txtBodega").setValue([this.CodBodega]);
     this.val.Get("txtMoneda").setValue(this.MonedaCliente == this.cFunciones.MonedaLocal ? "Cordoba" : "Dolar");
+    this.val.Get("chkDelivery").disable();
 
     this.TipoPago = TipoPago;
 
@@ -133,7 +137,10 @@ export class FactConfirmarComponent {
       this.val.Get("txtNoDoc").setValue("");
       this.val.Get("txtObservaciones").setValue("");
       this.val.Get("txtDireccion").setValue("");
+      
     }
+
+    this.v_ActivarDelivery(FactDelivery)
 
  
     this.cmbBodega.setSelectedItem(this.CodBodega);
@@ -185,7 +192,7 @@ export class FactConfirmarComponent {
           this.val.Get("chkDelivery").setValue(false);
           this.val.Get("txtDireccion").setValue("");
 
-          document.getElementById("btnDelivery")?.setAttribute("disabled", "disabled");
+          //document.getElementById("btnDelivery")?.setAttribute("disabled", "disabled");
 
           let chk: any = document.querySelector("#chkImpuesto_Confirmar");
           chk.bootstrapToggle("on");
@@ -201,7 +208,7 @@ export class FactConfirmarComponent {
         this.val.Get("txtCliente").disable();
         this.val.Get("txtBodega").disable();
         this.val.Get("txtMoneda").disable();
-        this.val.Get("txtDireccion").disable();
+        //this.val.Get("txtDireccion").disable();
         this.val.Get("txtNoExoneracion").disable();
         this.val.Get("txtLimite_Confirmar").disable();
         this.val.Get("txtDisponible_Confirmar").disable();
@@ -543,10 +550,13 @@ export class FactConfirmarComponent {
 
   }
 
-  v_ActivarDelivery(event: any): void {
+  v_ActivarDelivery(checked: any): void {
+
+    if(typeof  checked !== 'boolean') checked = checked.checked;
 
 
-this.val.Get("chkDelivery").setValue(event.target.checked);
+  this.val.Get("chkDelivery").setValue(checked);
+  this.FactDelivery = checked
 
     let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(
       WaitComponent,
@@ -587,22 +597,22 @@ this.val.Get("chkDelivery").setValue(event.target.checked);
 
 
 
-            if (event.target.checked) {
+            if (checked) {
 
 
               let Direccion = this.lstDirecciones.find(f => f.Descripcion == "PRINCIPAL");
 
               this.val.Get("txtDireccion").setValue("");
               if (Direccion != undefined) this.val.Get("txtDireccion").setValue(Direccion?.Direccion);
-              document.getElementById("btnDelivery")?.removeAttribute("disabled");
+              //document.getElementById("btnDelivery")?.removeAttribute("disabled");
               this.val.Get("txtDireccion").enable();
               return;
             }
 
-            if (!event.target.checked) {
-              document.getElementById("btnDelivery")?.setAttribute("disabled", "disabled");
+            if (!checked) {
+              //document.getElementById("btnDelivery")?.setAttribute("disabled", "disabled");
               this.val.Get("txtDireccion").setValue("");
-              this.val.Get("txtDireccion").disable();
+              //this.val.Get("txtDireccion").disable();
               return;
             }
 

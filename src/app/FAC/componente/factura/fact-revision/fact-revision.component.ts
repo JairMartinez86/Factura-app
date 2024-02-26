@@ -23,19 +23,21 @@ export class FactRevisionComponent {
   private MonedaCliente: string;
   private TipoExoneracion: string;
   private bol_Exportacion : boolean = false;
+  public FactDelivery : boolean = false;
   public EsModal: boolean;
   public ComponenteProducto : FactFichaProductoComponent; 
 
   constructor(public cFunciones: Funciones) { }
 
 
-  public Iniciar(lst: iDetalleFactura[], TC: number, MonedaCliente: string, TipoExoneracion: string, Exportacion : boolean,  ComponenteProducto : FactFichaProductoComponent) {
+  public Iniciar(lst: iDetalleFactura[], TC: number, MonedaCliente: string, TipoExoneracion: string, Exportacion : boolean,  FactDelivery : boolean, ComponenteProducto : FactFichaProductoComponent) {
     this.lstDetalle = lst;
     this.TC = TC;
     this.MonedaCliente = MonedaCliente;
     this.TipoExoneracion = TipoExoneracion;
     this.bol_Exportacion = Exportacion;
     this.ComponenteProducto = ComponenteProducto;
+    this.FactDelivery = FactDelivery;
     this.Calcular();
   }
 

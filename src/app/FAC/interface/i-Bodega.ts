@@ -5,5 +5,7 @@ export interface iBodega{
     Vendedor : string;
     EsContraEntrega: boolean;
     EsExportacion:boolean;
+    EsDelivery: boolean;
+    Usuario : string;
     Key : string;
 }
