@@ -100,7 +100,10 @@
                                     <span><b>No Proforma</b></span>
                                     <span> <button type="button" class="btn" *ngIf="(det.TipoDocumento == 'Factura' && det.NoPedido != '')"
                                         (click)="V_Imprimir(det, true);">{{det.NoPedido}} <i class="fa-solid fa-print fa-fade fa-lg secundario"></i>
-                                        </button></span>
+                                        </button>
+                                    </span>
+                                    <span *ngIf="(det.TipoDocumento == 'Proforma')">{{det.NoPedido}}</span>
+
                                 </div>
                             </div>
                         </div>

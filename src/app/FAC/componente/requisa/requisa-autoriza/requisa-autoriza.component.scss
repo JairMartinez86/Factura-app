@@ -1,0 +1,193 @@
+@import "/src/assets/scss/media.scss";
+
+
+h4{
+    text-align: center;
+}
+
+
+
+.bold {
+    font-weight: bold;
+}
+
+
+.left {
+    text-align: left;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.margin-right {
+    margin-right: 10px;
+}
+
+.contenedor-tabla {
+    height: 216px;
+}
+
+//████████████████████████████████████████████TABLA████████████████████████████████████████████████████████████████████████
+
+
+
+.tabla-requisa {
+    width: 100%;
+}
+
+.header-linea {
+    display: none;
+}
+
+.numero {
+    text-align: right;
+}
+
+.tabla-requisa.tr:first-child {
+    border-top: 2px solid var(--escan-secundario);
+
+}
+
+
+table{
+    padding-left: 0;
+    padding-right: 0;
+}
+/*
+.mat-column-IdRequisa{
+    padding-left: 15px;
+}*/
+
+
+.btn-contenedor {
+    display: flex;
+    justify-content: flex-end;
+
+    div{
+        width: 50%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    div:first-child{
+        display: flex;
+        justify-content:flex-start;
+    }
+
+
+    .btn-aceptar{
+        margin-right: 10px;
+    }
+    
+
+}
+
+
+.mobile-col-etiqueta {
+    display: none;
+}
+
+.col-etiqueta-lg{
+    display: inline;
+}
+
+.ocultar {
+    display: none;
+}
+
+.tr-primario {
+    border-top: 1px solid var(--escan-primario);
+}
+
+.tr-secundario {
+    border-top: 1px dashed var(--escan-secundario);
+}
+
+
+.combo-header,
+.combo-footer {
+    text-align: center;
+    padding: 4px;
+}
+
+.header-etiqueta,
+.header-valor{
+    font-size: 1.5em;
+}
+
+.banco{
+    color: var(--escan-secundario);
+}
+
+
+.header-etiqueta{
+    color: black;
+}
+
+.header-valor{
+    color: var(--escan-secundario);
+}
+
+
+
+.combo-item{
+    margin-bottom: 1px dashed var(--escan-secundario);
+
+    
+   
+}
+
+.combo-item-contenedor{
+    width: 360px;
+}
+
+
+.como-valor-existencia{
+    text-align: right;
+}
+
+
+@include Tamano_Menor(md) {
+
+
+    .right {
+        text-align: left;
+    }
+
+
+    .mobile-col {
+        display: block;
+    }
+
+    .header-linea {
+        display: initial;
+    }
+
+
+    .tabla-requisa {
+        thead {
+            display: none;
+        }
+    }
+
+    .mobile-col-etiqueta {
+        display: inline;
+    }
+
+
+    .col-etiqueta-lg{
+        display: none;
+    }
+    
+
+
+}
+
+.info-producto{
+    text-align: right;
+}

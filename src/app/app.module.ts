@@ -38,6 +38,7 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { FactLotificarComponent } from './FAC/componente/factura/fact-lotificar/fact-lotificar.component';
 import { FactPagoComponent } from './FAC/componente/factura/fact-pago/fact-pago.component';
+import { RequisaAutorizaComponent } from './FAC/componente/requisa/requisa-autoriza/requisa-autoriza.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { FactPagoComponent } from './FAC/componente/factura/fact-pago/fact-pago.
     DialogoConfirmarComponent,
     ImprimirFacturaComponent,
     FactLotificarComponent,
-    FactPagoComponent
+    FactPagoComponent,
+    RequisaAutorizaComponent
   ],
   imports: [
     BrowserModule,
