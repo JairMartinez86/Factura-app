@@ -1,10 +1,44 @@
 @import "/src/assets/scss/media.scss";
 
 
-h4{
+
+
+
+.contenedor-filtro {
+
+    position: fixed;
+    top: 0;
+    height: 120px;
     text-align: center;
+    z-index: 1;
+    background-color: var(--escan-fondo);
+    border-bottom: 1px solid var(--escan-primario);
+
+    .titulo {
+        font-size: 1.5em;
+    }
+
+
+    @include Tamano_Menor(lg) {
+        height: 170px;
+    }
+
+    @include Tamano_Menor(lg) {
+        height: 170px;
+    }
+
+
+
+    .contenedor-buscar {
+        margin-top: 20px;
+    }
 }
 
+.mat-paginator-sticky {
+    bottom: 0px;
+    position: sticky;
+    z-index: 10;
+}
 
 
 .bold {
@@ -34,6 +68,19 @@ h4{
 
 //████████████████████████████████████████████TABLA████████████████████████████████████████████████████████████████████████
 
+.escan-table{
+    min-height: 100vh;
+}
+
+table{
+    margin-top: 60px;
+    width: 100%;
+   
+
+    @include Tamano_Menor(lg) {
+        margin-top: 110px;
+    }
+}
 
 
 .tabla-requisa {

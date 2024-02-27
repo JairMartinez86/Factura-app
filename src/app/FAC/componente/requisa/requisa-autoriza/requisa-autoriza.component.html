@@ -1,10 +1,41 @@
 <div id="div-tabla-requisa">
-    <h4 mat-dialog-title>AUTORIZAR REQUISA</h4>
+    
+    <div class="row">
+        <div class="contenedor-filtro">
+            <div class="row">
+                <div class="titulo">AUTORIZAR REQUISA</div>
+            </div>
+            <div class="row">
 
-    <div mat-dialog-content>
+                <div class="row gx-0 contenedor-buscar">
+                    <div class="col-12 col-md-12 col-lg-4 offset-lg-8 mb-1">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+
+                            <div class="form-floating">
+                                <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar No Requisa"
+                                    aria-label="Buscar No Requisa" formControlName="txtBuscar" (keyup)="v_Filtrar($event)">
+                                <label for="txtBuscar">Buscar No Requisa</label>
+
+                            </div>
+                            <span class="input-group-text"> <button type="button" class="btn btn-opcional"
+                                    id="btnRefrescarRequisa" (click)="V_CargarRequisa();"><i
+                                        class="fa-solid fa-arrows-rotate fa-spin fa-lg"></i> Refrescar</button>
+                            </span>
 
 
 
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+
+
+        </div>
+    </div>
+
+    <div>
 
         <div class="row">
 

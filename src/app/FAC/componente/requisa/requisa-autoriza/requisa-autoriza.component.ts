@@ -20,7 +20,7 @@ import { iDatos } from 'src/app/SHARED/interface/i-Datos';
 export class RequisaAutorizaComponent {
 
   public val = new Validacion();
-  public lstRequisa: iRequisa[];
+  public lstRequisa: MatTableDataSource<iRequisa>;
 
 
   displayedColumns: string[] = ["IdRequisa"];
@@ -62,7 +62,9 @@ export class RequisaAutorizaComponent {
           let Datos: iDatos = _json["d"];
 
 
-          this.lstRequisa = Datos.d;
+          this.lstRequisa = new MatTableDataSource(Datos.d);
+          this.lstRequisa.paginator = this.paginator;
+   
 
           document.getElementById("btnRefrescarRequisa")?.removeAttribute("disabled");
 
@@ -87,6 +89,12 @@ export class RequisaAutorizaComponent {
 
     return det.RequisaDetalle;
 
+  }
+
+
+  public v_Filtrar(event: any)
+  {
+    this.lstRequisa.filter = (event.target as HTMLInputElement).value.trim().toLowerCase();
   }
 
 
@@ -143,7 +151,7 @@ export class RequisaAutorizaComponent {
                   id: "error-servidor-msj",
                   data: _json["msj"].Mensaje,
                 });
-                
+
                 this.V_CargarRequisa();
               }
 
