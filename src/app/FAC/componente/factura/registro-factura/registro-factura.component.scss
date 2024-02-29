@@ -48,7 +48,46 @@
 }
 
 
+.i-boton {
+    padding: 0;
+  }
 
+
+  .texto-efecto {
+    color: var(--escan-secundario);
+  
+    transform: scale(1.25);
+  
+    //-webkit-animation: giro3D 1.25s infinite;
+    animation: texto-efecto 1.25s infinite;
+  }
+  
+  @keyframes texto-efecto {
+    //0.0833
+    5% {
+      transform: scale(1.25);
+    }
+  
+    20% {
+      transform: scale(1.1667);
+    }
+  
+    45% {
+      transform: scale(1.0834);
+    }
+  
+    60% {
+      transform: scale(1);
+    }
+  
+    75% {
+      transform: scale(1.0833);
+    }
+  
+    90% {
+      transform: scale(1.1666);
+    }
+  }
 
 
 table{

@@ -76,6 +76,10 @@ export class getFactura{
       return this.http.get<any>(this._Cnx.Url() + "Factura/Imprimir?IdVenta=" + IdVenta + "&ImprimirProforma=" + ImprimirProforma + "&enviarCorreo=" + enviarCorreo);
    }
    
+   public ImprimirA4(IdVenta : string) : Observable<string>{
+      return this.http.get<any>(this._Cnx.Url() + "Factura/ImprimirA4?IdVenta=" + IdVenta);
+   }
+   
 
    public GetExistenciaUbicacion(CodProducto : string, CodBodega : string) : Observable<string>{
       return this.http.get<any>(this._Cnx.Url() +  "Factura/GetExistenciaUbicacion?CodProducto=" + CodProducto +"&CodBodega=" +CodBodega);

@@ -537,7 +537,9 @@ export class FactFichaProductoComponent {
     if (event.target.value == "") return;
     let valor: number = Number(String(event.target.value).replaceAll(",", ""));
 
+
     if (event.target.id == "txtPrecioCor") {
+      
       valor = valor / this.TC;
       this.val
         .Get("txtPrecioDol")
@@ -912,7 +914,7 @@ export class FactFichaProductoComponent {
   public Calcular(): void {
 
 
-    if (!this.EsProductoLiberadoINV) this.PrecioEscala();
+    if (!this.EsProductoLiberadoINV && !this.bol_EsPrecioLiberado) this.PrecioEscala();
 
 
     this.Detalle = {} as iDetalleFactura;
