@@ -80,7 +80,11 @@
                         <div class="col-4">
                             <div class="aling-block center">
                                 <span><b>No Factura</b></span>
-                                <span>{{det.NoFactura}} (FACT_{{det.IdFactura}})</span>
+                                <span *ngIf="det.IdFactura != 0">{{det.NoFactura}} (FACT_{{det.IdFactura}})</span>
+                                <span> <button type="button" class="btn" *ngIf="(det.TipoDocumento == 'Factura')"
+                                    (click)="V_ImprimirA4(det);">{{det.NoPedido}} <i class="fa-solid fa-print fa-fade fa-lg secundario"></i>
+                                    </button>
+                                </span>
                             </div>
                         </div>
 
@@ -226,9 +230,7 @@
                                 (click)="V_Imprimir(det, false);"><i class="fa-solid fa-print fa-fade fa-lg secundario"></i>
                                 </button>
 
-                                <button type="button" class="btn i-boton texto-efecto" *ngIf="det.TipoDocumento == 'Factura'"
-                                (click)="V_ImprimirA4(det);">A4
-                                </button>
+                              
 
             
 
