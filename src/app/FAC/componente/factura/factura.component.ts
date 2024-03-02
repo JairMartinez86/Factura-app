@@ -574,24 +574,45 @@ export class FacturaComponent {
             }
           } else {
             let Datos: iDatos[] = _json["d"];
-            let Clave: any = Datos[0].d;
+            let Clave: any[] = Datos[0].d;
 
             if (Clave.length > 0) {
-              if (Clave[0].EsClave && Clave[0].CodVendedor != CodNewVend) {
+              if (Clave[0].EsClave && Clave.findIndex(w => w.CodVendedor ==CodNewVend) == -1) {
 
+
+                this.cmbVendedor.deselectAllItems();
+
+                /*
                 if(Clave[0].CodVendedor != this.val.Get("txtVendedor").value[0])
                 {
                   this.cmbVendedor.setSelectedItem(Clave[0].CodVendedor);
                   this.val.Get("txtVendedor").setValue(Clave[0].CodVendedor);
                 }
-                
-               
+
                 this.cmbVendedor.close();
+
+                */
+               
+                
+                let Vend : String = "<br>";
+
+                let x : number = 1;
+                Clave.forEach(w =>{
+
+                   if(!Vend.includes(w.Vendedor))
+                   {
+                    Vend += x.toString() + ". " +  w.Vendedor + "</br>";
+                    x++;
+                   }
+
+                   
+                })
+
 
                 this.cFunciones.DIALOG.open(DialogErrorComponent, {
                   data:
                     "<p>Cliente Clave solo se permite seleccionar el vendedor:<b class='error'>" +
-                    Clave[0].Vendedor +
+                    Vend +
                     "</b></p>",
                 });
               }
