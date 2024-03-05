@@ -429,6 +429,16 @@ export class FactConfirmarComponent {
                   data: "<b class='error'>No tiene crédito disponible.</b>",
                 });
               }
+
+              if (!this.i_Credito[0].FacturarVencido && this.i_Credito[0].SaldoVencido > 0 && this.TipoFactura == "Factura") {
+                this.Plazo = 0;
+                this.TipoPago = "Contado";
+                chk.bootstrapToggle("off");
+                this.cFunciones.DIALOG.open(DialogErrorComponent, {
+                  data: "<b class='error'>Cliente Bloqueado por Saldo Vencido.</b>",
+                });
+              }
+
             } else {
               this.TipoPago = "Contado";
               chk.bootstrapToggle("off");

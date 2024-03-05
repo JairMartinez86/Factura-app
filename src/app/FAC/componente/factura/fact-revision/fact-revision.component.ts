@@ -77,7 +77,7 @@ export class FactRevisionComponent {
     det.UsuarioAutoriza = this.cFunciones.User;
   }
 
-  private Calcular(): void {
+  public Calcular(): void {
 
     this.SubTotal = 0;
     this.Descuento = 0;
@@ -216,7 +216,7 @@ export class FactRevisionComponent {
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
 
-    if (event.key == "F4") this.ComponenteProducto.V_Productos_Liberados_Web_INESCASAN();
+    if (event.key == "F4") this.ComponenteProducto.V_Productos_Liberados_Web_INESCASAN(this);
 
 
   }

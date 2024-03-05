@@ -19,6 +19,7 @@ import { GlobalPositionStrategy, IgxComboComponent, OverlaySettings } from "igni
 import { scaleInCenter, scaleOutCenter } from "igniteui-angular/animations";
 import { iBonifLibre } from "src/app/FAC/interface/i-Bonif-Libre";
 import { iProductos_Liberados_INVESCASAN } from "src/app/FAC/interface/i-Productos_Liberados_INVESCASAN";
+import { FactRevisionComponent } from "../fact-revision/fact-revision.component";
 
 @Component({
   selector: "app-fact-ficha-producto",
@@ -27,7 +28,7 @@ import { iProductos_Liberados_INVESCASAN } from "src/app/FAC/interface/i-Product
 })
 export class FactFichaProductoComponent {
 
-
+  private RevisionFactura: FactRevisionComponent;
 
 
   public val = new Validacion();
@@ -862,6 +863,14 @@ export class FactFichaProductoComponent {
     this.lstDetalle.push(det);
     if (AgregarBonificado && det.Descuento == 0) this.lstDetalle.push(DetalleBonificado);
 
+
+    
+    if(this.RevisionFactura != undefined)
+    {
+      this.RevisionFactura.lstDetalle = this.lstDetalle;
+      this.RevisionFactura.Calcular();
+    }
+
     this._Evento("Limpiar");
 
     return true;
@@ -1140,7 +1149,9 @@ export class FactFichaProductoComponent {
 
 
 
-  public V_Productos_Liberados_Web_INESCASAN(): void {
+  public V_Productos_Liberados_Web_INESCASAN(RevisionFactura: FactRevisionComponent): void {
+
+    this.RevisionFactura = RevisionFactura;
 
     this.EsProductoLiberadoINV = false;
     let i : number = this.lstDetalle.findIndex(f => f.EsLibInvEscasan);
