@@ -790,20 +790,29 @@ export class FactFichaProductoComponent {
       }
 
 
-
-      let Ref = this.cFunciones.DIALOG.open(DialogErrorComponent, {
-        data:
-          "<ul>" + MsjError + "</ul>" + this.val.Errores,
-      });
-
-
-      if (this.bol_BonificacionLibre) {
-        Ref.afterClosed().subscribe(s => {
-          this.v_Borrar_Producto();
-
+      if (this.cFunciones.DIALOG.getDialogById("msj-validacion-prod") == undefined)
+      {
+        let Ref = this.cFunciones.DIALOG.open(DialogErrorComponent, {
+          id: "msj-validacion-prod",
+          data:
+            "<ul>" + MsjError + "</ul>" + this.val.Errores,
         });
-
+  
+  
+        if (this.bol_BonificacionLibre) {
+          Ref.afterClosed().subscribe(s => {
+            this.v_Borrar_Producto();
+  
+          });
+  
+        }
       }
+      else
+      {
+        this.v_Borrar_Producto();
+      }
+
+      
       return false;
 
     }
