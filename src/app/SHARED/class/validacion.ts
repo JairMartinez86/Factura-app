@@ -30,6 +30,71 @@ function getRectArea(elmento: HTMLElement) {
 
 
 
+function onKeyEnter(event: any)
+{
+  if (event.key !== "Enter") return;
+
+
+  let id: string = event.target.id;
+
+  if (id == "" && event.target.name == "comboInput") {
+    id = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.id;
+    event.target.setAttribute("id", id);
+  }
+
+  if (id == "" && event.target.localName == "input") {
+    id = event.target.parentElement.parentElement.parentElement.parentElement.id;
+    event.target.setAttribute("id", id);
+  }
+
+
+
+  let _element_next = lstFocus.find(f => f.Id == id);
+
+  if (_element_next == undefined) return;
+  if (_element_next.IdNext == "") return;
+
+
+  let elmento: HTMLElement = document?.getElementById(_element_next.Id)!;
+  elmento = getRectArea(elmento);
+
+
+
+
+
+  elmento?.focus();
+
+
+
+  if (cmb != undefined && elmento.localName == "igx-combo") {
+    
+    let elment: IgxComboComponent = cmb.find(f => f.id == _element_next?.IdNext)!;
+
+    if (elment != undefined) elment.open();
+
+    let __next = lstFocus.find(f => f.Id ==  _element_next?.IdNext);
+
+
+    
+    elment.searchInput.nativeElement.setAttribute("id", __next?.Id!);
+    elment.searchInput.nativeElement.addEventListener('keypress', onKeyEnter)
+
+
+
+
+  }
+
+
+
+  if (_element_next.Evento != undefined) $("#" + _element_next.IdNext)?.trigger(_element_next.Evento);
+
+
+
+
+  event.preventDefault();
+
+}
+
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -168,7 +233,7 @@ export class Validacion {
     }
 
 
-    document.querySelector('#' + id)?.addEventListener('keypress', this.onKeyEnter);
+    document.querySelector('#' + id)?.addEventListener('keypress', onKeyEnter);
 
   }
 /*
@@ -207,77 +272,6 @@ export class Validacion {
 
 
 
-  onKeyEnter(event: any) {
-
-    if (event.key !== "Enter") return;
-
-
-    let id: string = event.target.id;
-
-    if (id == "" && event.target.name == "comboInput") {
-      id = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.id;
-      event.target.setAttribute("id", id);
-    }
-
-    if (id == "" && event.target.localName == "input") {
-      id = event.target.parentElement.parentElement.parentElement.parentElement.id;
-      event.target.setAttribute("id", id);
-    }
-
-
-
-    let _element_next = lstFocus.find(f => f.Id == id);
-
-    if (_element_next == undefined) return;
-    if (_element_next.IdNext == "") return;
-
-
-    let elmento: HTMLElement = document?.getElementById(_element_next.Id)!;
-    elmento = getRectArea(elmento);
-
-
-
-
-
-    elmento?.focus();
-
-
-
-    if (cmb != undefined && elmento.localName == "igx-combo") {
-      let input: HTMLElement = elmento.getElementsByTagName("input")[0];
-      input?.setAttribute("id", _element_next?.IdNext);
-
-      let elment: IgxComboComponent = cmb.find(f => f.id == _element_next?.IdNext)!;
-
-      if (elment != undefined) elment.open();
-
-
-
-    }
-
-    if (elmento.localName == "select")
-    {
-
-      //(<any>$("#" + _element_next.IdNext)).modal("show");
-      //(<any>elmento).size = 50
-      
-
-    }
-
-    if (_element_next.Evento != undefined) $("#" + _element_next.IdNext)?.trigger(_element_next.Evento);
-
-
-    /*
-    if(String(event.target.value) == "") {
-      document?.getElementById(_input)?.focus();
-      event.preventDefault();
-      return;
-    }*/
-
-
-    event.preventDefault();
-
-  }
 
   onFocusIn(event: any) {
 
@@ -318,7 +312,7 @@ export class Validacion {
 
   }
 
-  public del(id: string): void {
+public del(id: string): void {
 
     this.lstReglas.filter( w=> w.Id == id).forEach( w=>{
 
@@ -400,7 +394,7 @@ export class Validacion {
       let span = document.getElementById("info-validacion-" + f.Id);
       span?.remove();
 
-      frm.value = this.ValForm.get(f.Id)?.value;
+	  frm.value = this.ValForm.get(f.Id)?.value;
 
       if ( (String(frm.value) == "undefined" || String(frm.value) == "")) {
 
@@ -435,9 +429,8 @@ export class Validacion {
       }
 
 
-
       //AGREGANDO ICONO DE VALIDACION
-      esError = reglas.filter(w => w.Id == f.Id && w.ErrorMensaje != "").length > 0 ? true : false;
+	  esError = reglas.filter(w => w.Id == f.Id && w.ErrorMensaje != "").length > 0 ? true : false;
       span = document.getElementById("-info-validacion-" + f.Id);
       if (span == undefined && esError) {
         esError = false;
@@ -491,10 +484,10 @@ export class Validacion {
   }
 
 
-
   public ActulizarValores(id : string, value : any){
     this.ValForm.get(id)?.setValue(value);
   }
+
 
   private Cls_Validaciones(id: string): ValidatorFn {
     return (control: AbstractControl): { [key: string]: string } | null => {
@@ -693,3 +686,4 @@ export class Validacion {
 
 
 }
+
