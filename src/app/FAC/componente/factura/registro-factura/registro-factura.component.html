@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="titulo">
                     {{(TipoDocumento == "Factura" || EsCola ? (EsCola ? "COLA DE IMPRESIÓN" : "REGISTROS FACTURA"):
-                    "PROFORMA PENDIENTE")}}
+                     (ProformaVencida ? "PROFORMA VENCIDAS" : "PROFORMA PENDIENTE"))}}
                 </div>
             </div>
             <div class="row">
@@ -194,7 +194,7 @@
                             <div class="row">
                                 <div class="aling-right">
                                     <span><b>Estado: </b></span>
-                                    <span class="estado">{{det.Estado}}</span>
+                                    <span class="estado">{{(ProformaVencida? "Vencida": det.Estado)}}</span>
                                 </div>
                                 <div class="aling-right">
                                     <span><b>Usuario: </b></span>
@@ -216,7 +216,7 @@
                             <span>
                        
 
-                                <button type="button" class="btn" *ngIf="!EsCola"
+                                <button type="button" class="btn" *ngIf="!EsCola && !ProformaVencida"
                                 (click)="v_Editar(det);"><i class="fa-solid fa-eye fa-beat-fade fa-lg'"></i>
                                 </button>
 
@@ -226,7 +226,7 @@
                                 </button>
 
 
-                                <button type="button" class="btn" *ngIf="(det.Estado == 'Autorizado' &&  det.TipoDocumento == 'Proforma') || (det.TipoDocumento == 'Factura' && det.Estado == 'Autorizado' && !det.PedirAutorizacion)"
+                                <button type="button" class="btn" *ngIf="!ProformaVencida && (det.Estado == 'Autorizado' &&  det.TipoDocumento == 'Proforma') || (det.TipoDocumento == 'Factura' && det.Estado == 'Autorizado' && !det.PedirAutorizacion)"
                                 (click)="V_Imprimir(det, false);"><i class="fa-solid fa-print fa-fade fa-lg secundario"></i>
                                 </button>
 
@@ -235,12 +235,12 @@
             
 
 
-                                <button type="button" class="btn" *ngIf="(det.Estado == 'Autorizado' &&  det.TipoDocumento == 'Proforma') && det.NoFactura == '' "
+                                <button type="button" class="btn" *ngIf="(det.Estado == 'Autorizado' &&  det.TipoDocumento == 'Proforma') && det.NoFactura == '' && !ProformaVencida" 
                                 (click)="V_Lotificar(det);"><i class="fa-solid fa-cash-register fa-fade fa-lg primario"></i>
                                 </button>
 
                                 <button type="button" class="btn"><i class="fa-solid fa-ban fa-beat-fade fa-lg"
-                                        (click)="v_Anular(det)" *ngIf="det.Estado!='Anulado'"></i>
+                                        (click)="v_Anular(det)" *ngIf="det.Estado!='Anulado' && !ProformaVencida"></i>
                                 </button>
                             </span>
 

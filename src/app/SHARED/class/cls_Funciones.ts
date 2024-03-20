@@ -48,6 +48,7 @@ export class Funciones {
     {IdAcceso:0,  Seleccionar: false, EsMenu: true,  Id:"idNavProforma", Caption: "Proforma" , MenuPadre: "", Clase : "fa-solid fa-briefcase fa-lg", Modulo: "FACT"},
     {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aNewProforma", Caption: "Nueva Proforma" , MenuPadre: "idNavProforma", Clase : "fa-solid fa-handshake", Modulo: "FACT"},
     {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aRegistroProforma", Caption: "Proformas Pendientes" , MenuPadre: "idNavProforma", Clase : "fa-solid fa-table-cells", Modulo: "FACT"},
+    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aRegistroProformaVen", Caption: "Proformas Vencidas" , MenuPadre: "idNavProforma", Clase : "fa-solid fa-circle-exclamation", Modulo: "FACT"},
 
         
     /**************************************COLA IMPRESION************************************* */ 

@@ -114,10 +114,11 @@ export class SidebarComponent {
       RegFactura.instance.TipoDocumento = "Factura";
     }
 
-    if (id == "aRegistroProforma") {
+    if (id == "aRegistroProforma" || id == "aRegistroProformaVen") {
       this.DynamicFrom.viewContainerRef.clear();
       let RegProforma: ComponentRef<RegistroFacturaComponent> = this.DynamicFrom.viewContainerRef.createComponent(RegistroFacturaComponent);
       RegProforma.instance.TipoDocumento = "Proforma";
+      RegProforma.instance.ProformaVencida = true;
     }
 
 
