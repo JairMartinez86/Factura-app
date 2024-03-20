@@ -1,6 +1,7 @@
 import { DatePipe, formatNumber } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { iPerfil } from '../interface/i-Perfiles';
 
 
 @Injectable({
@@ -28,6 +29,45 @@ export class Funciones {
   public Bodega: string = "";
   public Lotificar: boolean = false;
   public ColaImpresionWeb: boolean = false;
+
+
+  public ACCESO: iPerfil[] = [
+
+
+
+    /**************************************FACTURA************************************* */ 
+
+    {IdAcceso:0,  Seleccionar: false, EsMenu: true,  Id:"idNavFactura", Caption: "Facturación" , MenuPadre: "", Clase : "fa-solid fa-shop fa-lg", Modulo: "FACT"},
+    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aNewFactura", Caption: "Nueva Factura" , MenuPadre: "idNavFactura", Clase : "fa-solid fa-cash-register", Modulo: "FACT"},
+    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aNewDelivery", Caption: "Nuevo Delivery" , MenuPadre: "idNavFactura", Clase : "fa-solid fa-truck-fast", Modulo: "FACT"},
+    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aRegistroFactura", Caption: "Registros" , MenuPadre: "idNavFactura", Clase : "fa-solid fa-table-cells", Modulo: "FACT"},
+
+
+    /**************************************PROFORMA************************************* */ 
+
+    {IdAcceso:0,  Seleccionar: false, EsMenu: true,  Id:"idNavProforma", Caption: "Proforma" , MenuPadre: "", Clase : "fa-solid fa-briefcase fa-lg", Modulo: "FACT"},
+    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aNewProforma", Caption: "Nueva Proforma" , MenuPadre: "idNavProforma", Clase : "fa-solid fa-handshake", Modulo: "FACT"},
+    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aRegistroProforma", Caption: "Proformas Pendientes" , MenuPadre: "idNavProforma", Clase : "fa-solid fa-table-cells", Modulo: "FACT"},
+
+        
+    /**************************************COLA IMPRESION************************************* */ 
+
+    {IdAcceso:0,  Seleccionar: false, EsMenu: false,  Id:"idNavCola", Caption: "Cola Impresión" , MenuPadre: "", Clase : "fa-solid fa-print fa-lg", Modulo: "FACT"},
+  
+
+    /**************************************INVENTARIO************************************* */ 
+
+    {IdAcceso:0,  Seleccionar: false, EsMenu: true,  Id:"idNavIventario", Caption: "Inventario" , MenuPadre: "", Clase : "fa-regular fa-pen-to-square fa-lg", Modulo: "FACT"},
+    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aLiberarPrecio", Caption: "Liberar Precio" , MenuPadre: "idNavIventario", Clase : "fa-solid fa-hand-holding-dollar fa-lg", Modulo: "FACT"},
+    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aAutorizaRequisa", Caption: "Autorizar Requiza" , MenuPadre: "idNavIventario", Clase : "fa-regular fa-pen-to-square fa-lg", Modulo: "FACT"},
+
+        
+    
+    
+
+]
+
+
 
 
   constructor(public DIALOG: MatDialog) {
@@ -276,5 +316,10 @@ export class Funciones {
     return x;
 
   }
+
+
+
+
+  
 
 }

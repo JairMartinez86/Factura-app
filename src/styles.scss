@@ -158,6 +158,20 @@ a {
   color: initial;
 }
 
+a:visited {
+  color: initial;
+}
+
+a:hover {
+    color: var(--escan-primario) !important;
+}
+
+.dropdown{
+  span:hover{
+    color: var(--escan-primario) !important;
+  }
+}
+
 i {
   color: var(--escan-secundario);
 }

@@ -71,7 +71,7 @@ export class RegistroFacturaComponent {
 
     document.getElementById("btnRefrescar")?.setAttribute("disabled", "disabled");
 
-    this.GET.Get(this.val.Get("txtFecha1").value, this.val.Get("txtFecha2").value, this.TipoDocumento, this.EsCola).subscribe(
+    this.GET.Get(this.val.Get("txtFecha1").value, this.val.Get("txtFecha2").value, this.TipoDocumento, this.EsCola, this.cFunciones.User).subscribe(
       (s) => {
         dialogRef.close();
         let _json = JSON.parse(s);

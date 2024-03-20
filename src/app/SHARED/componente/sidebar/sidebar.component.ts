@@ -14,6 +14,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { WaitComponent } from '../wait/wait.component';
 import { Subscription, interval } from 'rxjs';
 import { RequisaAutorizaComponent } from 'src/app/FAC/componente/requisa/requisa-autoriza/requisa-autoriza.component';
+import { LiberacionFacturaComponent } from 'src/app/FAC/componente/liberacion-factura/liberacion-factura.component';
+import { iPerfil } from '../../interface/i-Perfiles';
 
 const SCRIPT_PATH = 'ttps://cdn.jsdelivr.net/npm/bootstrap5-toggle@5.0.4/css/bootstrap5-toggle.min.css';
 declare let gapi: any;
@@ -28,6 +30,7 @@ export class SidebarComponent {
   @ViewChild(DynamicFormDirective, { static: true }) DynamicFrom!: DynamicFormDirective;
   public ErrorServidor: boolean = false;
   subscription: Subscription = {} as Subscription;
+  private Perfil : iPerfil[] = [];
 
 
   constructor(
@@ -37,6 +40,7 @@ export class SidebarComponent {
     private Conexion: getServidor,
     public cFunciones: Funciones,
   ) {
+    this.ActualizarDatosServidor();
   }
 
 
@@ -48,25 +52,23 @@ export class SidebarComponent {
     if (
       (!this.href ||
         this.href == '#' ||
-        (this.href && this.href.length === 0) || element.tagName.toString().toLocaleLowerCase() == "i")
+        (this.href && this.href.length === 0))
     ) {
 
-
+    
       if (element.tagName.toString().toLocaleLowerCase() == "a" && element.getAttribute("href") == "#" || element.tagName.toString().toLocaleLowerCase() == "i") {
 
         if (element.tagName.toString().toLocaleLowerCase() == "i") {
+         
           element = <HTMLElement>event.target;
           element = <HTMLElement>element.parentElement;
 
         }
+       
         if(element?.id == undefined) return
         this.v_Abrir_Form(element.id);
       }
 
-
-
-
-      if (element.tagName.toString().toLocaleLowerCase() == "span") event.preventDefault();
 
       if (element.tagName.toString().toLocaleLowerCase() == "a") event.preventDefault();
 
@@ -119,7 +121,7 @@ export class SidebarComponent {
     }
 
 
-    if (id == "aRegistroCola") {
+    if (id == "idNavCola") {
       this.DynamicFrom.viewContainerRef.clear();
       let RegProforma: ComponentRef<RegistroFacturaComponent> = this.DynamicFrom.viewContainerRef.createComponent(RegistroFacturaComponent);
       RegProforma.instance.TipoDocumento = "Factura";
@@ -133,6 +135,11 @@ export class SidebarComponent {
       let AutorizaRequiza: ComponentRef<RequisaAutorizaComponent> = this.DynamicFrom.viewContainerRef.createComponent(RequisaAutorizaComponent);
     }
 
+    if (id == "aLiberarPrecio") {
+      this.DynamicFrom.viewContainerRef.clear();
+      let LiberarPrecio: ComponentRef<LiberacionFacturaComponent> = this.DynamicFrom.viewContainerRef.createComponent(LiberacionFacturaComponent);
+    }
+
 
 
     if (id == "aSalir") {
@@ -142,7 +149,7 @@ export class SidebarComponent {
     }
   }
 
-
+  
   
   private ActualizarDatosServidor() : void{
     this.ErrorServidor = false;
@@ -168,6 +175,22 @@ export class SidebarComponent {
           this.cFunciones.SetTiempoDesconexion(Number(Datos[1].d));
           this._SrvLogin.UpdFecha(String(Datos[0].d));
           this.cFunciones.Lotificar = Datos[2].d;
+
+          let Perfil : iPerfil[] = Datos[3].d;
+          let index : number = -1;
+
+          this.Perfil.splice(0, this.Perfil.length);
+          this.cFunciones.ACCESO.forEach(f =>{
+
+            index = Perfil.findIndex( w => w.Id == f.Id);
+
+            if(index != -1) this.Perfil.push(f);
+
+            
+          });
+
+
+
         }
 		
 		 if(this.cFunciones.DIALOG.getDialogById("error-servidor") != undefined) 
@@ -201,6 +224,15 @@ export class SidebarComponent {
       }
     );
     
+  }
+
+
+  public Menu() : any[]{
+    return this.Perfil.filter(f => f.MenuPadre == "")
+  }
+
+  public SubMenu(Menu : string) : any[]{
+    return this.Perfil.filter(f => f.MenuPadre == Menu);
   }
 
 

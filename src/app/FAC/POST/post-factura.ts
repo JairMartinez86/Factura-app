@@ -4,6 +4,8 @@ import { Observable } from "rxjs/internal/Observable";
 import { Conexion } from "src/app/SHARED/class/Cadena_Conexion";
 import { iFactPed } from "../interface/i-Factura-Pedido";
 import { iFacturaPagoCancelacion } from "../interface/i-Factura-Pago-Cancelacion";
+import { iLiberarExixtencia } from "../interface/i-Liberar-Existencia";
+import { iLiberacionPrecio } from "../interface/i-Liberacion-Precio";
 
 @Injectable({
     providedIn: 'root',
@@ -43,6 +45,23 @@ export class postFactura{
     return this.http.post<any>(this._Cnx.Url() + "Factura/PagarFactura", JSON.stringify(det), { headers: { 'content-type': 'application/json' } });
 
  }
+
+
+ public LiberarExistencia(Prod : string[], Usuario : string) : Observable<string>{
+
+    let d : iLiberarExixtencia = {} as iLiberarExixtencia;
+    d.Prod = Prod;
+    d.Usuario = Usuario;
+    return this.http.post<any>(this._Cnx.Url() + "Factura/LiberarExistencia", JSON.stringify(d), { headers: { 'content-type': 'application/json' } });
+
+ }
  
+
+ public LiberarPrecios(d : iLiberacionPrecio[]) : Observable<string>{
+
+
+    return this.http.post<any>(this._Cnx.Url() + "Factura/LiberarPrecios", JSON.stringify(d), { headers: { 'content-type': 'application/json' } });
+
+ }
 
 }

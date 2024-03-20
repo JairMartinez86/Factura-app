@@ -1,0 +1,104 @@
+@import "/src/assets/scss/media.scss";
+
+#txtObservaciones {
+  height: 100px;
+}
+
+.btn-liberar-inventario {
+  width: 100%;
+  height: 100%;
+}
+
+.btn-contenedor {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+
+  button {
+    margin-right: 5px;
+  }
+
+  @include Tamano(xs) {
+    button {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  @include Tamano(lg) {
+    button {
+      display: initial;
+      width: auto;
+    }
+  }
+}
+
+
+.btn-contenedor {
+
+  display: block;
+
+
+  .bonotnes-ediccion {
+    text-align: right;
+  }
+
+  @include Tamano(xs) {
+
+    .boton-refrescar,
+    .bonotnes-ediccion {
+      width: 100%;
+    }
+
+  }
+
+}
+
+.fecha,
+.btn-contenedor-ediccion-tabla {
+  text-align: right;
+}
+
+
+
+mat-paginator{
+  margin-bottom: 0px;
+}
+
+
+.mat-paginator-sticky {
+  bottom: 0px;
+  position: sticky;
+  z-index: 10;
+
+}
+
+
+
+
+
+
+//████████████████████████████████████████████PIE████████████████████████████████████████████████████████████████████████
+
+.contenedor-pie {
+  position: relative;
+  z-index: 11;
+}
+
+.pie-asiento {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 5;
+  background-color: transparent;
+  padding: 10px;
+
+
+
+  .botones{
+      margin-right: 10px;
+      padding-right: 10px;
+  }
+
+}

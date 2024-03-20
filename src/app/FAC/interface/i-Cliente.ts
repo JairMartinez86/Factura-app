@@ -1,4 +1,5 @@
 export interface iCliente{
+    IdCliente : number,
     Codigo: string;
     Cliente: string;
     Ruc: string;
