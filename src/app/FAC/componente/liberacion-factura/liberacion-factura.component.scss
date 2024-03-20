@@ -74,6 +74,16 @@ mat-paginator{
 }
 
 
+@include Tamano(xs) {
+
+
+  .mat-paginator-sticky {
+    bottom: 72px;
+
+  }
+
+}
+
 
 
 
