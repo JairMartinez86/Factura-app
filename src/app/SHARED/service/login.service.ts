@@ -173,5 +173,10 @@ export class LoginService {
     this._Router.navigate(['/Login'], { skipLocationChange: false });
   }
 
-  
+  public V_Version()
+  {
+    this.GET.Version();
+  }
+
+ 
 }
