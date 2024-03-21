@@ -74,7 +74,7 @@ mat-paginator{
 }
 
 
-@include Tamano(xs) {
+@include Tamano_Menor(sm) {
 
 
   .mat-paginator-sticky {
