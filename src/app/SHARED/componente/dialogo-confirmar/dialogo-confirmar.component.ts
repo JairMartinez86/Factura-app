@@ -28,6 +28,17 @@ export class DialogoConfirmarComponent {
 
   }
 
+  public Set_StyleBtn1(style : string)
+  {
+    document.getElementById("btn-confirmar-1-escasan-dialog")?.setAttribute("style", style);
+  }
+
+  public Set_StyleBtn2(style : string)
+  {
+    document.getElementById("btn-confirmar-2-escasan-dialog")?.setAttribute("style", style);
+  }
+  
+  
   public SetMensajeHtml(mensaje : string)
   {
     this.mensaje = this.sanitizer.bypassSecurityTrustHtml(mensaje);

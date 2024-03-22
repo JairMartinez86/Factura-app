@@ -26,7 +26,6 @@ export class AppComponent {
     this.Disable.disable_DevTool();
     this.Disable.disable_RightClick();
     this.Disable.disable_Reload();
-
     this._SrvLogin.V_Version();
   }
 

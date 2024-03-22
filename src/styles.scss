@@ -190,7 +190,7 @@ i {
 }
 
 .opcional{
-  color: var(--escan-opcional);
+  color: var(--escan-opcional) ;
 }
 
 .fondo{
@@ -513,17 +513,35 @@ button:active{
 }
 
 
-
 //████████████████████████████████████████████SIMBOLO VALIDACION██████████████████████████████████████████████████████████████████████
+li.error-etiqueta{
+  list-style-position: inside;
+  list-style-type:disc;
+}
+li.error-etiqueta::marker {
+  font-weight: bold;
+}
 
+li.error-mensaje
+{
+  list-style-position: inside;
+  list-style-type:decimal;
+}
+
+li.error-mensaje::marker {
+  font-weight: bold;
+}
 
 .contenedor-info-validacion{
-  position: relative;
+position: relative;
 }
 
 .info-validacion{
-  position: absolute;
-  top: 50%;
-  right: 5px;
-  transform: translateY(-50%);
+position: absolute;
+top: 50%;
+right: 5px;
+transform: translateY(-50%);
+
 }
+
+

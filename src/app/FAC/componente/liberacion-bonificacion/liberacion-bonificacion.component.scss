@@ -1,0 +1,147 @@
+@import "/src/assets/scss/media.scss";
+
+
+
+.header-bonif{
+  background: var(--escan-opcional);
+}
+
+
+.btn-contenedor {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+
+  button {
+    margin-right: 5px;
+  }
+
+
+  .bonotnes-ediccion {
+    text-align: right;
+  }
+
+
+  @include Tamano(xs) {
+    button {
+      display: block;
+      width: 100%;
+    }
+
+    .boton-refrescar,
+    .bonotnes-ediccion {
+      width: 100%;
+    }
+
+  }
+
+  @include Tamano(lg) {
+    button {
+      display: initial;
+      width: auto;
+    }
+  }
+}
+
+@include Tamano_Menor(md) {
+
+  .btn-contenedor {
+
+    display: block;
+  }
+
+}
+
+
+
+.fecha,
+.btn-contenedor-ediccion-tabla {
+  text-align: right;
+}
+
+
+
+mat-paginator{
+  margin-bottom: 0px;
+}
+
+
+.mat-paginator-sticky {
+  bottom: 0px;
+  position: sticky;
+  z-index: 10;
+
+}
+
+
+@include Tamano_Menor(sm) {
+
+
+  .mat-paginator-sticky {
+    bottom: 72px;
+
+  }
+
+}
+
+
+
+//████████████████████████████████████████████TEXT NUMBER████████████████████████████████████████████████████████████████████████
+
+.input-group-simbolo {
+  padding: 0;
+}
+.number-simbolo {
+  .simbolo {
+    &-mas,
+    &-minus {
+      display: block;
+      background: transparent;
+      border: 0;
+      color: black;
+      :hover {
+        color: var(--escan-primario);
+        transform: scale(1.2);
+      }
+    }
+
+    &-minus {
+      margin-top: 2px;
+    }
+  }
+
+  /* overflow: hidden; 
+    text-align: center;
+    span i{
+      display: block;
+      margin: 5px 5% 0 0;
+  
+    }*/
+}
+
+
+
+//████████████████████████████████████████████PIE████████████████████████████████████████████████████████████████████████
+
+.contenedor-pie {
+  position: relative;
+  z-index: 11;
+}
+
+.pie-liberacion-bonif {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 5;
+  background-color: transparent;
+  padding: 10px;
+
+
+
+  .botones{
+      margin-right: 10px;
+      padding-right: 10px;
+  }
+
+}

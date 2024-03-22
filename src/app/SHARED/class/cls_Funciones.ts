@@ -60,6 +60,7 @@ export class Funciones {
 
     {IdAcceso:0,  Seleccionar: false, EsMenu: true,  Id:"idNavIventario", Caption: "Inventario" , MenuPadre: "", Clase : "fa-regular fa-pen-to-square fa-lg", Modulo: "FACT"},
     {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aLiberarPrecio", Caption: "Liberar Precio" , MenuPadre: "idNavIventario", Clase : "fa-solid fa-hand-holding-dollar fa-lg", Modulo: "FACT"},
+    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aLiberarBonificacion", Caption: "Liberar Bonificacion" , MenuPadre: "idNavIventario", Clase : "fa-solid fa-b fa-lg", Modulo: "FACT"},
     {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aAutorizaRequisa", Caption: "Autorizar Requiza" , MenuPadre: "idNavIventario", Clase : "fa-regular fa-pen-to-square fa-lg", Modulo: "FACT"},
 
         

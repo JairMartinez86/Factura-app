@@ -20,13 +20,13 @@ import { DialogoConfirmarComponent } from 'src/app/SHARED/componente/dialogo-con
 import { postFactura } from '../../POST/post-factura';
 
 @Component({
-  selector: 'app-liberacion-factura',
+  selector: 'app-liberacion-precio',
   standalone: true,
   imports: [IgxComboModule, IgxIconModule, ReactiveFormsModule, MatPaginatorModule, MatTableModule, CommonModule],
-  templateUrl: './liberacion-factura.component.html',
-  styleUrl: './liberacion-factura.component.scss'
+  templateUrl: './liberacion-precio.component.html',
+  styleUrl: './liberacion-precio.component.scss'
 })
-export class LiberacionFacturaComponent {
+export class LiberacionPrecioComponent {
   public val = new Validacion();
   public overlaySettings: OverlaySettings = {};
 
@@ -83,7 +83,7 @@ export class LiberacionFacturaComponent {
 
   public V_CargarDatosLiberacion(): void {
     document
-      .getElementById("btnRefrescar")
+      .getElementById("btnRefrescar-Liberacion")
       ?.setAttribute("disabled", "disabled");
 
     let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(
@@ -95,7 +95,7 @@ export class LiberacionFacturaComponent {
     );
 
 
-    this.GET.GetDatosLiberacion().subscribe(
+    this.GET.GetDatosLiberacionPrecio().subscribe(
       {
         next: (s) => {
 
@@ -183,7 +183,7 @@ export class LiberacionFacturaComponent {
   public v_Enter_Cliente(event: any) {
 
     if (event.key == "Enter") {
-      let cmb: any = this.cmbBodega.dropdown;
+      let cmb: any = this.cmbCliente.dropdown;
       let _Item: iCliente = cmb._focusedItem.value;
       this.cmbCliente.select([_Item.Codigo]);
     }
@@ -290,9 +290,14 @@ export class LiberacionFacturaComponent {
               }
               else {
 
+
+                let Datos: iDatos = _json["d"];
+
+
+
                 this.cFunciones.DIALOG.open(DialogErrorComponent, {
                   id: "error-servidor-msj",
-                  data: _json["msj"].Mensaje,
+                  data: Datos.d,
                 });
 
                 this.V_Limpiar();
@@ -335,9 +340,7 @@ export class LiberacionFacturaComponent {
     this.val.EsValido();
 
     let Prod: string[] = this.val?.Get("cmbProducto")?.value;
-    if (Prod.length == 0) return;
-
-
+  
 
     if (this.val.Errores != "") {
       this.cFunciones.DIALOG.open(DialogErrorComponent, {
@@ -347,6 +350,8 @@ export class LiberacionFacturaComponent {
       return;
     }
 
+
+    if (Prod.length == 0) return;
 
 
     let Bodega: iBodega = this.lstBodega.find(f => f.Codigo == this.val.Get("cmbBodega").value)!;
@@ -392,7 +397,8 @@ export class LiberacionFacturaComponent {
     );
 
     dialogConfirmar.afterOpened().subscribe(s => {
-      dialogConfirmar.componentInstance.textBoton1 = "Liberar"
+      dialogConfirmar.componentInstance.Set_StyleBtn1("width:150px");
+      dialogConfirmar.componentInstance.textBoton1 = "Liberar Precio"
       dialogConfirmar.componentInstance.textBoton2 = "Cancelar";
       dialogConfirmar.componentInstance.SetMensajeHtml("<p><b style='color:red'>Esta seguro de liberar los precios de los siguienes productos:</b>" + Productos + "</p>");
     });
@@ -435,11 +441,14 @@ export class LiberacionFacturaComponent {
               }
               else {
 
+                let Datos: iDatos = _json["d"];
+
+
+
                 this.cFunciones.DIALOG.open(DialogErrorComponent, {
                   id: "error-servidor-msj",
-                  data: _json["msj"].Mensaje,
+                  data: Datos.d,
                 });
-
                 this.V_Limpiar();
                 this.V_CargarDatosLiberacion();
               }
@@ -527,9 +536,13 @@ export class LiberacionFacturaComponent {
               }
               else {
 
+                let Datos: iDatos = _json["d"];
+
+
+
                 this.cFunciones.DIALOG.open(DialogErrorComponent, {
                   id: "error-servidor-msj",
-                  data: _json["msj"].Mensaje,
+                  data: Datos.d,
                 });
 
                 this.V_CargarDatosLiberacion();
@@ -577,9 +590,9 @@ export class LiberacionFacturaComponent {
 
     ///CAMBIO DE FOCO
     this.val.Combo(this.cmbCombo);
-    this.val.addFocus("cmbProducto", "cmbBodega", undefined);
-    this.val.addFocus("cmbBodega", "cmbCliente", undefined);
-    this.val.addFocus("cmbCliente", "txtObservaciones", undefined);
+    this.val.addFocus("cmbProducto", "cmbCliente", undefined);
+    this.val.addFocus("cmbCliente", "cmbBodega", undefined);
+    this.val.addFocus("cmbBodega", "txtObservaciones", undefined);
     this.val.addFocus("txtObservaciones", "btnGuardar-liberacion", "click");
 
     this.overlaySettings = {};

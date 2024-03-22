@@ -1,0 +1,237 @@
+<div id="LiberarBonif">
+
+    <form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
+        <div class="row">
+            <div class="mb-3">
+                <div class="card">
+                    <div>
+                        <div class="card-header card-escasan-header header-bonif">LIBERACION DE BONIFICACION</div>
+
+                        <div class="card-body">
+
+                            <div class="row linea">
+
+                                <div class="col-12 col-sm-12 col-md-8 col-lg-10 mb-1">
+                                    <div class="row">
+                                        <igx-combo #cmbProducto valueKey="Codigo" displayKey="Key" id="cmbProducto"
+                                            [data]="lstProductos" formControlName="cmbProducto" placeholder="Producto"
+                                            searchPlaceholder="Seleccion de producto..." [autoFocusSearch]="true"
+                                            [overlaySettings]="overlaySettings"
+                                            (selectionChanging)="v_Select_Producto($event)"
+                                            (keyup)="v_Enter_Producto($event);">
+
+                                            <igx-prefix><i class="fa-solid fa-list-check"></i></igx-prefix>
+                                        </igx-combo>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2 mb-1">
+
+                                    <div class="input-group">
+          
+                                        <div class="form-floating">
+                                            <input type="text" id="txtCantidad" class="form-control" placeholder=""
+                                                aria-label="Cantidad" formControlName="txtCantidad"
+                                                (keydown)="this.cFunciones.v_Prevent_IsNumber($event,  'Entero');">
+                                            <label for="txtCantidad">Cantidad</label>
+                                        </div>
+                                        <span class="input-group-text input-group-simbolo">
+                                            <div class="number-simbolo">
+
+                                                <button type="button" class="simbolo-mas"><i class="fa-solid fa-plus"
+                                                        (click)="v_minus_mas('+');"></i></button>
+                                                <button type="button" class="simbolo-minus"><i class="fa-solid fa-minus"
+                                                        (click)="v_minus_mas('-');"></i></button>
+
+                                            </div>
+
+                                        </span>
+    
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <ul *ngFor="let item of V_Productos_Seleccionados()">
+                                        <li><b>{{item.Codigo}} - {{item.Producto}}</b></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+
+                            <div class="row">
+
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-1">
+                                    <igx-combo #cmbCliente valueKey="Codigo" displayKey="Key" id="cmbCliente"
+                                        [data]="lstClientes" formControlName="cmbCliente" placeholder="Cliente"
+                                        searchPlaceholder="Seleccione un cliente..." [autoFocusSearch]="true"
+                                        [overlaySettings]="overlaySettings"
+                                        (selectionChanging)="v_Select_Cliente($event)"
+                                        (keyup)="v_Enter_Cliente($event);">
+                                        <igx-prefix><i class="fa-solid fa-user"></i></igx-prefix>
+                                    </igx-combo>
+
+                                </div>
+
+
+                                <div class="col-12 col-sm-12 col-md-6 mb-1">
+                                    <igx-combo #cmbBodega valueKey="Codigo" displayKey="Key" id="cmbBodega"
+                                        formControlName="cmbBodega" [data]="lstBodega" placeholder="Bodega"
+                                        searchPlaceholder="Seleccione una bodega..." [autoFocusSearch]="true"
+                                        [overlaySettings]="overlaySettings"
+                                        (selectionChanging)="v_Select_Bodega($event)" (keyup)="v_Enter_Bodega($event);">
+                                        <igx-prefix><i class="bi bi-shop"></i></igx-prefix>
+                                    </igx-combo>
+                                </div>
+
+                            </div>
+
+                            
+                 
+
+                            <div class="row">
+                                <div class="btn-contenedor">
+
+                                    <div class="boton-refrescar">
+                                        <button type="button" class="btn btn-opcional mb-3" id="btnRefrescar-Liberacion-bonif"
+                                            (click)="V_CargarDatosLiberacion();"><i
+                                                class="fa-solid fa-arrows-rotate fa-spin fa-lg"></i> Refrescar</button>
+                                    </div>
+
+                                    <div class="bonotnes-ediccion">
+
+                                        <button type="button" class="btn btn-primario mb-3" id="btnGuardar-liberacion-bonif"
+                                            (click)="V_Guardar();"><i
+                                                class="fa-solid fa-arrow-left fa-beat fa-lg opcional"></i>
+                                            Guardar</button>
+                                        <button type="button" class="btn btn-secundario mb-3" id="btnCanclar-liberacion-bonif"
+                                            (click)="V_Limpiar();"><i
+                                                class="fa-solid fa-arrow-left fa-beat fa-lg opcional"></i>
+                                            Cancelar</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="mat-elevation-z8  table-container">
+                <table class="table table-hover table-bordered table-sm tabla-custom mat-elevation-z8" mat-table
+                    [dataSource]="lstLiberacionBonif">
+
+                    <ng-container matColumnDef="col1">
+
+                        <td class="col-12" mat-cell *matCellDef="let det">
+
+                            <div class="row g-1">
+
+                                <div class="col-9 col-sm-9 col-md-10 col-lg-10 mb-2">
+                                    <span>{{det.Producto}}</span>
+                                </div>
+
+
+                                <div class="col-3 col-sm-3 col-md-2 col-lg-2 mb-2 fecha">
+                                    <span>{{det.FechaAsignacion | date:'dd/MM/yyyy'}}</span>
+                                </div>
+
+                                <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-2">
+                                    <span>{{det.Bodega}}</span>
+                                </div>
+
+
+                                <div class="col-6 col-sm-6 col-md-4 col-lg-7 mb-2">
+                                    <span>{{det.Cliente}}</span>
+                                </div>
+
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-2  mb-2">
+                                    <div class="row">
+                                        <span><b>Cant Max</b> {{det.CantMax | number:'1.2-2'}}</span>
+                                    </div>
+
+                                    <div class="row">
+                                        <span><b>Facturada</b> {{det.Facturada | number:'1.2-2'}}</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="row mb-2">
+                                    <div class="btn-contenedor-ediccion-tabla">
+                                        <button type="button" class="btn" (click)="V_Anular(det);"><i
+                                                class="fa-solid fa-ban fa-beat-fade fa-lg"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+
+                        </td>
+
+                    </ng-container>
+
+
+                    <div class="row mb-3 linea">
+
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                            class="linea-bottom-secundario dashed">
+                        </tr>
+
+                    </div>
+                </table>
+                <mat-paginator [pageSizeOptions]="[100, 200]" class="mat-paginator-sticky">
+
+                    
+                </mat-paginator>
+
+            </div>
+
+        </div>
+
+
+
+
+        <div class="contenedor-pie">
+            <div class="pie-liberacion-bonif">
+
+                <div class="row">
+
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-3 mb-1">
+
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+
+                            <div class="form-floating">
+                                <input type="text" id="txtBuscar-bonif-liberado" class="form-control" placeholder="Buscar"
+                                    aria-label="Buscar" (keyup)="v_Filtrar($event)">
+                                <label for="txtBuscar-liberacion-bonif">Buscar</label>
+
+                            </div>
+                        </div>
+                    </div>
+
+        
+                </div>
+
+            </div>
+        </div>
+
+
+    </form>
+
+
+
+</div>

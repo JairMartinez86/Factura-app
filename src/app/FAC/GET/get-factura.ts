@@ -91,8 +91,12 @@ export class getFactura{
    }
 
 
-   public GetDatosLiberacion() : Observable<string>{
-      return this.http.get<any>(this._Cnx.Url() + "Factura/GetDatosLiberacion");
+   public GetDatosLiberacionPrecio() : Observable<string>{
+      return this.http.get<any>(this._Cnx.Url() + "Factura/GetDatosLiberacionPrecio");
+   }
+
+   public GetDatosLiberacionBonif() : Observable<string>{
+      return this.http.get<any>(this._Cnx.Url() + "Factura/GetDatosLiberacionBonif");
    }
 
 }

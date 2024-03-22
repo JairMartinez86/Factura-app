@@ -6,6 +6,7 @@ import { iFactPed } from "../interface/i-Factura-Pedido";
 import { iFacturaPagoCancelacion } from "../interface/i-Factura-Pago-Cancelacion";
 import { iLiberarExixtencia } from "../interface/i-Liberar-Existencia";
 import { iLiberacionPrecio } from "../interface/i-Liberacion-Precio";
+import { iLiberacionBonif } from "../interface/i-Liberacion-Bonif";
 
 @Injectable({
     providedIn: 'root',
@@ -61,6 +62,14 @@ export class postFactura{
 
 
     return this.http.post<any>(this._Cnx.Url() + "Factura/LiberarPrecios", JSON.stringify(d), { headers: { 'content-type': 'application/json' } });
+
+ }
+
+
+ public LiberarBonificacion(d : iLiberacionBonif[]) : Observable<string>{
+
+
+    return this.http.post<any>(this._Cnx.Url() + "Factura/LiberarBonificacion", JSON.stringify(d), { headers: { 'content-type': 'application/json' } });
 
  }
 
