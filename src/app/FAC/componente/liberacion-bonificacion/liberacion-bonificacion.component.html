@@ -192,10 +192,7 @@
 
                     </div>
                 </table>
-                <mat-paginator [pageSizeOptions]="[100, 200]" class="mat-paginator-sticky">
 
-                    
-                </mat-paginator>
 
             </div>
 
@@ -207,7 +204,7 @@
         <div class="contenedor-pie">
             <div class="pie-liberacion-bonif">
 
-                <div class="row">
+                <div class="row gx-0">
 
                     <div class="col-12 col-sm-12 col-md-12 col-lg-3 mb-1">
 
@@ -223,6 +220,12 @@
                         </div>
                     </div>
 
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-9 mb-1">
+                        <mat-paginator [pageSizeOptions]="[100, 200]" class="mat-paginator-sticky">
+
+                    
+                        </mat-paginator>
+                    </div>
         
                 </div>
 

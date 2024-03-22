@@ -94,7 +94,6 @@ mat-paginator{
 
 .contenedor-pie {
   position: relative;
-  z-index: 11;
 }
 
 .pie-liberacion-precio {
@@ -103,14 +102,7 @@ mat-paginator{
   left: 0;
   width: 100vw;
   z-index: 5;
-  background-color: transparent;
   padding: 10px;
 
-
-
-  .botones{
-      margin-right: 10px;
-      padding-right: 10px;
-  }
 
 }
