@@ -62,6 +62,7 @@ export class Funciones {
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aLiberarPrecio", Caption: "Liberar Precio" , MenuPadre: "idNavIventario", Clase : "fa-solid fa-hand-holding-dollar fa-lg", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aLiberarBonificacion", Caption: "Liberar Bonificacion" , MenuPadre: "idNavIventario", Clase : "fa-solid fa-b fa-lg", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aAutorizaRequisa", Caption: "Autorizar Requiza" , MenuPadre: "idNavIventario", Clase : "fa-regular fa-pen-to-square fa-lg", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aRequisaPermiso", Caption: "Permiso Requisa" , MenuPadre: "idNavIventario", Clase : "fa-solid fa-unlock fa-lg", Modulo: "FACT", Usuario: ""},
 
         
      /**************************************ACCESO WEB************************************* */ 
@@ -69,7 +70,7 @@ export class Funciones {
      {IdAcceso:0,  Activo: false, EsMenu: false,  Id:"idNavAccesoWeb", Caption: "Acceso Web" , MenuPadre: "", Clase : "fa-solid fa-database", Modulo: "FACT", Usuario: ""},
   
     
-    
+     
 
 ]
 

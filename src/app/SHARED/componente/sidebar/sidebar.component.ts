@@ -18,6 +18,7 @@ import { LiberacionPrecioComponent } from 'src/app/FAC/componente/liberacion-fac
 import { iPerfil } from '../../interface/i-Perfiles';
 import { LiberacionBonificacionComponent } from 'src/app/FAC/componente/liberacion-bonificacion/liberacion-bonificacion.component';
 import { AccesoWebComponent } from 'src/app/SIS/componente/acceso-web/acceso-web.component';
+import { RequisaPermisoComponent } from 'src/app/FAC/componente/requisa/requisa-permiso/requisa-permiso.component';
 
 const SCRIPT_PATH = 'ttps://cdn.jsdelivr.net/npm/bootstrap5-toggle@5.0.4/css/bootstrap5-toggle.min.css';
 declare let gapi: any;
@@ -148,6 +149,13 @@ export class SidebarComponent {
       this.DynamicFrom.viewContainerRef.clear();
       let LiberarBonif: ComponentRef<LiberacionBonificacionComponent> = this.DynamicFrom.viewContainerRef.createComponent(LiberacionBonificacionComponent);
     }
+
+    if (id == "aRequisaPermiso") {
+      this.DynamicFrom.viewContainerRef.clear();
+      let ReqPerm: ComponentRef<RequisaPermisoComponent> = this.DynamicFrom.viewContainerRef.createComponent(RequisaPermisoComponent);
+    }
+
+
 
 
     if (id == "idNavAccesoWeb") {
