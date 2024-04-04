@@ -37,33 +37,37 @@ export class Funciones {
 
     /**************************************FACTURA************************************* */ 
 
-    {IdAcceso:0,  Seleccionar: false, EsMenu: true,  Id:"idNavFactura", Caption: "Facturación" , MenuPadre: "", Clase : "fa-solid fa-shop fa-lg", Modulo: "FACT"},
-    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aNewFactura", Caption: "Nueva Factura" , MenuPadre: "idNavFactura", Clase : "fa-solid fa-cash-register", Modulo: "FACT"},
-    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aNewDelivery", Caption: "Nuevo Delivery" , MenuPadre: "idNavFactura", Clase : "fa-solid fa-truck-fast", Modulo: "FACT"},
-    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aRegistroFactura", Caption: "Registros" , MenuPadre: "idNavFactura", Clase : "fa-solid fa-table-cells", Modulo: "FACT"},
+    {IdAcceso:0,  Activo: false, EsMenu: true,  Id:"idNavFactura", Caption: "Facturación" , MenuPadre: "", Clase : "fa-solid fa-shop fa-lg", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aNewFactura", Caption: "Nueva Factura" , MenuPadre: "idNavFactura", Clase : "fa-solid fa-cash-register", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aNewDelivery", Caption: "Nuevo Delivery" , MenuPadre: "idNavFactura", Clase : "fa-solid fa-truck-fast", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aRegistroFactura", Caption: "Registros" , MenuPadre: "idNavFactura", Clase : "fa-solid fa-table-cells", Modulo: "FACT", Usuario: ""},
 
 
     /**************************************PROFORMA************************************* */ 
 
-    {IdAcceso:0,  Seleccionar: false, EsMenu: true,  Id:"idNavProforma", Caption: "Proforma" , MenuPadre: "", Clase : "fa-solid fa-briefcase fa-lg", Modulo: "FACT"},
-    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aNewProforma", Caption: "Nueva Proforma" , MenuPadre: "idNavProforma", Clase : "fa-solid fa-handshake", Modulo: "FACT"},
-    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aRegistroProforma", Caption: "Proformas Pendientes" , MenuPadre: "idNavProforma", Clase : "fa-solid fa-table-cells", Modulo: "FACT"},
-    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aRegistroProformaVen", Caption: "Proformas Vencidas" , MenuPadre: "idNavProforma", Clase : "fa-solid fa-circle-exclamation", Modulo: "FACT"},
+    {IdAcceso:0,  Activo: false, EsMenu: true,  Id:"idNavProforma", Caption: "Proforma" , MenuPadre: "", Clase : "fa-solid fa-briefcase fa-lg", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aNewProforma", Caption: "Nueva Proforma" , MenuPadre: "idNavProforma", Clase : "fa-solid fa-handshake", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aRegistroProforma", Caption: "Proformas Pendientes" , MenuPadre: "idNavProforma", Clase : "fa-solid fa-table-cells", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aRegistroProformaVen", Caption: "Proformas Vencidas" , MenuPadre: "idNavProforma", Clase : "fa-solid fa-circle-exclamation", Modulo: "FACT", Usuario: ""},
 
         
     /**************************************COLA IMPRESION************************************* */ 
 
-    {IdAcceso:0,  Seleccionar: false, EsMenu: false,  Id:"idNavCola", Caption: "Cola Impresión" , MenuPadre: "", Clase : "fa-solid fa-print fa-lg", Modulo: "FACT"},
+    {IdAcceso:0,  Activo: false, EsMenu: false,  Id:"idNavCola", Caption: "Cola Impresión" , MenuPadre: "", Clase : "fa-solid fa-print fa-lg", Modulo: "FACT", Usuario: ""},
   
 
     /**************************************INVENTARIO************************************* */ 
 
-    {IdAcceso:0,  Seleccionar: false, EsMenu: true,  Id:"idNavIventario", Caption: "Inventario" , MenuPadre: "", Clase : "fa-regular fa-pen-to-square fa-lg", Modulo: "FACT"},
-    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aLiberarPrecio", Caption: "Liberar Precio" , MenuPadre: "idNavIventario", Clase : "fa-solid fa-hand-holding-dollar fa-lg", Modulo: "FACT"},
-    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aLiberarBonificacion", Caption: "Liberar Bonificacion" , MenuPadre: "idNavIventario", Clase : "fa-solid fa-b fa-lg", Modulo: "FACT"},
-    {IdAcceso:0,  Seleccionar: false, EsMenu: false, Id:"aAutorizaRequisa", Caption: "Autorizar Requiza" , MenuPadre: "idNavIventario", Clase : "fa-regular fa-pen-to-square fa-lg", Modulo: "FACT"},
+    {IdAcceso:0,  Activo: false, EsMenu: true,  Id:"idNavIventario", Caption: "Inventario" , MenuPadre: "", Clase : "fa-regular fa-pen-to-square fa-lg", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aLiberarPrecio", Caption: "Liberar Precio" , MenuPadre: "idNavIventario", Clase : "fa-solid fa-hand-holding-dollar fa-lg", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aLiberarBonificacion", Caption: "Liberar Bonificacion" , MenuPadre: "idNavIventario", Clase : "fa-solid fa-b fa-lg", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aAutorizaRequisa", Caption: "Autorizar Requiza" , MenuPadre: "idNavIventario", Clase : "fa-regular fa-pen-to-square fa-lg", Modulo: "FACT", Usuario: ""},
 
         
+     /**************************************ACCESO WEB************************************* */ 
+
+     {IdAcceso:0,  Activo: false, EsMenu: false,  Id:"idNavAccesoWeb", Caption: "Acceso Web" , MenuPadre: "", Clase : "fa-solid fa-database", Modulo: "FACT", Usuario: ""},
+  
     
     
 

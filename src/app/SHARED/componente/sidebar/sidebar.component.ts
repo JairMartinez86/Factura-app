@@ -17,6 +17,7 @@ import { RequisaAutorizaComponent } from 'src/app/FAC/componente/requisa/requisa
 import { LiberacionPrecioComponent } from 'src/app/FAC/componente/liberacion-factura/liberacion-precio.component';
 import { iPerfil } from '../../interface/i-Perfiles';
 import { LiberacionBonificacionComponent } from 'src/app/FAC/componente/liberacion-bonificacion/liberacion-bonificacion.component';
+import { AccesoWebComponent } from 'src/app/SIS/componente/acceso-web/acceso-web.component';
 
 const SCRIPT_PATH = 'ttps://cdn.jsdelivr.net/npm/bootstrap5-toggle@5.0.4/css/bootstrap5-toggle.min.css';
 declare let gapi: any;
@@ -149,6 +150,13 @@ export class SidebarComponent {
     }
 
 
+    if (id == "idNavAccesoWeb") {
+      this.DynamicFrom.viewContainerRef.clear();
+      let Acceso: ComponentRef<AccesoWebComponent> = this.DynamicFrom.viewContainerRef.createComponent(AccesoWebComponent);
+    }
+
+
+    
 
     if (id == "aSalir") {
       this.ErrorServidor = true;

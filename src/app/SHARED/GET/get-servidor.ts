@@ -31,6 +31,11 @@ export class getServidor{
 }
 
 
+public AccesoWeb(user : string) : Observable<any>{
+  return this.http.get<any>(this._Cnx.Url() + "SIS/AccesoWeb?user=" + user);
+}
+
+
 
 public  Version()
 {
