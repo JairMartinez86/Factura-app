@@ -248,7 +248,7 @@ export class AccesoWebComponent {
       Acc.forEach(f =>{
         
         let u : string = this.val.Get("cmbUsuario").value;
-        let i = this.lstDatosPerfil.findIndex((w : any) => w.Usuario == u && w.Id == f.Id && w.Activo && f.Modulo == "FACT");
+        let i = this.lstDatosPerfil.findIndex((w : any) => w.Usuario == u && w.Id == f.Id && w.Activo && w.Modulo == "FACT");
         f.Activo = false;
         f.IdAcceso = -1;
         f.Usuario = u;
