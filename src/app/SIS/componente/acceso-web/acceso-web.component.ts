@@ -11,11 +11,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { DialogErrorComponent } from 'src/app/SHARED/componente/dialog-error/dialog-error.component';
 import { iDatos } from 'src/app/SHARED/interface/i-Datos';
 import { CommonModule } from '@angular/common';
-import { DialogoConfirmarComponent } from 'src/app/SHARED/componente/dialogo-confirmar/dialogo-confirmar.component';
 import { iPerfil } from 'src/app/SHARED/interface/i-Perfiles';
 import { iUsuario } from '../../Interface/Usuario';
 import { getServidor } from 'src/app/SHARED/GET/get-servidor';
-import { postServidor } from 'src/app/SHARED/GET/post-servidor';
+import { postServidor } from 'src/app/SHARED/POST/post-servidor';
 
 @Component({
   selector: 'app-acceso-web',
