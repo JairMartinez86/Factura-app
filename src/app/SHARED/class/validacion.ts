@@ -228,7 +228,50 @@ export class Validacion {
 
     if(NuevoItem) this.lstFrm.push({ Id: id, Frm: _frm, Etiqueta: etiqueta });
 
+    let elemento  = document.getElementById(id);
+    if(elemento?.tagName == "IGX-COMBO") elemento.addEventListener("keyup", this.V_Forcer_Key_Enter_Combo);
+
+
+
   }
+
+
+  private V_Forcer_Key_Enter_Combo(event: any): void {
+
+    if (event.key == "Enter")
+      {
+         let id = event.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.id
+
+         let elmento: HTMLElement = document?.getElementById(id)!;
+
+
+         let combo: IgxComboComponent = cmb.find(f => f.id == id)!;
+         combo.close();
+         
+
+         let _element_next = lstFocus.find(f => f.Id == id);
+
+         if (_element_next == undefined) return;
+         if (_element_next.IdNext == "") return;
+       
+        
+         elmento = document?.getElementById(_element_next.Id)!;
+         elmento = getRectArea(elmento);
+       
+       
+       
+       
+       
+         elmento?.focus();
+
+         
+
+        
+      }
+
+
+  }
+
 
   public addFocus(id: string, idNext: string, evento: any) {
     let i: number = lstFocus.findIndex(f => f.Id == id);
