@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Observable, from, of, zip } from "rxjs";
 import { groupBy, map, mergeMap, reduce, startWith, toArray } from "rxjs/operators";
@@ -76,7 +76,8 @@ export class FacturaComponent {
 
   public overlaySettings: OverlaySettings = {};
 
-
+  @ViewChildren(IgxComboComponent)
+  public lstCmb: QueryList<IgxComboComponent>;
 
   constructor(
     private cFunciones: Funciones,
@@ -1533,8 +1534,6 @@ export class FacturaComponent {
     if (this.cmbVendedor != undefined) this.cmbVendedor.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
 
 
-    
-
 
 
     this.overlaySettings = {};
@@ -1551,21 +1550,6 @@ export class FacturaComponent {
 
   private ngOnInit() {
 
-
-
-
-    ///CAMBIO DE FOCO
-    this.val.addFocus("txtCliente", "txtNombre", undefined);
-    this.val.addFocus("txtNombre", "txtIdentificacion", undefined);
-    this.val.addFocus("txtIdentificacion", "txtRuc", undefined);
-    this.val.addFocus("txtRuc", "txtCorreo", undefined);
-    this.val.addFocus("txtCorreo", "txtContacto", undefined);
-    this.val.addFocus("txtContacto", "txtOC", undefined);
-    this.val.addFocus("txtOC", "btnSiguiente", "click");
-
-
-
-
     //FILTRO CLIENTE
     this.filteredClientes = this.val.Get("txtCliente").valueChanges.pipe(
       startWith(""),
@@ -1580,6 +1564,26 @@ export class FacturaComponent {
   }
 
   private ngAfterViewInit() {
+
+
+    this.val.Combo(this.lstCmb);
+
+      ///CAMBIO DE FOCO
+      this.val.addFocus("txtCliente", "txtNombre", undefined);
+      this.val.addFocus("txtNombre", "txtIdentificacion", undefined);
+      this.val.addFocus("txtIdentificacion", "txtRuc", undefined);
+      this.val.addFocus("txtRuc", "txtCorreo", undefined);
+      this.val.addFocus("txtCorreo", "txtContacto", undefined);
+      this.val.addFocus("txtContacto", "txtBodega", undefined);
+      this.val.addFocus("txtBodega", "txtVendedor", undefined);
+      this.val.addFocus("txtVendedor", "txtOC", undefined);
+      this.val.addFocus("txtOC", "btnSiguiente", "click");
+  
+    
+
+
+
+
     //HABILITANDO CHECKBOK POR PROBLEMAS DE VIZUALIZACION
     let lstcheckbox: any = document.querySelectorAll("input[type='checkbox']");
     lstcheckbox.forEach((f: any) => {
