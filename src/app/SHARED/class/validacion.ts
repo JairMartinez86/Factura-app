@@ -228,12 +228,49 @@ export class Validacion {
 
     if(NuevoItem) this.lstFrm.push({ Id: id, Frm: _frm, Etiqueta: etiqueta });
 
+  
+
+
+  }
+
+
+
+
+  public addFocus(id: string, idNext: string, evento: any) {
+    let i: number = lstFocus.findIndex(f => f.Id == id);
+
+    if (i != -1) {
+      lstFocus[i].IdNext == idNext;
+    }
+    else {
+      lstFocus.push({ Id: id, IdNext: idNext, Evento: evento });
+    }
+
+
+    document.querySelector('#' + id)?.addEventListener('keypress', onKeyEnter);
+
     let elemento  = document.getElementById(id);
     if(elemento?.tagName == "IGX-COMBO") elemento.addEventListener("keyup", this.V_Forcer_Key_Enter_Combo);
 
 
+  }
+
+  public addNumberFocus(id: string, decimal : number) {
+
+    let i: number = lstFormat.findIndex(f => f.Id == id);
+
+    if (i != -1)
+    {
+      lstFormat.splice(i, 1);
+    }
+
+    lstFormat.push({ Id: id, Decimal: decimal });
+
+    document.querySelector('#' + id)?.addEventListener('focusin', this.onFocusIn);
+    document.querySelector('#' + id)?.addEventListener('focusout', this.onFocusOut);
 
   }
+
 
 
   private V_Forcer_Key_Enter_Combo(event: any): void {
@@ -272,57 +309,7 @@ export class Validacion {
 
   }
 
-
-  public addFocus(id: string, idNext: string, evento: any) {
-    let i: number = lstFocus.findIndex(f => f.Id == id);
-
-    if (i != -1) {
-      lstFocus[i].IdNext == idNext;
-    }
-    else {
-      lstFocus.push({ Id: id, IdNext: idNext, Evento: evento });
-    }
-
-
-    document.querySelector('#' + id)?.addEventListener('keypress', onKeyEnter);
-
-  }
-/*
-  public addNumberFocus() {
-
-    var inputs, index;
-
-    inputs = document.getElementsByTagName('input');
-    for (index = 0; index < inputs.length; ++index) {
-      if(inputs[index].id != "")
-      {
-        document.querySelector('#' + inputs[index].id)?.removeEventListener("focusin", this.onFocusIn);
-        document.querySelector('#' + inputs[index].id)?.removeEventListener("focusout", this.onFocusOut);
-      }
-      
-    }
-
-
-  }*/
-
-  public addNumberFocus(id: string, decimal : number) {
-
-    let i: number = lstFormat.findIndex(f => f.Id == id);
-
-    if (i != -1)
-    {
-      lstFormat.splice(i, 1);
-    }
-
-    lstFormat.push({ Id: id, Decimal: decimal });
-
-    document.querySelector('#' + id)?.addEventListener('focusin', this.onFocusIn);
-    document.querySelector('#' + id)?.addEventListener('focusout', this.onFocusOut);
-
-  }
-
-
-
+  
 
   onFocusIn(event: any) {
 
