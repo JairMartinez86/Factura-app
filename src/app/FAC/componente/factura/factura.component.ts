@@ -166,6 +166,7 @@ export class FacturaComponent {
           0,
           this.FichaProducto.lstDetalle.length
         );
+        if(this.ConfirmarFactura != undefined)this.ConfirmarFactura.Vizualizado = false;
         this.ConfirmarFactura?._Evento("Limpiar");
         this.RevisionFactura?.lstDetalle.splice(
           0,
