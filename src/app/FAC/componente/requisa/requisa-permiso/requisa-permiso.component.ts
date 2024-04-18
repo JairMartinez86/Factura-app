@@ -251,6 +251,7 @@ export class RequisaPermisoComponent {
       f.Activo = false;
       f.IdPermisoRequisaAuto = -1;
       f.Usuario = u;
+      f.UsuarioRegistra = this.cFunciones.User;
       if(i != -1) 
       {
         f.Activo = true;
