@@ -303,7 +303,8 @@ export class FactFichaProductoComponent {
       //document?.getElementById("txtPrecioCor")?.focus();
 
       this.v_Datos_Producto();
-      if(window.innerWidth <= this.cFunciones.TamanoPantalla("md")) this.cmbProducto.close();
+      //if(window.innerWidth <= this.cFunciones.TamanoPantalla("md")) this.cmbProducto.close();
+      this.cmbProducto.close();
 
     }
 

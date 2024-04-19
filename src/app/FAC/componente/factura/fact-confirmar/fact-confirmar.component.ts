@@ -247,7 +247,8 @@ export class FactConfirmarComponent {
       }
 
       this.LoadVenedor = false;
-      if(window.innerWidth <= this.cFunciones.TamanoPantalla("md")) this.cmbVendedor.close();
+      //if(window.innerWidth <= this.cFunciones.TamanoPantalla("md")) this.cmbVendedor.close();
+      this.cmbVendedor.close();
     }
   }
 
