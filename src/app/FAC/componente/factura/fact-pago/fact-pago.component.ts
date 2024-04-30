@@ -545,7 +545,7 @@ export class FactPagoComponent {
     this.VueltoDolar = this.cFunciones.Redondeo(PagoDolar -  TotaDolar, "2");
     this.VueltoCordoba =  this.cFunciones.Redondeo(PagoCordoba - TotalCordoba, "2")
 
-    if(this.VueltoDolar >= 0 && this.VueltoCordoba >= 0) this.str_Etiqueta_Vuelto = "VUELTO";
+    if(this.VueltoDolar >= 0 || this.VueltoCordoba >= 0) this.str_Etiqueta_Vuelto = "VUELTO";
 
     PagoDolar = this.cFunciones.Redondeo(PagoDolar, "2");
     PagoCordoba = this.cFunciones.Redondeo(PagoCordoba, "2");
