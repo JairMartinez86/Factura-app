@@ -1249,7 +1249,7 @@ export class FacturaComponent {
     this.Fila_Doc.TipoImpuesto = this.ConfirmarFactura.TipoImpuesto;
     this.Fila_Doc.TipoExoneracion = this.ConfirmarFactura.TipoExoneracion;
     this.Fila_Doc.NoExoneracion = this.ConfirmarFactura.val.Get("txtNoExoneracion").value;
-    this.Fila_Doc.EsDelivery = this.ConfirmarFactura.val.Get("chkDelivery").value == "on" ? true : false;
+    this.Fila_Doc.EsDelivery = this.ConfirmarFactura.val.Get("chkDelivery").value  ? true : false;
     this.Fila_Doc.Direccion = this.ConfirmarFactura.val.Get("txtDireccion").value;
     this.Fila_Doc.Observaciones = this.ConfirmarFactura.val.Get("txtObservaciones").value;
     this.Fila_Doc.Impuesto = this.ConfirmarFactura.Impuesto;
