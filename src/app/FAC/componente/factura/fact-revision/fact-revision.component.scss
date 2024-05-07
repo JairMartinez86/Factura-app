@@ -10,8 +10,12 @@
 table {
   margin-bottom: 60px;
   position: relative;
-
   overflow-y: scroll;
+}
+
+.altura
+{
+  min-height: 200vh;
 }
 
 thead {
