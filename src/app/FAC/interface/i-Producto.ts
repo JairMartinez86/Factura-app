@@ -5,6 +5,7 @@ export interface iProducto{
     IdImpuesto : any;
     ConImpuesto : boolean;
     IdUnidad :  number;
+    NoParte : string;
     Filtro: string;
     Key: string;
     Bonificable: boolean;

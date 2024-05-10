@@ -31,6 +31,12 @@
                                                 (keyup)="v_Enter_Producto($event);" (closed)="v_Close_Producto()">
                                                 <label igxLabel>Producto</label>
 
+                                                <ng-template igxComboItem let-display let-key="valueKey">
+                                                    <div class="item">
+                                                        <span>{{ display[key] }} {{ display.Producto }} {{ display.NoParte }}</span>
+                                                    </div>
+                                                </ng-template>
+                                                
                                                 <ng-template igxComboClearIcon>
                                                     <igx-icon></igx-icon>
                                                 </ng-template>
