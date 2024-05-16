@@ -1119,7 +1119,6 @@ export class FactFichaProductoComponent {
       this.val.addNumberFocus("txtPrecioCor", 4);
       this.val.addNumberFocus("txtProcDescuento", 2);
 
-      
 
     if (this.cmbProducto != undefined) this.cmbProducto.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
 
