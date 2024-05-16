@@ -85,6 +85,26 @@ mat-paginator{
 }
 
 
+.combo-etiqueta{
+
+  font-size: 0.8em;
+
+  &-part{
+    color: #A52A2A;
+    
+  }
+  
+  &-prov{
+    color: var(--escan-primario);
+  }
+
+  
+}
+
+.right{
+  text-align: right;
+}
+
 
 //████████████████████████████████████████████TEXT NUMBER████████████████████████████████████████████████████████████████████████
 
