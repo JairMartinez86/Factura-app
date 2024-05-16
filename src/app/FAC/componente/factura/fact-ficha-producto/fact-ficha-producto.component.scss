@@ -65,10 +65,22 @@
   
 }
 
+.contenedor-prov{
+  display:inline;
+  width: 100%;
+
+  
+  div:first-child{
+    width: 20%;
+  }
+  .div:last-child{
+    width: 80%;
+  }
+}
+
 .right{
   text-align: right;
 }
-
 
 //████████████████████████████████████████████TEXT NUMBER████████████████████████████████████████████████████████████████████████
 

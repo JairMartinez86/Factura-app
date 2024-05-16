@@ -26,25 +26,37 @@
 
 
 
-                                        <ng-template igxComboItem let-display let-key="valueKey">
-                                            <div class="combo">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <span class="combo-etiqueta"><b>Part. : </b> <b class="combo-etiqueta-part">{{ display.NoParte }}</b></span>
+                                            <ng-template igxComboItem let-display let-key="valueKey">
+                                                <div class="combo">
+
+                                                    <div class="row">
+                                                        <span class="combo-etiqueta"><b>Part. : </b> <b
+                                                                class="combo-etiqueta-part">{{ display.NoParte
+                                                                }}</b></span>
                                                     </div>
 
-                                                    <div class="col-12">
+                                                    <div class="row">
                                                         {{ display[key] }} {{ display.Producto }}
                                                     </div>
 
-                                                    <div class="col-12 right">
-                                                        <span class="combo-etiqueta"><b>Prov. : </b> <b class="combo-etiqueta-prov">{{ display.Proveedor }}</b></span>
+
+
+                                                    <div class="row">
+                                                        <div class="contenedor-prov">
+                                                            <div class="right">
+                                                                <span class="combo-etiqueta"><b>Prov. : </b></span>
+                                                            </div>
+                                                            <div class="right">
+                                                                <span class="combo-etiqueta"><b
+                                                                        class="combo-etiqueta-prov">{{ display.Proveedor
+                                                                        }}</b></span>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
+
                                                 </div>
-                                                
-                                            </div>
-                                        </ng-template>
-                                        
+                                            </ng-template>
 
                                         </igx-combo>
                                     </div>

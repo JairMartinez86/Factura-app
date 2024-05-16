@@ -29,28 +29,40 @@
                                                 [autoFocusSearch]="true" [overlaySettings]="overlaySettings"
                                                 (selectionChanging)="v_Select_Producto($event)"
                                                 (keyup)="v_Enter_Producto($event);" (closed)="v_Close_Producto()"
-                                                [itemHeight]='64'>
+                                                [itemHeight]='80'>
                                                 <label igxLabel>Producto</label>
-
 
 
 
                                                 <ng-template igxComboItem let-display let-key="valueKey">
                                                     <div class="combo">
+    
                                                         <div class="row">
-                                                            <div class="col-12">
-                                                                <span class="combo-etiqueta"><b>Part. : </b> <b class="combo-etiqueta-part">{{ display.NoParte }}</b></span>
-                                                            </div>
-
-                                                            <div class="col-12">
-                                                                {{ display[key] }} {{ display.Producto }}
-                                                            </div>
-
-                                                            <div class="col-12 right">
-                                                                <span class="combo-etiqueta"><b>Prov. : </b> <b class="combo-etiqueta-prov">{{ display.Proveedor }}</b></span>
-                                                            </div>
+                                                            <span class="combo-etiqueta"><b>Part. : </b> <b
+                                                                    class="combo-etiqueta-part">{{ display.NoParte
+                                                                    }}</b></span>
                                                         </div>
-                                                        
+    
+                                                        <div class="row">
+                                                            {{ display[key] }} {{ display.Producto }}
+                                                        </div>
+    
+    
+    
+                                                        <div class="row">
+                                                            <div class="contenedor-prov">
+                                                                <div class="right">
+                                                                    <span class="combo-etiqueta"><b>Prov. : </b></span>
+                                                                </div>
+                                                                <div class="right">
+                                                                    <span class="combo-etiqueta"><b
+                                                                            class="combo-etiqueta-prov">{{ display.Proveedor
+                                                                            }}</b></span>
+                                                                </div>
+                                                            </div>
+    
+                                                        </div>
+    
                                                     </div>
                                                 </ng-template>
                                                 
