@@ -105,14 +105,14 @@ mat-paginator{
 }
 
 .contenedor-prov{
-  display:inline;
-  width: 100%;
+  display: flex;
+  flex-direction: row;
 
   
   div:first-child{
     width: 20%;
   }
-  .div:last-child{
+  div:last-child{
     width: 80%;
   }
 }
@@ -120,6 +120,8 @@ mat-paginator{
 .right{
   text-align: right;
 }
+
+
 
 
 //████████████████████████████████████████████PIE████████████████████████████████████████████████████████████████████████
