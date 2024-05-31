@@ -1,28 +1,87 @@
-.combo {
+.ComboBodega {
 
-    background-color: var(--escan-primario);
+  background-color: var(--escan-primario);
 
-    i, label {
-        color: white;
-    }
+  i,
+  label {
+    color: white;
+  }
 }
 
 
 ::ng-deep {
 
 
-    
-    .combo.igx-combo ::placeholder {
-        color: white;
-    }
 
-    .combo.igx-combo:hover ::placeholder {
-        font-size: 1.1em;
-        font-weight: bold;
-        color: white;
-    }
+  .ComboBodega.igx-combo ::placeholder {
+    color: white;
+  }
 
-    .combo.igx-icon{
-        color: white;
-    }
+  .ComboBodega.igx-combo:hover ::placeholder {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: white;
+  }
+
+  .ComboBodega.igx-icon {
+    color: white;
+  }
+}
+
+
+
+
+
+
+//PRODUCTO
+.combo-etiqueta {
+
+  font-size: 0.8em;
+
+  &-part {
+    color: #A52A2A;
+
+  }
+
+  &-prov {
+    color: var(--escan-primario);
+  }
+
+
+}
+
+
+
+.contenedor-prov {
+  display: flex;
+  flex-direction: row;
+
+
+  div:first-child {
+    width: 20%;
+  }
+
+  div:last-child {
+    width: 80%;
+  }
+}
+
+.right {
+  text-align: right;
+}
+
+
+.left {
+  text-align: left;
+}
+
+
+
+.card-header {
+  font-size: 0.8em;
+}
+
+.card-titulo {
+  font-size: 1.2em;
+  font-weight: bold;
 }

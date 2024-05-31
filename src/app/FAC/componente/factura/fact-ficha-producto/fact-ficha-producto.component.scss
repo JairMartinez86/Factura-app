@@ -68,6 +68,7 @@
 .contenedor-prov{
   display: flex;
   flex-direction: row;
+  text-align: right;
 
   
   div:first-child{
@@ -80,6 +81,9 @@
 
 .right{
   text-align: right;
+}
+.left{
+  text-align: left;
 }
 
 

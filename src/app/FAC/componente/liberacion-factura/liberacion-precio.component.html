@@ -44,7 +44,7 @@
                                                             <div class="right">
                                                                 <span class="combo-etiqueta"><b>Prov. : </b></span>
                                                             </div>
-                                                            <div class="right">
+                                                            <div class="left">
                                                                 <span class="combo-etiqueta"><b
                                                                         class="combo-etiqueta-prov">{{ display.Proveedor
                                                                         }}</b></span>
@@ -53,7 +53,12 @@
 
                                                     </div>
 
+
                                                 </div>
+                                            </ng-template>
+
+                                            <ng-template igxComboClearIcon>
+                                                <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
                                             </ng-template>
                                         </igx-combo>
                                     </div>
@@ -88,6 +93,10 @@
                                         (selectionChanging)="v_Select_Cliente($event)"
                                         (keyup)="v_Enter_Cliente($event);">
                                         <igx-prefix><i class="fa-solid fa-user"></i></igx-prefix>
+
+                                        <ng-template igxComboClearIcon>
+                                            <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                                        </ng-template>
                                     </igx-combo>
 
                                 </div>
@@ -100,6 +109,10 @@
                                         [overlaySettings]="overlaySettings"
                                         (selectionChanging)="v_Select_Bodega($event)" (keyup)="v_Enter_Bodega($event);">
                                         <igx-prefix><i class="bi bi-shop"></i></igx-prefix>
+
+                                        <ng-template igxComboClearIcon>
+                                            <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                                        </ng-template>
                                     </igx-combo>
                                 </div>
 

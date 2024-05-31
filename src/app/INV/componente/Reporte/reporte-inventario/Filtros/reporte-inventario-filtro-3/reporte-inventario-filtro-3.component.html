@@ -1,4 +1,4 @@
-<div class="div-rpt-filtro-3">
+<div id="div-rpt-filtro-3">
 
     <form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
 
@@ -28,16 +28,15 @@
 
             <div class="col-12 mb-1">
 
-                <igx-combo class="combo" #cmbSerie [data]="lstSerie" valueKey="IdSerie" displayKey="IdSerie" id="cmbSerie"
+                <igx-combo class="ComboSerie" #cmbSerie [data]="lstSerie" valueKey="IdSerie" displayKey="IdSerie" id="cmbSerie"
                     formControlName="cmbSerie" placeholder="Seleccione una Serie."
                     searchPlaceholder="Seleccione una Serie..." [autoFocusSearch]="true"
                     [overlaySettings]="overlaySettings"
                     (selectionChanging)="V_Select_Serie($event)" (keyup)="V_Enter_Serie($event);">
                     <label igxLabel>Serie</label>
                     <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
-
                     <ng-template igxComboClearIcon>
-                        <igx-icon></igx-icon>
+                        <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
                     </ng-template>
                 </igx-combo>
 

@@ -6,6 +6,8 @@ import { Funciones } from 'src/app/SHARED/class/cls_Funciones';
 import { Validacion } from 'src/app/SHARED/class/validacion';
 import { CommonModule } from '@angular/common';
 import { iSerie } from 'src/app/FAC/interface/i-Serie';
+import { iReporteService } from 'src/app/INV/Interface/i-Reporte-Service';
+import { ReporteInventarioService } from 'src/app/INV/Servicio/reporte-inventario.service';
 
 @Component({
   selector: 'app-reporte-inventario-filtro-3',
@@ -31,7 +33,7 @@ export class ReporteInventarioFiltro3Component {
 
 
   
-  constructor(public cFunciones: Funciones) {
+  constructor(public cFunciones: Funciones, public servicio: ReporteInventarioService) {
 
     this.val.add("txtFecha1", "1", "LEN>", "0", "Fecha Inicio", "Ingrese una fecha valida.");
     this.val.add("txtFecha2", "1", "LEN>", "0", "Fecha Fdinal", "Ingrese una fecha valida.");
@@ -96,4 +98,28 @@ export class ReporteInventarioFiltro3Component {
   
     
   }
+
+
+  ngOnInit() {
+
+    this.servicio.Salida.subscribe((result: iReporteService[]) => {
+
+       let d : iReporteService = result.find(f => f.Filtro == "Filtro3")!;
+
+       if(d == undefined) return;
+       
+       this.lstSerie = d.Datos[0];
+  
+    },
+      (error: any) => {
+        // Errors
+      },
+      () => {
+
+        // 'onCompleted' callback.
+        // No errors, route to new page here
+      })
+  }
+
+
 }

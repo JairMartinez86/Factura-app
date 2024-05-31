@@ -1,0 +1,96 @@
+<div id="div-rpt-filtro-5">
+
+    <form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
+
+        
+        <div class="row">
+
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-1">
+                <div class="contenedor-check">
+                    <span class="check-credito">
+                        <input type="checkbox" class="btn-check btn-credito" id="btn-check-outlined-credito" autocomplete="off">
+                        <label class="btn  btn-credito-outline" for="btn-check-outlined-credito">Credito</label>
+                    </span>
+        
+                    <span class="check-contado">
+                        <input type="checkbox" class="btn-check btn-contado" id="btn-check-outlined-contado" autocomplete="off">
+                        <label class="btn  btn-contado-outline" for="btn-check-outlined-contado">Contado</label>
+                    </span>
+                </div>
+                
+            </div>
+
+
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-1">
+                        <div class="check-prod">
+                            <input type="checkbox" class="btn-check btn-estrategico" id="btn-check-outlined-estrategico" autocomplete="off">
+                            <label class="btn  btn-estrategico-outline" for="btn-check-outlined-estrategico">Productos Estrategicos</label>
+                        </div>
+                    </div>
+    
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-1">
+    
+                        <div class="check-prod">
+                            <input type="checkbox" class="btn-check btn-liquidacion" id="btn-check-outlined-liquidacion" autocomplete="off">
+                            <label class="btn  btn-liquidacion-outline" for="btn-check-outlined-liquidacion">Productos en Liquidacion</label>
+                        </div>
+                    </div>
+                </div>
+
+                
+          
+                
+            </div>
+            
+        </div>
+
+
+        
+
+        <div class="row">
+            <div class="col-12 mb-1">
+
+                <igx-combo class="combo" #cmbPresupuesto [data]="lstGrupoPre" valueKey="IdGrupoPresupuestario" displayKey="Key" id="cmbPresupuesto"
+                    formControlName="cmbPresupuesto" placeholder="Seleccione un Grupo..."
+                    searchPlaceholder="Seleccione un Grupo..." [autoFocusSearch]="true"
+                    [overlaySettings]="overlaySettings"
+                    (selectionChanging)="V_Select_Presupuesto($event)" (keyup)="V_Enter_Presupuesto($event);">
+                    <label igxLabel>Grupo Presupuesto</label>
+                    <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
+          
+                    <ng-template igxComboClearIcon>
+                        <igx-icon (click)="V_Limpiar_Item('cmbPresupuesto');"><i class="fa-solid fa-eraser"></i></igx-icon>
+                    </ng-template>
+                </igx-combo>
+
+            </div>
+
+
+            <div class="col-12 mb-1">
+
+                <igx-combo class="combo" #cmbFamilia [data]="lstFamilia" valueKey="IdGrupo" displayKey="Key" id="cmbFamilia"
+                    formControlName="cmbFamilia" placeholder="Seleccione una Familia."
+                    searchPlaceholder="Seleccione una Familia..." [autoFocusSearch]="true"
+                    [overlaySettings]="overlaySettings"
+                    (selectionChanging)="V_Select_Familia($event)" (keyup)="V_Enter_Familia($event);">
+                    <label igxLabel>Familia</label>
+                    <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
+
+                    <ng-template igxComboClearIcon>
+                        <igx-icon (click)="V_Limpiar_Item('cmbFamilia');"><i class="fa-solid fa-eraser"></i></igx-icon>
+                    </ng-template>
+                </igx-combo>
+
+            </div>
+
+
+        </div>
+
+
+    </form>
+
+</div>
+

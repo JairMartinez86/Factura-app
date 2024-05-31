@@ -1,0 +1,93 @@
+.contenedor-check{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.btn{
+    font-size: 1.5em;
+}
+
+.check-credito
+{
+
+    .btn-credito-outline{
+        color: var(--escan-secundario);
+        background-color: transparent;
+        border: 1px solid var(--escan-secundario);
+    }
+    
+    .btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
+        color: var(--escan-fondo);
+        background-color: var(--escan-secundario);
+        border-color: var(--escan-secundario);
+    }
+    
+    
+    .btn-credito + .btn:hover {
+        color: var(--escan-fondo);
+        background-color: var(--escan-secundario);
+        border-color: var(--escan-secundario);
+    }
+
+
+    
+}
+
+
+.check-contado
+{
+    .btn-contado-outline{
+        color: var(--escan-primario);
+        background-color: transparent;
+        border: 1px solid var(--escan-primario);
+    }
+    
+    .btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
+        color: var(--escan-fondo);
+        background-color: var(--escan-primario);
+        border-color: var(--escan-primario);
+    }
+    
+    
+    .btn-contado + .btn:hover {
+        color: var(--escan-fondo);
+        background-color: var(--escan-primario);
+        border-color: var(--escan-primario);
+    }
+    
+}
+
+
+
+.check-prod
+{
+    margin-right: 10px;
+
+
+    .btn-estrategico-outline,
+    .btn-liquidacion-outline{
+        color: var(--escan-opcional);
+        background-color: transparent;
+        border: 1px solid var(--escan-opcional);
+    }
+    
+    .btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
+        color: var(--escan-fondo);
+        background-color: var(--escan-opcional);
+        border-color: var(--escan-opcional);
+    }
+    
+    
+    .btn-estrategico + .btn:hover,
+    .btn-liquidacion + .btn:hover {
+        color: var(--escan-fondo);
+        background-color: var(--escan-opcional);
+        border-color: var(--escan-opcional);
+    }
+
+
+    
+}

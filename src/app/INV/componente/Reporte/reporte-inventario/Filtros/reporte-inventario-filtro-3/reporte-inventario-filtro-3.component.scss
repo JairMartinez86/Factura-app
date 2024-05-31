@@ -1,28 +1,41 @@
-.combo {
+.ComboSerie {
 
     background-color: var(--escan-opcional);
-
-    i, label {
-        color: white;
+  
+    i,
+    label{
+      color: white;
     }
-}
-
-
-::ng-deep {
-
 
     
-    .combo.igx-combo ::placeholder {
+  
+  }
+
+ 
+
+  
+  ::ng-deep {
+  
+  
+    .ComboSerie .igx-input-group__input {
         color: white;
+    }
+ 
+    
+    .ComboSerie.igx-combo ::placeholder {
+      color: white;
+    }
+  
+    .ComboSerie.igx-combo:hover ::placeholder {
+      font-size: 1.1em;
+      font-weight: bold;
+      color: white;
+    }
+  
+    .ComboSerie.igx-icon {
+      color: white;
     }
 
-    .combo.igx-combo:hover ::placeholder {
-        font-size: 1.1em;
-        font-weight: bold;
-        color: white;
-    }
-
-    .combo.igx-icon{
-        color: white;
-    }
-}
+    
+    
+  }

@@ -171,10 +171,11 @@ export class SidebarComponent {
     if (id == "aTransInv") {
       this.DynamicFrom.viewContainerRef.clear();
       let aTransInv: ComponentRef<ReporteInventarioComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioComponent);
-      aTransInv.instance.FIltro_1 = true;
+      aTransInv.instance.FIltro_1 = false;
       aTransInv.instance.FIltro_2 = true;
-      aTransInv.instance.FIltro_3 = true;
-      aTransInv.instance.FIltro_4 = true;
+      aTransInv.instance.FIltro_3 = false;
+      aTransInv.instance.FIltro_4 = false;
+      aTransInv.instance.FIltro_5 = true;
     }
 
 

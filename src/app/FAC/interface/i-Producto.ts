@@ -12,4 +12,8 @@ export interface iProducto{
     Bonificable: boolean;
     Servicios : boolean;
     FacturaNegativo : boolean;
+    IdGrupoPresupuestario: number;
+    IdGrupo: number;
+    IdSubGrupo: number;
+    CodProveedorEscasan : string;
 }

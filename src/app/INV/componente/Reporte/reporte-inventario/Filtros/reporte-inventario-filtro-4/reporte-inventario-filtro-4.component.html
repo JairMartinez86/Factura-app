@@ -1,20 +1,20 @@
-<div class="div-rpt-filtro-4">
+<div id="div-rpt-filtro-4">
 
     <form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
 
         <div class="row">
             <div class="col-12 mb-1">
 
-                <igx-combo class="combo" #cmbPresupuesto [data]="lstGrupo" valueKey="Codigo" displayKey="Codigo" id="cmbPresupuesto"
+                <igx-combo class="combo" #cmbPresupuesto [data]="lstGrupoPre" valueKey="IdGrupoPresupuestario" displayKey="Key" id="cmbPresupuesto"
                     formControlName="cmbPresupuesto" placeholder="Seleccione un Grupo..."
                     searchPlaceholder="Seleccione un Grupo..." [autoFocusSearch]="true"
                     [overlaySettings]="overlaySettings"
                     (selectionChanging)="V_Select_Presupuesto($event)" (keyup)="V_Enter_Presupuesto($event);">
                     <label igxLabel>Grupo Presupuesto</label>
                     <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
-
+          
                     <ng-template igxComboClearIcon>
-                        <igx-icon></igx-icon>
+                        <igx-icon (click)="V_Limpiar_Item('cmbPresupuesto');"><i class="fa-solid fa-eraser"></i></igx-icon>
                     </ng-template>
                 </igx-combo>
 
@@ -22,7 +22,7 @@
 
             <div class="col-12 mb-1">
 
-                <igx-combo class="combo" #cmbProveedor [data]="lstProveedor" valueKey="Codigo" displayKey="Codigo" id="cmbProveedor"
+                <igx-combo class="combo" #cmbProveedor [data]="lstProveedor" valueKey="Codigo" displayKey="Key" id="cmbProveedor"
                     formControlName="cmbProveedor" placeholder="Seleccione una Proveedor."
                     searchPlaceholder="Seleccione un Proveedor..." [autoFocusSearch]="true"
                     [overlaySettings]="overlaySettings"
@@ -31,7 +31,7 @@
                     <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
 
                     <ng-template igxComboClearIcon>
-                        <igx-icon></igx-icon>
+                        <igx-icon (click)="V_Limpiar_Item('cmbProveedor');"><i class="fa-solid fa-eraser"></i></igx-icon>
                     </ng-template>
                 </igx-combo>
 
@@ -39,7 +39,7 @@
 
             <div class="col-12 mb-1">
 
-                <igx-combo class="combo" #cmbFamilia [data]="lstFamilia" valueKey="Codigo" displayKey="Codigo" id="cmbFamilia"
+                <igx-combo class="combo" #cmbFamilia [data]="lstFamilia" valueKey="IdGrupo" displayKey="Key" id="cmbFamilia"
                     formControlName="cmbFamilia" placeholder="Seleccione una Familia."
                     searchPlaceholder="Seleccione una Familia..." [autoFocusSearch]="true"
                     [overlaySettings]="overlaySettings"
@@ -48,7 +48,7 @@
                     <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
 
                     <ng-template igxComboClearIcon>
-                        <igx-icon></igx-icon>
+                        <igx-icon (click)="V_Limpiar_Item('cmbFamilia');"><i class="fa-solid fa-eraser"></i></igx-icon>
                     </ng-template>
                 </igx-combo>
 
@@ -57,7 +57,7 @@
 
             <div class="col-12 mb-1">
 
-                <igx-combo class="combo" #cmbSubFamilia [data]="lstSubFamilia" valueKey="Codigo" displayKey="Codigo" id="cmbSubFamilia"
+                <igx-combo class="combo" #cmbSubFamilia [data]="lstSubFamilia" valueKey="IdSubGrupo" displayKey="Key" id="cmbSubFamilia"
                     formControlName="cmbSubFamilia" placeholder="Seleccione una Sub Familia."
                     searchPlaceholder="Seleccione una Sub Familia..." [autoFocusSearch]="true"
                     [overlaySettings]="overlaySettings"
@@ -66,7 +66,7 @@
                     <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
 
                     <ng-template igxComboClearIcon>
-                        <igx-icon></igx-icon>
+                        <igx-icon (click)="V_Limpiar_Item('cmbSubFamilia');"><i class="fa-solid fa-eraser"></i></igx-icon>
                     </ng-template>
                 </igx-combo>
 

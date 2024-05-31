@@ -27,22 +27,13 @@ export class ReporteInventarioFiltro1Component {
   public lstCmb: QueryList<IgxComboComponent>;
 
 
-  @ViewChild("cmbBodega", { static: false })
-  public cmbBodega: IgxComboComponent;
-
-
-  @ViewChild("cmbProducto1", { static: false })
-  public cmbProducto1: IgxComboComponent;
-
-  @ViewChild("cmbProducto2", { static: false })
-  public cmbProducto2: IgxComboComponent;
 
   
-  constructor(public cFunciones: Funciones) {
+  constructor(public cFunciones: Funciones,) {
 
     this.val.add("txtFecha1", "1", "LEN>", "0", "Fecha Inicio", "Ingrese una fecha valida.");
     this.val.add("txtFecha2", "1", "LEN>", "0", "Fecha Fdinal", "Ingrese una fecha valida.");
-    this.val.add("cmbBodega", "1", "LEN>=", "0", "", "");
+
 
     this.val.Get("txtFecha1").setValue(this.cFunciones.ShortFechaServidor());
     this.val.Get("txtFecha2").setValue(this.cFunciones.ShortFechaServidor());
@@ -53,8 +44,6 @@ export class ReporteInventarioFiltro1Component {
 
   
   ngDoCheck() {
-
-    if (this.cmbBodega != undefined) this.cmbBodega.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
 
 
     this.overlaySettings = {};
@@ -77,10 +66,7 @@ export class ReporteInventarioFiltro1Component {
 
       ///CAMBIO DE FOCO
       this.val.addFocus("txtFecha1", "txtFecha2", undefined);
-      this.val.addFocus("txtFecha2", "cmbBodega", undefined);
-      this.val.addFocus("cmbBodega", "btnImprimir", "click");
-  
-    
+      this.val.addFocus("txtFecha2", "btnImprimir", "click");
   }
 
 
