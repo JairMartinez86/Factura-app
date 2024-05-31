@@ -1,0 +1,153 @@
+<div class="div-rpt-filtro-2">
+
+    <form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
+
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-1">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                            <div class="form-floating">
+                                <input type="date" id="txtFecha1" class="form-control" placeholder="Fecha Inicio"
+                                    aria-label="Fecha Final" formControlName="txtFecha1">
+                                <label for="txtFecha1">Desde</label>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-1">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                            <div class="form-floating">
+                                <input type="date" id="txtFecha2" class="form-control" placeholder="Fecha Final"
+                                    aria-label="Fecha Final" formControlName="txtFecha2">
+                                <label for="txtFecha2">Hasta</label>
+                            </div>
+    
+                        </div>
+                    </div>
+    
+                    <div class="col-12 mb-1">
+    
+                        <igx-combo class="combo" #cmbBodega [data]="lstBodega" valueKey="Codigo" displayKey="Key" id="cmbBodega"
+                            formControlName="cmbBodega" placeholder="Seleccione una Bodega."
+                            searchPlaceholder="Seleccione una bodega..." [autoFocusSearch]="true"
+                            [overlaySettings]="overlaySettings"
+                            (selectionChanging)="V_Select_Bodega($event)" (keyup)="V_Enter_Bodega($event);">
+                            <label igxLabel>Bodega</label>
+                            <igx-prefix><i class="bi bi-shop"></i></igx-prefix>
+    
+                            <ng-template igxComboClearIcon>
+                                <igx-icon></igx-icon>
+                            </ng-template>
+                        </igx-combo>
+    
+                    </div>
+                </div>
+    
+    
+            </div>
+    
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    
+                <div class="row">
+                    <igx-combo #cmbProducto2 [data]="lstProductos" valueKey="Codigo" displayKey="Key" id="cmbProducto2"
+                        formControlName="cmbProducto2" placeholder="Producto" [autoFocusSearch]="true"
+                        [overlaySettings]="overlaySettings" [itemHeight]='64'>
+                        <label igxLabel>Del Codigo</label>
+    
+    
+    
+                        <ng-template igxComboItem let-display let-key="valueKey">
+                            <div class="combo">
+    
+                                <div class="row">
+                                    <span class="combo-etiqueta"><b>Part. : </b> <b class="combo-etiqueta-part">{{
+                                            display.NoParte
+                                            }}</b></span>
+                                </div>
+    
+                                <div class="row">
+                                    <span>{{ display[key] }} {{ display.Producto }}</span>
+                                </div>
+    
+    
+    
+    
+                                <div class="row">
+                                    <div class="contenedor-prov">
+                                        <div class="right">
+                                            <span class="combo-etiqueta"><b>Prov. : </b></span>
+                                        </div>
+                                        <div class="right">
+                                            <span class="combo-etiqueta"><b class="combo-etiqueta-prov">{{ display.Proveedor
+                                                    }}</b></span>
+                                        </div>
+                                    </div>
+    
+                                </div>
+    
+                            </div>
+                        </ng-template>
+    
+                        <ng-template igxComboClearIcon>
+                            <igx-icon></igx-icon>
+                        </ng-template>
+                    </igx-combo>
+                </div>
+    
+                <div class="row">
+                    <igx-combo #cmbProducto2 [data]="lstProductos" valueKey="Codigo" displayKey="Key" id="cmbProducto2"
+                        formControlName="cmbProducto2" placeholder="Producto" [autoFocusSearch]="true"
+                        [overlaySettings]="overlaySettings" [itemHeight]='64'>
+                        <label igxLabel>Al Codigo</label>
+    
+    
+    
+                        <ng-template igxComboItem let-display let-key="valueKey">
+                            <div class="combo">
+    
+                                <div class="row">
+                                    <span class="combo-etiqueta"><b>Part. : </b> <b class="combo-etiqueta-part">{{
+                                            display.NoParte
+                                            }}</b></span>
+                                </div>
+    
+                                <div class="row">
+                                    <span>{{ display[key] }} {{ display.Producto }}</span>
+                                </div>
+    
+    
+    
+    
+                                <div class="row">
+                                    <div class="contenedor-prov">
+                                        <div class="right">
+                                            <span class="combo-etiqueta"><b>Prov. : </b></span>
+                                        </div>
+                                        <div class="right">
+                                            <span class="combo-etiqueta"><b class="combo-etiqueta-prov">{{ display.Proveedor
+                                                    }}</b></span>
+                                        </div>
+                                    </div>
+    
+                                </div>
+    
+                            </div>
+                        </ng-template>
+    
+                        <ng-template igxComboClearIcon>
+                            <igx-icon></igx-icon>
+                        </ng-template>
+                    </igx-combo>
+                </div>
+    
+            </div>
+        </div>
+
+
+    </form>
+
+</div>

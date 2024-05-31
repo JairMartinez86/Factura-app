@@ -19,6 +19,7 @@ import { iPerfil } from '../../interface/i-Perfiles';
 import { LiberacionBonificacionComponent } from 'src/app/FAC/componente/liberacion-bonificacion/liberacion-bonificacion.component';
 import { AccesoWebComponent } from 'src/app/SIS/componente/acceso-web/acceso-web.component';
 import { RequisaPermisoComponent } from 'src/app/FAC/componente/requisa/requisa-permiso/requisa-permiso.component';
+import { ReporteInventarioComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario.component';
 
 const SCRIPT_PATH = 'ttps://cdn.jsdelivr.net/npm/bootstrap5-toggle@5.0.4/css/bootstrap5-toggle.min.css';
 declare let gapi: any;
@@ -150,10 +151,41 @@ export class SidebarComponent {
       let LiberarBonif: ComponentRef<LiberacionBonificacionComponent> = this.DynamicFrom.viewContainerRef.createComponent(LiberacionBonificacionComponent);
     }
 
+  
+
+
+
+
     if (id == "aRequisaPermiso") {
       this.DynamicFrom.viewContainerRef.clear();
       let ReqPerm: ComponentRef<RequisaPermisoComponent> = this.DynamicFrom.viewContainerRef.createComponent(RequisaPermisoComponent);
     }
+
+
+
+
+
+
+
+
+    if (id == "aTransInv") {
+      this.DynamicFrom.viewContainerRef.clear();
+      let aTransInv: ComponentRef<ReporteInventarioComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioComponent);
+      aTransInv.instance.FIltro_1 = true;
+      aTransInv.instance.FIltro_2 = true;
+      aTransInv.instance.FIltro_3 = true;
+      aTransInv.instance.FIltro_4 = true;
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 

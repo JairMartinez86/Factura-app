@@ -1,0 +1,28 @@
+.combo {
+
+    background-color: var(--escan-opcional);
+
+    i, label {
+        color: white;
+    }
+}
+
+
+::ng-deep {
+
+
+    
+    .combo.igx-combo ::placeholder {
+        color: white;
+    }
+
+    .combo.igx-combo:hover ::placeholder {
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+    }
+
+    .combo.igx-icon{
+        color: white;
+    }
+}
