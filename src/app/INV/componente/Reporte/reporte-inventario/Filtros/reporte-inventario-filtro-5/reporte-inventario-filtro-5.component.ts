@@ -53,7 +53,7 @@ export class ReporteInventarioFiltro5Component {
     if(id == "cmbPresupuesto") 
       {
         this.cmbPresupuesto.deselectAllItems();
-        this.servicio.Filtro.emit(["FILTRO_PRODUCTO", "", "", this.val.Get("cmbFamilia").value, this.val.Get("cmbFamilia").value]);
+        this.servicio.Filtro.emit(["FILTRO_PRODUCTO", "", "", this.val.Get("cmbPresupuesto").value, this.val.Get("cmbFamilia").value]);
       }
 
 

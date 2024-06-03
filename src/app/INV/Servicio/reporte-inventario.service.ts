@@ -91,14 +91,14 @@ export class ReporteInventarioService {
                         F4.Datos = [Datos[2].d, Datos[3].d, Datos[4].d, Datos[5].d];
 
                         let F5 : iReporteService = {} as iReporteService;
-                        F4.Filtro = "Filtro5";
-                        F4.Datos = [Datos[3].d, Datos[4].d];
+                        F5.Filtro = "Filtro5";
+                        F5.Datos = [Datos[3].d, Datos[4].d];
 
                      
 
 
 
-                        this.Salida.emit([F2, F3, F4]);
+                        this.Salida.emit([F2, F3, F4, F5]);
 
 
 
