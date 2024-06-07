@@ -6,7 +6,7 @@ import { Conexion } from "src/app/SHARED/class/Cadena_Conexion";
 @Injectable({
   providedIn: 'root',
 })
-export class getRequisa {
+export class postRequisa {
 
   private _Cnx = new Conexion();
   private http: HttpClient;
@@ -31,6 +31,12 @@ export class getRequisa {
 
   public GetPermiso(): Observable<string> {
     return this.http.get<any>(this._Cnx.Url() + "INV/Requisa/GetPermiso");
+  }
+
+
+  AutorizarPermiso(d : any[]): Observable<string> {
+    return this.http.post<any>(this._Cnx.Url() + "INV/Requisa/AutorizarPermiso", JSON.stringify(d), { headers: { 'content-type': 'application/json' } });
+
   }
 
 }

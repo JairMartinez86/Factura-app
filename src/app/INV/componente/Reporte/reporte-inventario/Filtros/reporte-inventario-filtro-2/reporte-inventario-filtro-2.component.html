@@ -16,6 +16,8 @@
                             </div>
                         </div>
                     </div>
+
+                
     
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-1">
                         <div class="input-group">
@@ -52,8 +54,11 @@
                                 {{ bo.Bodega }}
                             </igx-card-header>
                         </igx-card>
-                    </div> 
+                    </div>
+                     
                 </div>
+
+            
     
     
             </div>
@@ -159,6 +164,31 @@
             </div>
         </div>
 
+        <div class="row">
+
+            <div class="col-12 mb-1">
+
+                <igx-combo class="cmbTipoMov" #cmbTipoMov [data]="lstTipoMov" valueKey="Codigo" displayKey="TipoMov1" id="cmbTipoMov"
+                    formControlName="cmbTipoMov" placeholder="Seleccione un Tipo."
+                    searchPlaceholder="Seleccione una Tipo..." [autoFocusSearch]="true"
+                    [overlaySettings]="overlaySettings"
+                    (selectionChanging)="val.V_SingleSelection($event);">
+                    <label igxLabel>Tipo Movimiento</label>
+                    <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
+
+
+                    <ng-template igxComboItem let-display let-key="valueKey">
+                        <span>{{ display[key] }} {{ display.TipoMov1 }}</span>
+                    </ng-template>
+
+
+                    <ng-template igxComboClearIcon>
+                        <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                    </ng-template>
+                </igx-combo>
+
+            </div>
+        </div>
 
     </form>
 

@@ -8,6 +8,21 @@
   }
 }
 
+.cmbTipoMov {
+
+  background-color: var(--escan-opcional);
+
+  i,
+  label{
+    color: white;
+  }
+
+  
+
+}
+
+
+
 
 ::ng-deep {
 
@@ -24,6 +39,27 @@
   }
 
   .ComboBodega.igx-icon {
+    color: white;
+  }
+
+
+
+  .cmbTipoMov .igx-input-group__input {
+    color: white;
+  }
+
+
+  .cmbTipoMov.igx-combo ::placeholder {
+    color: white;
+  }
+
+  .cmbTipoMov.igx-combo:hover ::placeholder {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: white;
+  }
+
+  .cmbTipoMov.igx-icon {
     color: white;
   }
 }

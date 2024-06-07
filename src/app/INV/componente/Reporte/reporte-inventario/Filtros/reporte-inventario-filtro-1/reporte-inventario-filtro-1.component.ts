@@ -66,7 +66,7 @@ export class ReporteInventarioFiltro1Component {
 
       ///CAMBIO DE FOCO
       this.val.addFocus("txtFecha1", "txtFecha2", undefined);
-      this.val.addFocus("txtFecha2", "btnImprimir", "click");
+      this.val.addFocus("txtFecha2", "btnImprimir-Reporte-Inv", "click");
   }
 
 

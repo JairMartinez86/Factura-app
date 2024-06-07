@@ -9,6 +9,7 @@ import { iProducto } from 'src/app/FAC/interface/i-Producto';
 import { iBodega } from 'src/app/FAC/interface/i-Bodega';
 import { ReporteInventarioService } from 'src/app/INV/Servicio/reporte-inventario.service';
 import { iReporteService } from 'src/app/INV/Interface/i-Reporte-Service';
+import { iTipoMov } from 'src/app/INV/Interface/i-Tipo-Mov';
 
 
 
@@ -23,6 +24,7 @@ import { iReporteService } from 'src/app/INV/Interface/i-Reporte-Service';
 export class ReporteInventarioFiltro2Component implements OnInit {
   public val = new Validacion();
 
+  lstTipoMov: iTipoMov[] = [];
   lstBodega: iBodega[] = [];
   lstProductos1: iProducto[] = [];
   lstProductos2: iProducto[] = [];
@@ -43,6 +45,11 @@ export class ReporteInventarioFiltro2Component implements OnInit {
 
   @ViewChild("cmbProducto2", { static: false })
   public cmbProducto2: IgxComboComponent;
+
+  
+  @ViewChild("cmbTipoMov", { static: false })
+  public cmbTipoMov: IgxComboComponent;
+
   
 
   private DatosFiltro : iReporteService;
@@ -51,15 +58,20 @@ export class ReporteInventarioFiltro2Component implements OnInit {
   constructor(public cFunciones: Funciones, public servicio: ReporteInventarioService) {
 
     this.val.add("txtFecha1", "1", "LEN>", "0", "Fecha Inicio", "Ingrese una fecha valida.");
-    this.val.add("txtFecha2", "1", "LEN>", "0", "Fecha Fdinal", "Ingrese una fecha valida.");
+    this.val.add("txtFecha2", "1", "LEN>", "0", "Fecha Final", "Ingrese una fecha valida.");
     this.val.add("cmbBodega", "1", "LEN>=", "0", "", "");
+    this.val.add("cmbTipoMov", "1", "LEN>=", "0", "", "");
     this.val.add("cmbProducto1", "1", "LEN>=", "0", "", "");
     this.val.add("cmbProducto2", "1", "LEN>=", "0", "", "");
+    
 
+    
+    
     this.val.Get("txtFecha1").setValue(this.cFunciones.ShortFechaServidor());
     this.val.Get("txtFecha2").setValue(this.cFunciones.ShortFechaServidor());
 
     this.val.Get("cmbBodega").setValue("");
+    this.val.Get("cmbTipoMov").setValue("");
     this.val.Get("cmbProducto1").setValue("");
     this.val.Get("cmbProducto2").setValue("");
 
@@ -86,9 +98,9 @@ export class ReporteInventarioFiltro2Component implements OnInit {
   public V_Enter_Bodega(event: any) {
     if (event.key == "Enter") {
       let cmb: any = this.cmbBodega.dropdown;
-      let _Item: iBodega = cmb._focusedItem.value;
-      this.cmbBodega.setSelectedItem(_Item.Codigo);
-      this.val.Get("cmbBodega").setValue([_Item.Codigo]);
+      let _Item: iBodega = cmb._focusedItem?.value;
+      this.cmbBodega.setSelectedItem(_Item?.Codigo);
+      this.val.Get("cmbBodega").setValue([_Item?.Codigo]);
 
     }
   }
@@ -125,9 +137,11 @@ export class ReporteInventarioFiltro2Component implements OnInit {
     ///CAMBIO DE FOCO
     this.val.addFocus("txtFecha1", "txtFecha2", undefined);
     this.val.addFocus("txtFecha2", "cmbBodega", undefined);
+    this.val.addFocus("cmbBodega", "cmbTipoMov", undefined);
+    this.val.addFocus("cmbTipoMov", "cmbProducto1", undefined);
     this.val.addFocus("cmbProducto1", "cmbProducto2", undefined);
-    this.val.addFocus("cmbProducto2", "btnImprimir", "click");
-
+    this.val.addFocus("cmbProducto2", "btnImprimir-Reporte-Inv", "click");
+    
 
   }
 
@@ -144,6 +158,7 @@ export class ReporteInventarioFiltro2Component implements OnInit {
        this.lstBodega = d.Datos[0];
        this.lstProductos1 = d.Datos[1];
        this.lstProductos2 = d.Datos[1];
+       this.lstTipoMov = d.Datos[2];
 
   
     },

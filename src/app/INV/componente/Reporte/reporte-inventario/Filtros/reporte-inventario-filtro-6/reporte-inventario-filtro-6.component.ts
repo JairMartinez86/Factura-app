@@ -5,20 +5,20 @@ import { scaleInCenter, scaleOutCenter } from 'igniteui-angular/animations';
 import { Funciones } from 'src/app/SHARED/class/cls_Funciones';
 import { Validacion } from 'src/app/SHARED/class/validacion';
 import { CommonModule } from '@angular/common';
-import { iSerie } from 'src/app/FAC/interface/i-Serie';
 import { iReporteService } from 'src/app/INV/Interface/i-Reporte-Service';
 import { ReporteInventarioService } from 'src/app/INV/Servicio/reporte-inventario.service';
+import { iTipoMov } from 'src/app/INV/Interface/i-Tipo-Mov';
 
 @Component({
-  selector: 'app-reporte-inventario-filtro-3',
+  selector: 'app-reporte-inventario-filtro-6',
   standalone: true,
   imports: [IgxComboModule, IgxIconModule, ReactiveFormsModule, CommonModule, FormsModule],
-  templateUrl: './reporte-inventario-filtro-3.component.html',
-  styleUrl: './reporte-inventario-filtro-3.component.scss'
+  templateUrl: './reporte-inventario-filtro-6.component.html',
+  styleUrl: './reporte-inventario-filtro-6.component.scss'
 })
-export class ReporteInventarioFiltro3Component {
+export class ReporteInventarioFiltro6Component {
   public val = new Validacion();
-  lstSerie: iSerie[] = [];
+  lstTipoMov: iTipoMov[] = [];
 
   public overlaySettings: OverlaySettings = {};
 
@@ -26,8 +26,8 @@ export class ReporteInventarioFiltro3Component {
   public lstCmb: QueryList<IgxComboComponent>;
 
 
-  @ViewChild("cmbSerie", { static: false })
-  public cmbSerie: IgxComboComponent;
+  @ViewChild("cmbTipoMov", { static: false })
+  public cmbTipoMov: IgxComboComponent;
 
 
 
@@ -37,7 +37,7 @@ export class ReporteInventarioFiltro3Component {
 
     this.val.add("txtFecha1", "1", "LEN>", "0", "Fecha Inicio", "Ingrese una fecha valida.");
     this.val.add("txtFecha2", "1", "LEN>", "0", "Fecha Fdinal", "Ingrese una fecha valida.");
-    this.val.add("cmbSerie", "1", "LEN>=", "0", "", "");
+    this.val.add("cmbTipoMov", "1", "LEN>=", "0", "", "");
 
 
     this.val.Get("txtFecha1").setValue(this.cFunciones.ShortFechaServidor());
@@ -47,30 +47,11 @@ export class ReporteInventarioFiltro3Component {
   }
   
 
-  public V_Select_Serie(event: any) {
-    if (event.added.length) {
-      if (event.newValue.length > 1) event.newValue.splice(0, 1);
-      let cmb : any = this.cmbSerie.dropdown;
-      this.val.Get("cmbSerie").setValue(event.newValue[0]);
-      this.cmbSerie.close();
-    }
-  }
-
-  public V_Enter_Serie(event: any) {
-    if (event.key == "Enter") {
-      let cmb: any = this.cmbSerie.dropdown;
-      let _Item: iSerie = cmb._focusedItem.value;
-      this.cmbSerie.setSelectedItem(_Item.IdSerie);
-      this.val.Get("cmbSerie").setValue([_Item.IdSerie]);
-
-    }
-  }
-
 
   
   ngDoCheck() {
 
-    if (this.cmbSerie != undefined) this.cmbSerie.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+    if (this.cmbTipoMov != undefined) this.cmbTipoMov.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
 
 
     this.overlaySettings = {};
@@ -93,8 +74,8 @@ export class ReporteInventarioFiltro3Component {
 
       ///CAMBIO DE FOCO
       this.val.addFocus("txtFecha1", "txtFecha2", undefined);
-      this.val.addFocus("txtFecha2", "cmbSerie", undefined);
-      this.val.addFocus("cmbSerie", "btnImprimir-Reporte-Inv", "click");
+      this.val.addFocus("txtFecha2", "cmbTipoMov", undefined);
+      this.val.addFocus("cmbTipoMov", "btnImprimir-Reporte-Inv", "click");
   
     
   }
@@ -104,11 +85,12 @@ export class ReporteInventarioFiltro3Component {
 
     this.servicio.Salida.subscribe((result: iReporteService[]) => {
 
-       let d : iReporteService = result.find(f => f.Filtro == "Filtro3")!;
+       let d : iReporteService = result.find(f => f.Filtro == "Filtro6")!;
 
        if(d == undefined) return;
        
-       this.lstSerie = d.Datos[0];
+       this.lstTipoMov = d.Datos[0];
+   
   
     },
       (error: any) => {
@@ -120,6 +102,4 @@ export class ReporteInventarioFiltro3Component {
         // No errors, route to new page here
       })
   }
-
-
 }

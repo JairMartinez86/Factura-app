@@ -17,6 +17,7 @@ import { postServidor } from 'src/app/SHARED/POST/post-servidor';
 import { iUsuario } from 'src/app/SIS/Interface/Usuario';
 import { iBodega } from 'src/app/FAC/interface/i-Bodega';
 import { getRequisa } from 'src/app/FAC/GET/get-requisa';
+import { postRequisa } from 'src/app/FAC/GET/post-requisa';
 
 @Component({
   selector: 'app-requisa-permiso',
@@ -40,7 +41,7 @@ export class RequisaPermisoComponent {
 
 
   constructor(
-    private cFunciones: Funciones, private GET : getRequisa, private POST : postServidor
+    private cFunciones: Funciones, private GET : getRequisa, private POST : postServidor, private POST_REQ : postRequisa
   ) {
 
     this.val.add("cmbUsuario", "1", "LEN>", "0", "Usuario", "Seleccione un usuario.");
@@ -117,7 +118,7 @@ export class RequisaPermisoComponent {
 
 
     
-    this.GET.AutorizarPermiso(this.lstBodega.data).subscribe(
+    this.POST_REQ.AutorizarPermiso(this.lstBodega.data).subscribe(
       {
         next: (s) => {
 

@@ -230,7 +230,7 @@ export class ReporteInventarioFiltro4Component implements OnInit {
       ///CAMBIO DE FOCO
       this.val.addFocus("cmbPresupuesto", "cmbProveedor", undefined);
       this.val.addFocus("cmbFamilia", "cmbSubFamilia", undefined);
-      this.val.addFocus("cmbSubFamilia", "btnImprimir", "click");
+      this.val.addFocus("cmbSubFamilia", "btnImprimir-Reporte-Inv", "click");
   
     
   }

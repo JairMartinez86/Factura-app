@@ -68,7 +68,7 @@ export class Funciones {
 
 
     {IdAcceso:0,  Activo: false, EsMenu: true,  Id:"idNavReporteInv", Caption: "Reporte Inventario" , MenuPadre: "", Clase : "fa-solid fa-print fa-lg", Modulo: "FACT", Usuario: ""},
-    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aTransInv", Caption: "Transacciones de Inventario" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-TransInv", Caption: "Transacciones de Inventario" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
 
         
      /**************************************ACCESO WEB************************************* */ 

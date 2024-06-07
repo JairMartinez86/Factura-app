@@ -1,0 +1,52 @@
+<div id="div-rpt-filtro-6">
+
+    <form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
+
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-1">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                    <div class="form-floating">
+                        <input type="date" id="txtFecha1" class="form-control" placeholder="Fecha Inicio"
+                            aria-label="Fecha Final" formControlName="txtFecha1">
+                        <label for="txtFecha1">Desde</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-1">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                    <div class="form-floating">
+                        <input type="date" id="txtFecha2" class="form-control" placeholder="Fecha Final"
+                            aria-label="Fecha Final" formControlName="txtFecha2">
+                        <label for="txtFecha2">Hasta</label>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-12 mb-1">
+
+                <igx-combo class="cmbTipoMov" #cmbTipoMov [data]="lstTipoMov" valueKey="Codigo" displayKey="TipoMov1" id="cmbTipoMov"
+                formControlName="cmbTipoMov" placeholder="Seleccione un Tipo."
+                searchPlaceholder="Seleccione una Tipo..." [autoFocusSearch]="true"
+                [overlaySettings]="overlaySettings"
+                (selectionChanging)="val.V_SingleSelection($event);">
+                <label igxLabel>Tipo Movimiento</label>
+                <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
+                <ng-template igxComboItem let-display let-key="valueKey">
+                    <span>{{ display[key] }} {{ display.TipoMov1 }}</span>
+                </ng-template>
+                <ng-template igxComboClearIcon>
+                    <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                </ng-template>
+            </igx-combo>
+
+            </div>
+        </div>
+
+
+    </form>
+
+</div>

@@ -73,12 +73,13 @@ export class ReporteInventarioService {
                         //Datos[4].d GRUPO
                         //Datos[5].d SUB GRUPO
                         //Datos[6].d SERIES
+                        //Datos[7].d TIPO MOV
 
 
 
                         let F2 : iReporteService = {} as iReporteService;
                         F2.Filtro = "Filtro2";
-                        F2.Datos = [Datos[0].d, Datos[1].d];
+                        F2.Datos = [Datos[0].d, Datos[1].d, Datos[7].d];
 
 
                         let F3 : iReporteService = {} as iReporteService;
@@ -94,11 +95,13 @@ export class ReporteInventarioService {
                         F5.Filtro = "Filtro5";
                         F5.Datos = [Datos[3].d, Datos[4].d];
 
-                     
+                        let F6 : iReporteService = {} as iReporteService;
+                        F6.Filtro = "Filtro6";
+                        F6.Datos = [Datos[7].d];
 
 
 
-                        this.Salida.emit([F2, F3, F4, F5]);
+                        this.Salida.emit([F2, F3, F4, F5, F6]);
 
 
 
