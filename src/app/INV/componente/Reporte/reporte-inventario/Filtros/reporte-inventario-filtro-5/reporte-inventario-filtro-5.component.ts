@@ -146,10 +146,12 @@ export class ReporteInventarioFiltro5Component {
 
       ///CAMBIO DE FOCO
       this.val.addFocus("cmbPresupuesto", "cmbProveedor", undefined);
-      this.val.addFocus("cmbFamilia", "cmbSubFamilia", undefined);
-      this.val.addFocus("cmbSubFamilia", "btnImprimir-Reporte-Inv", "click");
-  
+      this.val.addFocus("cmbFamilia", "btnImprimir-Reporte-Inv", "click");
     
+  
+      if (this.cmbPresupuesto != undefined) this.cmbPresupuesto.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+      if (this.cmbFamilia != undefined) this.cmbFamilia.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+  
   }
 
 

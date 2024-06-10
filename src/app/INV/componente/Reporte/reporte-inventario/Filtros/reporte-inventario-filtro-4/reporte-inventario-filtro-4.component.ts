@@ -231,6 +231,11 @@ export class ReporteInventarioFiltro4Component implements OnInit {
       this.val.addFocus("cmbPresupuesto", "cmbProveedor", undefined);
       this.val.addFocus("cmbFamilia", "cmbSubFamilia", undefined);
       this.val.addFocus("cmbSubFamilia", "btnImprimir-Reporte-Inv", "click");
+
+      if (this.cmbPresupuesto != undefined) this.cmbPresupuesto.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+      if (this.cmbFamilia != undefined) this.cmbFamilia.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+      if (this.cmbSubFamilia != undefined) this.cmbSubFamilia.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+  
   
     
   }

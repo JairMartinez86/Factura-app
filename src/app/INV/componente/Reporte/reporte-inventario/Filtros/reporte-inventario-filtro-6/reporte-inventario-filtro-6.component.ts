@@ -76,6 +76,8 @@ export class ReporteInventarioFiltro6Component {
       this.val.addFocus("txtFecha1", "txtFecha2", undefined);
       this.val.addFocus("txtFecha2", "cmbTipoMov", undefined);
       this.val.addFocus("cmbTipoMov", "btnImprimir-Reporte-Inv", "click");
+
+      if (this.cmbTipoMov != undefined) this.cmbTipoMov.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
   
     
   }

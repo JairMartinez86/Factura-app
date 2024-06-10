@@ -142,6 +142,11 @@ export class ReporteInventarioFiltro2Component implements OnInit {
     this.val.addFocus("cmbProducto1", "cmbProducto2", undefined);
     this.val.addFocus("cmbProducto2", "btnImprimir-Reporte-Inv", "click");
     
+    if (this.cmbBodega != undefined) this.cmbBodega.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+    if (this.cmbProducto1 != undefined) this.cmbProducto1.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+    if (this.cmbTipoMov != undefined) this.cmbTipoMov.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+
+
 
   }
 
