@@ -51,11 +51,12 @@ export class ReporteInventarioTransaccDiariaComponent {
 
         let Bodegas: String = "";
 
-        if (d.Param[2]! += "") {
+        if (d.Param[2] != "") {
+            Bodegas = ">";
             d.Param[2].forEach((e: any) => {
-                Bodegas += "'" + e + "',";
+                Bodegas +=   e + "@";
             });
-            d.Param[2] = Bodegas.substring(0, Bodegas.length - 1);
+            d.Param[2] = Bodegas;
         }
 
 
