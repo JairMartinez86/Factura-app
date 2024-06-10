@@ -18,14 +18,6 @@ import { iProducto } from 'src/app/FAC/interface/i-Producto';
 export class ReporteInventarioFiltro1Component {
   public val = new Validacion();
 
-  lstBodega: iBodega[] = [];
-  lstProductos: iProducto[] = [];
-
-  public overlaySettings: OverlaySettings = {};
-
-  @ViewChildren(IgxComboComponent)
-  public lstCmb: QueryList<IgxComboComponent>;
-
 
 
   
@@ -42,27 +34,10 @@ export class ReporteInventarioFiltro1Component {
   }
   
 
-  
-  ngDoCheck() {
 
-
-    this.overlaySettings = {};
-
-    if (window.innerWidth <= 992) {
-      this.overlaySettings = {
-        positionStrategy: new GlobalPositionStrategy({ openAnimation: scaleInCenter, closeAnimation: scaleOutCenter }),
-        modal: true,
-        closeOnOutsideClick: true
-      };
-    }
-
-  }
 
 
   private ngAfterViewInit() {
-
-
-    this.val.Combo(this.lstCmb);
 
       ///CAMBIO DE FOCO
       this.val.addFocus("txtFecha1", "txtFecha2", undefined);

@@ -149,8 +149,6 @@ export class ReporteInventarioFiltro5Component {
       this.val.addFocus("cmbFamilia", "btnImprimir-Reporte-Inv", "click");
     
   
-      if (this.cmbPresupuesto != undefined) this.cmbPresupuesto.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-      if (this.cmbFamilia != undefined) this.cmbFamilia.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
   
   }
 
