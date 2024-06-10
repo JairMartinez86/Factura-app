@@ -19,115 +19,136 @@ import { concat } from 'rxjs';
 })
 export class ReporteInventarioTransaccDiariaComponent {
 
-  @ViewChild("Filtro", { static: false })
-  public Filtro: ReporteInventarioFiltro2Component;
+    @ViewChild("Filtro", { static: false })
+    public Filtro: ReporteInventarioFiltro2Component;
 
-  constructor(public servicio: ReporteInventarioService, private POST: postReporteInv, public cFunciones: Funciones
-  ) {
+    constructor(public servicio: ReporteInventarioService, private POST: postReporteInv, public cFunciones: Funciones
+    ) {
 
-  }
-
-
-  public V_Imprimir(Exportar : boolean): void {
-      document.getElementById("btnImprimir-Reporte-Inv")?.setAttribute("disabled", "disabled");
-
-      let dialogRef: any = this.cFunciones.DIALOG.getDialogById("wait");
+    }
 
 
-      if (dialogRef == undefined) {
-          dialogRef = this.cFunciones.DIALOG.open(
-              WaitComponent,
-              {
-                  panelClass: "escasan-dialog-full-blur",
-                  data: "",
-                  id: "wait"
-              }
-          );
+    public V_Imprimir(Exportar: boolean): void {
+        document.getElementById("btnImprimir-Reporte-Inv")?.setAttribute("disabled", "disabled");
 
-      }
+        let dialogRef: any = this.cFunciones.DIALOG.getDialogById("wait");
 
-      let d: iParamReporte = {} as iParamReporte;
-      d.Param = [this.Filtro.val.Get("cmbProducto1").value[0], this.Filtro.val.Get("cmbProducto2").value[0], this.Filtro.val.Get("cmbBodega").value, this.Filtro.val.Get("cmbTipoMov").value[0], this.Filtro.val.Get("txtFecha1").value, this.Filtro.val.Get("txtFecha2").value]
-      
-      let Bodegas : String = "";
 
-      if(d.Param[2] !+= "")
-        {
-            d.Param[2].forEach((e : any) => {
-                Bodegas += "'" + e + "'," ;
-              });
-              d.Param[2] = Bodegas.substring(0, Bodegas.length -1);
+        if (dialogRef == undefined) {
+            dialogRef = this.cFunciones.DIALOG.open(
+                WaitComponent,
+                {
+                    panelClass: "escasan-dialog-full-blur",
+                    data: "",
+                    id: "wait"
+                }
+            );
+
         }
 
-     
-      
-      d.TipoReporte = "Detalle Transacciones Inventario";
-      d.Exportar = Exportar;
+        let d: iParamReporte = {} as iParamReporte;
+        d.Param = [this.Filtro.val.Get("cmbProducto1").value[0], this.Filtro.val.Get("cmbProducto2").value[0], this.Filtro.val.Get("cmbBodega").value, this.Filtro.val.Get("cmbTipoMov").value[0], this.Filtro.val.Get("txtFecha1").value, this.Filtro.val.Get("txtFecha2").value]
 
-      this.POST.Imprimir(d).subscribe(
-          {
-              next: (data) => {
+        let Bodegas: String = "";
 
-
-                  dialogRef.close();
-                  let _json = JSON.parse(data);
-
-                  if (_json["esError"] == 1) {
-                      if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
-                          this.cFunciones.DIALOG.open(DialogErrorComponent, {
-                              id: "error-servidor-msj",
-                              data: _json["msj"].Mensaje,
-                          });
-                      }
-                  } else {
+        if (d.Param[2]! += "") {
+            d.Param[2].forEach((e: any) => {
+                Bodegas += "'" + e + "',";
+            });
+            d.Param[2] = Bodegas.substring(0, Bodegas.length - 1);
+        }
 
 
 
-                      let Datos: iDatos = _json["d"];
+        d.TipoReporte = "Detalle Transacciones Inventario";
+        d.Exportar = Exportar;
+
+        this.POST.Imprimir(d).subscribe(
+            {
+                next: (data) => {
 
 
-                      let byteArray = new Uint8Array(atob(Datos.d).split('').map(char => char.charCodeAt(0)));
+                    dialogRef.close();
+                    let _json = JSON.parse(data);
 
-                      var file = new Blob([byteArray], { type: 'application/pdf' });
+                    if (_json["esError"] == 1) {
+                        if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
+                            this.cFunciones.DIALOG.open(DialogErrorComponent, {
+                                id: "error-servidor-msj",
+                                data: _json["msj"].Mensaje,
+                            });
+                        }
+                    } else {
+                        this.V_GenerarDoc(_json["d"], Exportar);
+                    }
 
-                      let url = URL.createObjectURL(file);
+                },
+                error: (err) => {
 
-                      let tabOrWindow: any = window.open(url, '_blank');
-                      tabOrWindow.focus();
+                    document.getElementById("btnImprimir-Reporte-Inv")?.removeAttribute("disabled");
 
+                    dialogRef.close();
 
+                    if (this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) {
+                        this.cFunciones.DIALOG.open(DialogErrorComponent, {
+                            id: "error-servidor",
+                            data: "<b class='error'>" + err.message + "</b>",
+                        });
+                    }
 
+                },
+                complete: () => {
+                    document.getElementById("btnImprimir-Reporte-Inv")?.removeAttribute("disabled");
 
-                  }
-
-              },
-              error: (err) => {
-
-                  document.getElementById("btnImprimir-Reporte-Inv")?.removeAttribute("disabled");
-
-                  dialogRef.close();
-
-                  if (this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) {
-                      this.cFunciones.DIALOG.open(DialogErrorComponent, {
-                          id: "error-servidor",
-                          data: "<b class='error'>" + err.message + "</b>",
-                      });
-                  }
-
-              },
-              complete: () => {
-                  document.getElementById("btnImprimir-Reporte-Inv")?.removeAttribute("disabled");
-
-              }
-          }
-      );
-
-
-  }
+                }
+            }
+        );
 
 
-  private ngOnInit() {
-      this.servicio.V_Iniciar();
-     
-  }
+    }
+
+
+    private V_GenerarDoc(Datos: iDatos, Exportar: boolean) {
+
+
+        let byteArray = new Uint8Array(atob(Datos.d).split('').map(char => char.charCodeAt(0)));
+
+        var file = new Blob([byteArray], { type: (Exportar ? 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' : 'application/pdf') });
+
+
+        let url = URL.createObjectURL(file);
+        console.log(url)
+       
+        var fileLink = document.createElement('a');
+        fileLink.href = url;
+        fileLink.download = Datos.Nombre;
+
+
+        if (Exportar) {
+
+            var fileLink = document.createElement('a');
+            fileLink.href = url;
+            fileLink.download = Datos.Nombre;
+            fileLink.click();
+            document.body.removeChild(fileLink);
+        }
+        else {
+            let tabOrWindow: any = window.open('',  '_blank');
+            tabOrWindow.document.body.appendChild(fileLink);
+
+            tabOrWindow.document.write("<html><head><title>"+Datos.Nombre+"</title></head><body>"
+                + '<embed width="100%" height="100%" name="plugin" src="'+ url+ '" '
+                + 'type="application/pdf" internalinstanceid="21"></body></html>');
+
+            tabOrWindow.focus();
+        }
+
+    
+
+    }
+
+    private ngOnInit() {
+        this.servicio.V_Iniciar();
+
+    }
 }
