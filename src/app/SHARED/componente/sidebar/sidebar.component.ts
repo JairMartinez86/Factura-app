@@ -23,6 +23,7 @@ import { ReporteInventarioTransaccDiariaComponent } from 'src/app/INV/componente
 import { ReporteInventarioTransaccEnprocesoComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-transacc-enproceso/reporte-inventario-transacc-enproceso.component';
 import { ReporteInventarioRevConsecutivoComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-rev-consecutivo/reporte-inventario-rev-consecutivo.component';
 import { ReporteInventarioTransaccionesComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-transacciones/reporte-inventario-transacciones.component';
+import { ReporteInventarioTransaccionesResumenComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-transacciones-resumen/reporte-inventario-transacciones-resumen.component';
 
 const SCRIPT_PATH = 'ttps://cdn.jsdelivr.net/npm/bootstrap5-toggle@5.0.4/css/bootstrap5-toggle.min.css';
 declare let gapi: any;
@@ -192,6 +193,10 @@ export class SidebarComponent {
       let aTransInv: ComponentRef<ReporteInventarioTransaccionesComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioTransaccionesComponent);
     }
 
+    if (id == "aReporte-TransaccInvResumen") {
+      this.DynamicFrom.viewContainerRef.clear();
+      let aTransInv: ComponentRef<ReporteInventarioTransaccionesResumenComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioTransaccionesResumenComponent);
+    }
 
 
 
