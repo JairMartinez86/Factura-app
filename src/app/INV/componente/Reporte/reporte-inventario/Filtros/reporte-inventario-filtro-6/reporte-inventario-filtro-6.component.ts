@@ -48,9 +48,20 @@ export class ReporteInventarioFiltro6Component {
   
 
 
-  
-  ngDoCheck() {
 
+/*
+  private ngAfterViewInit() {
+
+
+    this.val.Combo(this.lstCmb);
+
+      ///CAMBIO DE FOCO
+      this.val.addFocus("txtFecha1", "txtFecha2", undefined);
+      this.val.addFocus("txtFecha2", "cmbTipoMov", undefined);
+      this.val.addFocus("cmbTipoMov", "btnImprimir-Reporte-Inv", "click");
+
+
+      
     if (this.cmbTipoMov != undefined) this.cmbTipoMov.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
 
 
@@ -64,24 +75,10 @@ export class ReporteInventarioFiltro6Component {
       };
     }
 
-  }
-
-
-  private ngAfterViewInit() {
-
-
-    this.val.Combo(this.lstCmb);
-
-      ///CAMBIO DE FOCO
-      this.val.addFocus("txtFecha1", "txtFecha2", undefined);
-      this.val.addFocus("txtFecha2", "cmbTipoMov", undefined);
-      this.val.addFocus("cmbTipoMov", "btnImprimir-Reporte-Inv", "click");
-
-
     
   }
 
-
+*/
   ngOnInit() {
 
     this.servicio.Salida.subscribe((result: iReporteService[]) => {

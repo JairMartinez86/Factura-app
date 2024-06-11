@@ -36,13 +36,13 @@ export class ReporteInventarioFiltro1Component {
 
 
 
-
+/*
   private ngAfterViewInit() {
 
       ///CAMBIO DE FOCO
       this.val.addFocus("txtFecha1", "txtFecha2", undefined);
       this.val.addFocus("txtFecha2", "btnImprimir-Reporte-Inv", "click");
-  }
+  }*/
 
 
 }

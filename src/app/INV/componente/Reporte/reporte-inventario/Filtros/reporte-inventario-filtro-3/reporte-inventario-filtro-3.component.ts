@@ -67,23 +67,7 @@ export class ReporteInventarioFiltro3Component {
   }
 
 
-  
-  ngDoCheck() {
-
-    if (this.cmbSerie != undefined) this.cmbSerie.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-
-
-    this.overlaySettings = {};
-
-    if (window.innerWidth <= 992) {
-      this.overlaySettings = {
-        positionStrategy: new GlobalPositionStrategy({ openAnimation: scaleInCenter, closeAnimation: scaleOutCenter }),
-        modal: true,
-        closeOnOutsideClick: true
-      };
-    }
-
-  }
+  /*
 
 
   private ngAfterViewInit() {
@@ -96,9 +80,22 @@ export class ReporteInventarioFiltro3Component {
       this.val.addFocus("txtFecha2", "cmbSerie", undefined);
       this.val.addFocus("cmbSerie", "btnImprimir-Reporte-Inv", "click");
   
+
+       if (this.cmbSerie != undefined) this.cmbSerie.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+
+
+      this.overlaySettings = {};
+
+      if (window.innerWidth <= 992) {
+        this.overlaySettings = {
+          positionStrategy: new GlobalPositionStrategy({ openAnimation: scaleInCenter, closeAnimation: scaleOutCenter }),
+          modal: true,
+          closeOnOutsideClick: true
+        };
+      }
     
   }
-
+*/
 
   ngOnInit() {
 

@@ -118,9 +118,19 @@ export class ReporteInventarioFiltro5Component {
 
     
 
-  
-  ngDoCheck() {
 
+/*
+  private ngAfterViewInit() {
+
+
+    this.val.Combo(this.lstCmb);
+
+      ///CAMBIO DE FOCO
+      this.val.addFocus("cmbPresupuesto", "cmbProveedor", undefined);
+      this.val.addFocus("cmbFamilia", "btnImprimir-Reporte-Inv", "click");
+    
+  
+      
     if (this.cmbPresupuesto != undefined) this.cmbPresupuesto.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
     if (this.cmbFamilia != undefined) this.cmbFamilia.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
 
@@ -135,23 +145,9 @@ export class ReporteInventarioFiltro5Component {
         closeOnOutsideClick: true
       };
     }
-
-  }
-
-
-  private ngAfterViewInit() {
-
-
-    this.val.Combo(this.lstCmb);
-
-      ///CAMBIO DE FOCO
-      this.val.addFocus("cmbPresupuesto", "cmbProveedor", undefined);
-      this.val.addFocus("cmbFamilia", "btnImprimir-Reporte-Inv", "click");
-    
-  
   
   }
-
+*/
 
   ngOnInit() {
 

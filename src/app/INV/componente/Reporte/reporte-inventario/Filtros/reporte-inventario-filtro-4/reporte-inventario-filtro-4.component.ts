@@ -199,27 +199,7 @@ export class ReporteInventarioFiltro4Component implements OnInit {
 
 
 
-  
-  ngDoCheck() {
-
-    if (this.cmbPresupuesto != undefined) this.cmbPresupuesto.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-    if (this.cmbProveedor != undefined) this.cmbProveedor.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-    if (this.cmbFamilia != undefined) this.cmbFamilia.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-    if (this.cmbSubFamilia != undefined) this.cmbSubFamilia.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-
-
-
-    this.overlaySettings = {};
-
-    if (window.innerWidth <= 992) {
-      this.overlaySettings = {
-        positionStrategy: new GlobalPositionStrategy({ openAnimation: scaleInCenter, closeAnimation: scaleOutCenter }),
-        modal: true,
-        closeOnOutsideClick: true
-      };
-    }
-
-  }
+  /*
 
 
   private ngAfterViewInit() {
@@ -236,10 +216,27 @@ export class ReporteInventarioFiltro4Component implements OnInit {
       if (this.cmbFamilia != undefined) this.cmbFamilia.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
       if (this.cmbSubFamilia != undefined) this.cmbSubFamilia.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
   
+
+      if (this.cmbPresupuesto != undefined) this.cmbPresupuesto.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+      if (this.cmbProveedor != undefined) this.cmbProveedor.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+      if (this.cmbFamilia != undefined) this.cmbFamilia.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+      if (this.cmbSubFamilia != undefined) this.cmbSubFamilia.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+
+
+
+      this.overlaySettings = {};
+
+      if (window.innerWidth <= 992) {
+        this.overlaySettings = {
+          positionStrategy: new GlobalPositionStrategy({ openAnimation: scaleInCenter, closeAnimation: scaleOutCenter }),
+          modal: true,
+          closeOnOutsideClick: true
+        };
+    }
   
     
   }
-
+*/
 
   ngOnInit() {
 

@@ -9,6 +9,8 @@ import { Funciones } from 'src/app/SHARED/class/cls_Funciones';
 import { ReporteInventarioFiltro2Component } from '../Filtros/reporte-inventario-filtro-2/reporte-inventario-filtro-2.component';
 import { postReporteInv } from '../../POST/post-Reporte';
 import { concat } from 'rxjs';
+import { GlobalPositionStrategy } from 'igniteui-angular';
+import { scaleInCenter, scaleOutCenter } from 'igniteui-angular/animations';
 
 @Component({
     selector: 'app-reporte-inventario-transacc-diaria',
@@ -29,7 +31,7 @@ export class ReporteInventarioTransaccDiariaComponent {
 
 
     public V_Imprimir(Exportar: boolean): void {
-        document.getElementById("btnImprimir-Reporte-Inv")?.setAttribute("disabled", "disabled");
+        document.getElementById("btnImprimir-Reporte-Inv-transac-diaria")?.setAttribute("disabled", "disabled");
 
         let dialogRef: any = this.cFunciones.DIALOG.getDialogById("wait");
 
@@ -86,7 +88,7 @@ export class ReporteInventarioTransaccDiariaComponent {
                 },
                 error: (err) => {
 
-                    document.getElementById("btnImprimir-Reporte-Inv")?.removeAttribute("disabled");
+                    document.getElementById("btnImprimir-Reporte-Inv-transac-diaria")?.removeAttribute("disabled");
 
                     dialogRef.close();
 
@@ -99,7 +101,7 @@ export class ReporteInventarioTransaccDiariaComponent {
 
                 },
                 complete: () => {
-                    document.getElementById("btnImprimir-Reporte-Inv")?.removeAttribute("disabled");
+                    document.getElementById("btnImprimir-Reporte-Inv-transac-diaria")?.removeAttribute("disabled");
 
                 }
             }
@@ -147,6 +149,46 @@ export class ReporteInventarioTransaccDiariaComponent {
     
 
     }
+
+
+
+
+    private ngAfterViewInit() {
+
+
+        this.Filtro.val.Combo(this.Filtro.lstCmb);
+    
+        ///CAMBIO DE FOCO
+        this.Filtro.val.addFocus("txtFecha1", "txtFecha2", undefined);
+        this.Filtro.val.addFocus("txtFecha2", "cmbBodega", undefined);
+        this.Filtro.val.addFocus("cmbBodega", "cmbTipoMov", undefined);
+        this.Filtro.val.addFocus("cmbTipoMov", "cmbProducto1", undefined);
+        this.Filtro.val.addFocus("cmbProducto1", "cmbProducto2", undefined);
+        this.Filtro.val.addFocus("cmbProducto2", "btnImprimir-Reporte-Inv-transac-proceso", "click");
+        
+
+        if (this.Filtro.cmbBodega != undefined) this.Filtro.cmbBodega.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+        if (this.Filtro.cmbProducto1 != undefined) this.Filtro.cmbProducto1.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+        if (this.Filtro.cmbProducto2 != undefined) this.Filtro.cmbProducto2.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+        if (this.Filtro.cmbTipoMov != undefined) this.Filtro.cmbTipoMov.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+    
+    
+    
+        this.Filtro.overlaySettings = {};
+    
+        if (window.innerWidth <= 992) {
+          this.Filtro.overlaySettings = {
+            positionStrategy: new GlobalPositionStrategy({ openAnimation: scaleInCenter, closeAnimation: scaleOutCenter }),
+            modal: true,
+            closeOnOutsideClick: true
+          };
+        }
+     
+    
+    
+      }
+
+      
 
     private ngOnInit() {
         this.servicio.V_Iniciar();
