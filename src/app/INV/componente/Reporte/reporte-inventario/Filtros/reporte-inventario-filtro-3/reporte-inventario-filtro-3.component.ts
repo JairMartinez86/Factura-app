@@ -42,7 +42,7 @@ export class ReporteInventarioFiltro3Component {
 
     this.val.Get("txtFecha1").setValue(this.cFunciones.ShortFechaServidor());
     this.val.Get("txtFecha2").setValue(this.cFunciones.ShortFechaServidor());
-
+    this.val.Get("cmbSerie").setValue("");
 
   }
   

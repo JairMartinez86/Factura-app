@@ -1,0 +1,47 @@
+<div class="row">
+
+
+    <div class="card">
+        <div class="card-header">
+            <h4>Control de Consecutividad en Documentos de Inventario</h4>
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-8 col-lg-6 mb-2">
+                    <app-reporte-inventario-filtro-3 #Filtro></app-reporte-inventario-filtro-3>
+                </div>
+
+            </div>
+
+        
+
+        </div>
+
+        <div class="card-footer">
+            <div class="row">
+
+                <div class="col-12 col-sm-12 col-md-8 col-lg-6 mb-1">
+                    <div class="contenedor-boton">
+
+                        <button type="button" class="btn btn-primario" id="btnImprimir-Reporte-Inv-rev-consecutivo"
+                            (click)="V_Imprimir(false);"><i class="fa-solid fa-file-pdf fa-beat-fade fa-xl"></i>
+                            Imprimir</button>
+
+                        <button type="button" class="btn btn-opcional" id="btnImprimir-Reporte-Inv-rev-consecutivo"
+                            (click)="V_Imprimir(true);"><i class="fa-solid fa-file-excel fa-beat-fade fa-xl"></i>
+                            Exportar</button>
+
+
+
+
+                    </div>
+                </div>
+
+            </div>
+          </div>
+    </div>
+
+
+
+</div>

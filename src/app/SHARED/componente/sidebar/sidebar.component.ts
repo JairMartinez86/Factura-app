@@ -21,6 +21,7 @@ import { AccesoWebComponent } from 'src/app/SIS/componente/acceso-web/acceso-web
 import { RequisaPermisoComponent } from 'src/app/FAC/componente/requisa/requisa-permiso/requisa-permiso.component';
 import { ReporteInventarioTransaccDiariaComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-transacc-diaria/reporte-inventario-transacc-diaria.component';
 import { ReporteInventarioTransaccEnprocesoComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-transacc-enproceso/reporte-inventario-transacc-enproceso.component';
+import { ReporteInventarioRevConsecutivoComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-rev-consecutivo/reporte-inventario-rev-consecutivo.component';
 
 const SCRIPT_PATH = 'ttps://cdn.jsdelivr.net/npm/bootstrap5-toggle@5.0.4/css/bootstrap5-toggle.min.css';
 declare let gapi: any;
@@ -176,7 +177,12 @@ export class SidebarComponent {
 
     if (id == "aReporte-TransInvproc") {
       this.DynamicFrom.viewContainerRef.clear();
-      let aTransInvproc: ComponentRef<ReporteInventarioTransaccEnprocesoComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioTransaccEnprocesoComponent);
+      let aTransInvProc: ComponentRef<ReporteInventarioTransaccEnprocesoComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioTransaccEnprocesoComponent);
+    }
+
+    if (id == "aReporte-rev-consecutivo") {
+      this.DynamicFrom.viewContainerRef.clear();
+      let aTransInvRecConecutivo: ComponentRef<ReporteInventarioRevConsecutivoComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioRevConsecutivoComponent);
     }
 
 
