@@ -4,35 +4,52 @@
 
         <div class="row">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-1">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-calendar"></i></span>
-                    <div class="form-floating">
-                        <input type="date" id="txtFecha1" class="form-control" placeholder="Fecha Inicio"
-                            aria-label="Fecha Final" formControlName="txtFecha1">
-                        <label for="txtFecha1">Desde</label>
+                <div class="form-group">
+                    <div class="form-time-picker">
+                        <igx-date-picker #datepiker formControlName="txtFecha1" id="txtFecha1"
+                            [inputFormat]="'dd/MM/yyyy'">
+                            <label igxLabel>Desde</label>
+
+                            <igx-picker-toggle igxPrefix>
+                                <igx-icon igxPrefix><i class="bi bi-calendar primario"></i></igx-icon>
+                            </igx-picker-toggle>
+
+                            <igx-picker-clear igxSuffix>
+                                <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                            </igx-picker-clear>
+
+                        </igx-date-picker>
                     </div>
                 </div>
             </div>
 
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-1">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-calendar"></i></span>
-                    <div class="form-floating">
-                        <input type="date" id="txtFecha2" class="form-control" placeholder="Fecha Final"
-                            aria-label="Fecha Final" formControlName="txtFecha2">
-                        <label for="txtFecha2">Hasta</label>
-                    </div>
+                <div class="form-group">
+                    <div class="form-time-picker">
+                        <igx-date-picker #datepiker formControlName="txtFecha2" id="txtFecha2"
+                            [inputFormat]="'dd/MM/yyyy'">
+                            <label igxLabel>Desde</label>
 
+                            <igx-picker-toggle igxPrefix>
+                                <igx-icon igxPrefix><i class="bi bi-calendar primario"></i></igx-icon>
+                            </igx-picker-toggle>
+
+                            <igx-picker-clear igxSuffix>
+                                <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                            </igx-picker-clear>
+
+                        </igx-date-picker>
+                    </div>
                 </div>
             </div>
 
             <div class="col-12 mb-1">
 
-                <igx-combo class="ComboSerie" #cmbSerie [data]="lstSerie" valueKey="IdSerie" displayKey="IdSerie" id="cmbSerie"
-                    formControlName="cmbSerie" placeholder="Seleccione una Serie."
+                <igx-combo class="ComboSerie" #cmbSerie [data]="lstSerie" valueKey="IdSerie" displayKey="IdSerie"
+                    id="cmbSerie" formControlName="cmbSerie" placeholder="Seleccione una Serie."
                     searchPlaceholder="Seleccione una Serie..." [autoFocusSearch]="true"
-                    [overlaySettings]="overlaySettings"
-                    (selectionChanging)="V_Select_Serie($event)" (keyup)="V_Enter_Serie($event);">
+                    [overlaySettings]="overlaySettings" (selectionChanging)="V_Select_Serie($event)"
+                    (keyup)="V_Enter_Serie($event);">
                     <label igxLabel>Serie</label>
                     <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
                     <ng-template igxComboClearIcon>

@@ -15,135 +15,155 @@ import { DialogErrorComponent } from 'src/app/SHARED/componente/dialog-error/dia
     imports: [ReporteInventarioFiltro1Component]
 })
 export class ReporteInventarioTransaccionesResumenComponent {
-  @ViewChild("Filtro", { static: false })
-  public Filtro: ReporteInventarioFiltro1Component;
+    @ViewChild("Filtro", { static: false })
+    public Filtro: ReporteInventarioFiltro1Component;
 
-  constructor( private POST: postReporteInv, public cFunciones: Funciones
-  ) {
+    constructor(private POST: postReporteInv, public cFunciones: Funciones
+    ) {
 
-  }
-
-
-  public V_Imprimir(Exportar: boolean): void {
-      document.getElementById("btnImprimir-Reporte-Inv-Transacciones-Resumen")?.setAttribute("disabled", "disabled");
-
-      let dialogRef: any = this.cFunciones.DIALOG.getDialogById("wait");
-
-
-      if (dialogRef == undefined) {
-          dialogRef = this.cFunciones.DIALOG.open(
-              WaitComponent,
-              {
-                  panelClass: "escasan-dialog-full-blur",
-                  data: "",
-                  id: "wait"
-              }
-          );
-
-      }
-
-      let d: iParamReporte = {} as iParamReporte;
-      d.Param = [this.Filtro.val.Get("txtFecha1").value, this.Filtro.val.Get("txtFecha2").value]
-      d.TipoReporte = "Transacciones de Inventario Resumen";
-      d.Exportar = Exportar;
-
-      this.POST.Imprimir(d).subscribe(
-          {
-              next: (data) => {
-
-
-                  dialogRef.close();
-                  let _json = JSON.parse(data);
-
-                  if (_json["esError"] == 1) {
-                      if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
-                          this.cFunciones.DIALOG.open(DialogErrorComponent, {
-                              id: "error-servidor-msj",
-                              data: _json["msj"].Mensaje,
-                          });
-                      }
-                  } else {
-                      this.V_GenerarDoc(_json["d"], Exportar);
-                  }
-
-              },
-              error: (err) => {
-
-                  document.getElementById("btnImprimir-Reporte-Inv-Transacciones-Resumen")?.removeAttribute("disabled");
-
-                  dialogRef.close();
-
-                  if (this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) {
-                      this.cFunciones.DIALOG.open(DialogErrorComponent, {
-                          id: "error-servidor",
-                          data: "<b class='error'>" + err.message + "</b>",
-                      });
-                  }
-
-              },
-              complete: () => {
-                  document.getElementById("btnImprimir-Reporte-Inv-Transacciones-Resumen")?.removeAttribute("disabled");
-
-              }
-          }
-      );
-
-
-  }
-
-
-  private V_GenerarDoc(Datos: iDatos, Exportar: boolean) {
-
-
-      let byteArray = new Uint8Array(atob(Datos.d).split('').map(char => char.charCodeAt(0)));
-
-      var file = new Blob([byteArray], { type: (Exportar ? 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' : 'application/pdf') });
-
-
-      let url = URL.createObjectURL(file);
-      console.log(url)
-     
-      var fileLink = document.createElement('a');
-      fileLink.href = url;
-      fileLink.download = Datos.Nombre;
-
-
-      if (Exportar) {
-
-          var fileLink = document.createElement('a');
-          fileLink.href = url;
-          fileLink.download = Datos.Nombre;
-          fileLink.click();
-          document.body.removeChild(fileLink);
-      }
-      else {
-          let tabOrWindow: any = window.open('',  '_blank');
-          tabOrWindow.document.body.appendChild(fileLink);
-
-          tabOrWindow.document.write("<html><head><title>"+Datos.Nombre+"</title></head><body>"
-              + '<embed width="100%" height="100%" name="plugin" src="'+ url+ '" '
-              + 'type="application/pdf" internalinstanceid="21"></body></html>');
-
-          tabOrWindow.focus();
-      }
-
-  
-
-  }
-
-
-
-
-  private ngAfterViewInit() {
-      ///CAMBIO DE FOCO
-      this.Filtro.val.addFocus("txtFecha1", "txtFecha2", undefined);
-      this.Filtro.val.addFocus("txtFecha2", "btnImprimir-Reporte-Inv-Transacciones-Resumen", "click");
-      
-
-     
     }
 
-    
 
-  
+    public V_Imprimir(Exportar: boolean): void {
+
+
+
+
+        this.Filtro.val.EsValido();
+
+
+        if (this.Filtro.val.Errores != "") {
+
+            this.cFunciones.DIALOG.open(DialogErrorComponent, {
+                data:
+                    "<ul>" + this.Filtro.val.Errores + "</ul>",
+            });
+            return;
+
+        }
+
+
+
+
+        document.getElementById("btnImprimir-Reporte-Inv-Transacciones-Resumen")?.setAttribute("disabled", "disabled");
+
+        let dialogRef: any = this.cFunciones.DIALOG.getDialogById("wait");
+
+
+        if (dialogRef == undefined) {
+            dialogRef = this.cFunciones.DIALOG.open(
+                WaitComponent,
+                {
+                    panelClass: "escasan-dialog-full-blur",
+                    data: "",
+                    id: "wait"
+                }
+            );
+
+        }
+
+        let d: iParamReporte = {} as iParamReporte;
+        d.Param = [this.Filtro.val.Get("txtFecha1").value, this.Filtro.val.Get("txtFecha2").value]
+        d.TipoReporte = "Transacciones de Inventario Resumen";
+        d.Exportar = Exportar;
+
+        this.POST.Imprimir(d).subscribe(
+            {
+                next: (data) => {
+
+
+                    dialogRef.close();
+                    let _json = JSON.parse(data);
+
+                    if (_json["esError"] == 1) {
+                        if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
+                            this.cFunciones.DIALOG.open(DialogErrorComponent, {
+                                id: "error-servidor-msj",
+                                data: _json["msj"].Mensaje,
+                            });
+                        }
+                    } else {
+                        this.V_GenerarDoc(_json["d"], Exportar);
+                    }
+
+                },
+                error: (err) => {
+
+                    document.getElementById("btnImprimir-Reporte-Inv-Transacciones-Resumen")?.removeAttribute("disabled");
+
+                    dialogRef.close();
+
+                    if (this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) {
+                        this.cFunciones.DIALOG.open(DialogErrorComponent, {
+                            id: "error-servidor",
+                            data: "<b class='error'>" + err.message + "</b>",
+                        });
+                    }
+
+                },
+                complete: () => {
+                    document.getElementById("btnImprimir-Reporte-Inv-Transacciones-Resumen")?.removeAttribute("disabled");
+
+                }
+            }
+        );
+
+
+    }
+
+
+    private V_GenerarDoc(Datos: iDatos, Exportar: boolean) {
+
+
+        let byteArray = new Uint8Array(atob(Datos.d).split('').map(char => char.charCodeAt(0)));
+
+        var file = new Blob([byteArray], { type: (Exportar ? 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' : 'application/pdf') });
+
+
+        let url = URL.createObjectURL(file);
+        console.log(url)
+
+        var fileLink = document.createElement('a');
+        fileLink.href = url;
+        fileLink.download = Datos.Nombre;
+
+
+        if (Exportar) {
+
+            var fileLink = document.createElement('a');
+            fileLink.href = url;
+            fileLink.download = Datos.Nombre;
+            fileLink.click();
+            document.body.removeChild(fileLink);
+        }
+        else {
+            let tabOrWindow: any = window.open('', '_blank');
+            tabOrWindow.document.body.appendChild(fileLink);
+
+            tabOrWindow.document.write("<html><head><title>" + Datos.Nombre + "</title></head><body>"
+                + '<embed width="100%" height="100%" name="plugin" src="' + url + '" '
+                + 'type="application/pdf" internalinstanceid="21"></body></html>');
+
+            tabOrWindow.focus();
+        }
+
+
+
+    }
+
+
+
+
+    private ngAfterViewInit() {
+        ///CAMBIO DE FOCO
+        this.Filtro.val.addFocus("txtFecha1", "txtFecha2", undefined);
+        this.Filtro.val.addFocus("txtFecha2", "btnImprimir-Reporte-Inv-Transacciones-Resumen", "click");
+
+
+
+    }
+
+
+
+
 }

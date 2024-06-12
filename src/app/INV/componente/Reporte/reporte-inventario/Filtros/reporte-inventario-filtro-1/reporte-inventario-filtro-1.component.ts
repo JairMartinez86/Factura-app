@@ -1,6 +1,6 @@
-import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GlobalPositionStrategy, IgxComboComponent, IgxComboModule, IgxIconModule, OverlaySettings } from 'igniteui-angular';
+import { GlobalPositionStrategy, IgxComboComponent, IgxComboModule, IgxDatePickerModule, IgxIconModule, IgxOverlayService, OverlaySettings } from 'igniteui-angular';
 import { scaleInCenter, scaleOutCenter } from 'igniteui-angular/animations';
 import { Funciones } from 'src/app/SHARED/class/cls_Funciones';
 import { Validacion } from 'src/app/SHARED/class/validacion';
@@ -11,17 +11,20 @@ import { iProducto } from 'src/app/FAC/interface/i-Producto';
 @Component({
   selector: 'app-reporte-inventario-filtro-1',
   standalone: true,
-  imports: [IgxComboModule, IgxIconModule, ReactiveFormsModule, CommonModule, FormsModule],
+  imports: [IgxComboModule, IgxIconModule, ReactiveFormsModule, CommonModule, FormsModule, IgxDatePickerModule ],
   templateUrl: './reporte-inventario-filtro-1.component.html',
   styleUrl: './reporte-inventario-filtro-1.component.scss'
 })
 export class ReporteInventarioFiltro1Component {
   public val = new Validacion();
 
+  @ViewChild("datepiker", { static: false })
+  public datepiker: any;
+
 
 
   
-  constructor(public cFunciones: Funciones,) {
+  constructor(public cFunciones: Funciones, public element: ElementRef) {
 
     this.val.add("txtFecha1", "1", "LEN>", "0", "Fecha Inicio", "Ingrese una fecha valida.");
     this.val.add("txtFecha2", "1", "LEN>", "0", "Fecha Fdinal", "Ingrese una fecha valida.");
@@ -36,13 +39,13 @@ export class ReporteInventarioFiltro1Component {
 
 
 
-/*
+
   private ngAfterViewInit() {
 
-      ///CAMBIO DE FOCO
-      this.val.addFocus("txtFecha1", "txtFecha2", undefined);
-      this.val.addFocus("txtFecha2", "btnImprimir-Reporte-Inv", "click");
-  }*/
+    if(window.innerWidth < this.cFunciones.TamanoPantalla("md")) if(this.datepiker != undefined) this.datepiker.mode="dialog";
+     
+
+  }
 
 
 }

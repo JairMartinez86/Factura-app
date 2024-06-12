@@ -49,7 +49,7 @@ function onKeyEnter(event: any) {
   }
 
 
-
+  
 
   let _element_next = lstFocus.find(f => f.Id == id);
 
@@ -62,6 +62,9 @@ function onKeyEnter(event: any) {
     let combo: IgxComboComponent = cmb.find(f => f.id == id)!;
     combo.close();
   }
+
+
+
 
 
   elmento = document?.getElementById(_element_next.Id)!;
@@ -92,6 +95,14 @@ function onKeyEnter(event: any) {
 
 
   }
+
+
+  if (elmento.localName == "igx-date-picker") {
+    let _input_Picker: HTMLElement = elmento.getElementsByTagName("input")[0];
+    _input_Picker?.focus();
+  }
+
+
 
 
 
@@ -184,13 +195,13 @@ export class Validacion {
 
 
   public V_SingleSelection(event: IComboSelectionChangingEventArgs) {
-  
+
     if (event.added.length) {
       if (event.newValue.length > 1) event.newValue.splice(0, 1);
       this.Get(event.owner.id).setValue(event.newValue[0]);
       event.owner.close();
     }
-}
+  }
 
 
   public CambioRegla(id: string, r: string): string {
@@ -260,15 +271,15 @@ export class Validacion {
 
 
     document.querySelector('#' + id)?.addEventListener('keypress', onKeyEnter);
-    let elemento  = document.getElementById(id);
-    if(elemento?.tagName == "IGX-COMBO") elemento.addEventListener("keyup", this.V_Forcer_Key_Enter_Combo);
+    let elemento = document.getElementById(id);
+    if (elemento?.tagName == "IGX-COMBO") elemento.addEventListener("keyup", this.V_Forcer_Key_Enter_Combo);
 
 
-    
+
 
 
   }
-  
+
   public addNumberFocus(id: string, decimal: number) {
 
     let i: number = lstFormat.findIndex(f => f.Id == id);
@@ -288,38 +299,37 @@ export class Validacion {
 
   private V_Forcer_Key_Enter_Combo(event: any): void {
 
-    if (event.key == "Enter")
-      {
-         let id = event.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.id
+    if (event.key == "Enter") {
+      let id = event.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.id
 
-         let elmento: HTMLElement = document?.getElementById(id)!;
+      let elmento: HTMLElement = document?.getElementById(id)!;
 
 
-         let combo: IgxComboComponent = cmb.find(f => f.id == id)!;
-         combo.close();
-         
+      let combo: IgxComboComponent = cmb.find(f => f.id == id)!;
+      combo.close();
 
-         let _element_next = lstFocus.find(f => f.Id == id);
 
-         if (_element_next == undefined) return;
-         if (_element_next.IdNext == "") return;
-       
-        
-         elmento = document?.getElementById(_element_next.Id)!;
-         elmento = getRectArea(elmento);
-       
-       
-       
-       
-       
-         elmento?.focus();
+      let _element_next = lstFocus.find(f => f.Id == id);
 
-         
-         let elment: IgxComboComponent = cmb.find(f => f.id == _element_next?.IdNext)!;
-      
-         if (elment != undefined) elment.open();
-        
-      }
+      if (_element_next == undefined) return;
+      if (_element_next.IdNext == "") return;
+
+
+      elmento = document?.getElementById(_element_next.Id)!;
+      elmento = getRectArea(elmento);
+
+
+
+
+
+      elmento?.focus();
+
+
+      let elment: IgxComboComponent = cmb.find(f => f.id == _element_next?.IdNext)!;
+
+      if (elment != undefined) elment.open();
+
+    }
 
 
   }
@@ -440,15 +450,17 @@ export class Validacion {
       let _Id: string = "";
       let hmtlValue = "";
 
-      let elmento : any = document.getElementById(f.Id);
+      let elmento: any = document.getElementById(f.Id);
       elmento?.parentElement?.classList.remove("contenedor-info-validacion");
 
       let span = document.getElementById("info-validacion-" + f.Id);
       span?.remove();
 
       frm.value = this.ValForm.get(f.Id)?.value;
-      hmtlValue = elmento.type == "checkbox" ?  frm.value : elmento?.value;
-     
+      hmtlValue = elmento?.value
+      if(elmento.type == "checkbox") hmtlValue = frm.value;
+      if(elmento.localName == "igx-date-picker") hmtlValue = frm.value;
+
 
       if ((String(frm.value) == "undefined" || String(frm.value) == "")) {
 
@@ -461,12 +473,11 @@ export class Validacion {
         }
 
       }
-      else
-      {
-        if(frm.value != hmtlValue && elmento?.localName != "igx-combo") frm.setValue(hmtlValue);
+      else {
+        if (frm.value != hmtlValue && elmento?.localName != "igx-combo") frm.setValue(hmtlValue);
       }
 
-     
+
 
       let r: string[] = this._Validar(f.Id, f, frm, retorno, errores);
       reglas[i].ErrorMensaje = "";
