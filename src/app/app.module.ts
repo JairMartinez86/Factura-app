@@ -27,7 +27,7 @@ import { LoginComponent } from './SHARED/componente/login/login.component';
 import { DynamicFormDirective } from './SHARED/directive/dynamic-form.directive';
 import { RegistroFacturaComponent } from './FAC/componente/factura/registro-factura/registro-factura.component';
 import { DialogErrorComponent } from './SHARED/componente/dialog-error/dialog-error.component';
-import { IgxComboModule } from 'igniteui-angular';
+import { IgxComboModule, IgxDatePickerModule, IgxInputGroupModule } from 'igniteui-angular';
 import { IgxIconModule } from 'igniteui-angular';
 import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
 import { AnularComponent } from './SHARED/anular/anular.component';
@@ -80,6 +80,8 @@ import { RequisaAutorizaComponent } from './FAC/componente/requisa/requisa-autor
     IgxIconModule,
     MatPaginatorModule,
     MatTableModule,
+    IgxDatePickerModule,
+    IgxInputGroupModule,
      BackButtonDisableModule.forRoot({
       preserveScroll: true // DISABLE BACK
     })

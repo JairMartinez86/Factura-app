@@ -1,6 +1,6 @@
 import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GlobalPositionStrategy, IgxComboComponent, IgxComboModule, IgxIconModule, OverlaySettings } from 'igniteui-angular';
+import { GlobalPositionStrategy, IgxComboComponent, IgxComboModule, IgxDatePickerModule, IgxIconModule, OverlaySettings } from 'igniteui-angular';
 import { scaleInCenter, scaleOutCenter } from 'igniteui-angular/animations';
 import { Funciones } from 'src/app/SHARED/class/cls_Funciones';
 import { Validacion } from 'src/app/SHARED/class/validacion';
@@ -12,7 +12,7 @@ import { iTipoMov } from 'src/app/INV/Interface/i-Tipo-Mov';
 @Component({
   selector: 'app-reporte-inventario-filtro-6',
   standalone: true,
-  imports: [IgxComboModule, IgxIconModule, ReactiveFormsModule, CommonModule, FormsModule],
+  imports: [IgxComboModule, IgxIconModule, ReactiveFormsModule, CommonModule, FormsModule, IgxDatePickerModule ],
   templateUrl: './reporte-inventario-filtro-6.component.html',
   styleUrl: './reporte-inventario-filtro-6.component.scss'
 })
@@ -29,6 +29,8 @@ export class ReporteInventarioFiltro6Component {
   @ViewChild("cmbTipoMov", { static: false })
   public cmbTipoMov: IgxComboComponent;
 
+  @ViewChild("datepiker", { static: false })
+  public datepiker: any;
 
 
 
@@ -100,4 +102,12 @@ export class ReporteInventarioFiltro6Component {
         // No errors, route to new page here
       })
   }
+
+  private ngAfterViewInit() {
+
+    if(window.innerWidth < this.cFunciones.TamanoPantalla("md")) if(this.datepiker != undefined) this.datepiker.mode="dialog";
+     
+
+  }
+
 }
