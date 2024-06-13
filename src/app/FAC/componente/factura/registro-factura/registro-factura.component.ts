@@ -40,6 +40,13 @@ export class RegistroFacturaComponent {
   private Load : boolean = false;
   public ProformaVencida : boolean = false;
 
+  @ViewChild("datepiker", { static: false })
+  public datepiker: any;
+
+  @ViewChild("datepiker2", { static: false })
+  public datepiker2: any;
+
+
 
 
   public lstDocumentos: MatTableDataSource<iFactPed[]>;
@@ -668,6 +675,10 @@ export class RegistroFacturaComponent {
   }
 
   private ngAfterViewInit() {
+
+
+    if(window.innerWidth < this.cFunciones.TamanoPantalla("md")) if(this.datepiker != undefined) this.datepiker.mode="dialog";
+    if(window.innerWidth < this.cFunciones.TamanoPantalla("md")) if(this.datepiker2 != undefined) this.datepiker2.mode="dialog";
 
 
     if(this.EsCola)this.startTimer();

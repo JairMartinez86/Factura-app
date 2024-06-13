@@ -35,6 +35,10 @@ export class ReporteInventarioFiltro2Component {
   @ViewChild("datepiker", { static: false })
   public datepiker: any;
 
+  
+  @ViewChild("datepiker2", { static: false })
+  public datepiker2: any;
+
 
   @ViewChildren(IgxComboComponent)
   public lstCmb: QueryList<IgxComboComponent>;
@@ -178,7 +182,7 @@ export class ReporteInventarioFiltro2Component {
   private ngAfterViewInit() {
 
     if(window.innerWidth < this.cFunciones.TamanoPantalla("md")) if(this.datepiker != undefined) this.datepiker.mode="dialog";
-     
+    if(window.innerWidth < this.cFunciones.TamanoPantalla("md")) if(this.datepiker2 != undefined) this.datepiker2.mode="dialog";
 
   }
 }
