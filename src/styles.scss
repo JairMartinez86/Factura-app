@@ -143,9 +143,9 @@ $custom-datepicker-theme: calendar-theme($content-background: var(--escan-fondo)
 
 
   .igx-input-group {
-    --focused-secondary-color: var(--escan-secundario);
-    --success-secondary-color: var(--escan-secundario);
-    --error-secondary-color: var(--escan-primario);
+    --focused-secondary-color: var(--escan-primario);
+    --success-secondary-color: var(--escan-primario);
+   // --error-secondary-color: var(--escan-primario);
   }
 
   .igx-input-group--disabled .igx-input-group__input {
@@ -214,6 +214,7 @@ auto - for classes that set the margin to auto, like mx-auto
   --escan-opcional-sombra: rgba(78, 78, 78, 0.5);
 
   --escan-fondo: white;
+  
 
   --min-width: 300px;
   --min-width-sm: 576px;
@@ -221,6 +222,10 @@ auto - for classes that set the margin to auto, like mx-auto
   --min-width-lg: 992px;
   --min-width-xl: 1200px;
   --min-width-xxl: 1200px;
+
+  //input
+  --igx-input-group-error-secondary-color : var(--escan-secundario);
+  --igx-input-group-focused-secondary-color : var(--escan-primario);
 
   //igx-calendar
   --igx-calendar-date-focus-background: var(--escan-primario);

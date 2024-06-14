@@ -1552,8 +1552,12 @@ export class FacturaComponent {
 
   }
 
+
+
   private ngOnInit() {
 
+   
+    
     //FILTRO CLIENTE
     this.filteredClientes = this.val.Get("txtCliente").valueChanges.pipe(
       startWith(""),
@@ -1571,6 +1575,7 @@ export class FacturaComponent {
 
 
     this.val.Combo(this.lstCmb);
+    this.val.ResetCssError();
 
       ///CAMBIO DE FOCO
       this.val.addFocus("txtCliente", "txtNombre", undefined);

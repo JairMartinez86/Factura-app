@@ -116,6 +116,8 @@ function onKeyEnter(event: any) {
 }
 
 
+
+
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -192,6 +194,19 @@ export class Validacion {
 
 
 
+  
+  public ResetCssError()
+  {
+ 
+    setTimeout(() => {
+      document.querySelectorAll('.igx-input-group').forEach((key : any) => {
+        key.classList.remove('igx-input-group--invalid');
+      });
+    }, 300);
+
+
+    
+  }
 
 
   public V_SingleSelection(event: IComboSelectionChangingEventArgs) {
@@ -236,7 +251,11 @@ export class Validacion {
     if (this.Get(id) == undefined) {
       this.ValForm.addControl(id, _frm);
       NuevoItem = true;
+      
+  
+     
     }
+
 
 
     if (this.lstReglas.findIndex(f => f.Id == id && f.Regla == regla) == -1) {
@@ -253,8 +272,7 @@ export class Validacion {
 
     if (NuevoItem) this.lstFrm.push({ Id: id, Frm: _frm, Etiqueta: etiqueta });
 
-
-
+  
 
 
   }
@@ -275,10 +293,9 @@ export class Validacion {
     if (elemento?.tagName == "IGX-COMBO") elemento.addEventListener("keyup", this.V_Forcer_Key_Enter_Combo);
 
 
-
-
-
   }
+
+
 
   public addNumberFocus(id: string, decimal: number) {
 
@@ -292,6 +309,8 @@ export class Validacion {
 
     document.querySelector('#' + id)?.addEventListener('focusin', this.onFocusIn);
     document.querySelector('#' + id)?.addEventListener('focusout', this.onFocusOut);
+    //document.getElementById('input')?.addEventListener('input', this.onValid);
+
 
   }
 
@@ -373,6 +392,7 @@ export class Validacion {
 
   }
 
+
   public del(id: string): void {
 
     this.lstReglas.filter(w => w.Id == id).forEach(w => {
@@ -442,6 +462,9 @@ export class Validacion {
 
     let reglas: ReglasValidacion[] = JSON.parse(JSON.stringify(this.lstReglas.filter(f => (formControlName.includes(f.Id)) || formControlName.length == 0).sort((a, b) => a.Etiqueta.localeCompare(b.Etiqueta))));
 
+
+
+
     reglas.forEach((f) => {
       let retorno = "0";
       let errores = "";
@@ -452,6 +475,10 @@ export class Validacion {
 
       let elmento: any = document.getElementById(f.Id);
       elmento?.parentElement?.classList.remove("contenedor-info-validacion");
+
+  
+      console.log(elmento.querySelectorAll('.igx-input-group'))
+    
 
       let span = document.getElementById("info-validacion-" + f.Id);
       span?.remove();
@@ -510,7 +537,18 @@ export class Validacion {
         elmento?.parentNode?.insertBefore(span, elmento);
         elmento?.parentElement?.classList.add("contenedor-info-validacion");
 
+      
+        elmento.querySelectorAll('.igx-input-group').forEach((key : HTMLElement) => {
+          key.classList.add('igx-input-group--invalid');
+        });
 
+      }
+      else
+      {
+        elmento.querySelectorAll('.igx-input-group--invalid').forEach((key : HTMLElement) => {
+          key.classList.remove('igx-input-group--invalid');
+        });
+    
       }
 
       i++;
@@ -546,6 +584,10 @@ export class Validacion {
       this.Errores = "<ul>" + this.Errores + "</ul>";
       return false;
     }
+
+    
+
+
 
     return true;
   }

@@ -31,6 +31,23 @@ export class ReporteInventarioTransaccDiariaComponent {
 
 
     public V_Imprimir(Exportar: boolean): void {
+
+
+        
+        this.Filtro.val.EsValido();
+
+
+        if (this.Filtro.val.Errores != "") {
+
+            this.cFunciones.DIALOG.open(DialogErrorComponent, {
+                data:
+                    "<ul>" + this.Filtro.val.Errores + "</ul>",
+            });
+            return;
+
+        }
+
+
         document.getElementById("btnImprimir-Reporte-Inv-transac-diaria")?.setAttribute("disabled", "disabled");
 
         let dialogRef: any = this.cFunciones.DIALOG.getDialogById("wait");
@@ -157,6 +174,7 @@ export class ReporteInventarioTransaccDiariaComponent {
 
 
         this.Filtro.val.Combo(this.Filtro.lstCmb);
+    
     
         ///CAMBIO DE FOCO
         this.Filtro.val.addFocus("txtFecha1", "txtFecha2", undefined);
