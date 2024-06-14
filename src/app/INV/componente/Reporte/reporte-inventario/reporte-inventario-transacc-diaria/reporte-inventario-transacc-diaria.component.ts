@@ -70,15 +70,19 @@ export class ReporteInventarioTransaccDiariaComponent {
 
         let Bodegas: String = "";
 
-        if (d.Param[2] != "") {
+        if (d.Param[2].length > 0) {
             Bodegas = ">";
             d.Param[2].forEach((e: any) => {
                 Bodegas +=   e + "@";
             });
-            d.Param[2] = Bodegas;
+            
         }
+        
+        d.Param[2] = Bodegas;
+        d.Param[4] = this.cFunciones.DateFormat(d.Param[4], "dd/MM/yyyy");
+        d.Param[5] = this.cFunciones.DateFormat(d.Param[5], "dd/MM/yyyy");;
 
-
+        console.log(d)
 
         d.TipoReporte = "Detalle Transacciones Inventario";
         d.Exportar = Exportar;

@@ -1,0 +1,48 @@
+.ComboBodega {
+
+    background-color: var(--escan-primario);
+  
+    i,
+    label {
+      color: white;
+    }
+  }
+  
+
+  
+  
+  
+  ::ng-deep {
+  
+  
+  
+    .ComboBodega.igx-combo ::placeholder {
+      color: white;
+    }
+  
+    .ComboBodega.igx-combo:hover ::placeholder {
+      font-size: 1.1em;
+      font-weight: bold;
+      color: white;
+    }
+  
+    .ComboBodega.igx-icon {
+      color: white;
+    }
+  
+
+  }
+  
+  
+  
+  
+  
+
+  .card-header {
+    font-size: 0.8em;
+  }
+  
+  .card-titulo {
+    font-size: 1.2em;
+    font-weight: bold;
+  }

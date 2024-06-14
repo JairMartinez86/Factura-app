@@ -73,6 +73,7 @@ export class Funciones {
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-rev-consecutivo", Caption: "Control de Consecutividad" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-TransaccInv", Caption: "Transacciones de Inventario" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-TransaccInvResumen", Caption: "Resumen Inventario" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-FacturaCosto", Caption: "Costo Factura" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
 
         
      /**************************************ACCESO WEB************************************* */ 

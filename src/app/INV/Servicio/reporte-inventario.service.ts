@@ -99,9 +99,12 @@ export class ReporteInventarioService {
                         F6.Filtro = "Filtro6";
                         F6.Datos = [Datos[7].d];
 
+                        let F7 : iReporteService = {} as iReporteService;
+                        F7.Filtro = "Filtro7";
+                        F7.Datos = [Datos[0].d];
 
 
-                        this.Salida.emit([F2, F3, F4, F5, F6]);
+                        this.Salida.emit([F2, F3, F4, F5, F6, F7]);
 
 
 
