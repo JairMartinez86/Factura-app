@@ -173,6 +173,16 @@ export class ReporteInventarioTransaccDiariaComponent {
 
 
 
+    private ngDoCheck(){
+  
+
+        if (this.Filtro?.cmbBodega != undefined) this.Filtro.cmbBodega.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+        if (this.Filtro?.cmbProducto1 != undefined) this.Filtro.cmbProducto1.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+        if (this.Filtro?.cmbProducto2 != undefined) this.Filtro.cmbProducto2.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+        if (this.Filtro?.cmbTipoMov != undefined) this.Filtro.cmbTipoMov.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+    
+    
+    }
 
     private ngAfterViewInit() {
 
@@ -187,14 +197,7 @@ export class ReporteInventarioTransaccDiariaComponent {
         this.Filtro.val.addFocus("cmbTipoMov", "cmbProducto1", undefined);
         this.Filtro.val.addFocus("cmbProducto1", "cmbProducto2", undefined);
         this.Filtro.val.addFocus("cmbProducto2", "btnImprimir-Reporte-Inv-transac-proceso", "click");
-        
-
-        if (this.Filtro.cmbBodega != undefined) this.Filtro.cmbBodega.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-        if (this.Filtro.cmbProducto1 != undefined) this.Filtro.cmbProducto1.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-        if (this.Filtro.cmbProducto2 != undefined) this.Filtro.cmbProducto2.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-        if (this.Filtro.cmbTipoMov != undefined) this.Filtro.cmbTipoMov.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-    
-    
+      
     
         this.Filtro.overlaySettings = {};
     

@@ -169,6 +169,13 @@ export class ReporteInventarioFacturaCostoComponent {
   }
 
 
+  private ngDoCheck(){
+  
+    if (this.Filtro?.cmbBodega != undefined) this.Filtro.cmbBodega.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+
+
+}
+
 
 
   private ngAfterViewInit() {
@@ -186,8 +193,7 @@ export class ReporteInventarioFacturaCostoComponent {
       this.Filtro.val.addFocus("cmbProducto2", "btnImprimir-Reporte-Inv-transac-proceso", "click");
       
 
-      if (this.Filtro.cmbBodega != undefined) this.Filtro.cmbBodega.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-
+     
   
       this.Filtro.overlaySettings = {};
   

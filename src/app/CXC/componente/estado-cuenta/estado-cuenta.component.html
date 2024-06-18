@@ -1,0 +1,294 @@
+<form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
+
+    <div class="row">
+        <div class="col-12 col-ms-12 col-md-6 col-lg-6 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    <igx-combo class="cmbCliente" #cmbCliente [data]="lstClientes" valueKey="Codigo" displayKey="Key"
+                        id="cmbCliente" formControlName="cmbCliente" placeholder="Seleccione un Cliente."
+                        searchPlaceholder="Seleccione un cliente..." [autoFocusSearch]="true"
+                        [overlaySettings]="overlaySettings" (selectionChanging)="val.V_SingleSelection($event);">
+                        <label igxLabel>Cliente</label>
+                        <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
+
+
+                        <ng-template igxComboItem let-display let-key="valueKey">
+                            <span>{{ display[key] }} {{ display.TipoMov1 }}</span>
+                        </ng-template>
+
+
+                        <ng-template igxComboClearIcon>
+                            <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                        </ng-template>
+                    </igx-combo>
+
+                </div>
+                <div class="card-body">
+
+                    <div class="row cliente">
+
+                        <div class="col-4 col-sm-4 col-md-3 col-lg-3 etiqueta">
+                            AAAA
+                        </div>
+
+                        <div class="col-6 col-sm-6 col-md-3 col-lg-9 mb-1">
+                            Jair Ivan Martinez Gonzalez
+                        </div>
+
+                        <div class="col-4 col-sm-4 col-md-3 col-lg-3 etiqueta">
+                            Telefono:
+                        </div>
+
+                        <div class="col-6 col-sm-6 col-md-3 col-lg-9 mb-1">
+                            +505 8269 3637
+                        </div>
+
+
+                        <div class="col-4 col-sm-4 col-md-3 col-lg-3 etiqueta">
+                            Correo:
+                        </div>
+
+                        <div class="col-6 col-sm-6 col-md-9 col-lg-9 mb-1">
+                            jmartinezg86gmail.com
+                        </div>
+
+                        <div class="col-4 col-sm-4 col-md-3 col-lg-3 etiqueta">
+                            Direccion:
+                        </div>
+
+                        <div class="col-6 col-sm-6 col-md-10 col-lg-9 mb-1">
+                            Villa Libertad, Managua,
+                            Managuadfgdfgdfgdfgdfgdfgd;aljglk.djlkghjsdklghdklshgklshagklhdsklghsdklghklsdghsdkl
+                            sfsljfhdksfhklsahflksahjfkldsaf
+                            sfklshfaklhfklsklfs
+                            sfkshafklshakflhsaklf
+                            asdlaskhdklash
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="col-12 col-ms-12 col-md-6 col-lg-6 resumen">
+            <div class="card">
+                <div class="card-header">
+                    <h6>Resumen</h6>
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-8">
+
+                            <div class="row">
+
+
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-4">
+                                    <div class="etiqueta">Monto Ultimo Pago</div>
+                                    <div class="valor">999,999,999,999.00</div>
+                                </div>
+
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-1">
+                                    <div class="etiqueta">Fecha Ultimo Pago</div>
+                                    <div class="valor">31/12/2024</div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div class="col-4 plazo mb-1">
+                            <div class="etiqueta">Plazo</div>
+                            <div class="valor">9999</div>
+                        </div>
+
+                        <div class="col-12 limite mb-1">
+                            <div class="etiqueta mb-2">Limite</div>
+                            <div class="valor">C$ 999,999,999,999.99</div>
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="card-footer">
+
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 etiqueta mb-2">Disponible</div>
+                        <div class="col-12 col-sm-12 col-md-8 col-lg-8 numero mb-1">C$ 999,999,999,999.99</div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="card">
+
+
+                <div class="card-header card-header-tabla">
+                    <h6 class="mb-2">SALDO CORRIENTE ( {{MonedaLocal}} {{SimboloMonedaLocal}} )</h6>
+                    <div class="row">
+            
+                            
+                        <span class="header-table">
+                            <div class="row">
+                                <div class="col-3">Factura</div>
+                                <div class="col-3">Fecha</div>
+                                <div class="col-3">Dias</div>
+                                <div class="col-3 right">Saldo</div>
+                            </div>
+                        </span>
+                
+                    </div>
+                
+                </div>
+                <div class="card-body card-body-tabla">
+
+                   
+                    <div class="row">
+                        <table class="table table-hover  table-sm tabla-layout" mat-table
+                            [dataSource]="V_MostrarMaestro('Moneda')">
+                
+                
+                
+                            <ng-container matColumnDef="col1">
+                                <td mat-cell *matCellDef="let det; let x = index;">
+                
+                                    
+                
+                                    <div class="row">
+                
+                                        <div class="col-6 col-sm-6 col-md-4 col-lg-4 mb-1">
+                                            <div class="mobile-titulo">Factura</div>
+                                            <div class="mobile-valor"><button type="button" class="btn btn-primario" (click)="V_MostrarDetalle(det.NoDocOrigen)">{{det.NoDocOrigen}} <i
+                                                class="fa-solid fa-plus fa-beat-fade fa-lg"></i></button></div>
+                                        </div>
+                
+                                        <div class="col-6 col-sm-6 col-md-3 col-lg-3 mb-1">
+                                            <div class="mobile-titulo">
+                                                <span>Fecha</span>
+                                                <span> / Dias</span>
+                                            </div>
+                                            <div class="mobile-valor">
+                                                <span class="mobile-fecha">{{det.FechaDocumento}} / {{det.Dias}}</span>
+                                                <span class="fecha">{{det.FechaDocumento}}</span>
+                                            </div>
+                                        </div>
+                
+                
+                                        <div class="col-6 col-sm-6 col-md-2 col-lg-2 mb-1 dias">
+                                            <div>{{det.Dias}}</div>
+                                        </div>
+                
+        
+                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 mb-1">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <span class="mobile-titulo">Saldo: </span>
+                                                </div>
+                                                <div class="col-9 right">
+                                                    <span class="mobile-valor">{{SimboloMonedaLocal}} {{det.Saldo}}</span>
+                                                </div>
+                                            </div>
+                
+                
+                                        </div>
+                
+        
+                                        <div class="col-12">
+                                            <table class="table table-hover table-sm  tabla-detalle">
+        
+                                                <tbody *ngFor="let doc of V_Expandir(det.NoDocOrigen),  let i = index;" class="tbody">
+            
+                                                    <tr *ngIf="i == 0">
+                                                        <span class="row header-detalle">
+                                                            <td class="col-6">Documento</td>
+                                                            <td class="col-6 right">Monto</td>
+                                                        </span>
+                                                       
+                                                    </tr>
+            
+                                                    <tr>
+                                                        <span class="row">
+            
+                                                            <td class="col-6">{{doc.NoDocOrigen}}</td>
+                                                            <td class="col-6"><span class="cargo" [ngClass]="doc.Total < 0 ? 'abono' : 'cargo'">{{doc.Total < 0 ? "Abono" : "Cargo"}}</span></td>
+                                                            <td class="col-5 offset-1">  {{doc.FechaDocumento}}</td>
+                                                            <td class="col-6 right">{{SimboloMonedaLocal}} {{doc.Total | number:'1.2-2'}}</td>
+            
+                                                        </span>
+            
+                                                    </tr>
+            
+            
+                                                </tbody>
+                                            </table>
+            
+                                        </div>
+                                        
+                                 
+        
+                
+                                    </div>
+                
+                                </td>
+                            </ng-container>
+                
+                         
+                
+                
+                
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="linea-bottom-secundario dashed">
+                            </tr>
+                
+                
+                        </table>
+                        
+                    </div>
+
+                </div>
+
+                <div class="card-footer pie-tabla">
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">SALDO CORRIENTE:</div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 right pie-saldo">{{SimboloMonedaLocal}} {{V_TotalSaldo("Corriente", "COR") | number:'1.2-2'}}</div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+</form>

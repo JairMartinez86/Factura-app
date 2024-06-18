@@ -1,0 +1,268 @@
+@import "/src/assets/scss/media.scss";
+
+
+form {
+    margin-bottom: 200px;
+}
+
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+
+
+.cliente {
+    .etiqueta {
+        font-weight: bold;
+        text-align: center;
+    }
+
+}
+
+
+
+.cmbCliente {
+
+    background-color: var(--escan-primario);
+
+    i,
+    label {
+        color: white;
+    }
+}
+
+
+
+::ng-deep {
+
+
+
+    .cmbCliente.igx-combo ::placeholder {
+        color: white;
+    }
+
+    .cmbCliente.igx-combo:hover ::placeholder {
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+    }
+
+    .cmbCliente.igx-icon {
+        color: white;
+    }
+
+
+
+}
+
+
+
+
+
+
+.resumen {
+
+    .etiqueta {
+        color: var(--escan-opcional);
+        text-align: left;
+    }
+
+    .valor {
+        font-weight: bold;
+    }
+
+    .plazo {
+        text-align: center;
+        margin-bottom: 5px;
+        background-color: var(--escan-secundario);
+
+        .etiqueta,
+        .valor {
+            font-size: 2em;
+            color: white;
+            text-align: center;
+
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .valor {
+            font-size: 2.5em;
+        }
+
+    }
+
+
+    .limite {
+        /*border: 2px dashed var(--escan-opcional);
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;*/
+        font-size: 1.5em;
+        padding-top: 10px;
+    }
+
+
+    .card-footer {
+
+        background-color: var(--escan-primario);
+
+        .etiqueta {
+            text-align: left;
+            font-weight: bold;
+            font-size: 1.5em;
+            color: var(--escan-fondo);
+
+        }
+
+
+        .numero {
+            font-weight: bold;
+            font-size: 1.5em;
+            color: var(--escan-fondo);
+            text-align: right;
+        }
+
+
+
+    }
+
+
+}
+
+
+//████████████████████████████████████████████TABLA████████████████████████████████████████████████████████████████████████
+
+
+
+
+.card-body-tabla {
+    padding-top: 5px;
+}
+
+.mobile-titulo,
+.mobile-fecha {
+    display: none;
+}
+
+
+
+@include Tamano_Menor(md) {
+
+    .header-table {
+        display: none;
+    }
+
+
+
+    .mobile-titulo {
+        display: inherit;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .mobile-valor {
+        text-align: center;
+    }
+
+    .mobile-fecha {
+        display: inherit;
+    }
+
+    .fecha,
+    .dias {
+        display: none;
+    }
+
+
+
+}
+
+
+
+.header-table {
+
+    div {
+        background-color: var(--escan-opcional);
+        color: var(--escan-fondo);
+        font-weight: bold;
+    }
+}
+
+.titulo {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.dashed {
+    border-style: dashed;
+}
+
+
+.card-header-tabla,
+.pie-tabla {
+    background-color: var(--escan-opcional);
+}
+
+.card-header-tabla {
+    
+    color: var(--escan-fondo);
+
+    h6{
+        text-align: center;
+    }
+}
+
+.pie-tabla {
+
+    div {
+
+        color: var(--escan-fondo);
+    }
+
+    .pie-saldo{
+        font-weight: bold;
+        font-size: 1.5em;
+    }
+}
+
+
+
+//████████████████████████████████████████████TABLA DETALLE████████████████████████████████████████████████████████████████████████
+
+.tabla-detalle {
+
+
+    .header-detalle {
+        td {
+            background-color: var(--escan-opcional-sombra);
+            color: var(--escan-fondo);
+            font-weight: bold;
+        }
+
+    }
+
+    .cargo{
+        border: 1px solid var(--escan-secundario-sombra);
+        background-color: var(--escan-secundario-sombra);
+        color: var(--escan-fondo);
+        border-radius: 50px;
+        padding: 5px;
+    }
+
+    .abono{
+        border: 1px solid var(--escan-primario-sombra);
+        background-color: var(--escan-primario-sombra);
+        color: var(--escan-fondo);
+        border-radius: 50px;
+        padding: 5px;
+    }
+
+   
+}
