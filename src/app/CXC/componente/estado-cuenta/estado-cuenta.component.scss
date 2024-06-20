@@ -215,6 +215,14 @@ form {
 }
 
 
+.valor-saldo{
+    text-align: right;
+
+    @include Tamano_Menor(md){
+        text-align: left;
+    }
+}
+
 
 @include Tamano_Menor(md) {
 
@@ -230,9 +238,7 @@ form {
         font-weight: bold;
     }
 
-    .mobile-valor {
-        text-align: center;
-    }
+  
 
     .mobile-fecha {
         display: inherit;
@@ -316,16 +322,20 @@ form {
         border: 1px solid var(--escan-secundario-sombra);
         background-color: var(--escan-secundario-sombra);
         color: var(--escan-fondo);
-        border-radius: 50px;
+        border-radius: 5px;
         padding: 5px;
+        position: relative;
+        top: 15px;
     }
 
     .abono{
         border: 1px solid var(--escan-primario-sombra);
         background-color: var(--escan-primario-sombra);
         color: var(--escan-fondo);
-        border-radius: 50px;
+        border-radius: 5px;
         padding: 5px;
+        position: relative;
+        top: 15px;
     }
 
    
