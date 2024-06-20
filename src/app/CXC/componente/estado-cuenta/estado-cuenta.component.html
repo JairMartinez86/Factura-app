@@ -1,19 +1,19 @@
-<form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
+<form class="mx-2" [formGroup]="val.ValForm" autocomplete="off" class="estado-cuenta">
 
     <div class="row">
-        <div class="col-12 col-ms-12 col-md-6 col-lg-6 mb-3">
-            <div class="card">
+        <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 mb-3">
+            <div class="card card-cliente">
                 <div class="card-header">
                     <igx-combo class="cmbCliente" #cmbCliente [data]="lstClientes" valueKey="Codigo" displayKey="Key"
                         id="cmbCliente" formControlName="cmbCliente" placeholder="Seleccione un Cliente."
                         searchPlaceholder="Seleccione un cliente..." [autoFocusSearch]="true"
-                        [overlaySettings]="overlaySettings" (selectionChanging)="val.V_SingleSelection($event);">
+                        [overlaySettings]="overlaySettings" (selectionChanging)="V_Select_Cliente($event);">
                         <label igxLabel>Cliente</label>
                         <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
 
 
                         <ng-template igxComboItem let-display let-key="valueKey">
-                            <span>{{ display[key] }} {{ display.TipoMov1 }}</span>
+                            <span>{{ display[key] }} {{ display.Cliente }}</span>
                         </ng-template>
 
 
@@ -27,42 +27,46 @@
 
                     <div class="row cliente">
 
-                        <div class="col-4 col-sm-4 col-md-3 col-lg-3 etiqueta">
-                            AAAA
+                        <div class="col-4 col-sm-4 col-md-4 col-lg-3 col-xl-4 col-xxl-3 etiqueta">
+                            {{DatosCliente?.Codigo}}
                         </div>
 
-                        <div class="col-6 col-sm-6 col-md-3 col-lg-9 mb-1">
-                            Jair Ivan Martinez Gonzalez
+                        <div class="col-6 col-sm-6 col-md-8 col-lg-9 col-xl-8 col-xxl-9 mb-1">
+                            {{DatosCliente?.Cliente}}
                         </div>
 
-                        <div class="col-4 col-sm-4 col-md-3 col-lg-3 etiqueta">
+                        <div class="col-4 col-sm-4 col-md-4 col-lg-3 col-xl-4 col-xxl-3 etiqueta">
                             Telefono:
                         </div>
 
-                        <div class="col-6 col-sm-6 col-md-3 col-lg-9 mb-1">
-                            +505 8269 3637
+                        <div class="col-6 col-sm-6 col-md-8 col-lg-9 col-xl-8 col-xxl-9 mb-1">
+                            {{DatosCliente?.Tlefono}}
                         </div>
 
 
-                        <div class="col-4 col-sm-4 col-md-3 col-lg-3 etiqueta">
+                        <div class="col-4 col-sm-4 col-md-4 col-lg-3 col-xl-4 col-xxl-3 etiqueta">
+                            Ruc/Cedula:
+                        </div>
+
+                        <div class="col-6 col-sm-6 col-md-8 col-lg-9 col-xl-8 col-xxl-9 mb-1">
+                            {{DatosCliente?.Ruc}}
+                        </div>
+
+
+                        <div class="col-4 col-sm-4 col-md-4 col-lg-3 col-xl-4 col-xxl-3 etiqueta">
                             Correo:
                         </div>
 
-                        <div class="col-6 col-sm-6 col-md-9 col-lg-9 mb-1">
-                            jmartinezg86gmail.com
+                        <div class="col-6 col-sm-6 col-md-8 col-lg-9 col-xl-8 col-xxl-9 mb-1">
+                            {{DatosCliente?.Correo}}
                         </div>
 
-                        <div class="col-4 col-sm-4 col-md-3 col-lg-3 etiqueta">
+                        <div class="col-4 col-sm-4 col-md-4 col-lg-3 col-xl-4 col-xxl-3 etiqueta">
                             Direccion:
                         </div>
 
-                        <div class="col-6 col-sm-6 col-md-10 col-lg-9 mb-1">
-                            Villa Libertad, Managua,
-                            Managuadfgdfgdfgdfgdfgdfgd;aljglk.djlkghjsdklghdklshgklshagklhdsklghsdklghklsdghsdkl
-                            sfsljfhdksfhklsahflksahjfkldsaf
-                            sfklshfaklhfklsklfs
-                            sfkshafklshakflhsaklf
-                            asdlaskhdklash
+                        <div class="col-6 col-sm-6 col-md-8 col-lg-9 col-xl-8 col-xxl-9 mb-1">
+                            {{DatosCliente?.Direccion}}
                         </div>
 
 
@@ -77,8 +81,8 @@
 
         </div>
 
-        <div class="col-12 col-ms-12 col-md-6 col-lg-6 resumen">
-            <div class="card">
+        <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
+            <div class="card card-resumen">
                 <div class="card-header">
                     <h6>Resumen</h6>
                 </div>
@@ -88,21 +92,31 @@
 
                         <div class="col-8">
 
-                            <div class="row">
-
-
-                                <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-4">
-                                    <div class="etiqueta">Monto Ultimo Pago</div>
-                                    <div class="valor">999,999,999,999.00</div>
-                                </div>
-
-                                <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-1">
-                                    <div class="etiqueta">Fecha Ultimo Pago</div>
-                                    <div class="valor">31/12/2024</div>
-                                </div>
+                            <div class="row mb-1">
+                                <div class="col-12 etiqueta-ultimo-pago">Ultimo Pago</div>
 
                             </div>
 
+
+                            <div class="row mb-1">
+                                <div class="col-md-4 col-lg-3 col-xl-4 etiqueta">Recibo:</div>
+                                <div class="col-md-8 col-lg-9 col-xl-8 valor secundario right"> {{DatosCliente?.UltimoRoc}}</div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-md-4 col-lg-3 col-xl-4 etiqueta">Monto:</div>
+                                <div class="col-md-8 col-lg-9 col-xl-8 valor right">{{this.cFunciones.MonedaLocal ==
+                                    DatosCliente?.UltimoRocMoneda? SimboloMonedaLocal : SimboloMonedaSistema }}
+                                    {{DatosCliente?.UltimoRocMonto | number:'1.2-2'}}</div>
+                            </div>
+
+
+
+                            <div class="row mb-1">
+                                <div class="col-md-4 col-lg-3 col-xl-4 etiqueta">Fecha:</div>
+                                <div class="col-md-8 col-lg-9 col-xl-8 valor right">{{DatosCliente?.UltimoRocFecha |
+                                    date: 'dd-MM-yyyy'}}</div>
+                            </div>
 
                         </div>
 
@@ -110,12 +124,14 @@
 
                         <div class="col-4 plazo mb-1">
                             <div class="etiqueta">Plazo</div>
-                            <div class="valor">9999</div>
+                            <div class="valor">{{DatosCliente?.Plazo | number:'1.0-0'}}</div>
                         </div>
 
                         <div class="col-12 limite mb-1">
-                            <div class="etiqueta mb-2">Limite</div>
-                            <div class="valor">C$ 999,999,999,999.99</div>
+                            <div class="primario mb-2">Limite</div>
+                            <div class="valor mb-2">{{this.cFunciones.MonedaLocal == DatosCliente?.Moneda?
+                                SimboloMonedaLocal : SimboloMonedaSistema }} {{DatosCliente?.Limite | number:'1.2-2'}}
+                            </div>
                         </div>
 
 
@@ -128,8 +144,11 @@
                 <div class="card-footer">
 
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 etiqueta mb-2">Disponible</div>
-                        <div class="col-12 col-sm-12 col-md-8 col-lg-8 numero mb-1">C$ 999,999,999,999.99</div>
+                        <div class="col-12 col-sm-12 col-md-5 col-lg-4 col-xl-5 col-xxl-4 etiqueta mb-2">Disponible
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-7 col-lg-8 col-xl-7 col-xxl-8 numero mb-1">
+                            {{this.cFunciones.MonedaLocal == DatosCliente?.Moneda? SimboloMonedaLocal :
+                            SimboloMonedaSistema }} {{DatosCliente?.Disponible | number:'1.2-2'}}</div>
                     </div>
 
                 </div>
@@ -139,131 +158,373 @@
     </div>
 
 
+    <div class="row resumen">
+
+        <div class="col-6 mb-1">
+
+
+            <div class="col-12  etiqueta vencido mb-2">Saldo Vencido</div>
+
+            <div class="col-12">
+                <div class="row">
+
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2 col-xxl-2 mb-2">
+                        <div class="primario mb-2">{{MonedaLocal}}:</div>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-10 col-xxl-10 mb-2">
+                        <span class="valor">{{V_TotalSaldo("Saldo", this.cFunciones.MonedaLocal) |
+                            number:'1.2-2'}}</span>
+                    </div>
+
+
+
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2 col-xxl-2 mb-2">
+                        <div class="secundario mb-2">{{MonedaSistema}}:</div>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-10 col-xxl-10 mb-2">
+                        <span class="valor">{{V_TotalSaldo("Saldo", this.cFunciones.MonedaSistema) |
+                            number:'1.2-2'}}</span>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+        <div class="col-6 mb-1">
+
+
+            <div class="col-12  etiqueta corriente mb-2">Corriente</div>
+
+            <div class="col-12">
+
+               <div class="row">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2 col-xxl-2 mb-2">
+                    <div class="primario mb-2">{{MonedaLocal}}:</div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-10 col-xxl-10 mb-2">
+                    <span class="valor">{{V_TotalSaldo("Corriente", this.cFunciones.MonedaLocal) |
+                        number:'1.2-2'}}</span>
+                </div>
+
+
+
+                <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2 col-xxl-2 mb-2">
+                    <div class="secundario mb-2">{{MonedaSistema}}:</div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-10 col-xxl-10 mb-2">
+                    <span class="valor">{{V_TotalSaldo("Corriente", this.cFunciones.MonedaSistema) |
+                        number:'1.2-2'}}</span>
+                </div>
+
+               </div>
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+
     <div class="row">
 
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+        <p class="Moneda-local" *ngIf="MostrarSaldoCordoba || MostrarCorrienteCordoba"> {{MonedaLocal}}
+            {{SimboloMonedaLocal}} </p>
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" *ngIf="MostrarSaldoCordoba">
             <div class="card">
 
 
                 <div class="card-header card-header-tabla">
-                    <h6 class="mb-2">SALDO CORRIENTE ( {{MonedaLocal}} {{SimboloMonedaLocal}} )</h6>
+                    <h6 class="mb-2">SALDO VENCIDO</h6>
                     <div class="row">
-            
-                            
+
+
                         <span class="header-table">
                             <div class="row">
                                 <div class="col-3">Factura</div>
                                 <div class="col-3">Fecha</div>
-                                <div class="col-3">Dias</div>
+                                <div class="col-3">Vencidos (D)</div>
                                 <div class="col-3 right">Saldo</div>
                             </div>
                         </span>
-                
+
                     </div>
-                
+
                 </div>
                 <div class="card-body card-body-tabla">
 
-                   
+
                     <div class="row">
                         <table class="table table-hover  table-sm tabla-layout" mat-table
-                            [dataSource]="V_MostrarMaestro('Moneda')">
-                
-                
-                
+                            [dataSource]="V_MostrarMaestro('Vencido', MonedaLocal)">
+
+
+
                             <ng-container matColumnDef="col1">
                                 <td mat-cell *matCellDef="let det; let x = index;">
-                
-                                    
-                
+
+
+
                                     <div class="row">
-                
+
                                         <div class="col-6 col-sm-6 col-md-4 col-lg-4 mb-1">
                                             <div class="mobile-titulo">Factura</div>
-                                            <div class="mobile-valor"><button type="button" class="btn btn-primario" (click)="V_MostrarDetalle(det.NoDocOrigen)">{{det.NoDocOrigen}} <i
-                                                class="fa-solid fa-plus fa-beat-fade fa-lg"></i></button></div>
+                                            <div class="mobile-valor"><button type="button" class="btn btn-primario"
+                                                    (click)="V_MostrarDetalle(det.NoDocOrigen)">{{det.NoDocOrigen}} <i
+                                                        class="fa-solid fa-plus fa-beat-fade fa-lg"></i></button></div>
                                         </div>
-                
+
                                         <div class="col-6 col-sm-6 col-md-3 col-lg-3 mb-1">
                                             <div class="mobile-titulo">
                                                 <span>Fecha</span>
-                                                <span> / Dias</span>
+                                                <span> / Vencido (D)</span>
                                             </div>
                                             <div class="mobile-valor">
-                                                <span class="mobile-fecha">{{det.FechaDocumento}} / {{det.Dias}}</span>
-                                                <span class="fecha">{{det.FechaDocumento}}</span>
+                                                <span class="mobile-fecha">{{det.FechaDoc | date: 'dd-MM-yyyy'}} /
+                                                    {{det.DiasV | number:'1.0-0'}}d</span>
+                                                <span class="fecha">{{det.FechaDoc | date: 'dd-MM-yyyy'}}</span>
                                             </div>
                                         </div>
-                
-                
+
+
                                         <div class="col-6 col-sm-6 col-md-2 col-lg-2 mb-1 dias">
-                                            <div>{{det.Dias}}</div>
+                                            <div>{{det.DiasV | number:'1.0-0'}}d</div>
                                         </div>
-                
-        
+
+
                                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 mb-1">
                                             <div class="row">
                                                 <div class="col-3">
                                                     <span class="mobile-titulo">Saldo: </span>
                                                 </div>
                                                 <div class="col-9 right">
-                                                    <span class="mobile-valor">{{SimboloMonedaLocal}} {{det.Saldo}}</span>
+                                                    <span class="mobile-valor">{{SimboloMonedaLocal}} {{det.Saldo |
+                                                        number:'1.2-2'}}</span>
                                                 </div>
                                             </div>
-                
-                
+
+
                                         </div>
-                
-        
+
+
                                         <div class="col-12">
                                             <table class="table table-hover table-sm  tabla-detalle">
-        
-                                                <tbody *ngFor="let doc of V_Expandir(det.NoDocOrigen),  let i = index;" class="tbody">
-            
+
+                                                <tbody *ngFor="let doc of V_Expandir(det.NoDocOrigen),  let i = index;"
+                                                    class="tbody">
+
                                                     <tr *ngIf="i == 0">
                                                         <span class="row header-detalle">
                                                             <td class="col-6">Documento</td>
                                                             <td class="col-6 right">Monto</td>
                                                         </span>
-                                                       
+
                                                     </tr>
-            
+
                                                     <tr>
                                                         <span class="row">
-            
+
                                                             <td class="col-6">{{doc.NoDocOrigen}}</td>
-                                                            <td class="col-6"><span class="cargo" [ngClass]="doc.Total < 0 ? 'abono' : 'cargo'">{{doc.Total < 0 ? "Abono" : "Cargo"}}</span></td>
-                                                            <td class="col-5 offset-1">  {{doc.FechaDocumento}}</td>
-                                                            <td class="col-6 right">{{SimboloMonedaLocal}} {{doc.Total | number:'1.2-2'}}</td>
-            
+                                                            <td class="col-6"><span class="cargo"
+                                                                    [ngClass]="doc.AplicadoA != '' ? 'abono' : 'cargo'">{{doc.AplicadoA
+                                                                    != '' ? "Abono" : "Cargo"}}</span></td>
+                                                            <td class="col-5 offset-1"> {{doc.FechaDoc | date:
+                                                                'dd-MM-yyyy'}}</td>
+                                                            <td class="col-6 right">{{SimboloMonedaLocal}}
+                                                                {{(doc.AplicadoA != '' ? doc.Haber : doc.Debe) |
+                                                                number:'1.2-2'}}</td>
+
                                                         </span>
-            
+
                                                     </tr>
-            
-            
+
+
                                                 </tbody>
                                             </table>
-            
+
                                         </div>
-                                        
-                                 
-        
-                
+
+
+
+
                                     </div>
-                
+
                                 </td>
                             </ng-container>
-                
-                         
-                
-                
-                
-                            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="linea-bottom-secundario dashed">
+
+
+
+
+
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                class="linea-bottom-secundario dashed">
                             </tr>
-                
-                
+
+
                         </table>
-                        
+
+                    </div>
+
+                </div>
+
+                <div class="card-footer pie-tabla">
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">SALDO VENCIDO:</div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 right pie-saldo">{{SimboloMonedaLocal}}
+                            {{V_TotalSaldo("Saldo", this.cFunciones.MonedaLocal) | number:'1.2-2'}}</div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" *ngIf="MostrarCorrienteCordoba">
+            <div class="card">
+
+
+                <div class="card-header card-header-tabla">
+                    <h6 class="mb-2">SALDO CORRIENTE</h6>
+                    <div class="row">
+
+
+                        <span class="header-table">
+                            <div class="row">
+                                <div class="col-3">Factura</div>
+                                <div class="col-3">Fecha</div>
+                                <div class="col-3">Transcurrido (D)</div>
+                                <div class="col-3 right">Saldo</div>
+                            </div>
+                        </span>
+
+                    </div>
+
+                </div>
+                <div class="card-body card-body-tabla">
+
+
+                    <div class="row">
+                        <table class="table table-hover  table-sm tabla-layout" mat-table
+                            [dataSource]="V_MostrarMaestro('Corriente', MonedaLocal)">
+
+
+
+                            <ng-container matColumnDef="col1">
+                                <td mat-cell *matCellDef="let det; let x = index;">
+
+
+
+                                    <div class="row">
+
+                                        <div class="col-6 col-sm-6 col-md-4 col-lg-4 mb-1">
+                                            <div class="mobile-titulo">Factura</div>
+                                            <div class="mobile-valor"><button type="button" class="btn btn-primario"
+                                                    (click)="V_MostrarDetalle(det.NoDocOrigen)">{{det.NoDocOrigen}} <i
+                                                        class="fa-solid fa-plus fa-beat-fade fa-lg"></i></button></div>
+                                        </div>
+
+                                        <div class="col-6 col-sm-6 col-md-3 col-lg-3 mb-1">
+                                            <div class="mobile-titulo">
+                                                <span>Fecha</span>
+                                                <span> / Transcurrido (D)</span>
+                                            </div>
+                                            <div class="mobile-valor">
+                                                <span class="mobile-fecha">{{det.FechaDoc | date: 'dd-MM-yyyy'}} /
+                                                    {{det.DiasV | number:'1.0-0'}}d</span>
+                                                <span class="fecha">{{det.FechaDoc | date: 'dd-MM-yyyy'}}</span>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-6 col-sm-6 col-md-2 col-lg-2 mb-1 dias">
+                                            <div>{{det.DiasV | number:'1.0-0'}}d</div>
+                                        </div>
+
+
+                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 mb-1">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <span class="mobile-titulo">Saldo: </span>
+                                                </div>
+                                                <div class="col-9 right">
+                                                    <span class="mobile-valor">{{SimboloMonedaLocal}} {{det.Saldo |
+                                                        number:'1.2-2'}}</span>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <div class="col-12">
+                                            <table class="table table-hover table-sm  tabla-detalle">
+
+                                                <tbody *ngFor="let doc of V_Expandir(det.NoDocOrigen),  let i = index;"
+                                                    class="tbody">
+
+                                                    <tr *ngIf="i == 0">
+                                                        <span class="row header-detalle">
+                                                            <td class="col-6">Documento</td>
+                                                            <td class="col-6 right">Monto</td>
+                                                        </span>
+
+                                                    </tr>
+
+                                                    <tr>
+                                                        <span class="row">
+
+                                                            <td class="col-6">{{doc.AplicadoA}}</td>
+                                                            <td class="col-6"><span class="cargo"
+                                                                    [ngClass]="doc.AplicadoA != '' ? 'abono' : 'cargo'">{{doc.AplicadoA
+                                                                    != '' ? "Abono" : "Cargo"}}</span></td>
+                                                            <td class="col-5 offset-1"> {{doc.FechaDoc | date:
+                                                                'dd-MM-yyyy'}}</td>
+                                                            <td class="col-6 right">{{SimboloMonedaLocal}}
+                                                                {{(doc.AplicadoA != '' ? doc.Haber : doc.Debe) |
+                                                                number:'1.2-2'}}</td>
+
+                                                        </span>
+
+                                                    </tr>
+
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+
+
+
+                                    </div>
+
+                                </td>
+                            </ng-container>
+
+
+
+
+
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                class="linea-bottom-secundario dashed">
+                            </tr>
+
+
+                        </table>
+
                     </div>
 
                 </div>
@@ -271,7 +532,8 @@
                 <div class="card-footer pie-tabla">
                     <div class="row">
                         <div class="col-6 col-sm-6 col-md-6 col-lg-6">SALDO CORRIENTE:</div>
-                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 right pie-saldo">{{SimboloMonedaLocal}} {{V_TotalSaldo("Corriente", "COR") | number:'1.2-2'}}</div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 right pie-saldo">{{SimboloMonedaLocal}}
+                            {{V_TotalSaldo("Corriente", this.cFunciones.MonedaLocal) | number:'1.2-2'}}</div>
                     </div>
 
                 </div>
@@ -287,6 +549,319 @@
 
     </div>
 
+
+    <div class="row">
+
+        <p class="Moneda-sistema" *ngIf="MostrarSaldoDolar || MostrarCorrienteDolar"> {{MonedaSistema}}
+            {{SimboloMonedaSistema}} </p>
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" *ngIf="MostrarSaldoDolar">
+            <div class="card">
+
+
+                <div class="card-header card-header-tabla">
+                    <h6 class="mb-2">SALDO VENCIDO</h6>
+                    <div class="row">
+
+
+                        <span class="header-table">
+                            <div class="row">
+                                <div class="col-3">Factura</div>
+                                <div class="col-3">Fecha</div>
+                                <div class="col-3">Vencido (D)</div>
+                                <div class="col-3 right">Saldo</div>
+                            </div>
+                        </span>
+
+                    </div>
+
+                </div>
+                <div class="card-body card-body-tabla">
+
+
+                    <div class="row">
+                        <table class="table table-hover  table-sm tabla-layout" mat-table
+                            [dataSource]="V_MostrarMaestro('Vencido', MonedaSistema)">
+
+
+
+                            <ng-container matColumnDef="col1">
+                                <td mat-cell *matCellDef="let det; let x = index;">
+
+
+
+                                    <div class="row">
+
+                                        <div class="col-6 col-sm-6 col-md-4 col-lg-4 mb-1">
+                                            <div class="mobile-titulo">Factura</div>
+                                            <div class="mobile-valor"><button type="button" class="btn btn-primario"
+                                                    (click)="V_MostrarDetalle(det.NoDocOrigen)">{{det.NoDocOrigen}} <i
+                                                        class="fa-solid fa-plus fa-beat-fade fa-lg"></i></button></div>
+                                        </div>
+
+                                        <div class="col-6 col-sm-6 col-md-3 col-lg-3 mb-1">
+                                            <div class="mobile-titulo">
+                                                <span>Fecha</span>
+                                                <span> / Vencido (D)</span>
+                                            </div>
+                                            <div class="mobile-valor">
+                                                <span class="mobile-fecha">{{det.FechaDoc | date: 'dd-MM-yyyy'}} /
+                                                    {{det.DiasV | number:'1.0-0'}}d</span>
+                                                <span class="fecha">{{det.FechaDoc | date: 'dd-MM-yyyy'}}</span>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-6 col-sm-6 col-md-2 col-lg-2 mb-1 dias">
+                                            <div>{{det.DiasV | number:'1.0-0'}}d</div>
+                                        </div>
+
+
+                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 mb-1">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <span class="mobile-titulo">Saldo: </span>
+                                                </div>
+                                                <div class="col-9 right">
+                                                    <span class="mobile-valor">{{SimboloMonedaSistema}} {{det.Saldo |
+                                                        number:'1.2-2'}}</span>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <div class="col-12">
+                                            <table class="table table-hover table-sm  tabla-detalle">
+
+                                                <tbody *ngFor="let doc of V_Expandir(det.NoDocOrigen),  let i = index;"
+                                                    class="tbody">
+
+                                                    <tr *ngIf="i == 0">
+                                                        <span class="row header-detalle">
+                                                            <td class="col-6">Documento</td>
+                                                            <td class="col-6 right">Monto</td>
+                                                        </span>
+
+                                                    </tr>
+
+                                                    <tr>
+                                                        <span class="row">
+
+                                                            <td class="col-6">{{doc.AplicadoA}}</td>
+                                                            <td class="col-6"><span class="cargo"
+                                                                    [ngClass]="doc.AplicadoA != '' ? 'abono' : 'cargo'">{{doc.AplicadoA
+                                                                    != '' ? "Abono" : "Cargo"}}</span></td>
+                                                            <td class="col-5 offset-1"> {{doc.FechaDoc | date:
+                                                                'dd-MM-yyyy'}}</td>
+                                                            <td class="col-6 right">{{SimboloMonedaSistema}}
+                                                                {{(doc.AplicadoA != '' ? doc.Haber : doc.Debe) |
+                                                                number:'1.2-2'}}</td>
+
+                                                        </span>
+
+                                                    </tr>
+
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+
+
+
+                                    </div>
+
+                                </td>
+                            </ng-container>
+
+
+
+
+
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                class="linea-bottom-secundario dashed">
+                            </tr>
+
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <div class="card-footer pie-tabla">
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">SALDO VENCIDO:</div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 right pie-saldo">{{SimboloMonedaSistema}}
+                            {{V_TotalSaldo("Saldo", this.MonedaSistema) | number:'1.2-2'}}</div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" *ngIf="MostrarCorrienteDolar">
+            <div class="card">
+
+
+                <div class="card-header card-header-tabla">
+                    <h6 class="mb-2">SALDO CORRIENTE</h6>
+                    <div class="row">
+
+
+                        <span class="header-table">
+                            <div class="row">
+                                <div class="col-3">Factura</div>
+                                <div class="col-3">Fecha</div>
+                                <div class="col-3">Transcurrido (D)</div>
+                                <div class="col-3 right">Saldo</div>
+                            </div>
+                        </span>
+
+                    </div>
+
+                </div>
+                <div class="card-body card-body-tabla">
+
+
+                    <div class="row">
+                        <table class="table table-hover  table-sm tabla-layout" mat-table
+                            [dataSource]="V_MostrarMaestro('Corriente', MonedaSistema)">
+
+
+
+                            <ng-container matColumnDef="col1">
+                                <td mat-cell *matCellDef="let det; let x = index;">
+
+
+
+                                    <div class="row">
+
+                                        <div class="col-6 col-sm-6 col-md-4 col-lg-4 mb-1">
+                                            <div class="mobile-titulo">Factura</div>
+                                            <div class="mobile-valor"><button type="button" class="btn btn-primario"
+                                                    (click)="V_MostrarDetalle(det.NoDocOrigen)">{{det.NoDocOrigen}} <i
+                                                        class="fa-solid fa-plus fa-beat-fade fa-lg"></i></button></div>
+                                        </div>
+
+                                        <div class="col-6 col-sm-6 col-md-3 col-lg-3 mb-1">
+                                            <div class="mobile-titulo">
+                                                <span>Fecha</span>
+                                                <span> / Transcurrido (D)</span>
+                                            </div>
+                                            <div class="mobile-valor">
+                                                <span class="mobile-fecha">{{det.FechaDoc | date: 'dd-MM-yyyy'}} /
+                                                    {{det.DiasV | number:'1.0-0'}}d</span>
+                                                <span class="fecha">{{det.FechaDoc | date: 'dd-MM-yyyy'}}</span>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-6 col-sm-6 col-md-2 col-lg-2 mb-1 dias">
+                                            <div>{{det.DiasV | number:'1.0-0'}}d</div>
+                                        </div>
+
+
+                                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 mb-1">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <span class="mobile-titulo">Saldo: </span>
+                                                </div>
+                                                <div class="col-9 right">
+                                                    <span class="mobile-valor">{{SimboloMonedaSistema}} {{det.Saldo |
+                                                        number:'1.2-2'}}</span>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <div class="col-12">
+                                            <table class="table table-hover table-sm  tabla-detalle">
+
+                                                <tbody *ngFor="let doc of V_Expandir(det.NoDocOrigen),  let i = index;"
+                                                    class="tbody">
+
+                                                    <tr *ngIf="i == 0">
+                                                        <span class="row header-detalle">
+                                                            <td class="col-6">Documento</td>
+                                                            <td class="col-6 right">Monto</td>
+                                                        </span>
+
+                                                    </tr>
+
+                                                    <tr>
+                                                        <span class="row">
+
+                                                            <td class="col-6">{{doc.AplicadoA}}</td>
+                                                            <td class="col-6"><span class="cargo"
+                                                                    [ngClass]="doc.AplicadoA != '' ? 'abono' : 'cargo'">{{doc.AplicadoA
+                                                                    != '' ? "Abono" : "Cargo"}}</span></td>
+                                                            <td class="col-5 offset-1"> {{doc.FechaDoc | date:
+                                                                'dd-MM-yyyy'}}</td>
+                                                            <td class="col-6 right">{{SimboloMonedaSistema}}
+                                                                {{(doc.AplicadoA != '' ? doc.Haber : doc.Debe) |
+                                                                number:'1.2-2'}}</td>
+
+                                                        </span>
+
+                                                    </tr>
+
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+
+
+
+                                    </div>
+
+                                </td>
+                            </ng-container>
+
+
+
+
+
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                class="linea-bottom-secundario dashed">
+                            </tr>
+
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <div class="card-footer pie-tabla">
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">SALDO CORRIENTE:</div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 right pie-saldo">{{SimboloMonedaSistema}}
+                            {{V_TotalSaldo("Corriente", this.cFunciones.MonedaSistema) | number:'1.2-2'}}</div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+    </div>
 
 
 

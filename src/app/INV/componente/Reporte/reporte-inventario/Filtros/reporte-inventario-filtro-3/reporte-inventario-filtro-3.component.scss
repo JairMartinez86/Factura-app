@@ -32,10 +32,11 @@
       color: white;
     }
   
-    .ComboSerie.igx-icon {
-      color: white;
-    }
-
+    .ComboSerie .igx-input-group__input:focus,
+    .ComboSerie .igx-input-group__input,
+    .ComboSerie .igx-icon{
+          color: white ;
+      }
     
     
   }

@@ -22,6 +22,7 @@ export class Funciones {
   private datePipe: DatePipe = new DatePipe('en-US');
 
   public MonedaLocal = "COR";
+  public MonedaSistema = "DOL";
 
   public User: string = "";
   public Nombre: string = "";

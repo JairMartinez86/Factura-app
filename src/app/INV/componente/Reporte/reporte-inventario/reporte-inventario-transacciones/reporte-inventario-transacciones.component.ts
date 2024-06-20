@@ -135,6 +135,11 @@ export class ReporteInventarioTransaccionesComponent {
   }
 
 
+  private ngDoCheck(){
+    if (this.Filtro?.cmbTipoMov != undefined) this.Filtro.cmbTipoMov.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+
+  }
+
 
 
   private ngAfterViewInit() {
@@ -148,8 +153,7 @@ export class ReporteInventarioTransaccionesComponent {
       this.Filtro.val.addFocus("cmbTipoMov", "btnImprimir-Reporte-Inv-Transacciones", "click");
       
 
-      if (this.Filtro.cmbTipoMov != undefined) this.Filtro.cmbTipoMov.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-
+     
   
       this.Filtro.overlaySettings = {};
   

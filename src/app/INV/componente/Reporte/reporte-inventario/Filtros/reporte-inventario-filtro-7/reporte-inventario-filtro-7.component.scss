@@ -29,6 +29,14 @@
     .ComboBodega.igx-icon {
       color: white;
     }
+
+
+    .ComboBodega .igx-input-group__input:focus,
+    .ComboBodega .igx-input-group__input,
+    .ComboBodega .igx-icon{
+          color: white ;
+      }
+    
   
 
   }

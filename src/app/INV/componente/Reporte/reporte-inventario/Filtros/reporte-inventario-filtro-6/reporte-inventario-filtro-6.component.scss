@@ -32,10 +32,11 @@
       color: white;
     }
   
-    .cmbTipoMov.igx-icon {
-      color: white;
-    }
-
+    .cmbTipoMov .igx-input-group__input:focus,
+    .cmbTipoMov .igx-input-group__input,
+    .cmbTipoMov .igx-icon{
+          color: white ;
+      }
     
     
   }

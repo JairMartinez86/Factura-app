@@ -38,9 +38,11 @@
     color: white;
   }
 
-  .ComboBodega.igx-icon {
-    color: white;
-  }
+  .ComboBodega .igx-input-group__input:focus,
+  .ComboBodega .igx-input-group__input,
+  .ComboBodega .igx-icon{
+        color: white ;
+    }
 
 
 
@@ -59,9 +61,13 @@
     color: white;
   }
 
-  .cmbTipoMov.igx-icon {
-    color: white;
-  }
+  .cmbTipoMov .igx-input-group__input:focus,
+  .cmbTipoMov .igx-input-group__input,
+  .cmbTipoMov .igx-icon{
+        color: white ;
+    }
+
+
 }
 
 
