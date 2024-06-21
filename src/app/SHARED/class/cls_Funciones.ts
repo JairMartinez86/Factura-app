@@ -79,7 +79,9 @@ export class Funciones {
     /****************************************CARTERA*************************************** */ 
     {IdAcceso:0,  Activo: false, EsMenu: true,  Id:"idNavCXCCliente", Caption: "Cartera" , MenuPadre: "", Clase : "fa-solid fa-user-tie fa-lg", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aCXC-Estado-Cuenta", Caption: "Estado Cuenta" , MenuPadre: "idNavCXCCliente", Clase : "fa-solid fa-briefcase", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aCXC-Permiso-Cartera", Caption: "Permiso Cartera" , MenuPadre: "idNavCXCCliente", Clase : "fa-solid fa-lock-open", Modulo: "FACT", Usuario: ""},
    
+
      /**************************************ACCESO WEB************************************* */ 
 
      {IdAcceso:0,  Activo: false, EsMenu: false,  Id:"idNavAccesoWeb", Caption: "Acceso Web" , MenuPadre: "", Clase : "fa-solid fa-database", Modulo: "FACT", Usuario: ""},

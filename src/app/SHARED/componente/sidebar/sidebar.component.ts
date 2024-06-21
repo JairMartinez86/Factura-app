@@ -218,10 +218,18 @@ export class SidebarComponent {
   if (id == "aCXC-Estado-Cuenta") {
     this.DynamicFrom.viewContainerRef.clear();
     let aEstadoCuenta: ComponentRef<EstadoCuentaComponent> = this.DynamicFrom.viewContainerRef.createComponent(EstadoCuentaComponent);
+    aEstadoCuenta.instance.MostrarPermisos = false;
   }
 
 
-   
+  if (id == "aCXC-Permiso-Cartera") {
+    this.DynamicFrom.viewContainerRef.clear();
+    let aPermisoCartera: ComponentRef<EstadoCuentaComponent> = this.DynamicFrom.viewContainerRef.createComponent(EstadoCuentaComponent);
+    aPermisoCartera.instance.MostrarPermisos = true;
+  }
+
+
+  
 
 
     if (id == "idNavAccesoWeb") {

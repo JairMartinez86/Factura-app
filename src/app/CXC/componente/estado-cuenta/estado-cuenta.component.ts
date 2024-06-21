@@ -11,17 +11,19 @@ import { Funciones } from 'src/app/SHARED/class/cls_Funciones';
 import { MatDialogRef } from '@angular/material/dialog';
 import { WaitComponent } from 'src/app/SHARED/componente/wait/wait.component';
 import { DialogErrorComponent } from 'src/app/SHARED/componente/dialog-error/dialog-error.component';
-import { iDatos } from 'src/app/SHARED/interface/i-Datos';
-import { getEstadoCuenta } from '../../GET/get-estado-cuenta';
+import { getEstadoCuenta } from '../../CRUD/get-estado-cuenta';
 import { DialogoConfirmarComponent } from 'src/app/SHARED/componente/dialogo-confirmar/dialogo-confirmar.component';
+import { FichaClienteComponent } from "../ficha-cliente/ficha-cliente.component";
+import { iBodega } from 'src/app/FAC/interface/i-Bodega';
+import { iDatos } from 'src/app/SHARED/interface/i-Datos';
 
 
 @Component({
-  selector: 'app-estado-cuenta',
-  standalone: true,
-  imports: [IgxComboModule, IgxIconModule, ReactiveFormsModule, CommonModule, FormsModule, IgxCardModule, IgxDatePickerModule, MatTableModule],
-  templateUrl: './estado-cuenta.component.html',
-  styleUrl: './estado-cuenta.component.scss'
+    selector: 'app-estado-cuenta',
+    standalone: true,
+    templateUrl: './estado-cuenta.component.html',
+    styleUrl: './estado-cuenta.component.scss',
+    imports: [IgxComboModule, IgxIconModule, ReactiveFormsModule, CommonModule, FormsModule, IgxCardModule, IgxDatePickerModule, MatTableModule, FichaClienteComponent]
 })
 export class EstadoCuentaComponent {
 
@@ -54,6 +56,11 @@ export class EstadoCuentaComponent {
   public DatosCliente: any;
   private DatosPdfCordoba: any;
   private DatosPdfDolar: any;
+
+  public MostrarPermisos : boolean = false;
+
+  @ViewChild("Permisos", { static: false })
+  public Permisos: FichaClienteComponent;
 
   public constructor(public cFunciones: Funciones, private GET: getEstadoCuenta) {
 
@@ -134,12 +141,19 @@ export class EstadoCuentaComponent {
 
 
             if (Datos.Nombre == "Clientes") {
-              this.lstClientes = Datos.d;
+              this.lstClientes = Datos.d[0];
+
+              if(this.MostrarPermisos){
+                this.Permisos.lstVendedores = Datos.d[1];
+                this.Permisos.lstBodega = Datos.d[2];
+                this.Permisos.lstConceptoPrecio = Datos.d[3];
+              }
             }
             else {
 
 
               this.DatosCliente = Datos.d[0];
+              this.DatosCliente.Usuario = this.cFunciones.User;
               this.DatosPdfCordoba = Datos.d[2];
               this.DatosPdfDolar = Datos.d[3];
               this.lstEstadoCuenta = new MatTableDataSource(Datos.d[1]);
@@ -159,6 +173,12 @@ export class EstadoCuentaComponent {
               if (this.lstEstadoCuenta.data.filter(f => (f.De1a30Dias + f.De31a60Dias + f.De61a90Dias + f.De91a120Dias + f.De121aMasDias) != 0 && f.IdMoneda != this.cFunciones.MonedaLocal).length > 0) this.MostrarSaldoDolar = true;
 
 
+              if(this.MostrarPermisos){
+                this.Permisos.cmbBodega.deselectAllItems();
+                this.Permisos.DatosCliente = this.DatosCliente;
+                this.Permisos.cmbBodega.select(this.DatosCliente.Bodegas);
+
+              }
 
 
             }

@@ -1,0 +1,30 @@
+export interface iFichaCliente{
+    Codigo : string;
+    Cliente: string;
+    Ruc : string;
+    Correo: string;
+    Plazo: number;
+    Telefono: string;
+    Direccion : string;
+    Moneda: string;
+    Limite: number;
+    Disponible: number;
+    SaldoDolar : number;
+    SaldoCordoba : number;
+    UltimoRoc : number;
+    UltimoRocFecha: Date;
+    UltimoRocMonto : number;
+    UltimoRocMoneda : string;
+    MonedaSistema : string;
+    MonedaLocal : string;
+    IdConceptoPrecio: number;
+    CodVendedor: string;
+    CuentaClave: boolean;
+    SuspendidoMoroso: boolean;
+    ConfianzaFactSiempre: boolean;
+    ConfianzaFactVencido: boolean;
+    ConfianzaFactUnaVez: boolean;
+    Estado: string;
+    Bodegas: string[];
+    Usuario: string;
+}

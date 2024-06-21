@@ -1,7 +1,7 @@
 <form class="mx-2" [formGroup]="val.ValForm" autocomplete="off" class="estado-cuenta">
 
     <div class="row">
-        <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 mb-3">
+        <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-5 col-xxl-5 mb-3">
             <div class="card card-cliente">
                 <div class="card-header">
                     <igx-combo class="cmbCliente" #cmbCliente [data]="lstClientes" valueKey="Codigo" displayKey="Key"
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="col-8 col-sm-8 col-md-8 col-lg-9 col-xl-8 col-xxl-9 mb-1">
-                            {{DatosCliente?.Tlefono}}
+                            {{DatosCliente?.Telefono}}
                         </div>
 
 
@@ -81,7 +81,7 @@
 
         </div>
 
-        <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
+        <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-5 col-xxl-5 offset-xl-1 mb-3">
             <div class="card card-resumen">
                 <div class="card-header">
                     <h6>Resumen</h6>
@@ -162,8 +162,14 @@
             </div>
 
         </div>
+
+        <div class="col-12" *ngIf="MostrarPermisos">
+            <app-ficha-cliente #Permisos></app-ficha-cliente>
+        </div>
     </div>
 
+
+ 
 
     <div class="row resumen">
 

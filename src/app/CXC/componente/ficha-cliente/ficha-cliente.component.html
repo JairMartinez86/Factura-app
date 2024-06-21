@@ -1,0 +1,211 @@
+<form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
+
+
+    <div class="card card-cliente">
+        <div class="card-header">
+            <h6>Informacion Crediticia</h6>
+        </div>
+        <div class="card-body">
+
+            <div class="contenedor">
+                <div class="row">
+
+
+                    <div class="col-12 col-sm-12 col-md-6 mb-1">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-list fa-lg"></i></span>
+                            <div class="form-floating">
+                                <select class="form-select form-select-lg" aria-label="Moneda" id="cmbMoneda" [(ngModel)]="DatosCliente.Moneda" 
+                                    formControlName="cmbMoneda">
+                                    <option value="COR">Cordoba</option>
+                                    <option value="DOL">Dolar</option>
+                                </select>
+                                <label for="cmbMoneda">Moneda</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-6 mb-1">
+                        <igx-combo class="cmbListaPrecio" #cmbListaPrecio [data]="lstConceptoPrecio" valueKey="IdConceptoPrecio" [(ngModel)]="DatosCliente.IdConceptoPrecio"
+                            displayKey="Descripcion" id="cmbListaPrecio" formControlName="cmbListaPrecio"
+                            placeholder="Seleccione una lista." searchPlaceholder="Seleccione una lista..."
+                            [autoFocusSearch]="true" [overlaySettings]="overlaySettings"
+                            (selectionChanging)="this.val.V_SingleSelection($event);"
+                            (keyup)="v_Enter_ConceptoPrecio($event);">
+                            <label igxLabel>Lista Precio</label>
+                            <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
+                            <ng-template igxComboClearIcon>
+                                <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                            </ng-template>
+                        </igx-combo>
+                    </div>
+
+
+
+                    <div class="col-12 col-sm-12 col-md-6 mb-1">
+                        <div class="input-group">
+                            <span class="input-group-text">{{SimboloMoneda}}</span>
+
+                            <div class="form-floating">
+                                <input type="text" id="txtLimite" class="form-control" placeholder="Limite" [(ngModel)]="DatosCliente.Limite"
+                                    aria-label="Limite" formControlName="txtLimite">
+                                <label for="txtLimite">Limite</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-12 col-sm-12 col-md-6 mb-1">
+                        <div class="input-group">
+                            <div class="form-floating">
+                                <input type="text" id="txtPlazo" class="form-control" placeholder="Plazo" [(ngModel)]="DatosCliente.Plazo" 
+                                    aria-label="Plazo" formControlName="txtPlazo">
+                                <label for="txtPlazo">Plazo</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row contenedor  mb-1">
+                <igx-combo class="cmbVendedor" #cmbVendedor [data]="lstVendedores" valueKey="Codigo" displayKey="Key" [(ngModel)]="DatosCliente.CodVendedor" 
+                    id="cmbVendedor" formControlName="cmbVendedor" placeholder="Seleccione un vendedor."
+                    searchPlaceholder="Seleccione un vendedor..." [autoFocusSearch]="true"
+                    [overlaySettings]="overlaySettings" (selectionChanging)="this.val.V_SingleSelection($event);"
+                    (keyup)="v_Enter_Vendedor($event);">
+                    <label igxLabel>Vendedor</label>
+                    <igx-prefix><i class="bi bi-person-fill"></i></igx-prefix>
+                    <ng-template igxComboClearIcon>
+                        <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                    </ng-template>
+                </igx-combo>
+            </div>
+
+
+            <div class="contenedor">
+                <div class="titulo-permiso"><h6>PERMISOS</h6></div>
+
+                <div class="row  mb-1">
+
+                    <div class="col-sm-12 col-md-12 col-lg-6 mb-1">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 mb-1">
+                                <span class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="chk-supendido-moroso" formControlName="chk-supendido-moroso"  [(ngModel)]="DatosCliente.SuspendidoMoroso">
+                                    <label class="form-check-label" for="chk-supendido-moroso">Cliente con Credito Suspendido
+                                        por
+                                        Moroso?</label>
+                                </span>
+                            </div>
+        
+        
+        
+                            <div class="col-12 mb-1">
+                                <span class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="chk-confianza-siempre" formControlName="chk-confianza-siempre" [(ngModel)]="DatosCliente.ConfianzaFactSiempre" >
+                                    <label class="form-check-label" for="chk-confianza-siempre">Cliente de Confianza, Facturar
+                                        Siempre.</label>
+                                </span>
+                            </div>
+        
+        
+                            <div class="col-12 mb-1">
+                                <span class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="chk-confianza-vencido" formControlName="chk-confianza-vencido" [(ngModel)]="DatosCliente.ConfianzaFactVencido" >
+                                    <label class="form-check-label" for="chk-confianza-vencido">Cliente de Confianza, Facturar
+                                        con Saldos Vencidos?.</label>
+                                </span>
+                            </div>
+        
+        
+                            <div class="col-12 mb-1">
+                                <span class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="chk-confianza-una-vez" formControlName="chk-confianza-una-vez"  [(ngModel)]="DatosCliente.ConfianzaFactUnaVez" >
+                                    <label class="form-check-label" for="chk-confianza-una-vez" >Cliente de Confianza, Facturar
+                                        una vez.</label>
+                                </span>
+                            </div>
+
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-5 col-xxl-4 mb-1">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-list fa-lg"></i></span>
+                                    <div class="form-floating">
+                                        <select class="form-select form-select-lg" aria-label="Estado" id="cmbEstado" [(ngModel)]="DatosCliente.Estado" 
+                                            formControlName="cmbEstado">
+                                            <option value="Activo">Activo</option>
+                                            <option value="Inactivo">Inactivo</option>
+                                            <option value="Temporal">Temporal</option>
+                                        </select>
+                                        <label for="cmbEstado">Estado</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+    
+                        </div>
+                    </div>
+
+                   
+
+                    <div class="col-sm-12 col-md-12 col-lg-6 mb-1">
+                        <div class="form-check form-switch mb-1">
+                            <input class="form-check-input" type="checkbox" id="chk-cuenta-clave" formControlName="chk-cuenta-clave" (change)="v_Activar_Bodega($event.target)" [(ngModel)]="DatosCliente.CuentaClave" >
+                            <label class="form-check-label" for="chk-cuenta-clave">Esta es una Cuenta
+                                Clave</label>
+                            </div>
+
+                        <div class="mb-1">
+                            <igx-combo class="ComboBodega" #cmbBodega [data]="lstBodega" valueKey="Codigo"
+                                displayKey="Key" id="cmbBodega" formControlName="cmbBodega"
+                                placeholder="Seleccione una Bodega." searchPlaceholder="Seleccione una bodega..."
+                                [autoFocusSearch]="true" [overlaySettings]="overlaySettings"
+                                (selectionChanging)="V_Select_Bodega($event)" (keyup)="V_Enter_Bodega($event);" [(ngModel)]="DatosCliente.Bodegas" >
+                                <label igxLabel>Bodega</label>
+                                <igx-prefix><i class="bi bi-shop"></i></igx-prefix>
+
+                                <ng-template igxComboClearIcon>
+                                    <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                                </ng-template>
+                            </igx-combo>
+                        </div>
+
+                        <div class="mb-1">
+                            <igx-card *ngFor="let bo of BodSeleccionadas">
+                                <igx-card-header class="card-header">
+                                    <p igxCardHeaderTitle class="card-titulo">{{ bo.Codigo }}</p>
+                                    {{ bo.Bodega }}
+                                </igx-card-header>
+                            </igx-card>
+                        </div>
+                    </div>
+
+
+                    <div class="contenedor-boton">
+                        <button type="button" class="btn btn-primario" id="btn-Guardar-Permiso-Cartera"
+                        (click)="V_Guardar();"><i class="fa-solid fa-floppy-disk fa-beat-fade fa-xl"></i>
+                        Guardar</button>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+    <div class="row">
+
+
+    </div>
+
+</form>

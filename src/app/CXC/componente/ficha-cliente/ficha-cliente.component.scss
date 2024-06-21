@@ -1,0 +1,180 @@
+@import "/src/assets/scss/media.scss";
+.cmbVendedor {
+
+    background-color: var(--escan-opcional);
+
+}
+
+.cmbListaPrecio {
+
+    background-color: var(--escan-secundario);
+
+}
+
+
+.cmbVendedor,
+.cmbListaPrecio {
+
+
+    i,
+    label{
+      color: white;
+    }
+
+    
+  
+  }
+  
+
+  
+
+ 
+
+  
+  ::ng-deep {
+  
+  
+    .cmbVendedor .igx-input-group__input,
+    .cmbListaPrecio .igx-input-group__input {
+        color: white;
+    }
+ 
+    
+    .cmbVendedor.igx-combo ::placeholder,
+    .cmbListaPrecio.igx-combo ::placeholder {
+      color: white;
+    }
+  
+    .cmbVendedor.igx-combo:hover ::placeholder,
+    .cmbListaPrecio.igx-combo:hover ::placeholder {
+      font-size: 1.1em;
+      font-weight: bold;
+      color: white;
+    }
+  
+    .cmbVendedor .igx-input-group__input:focus,
+    .cmbVendedor .igx-input-group__input,
+    .cmbVendedor .igx-icon{
+          color: white ;
+      }
+
+
+    .cmbListaPrecio .igx-input-group__input:focus,
+    .cmbListaPrecio .igx-input-group__input,
+    .cmbListaPrecio .igx-icon{
+          color: white ;
+      }
+    
+    
+    
+  }
+
+  .titulo-permiso{
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    border: 2px dashed var(--escan-opcional);
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+
+  }
+
+  .contenedor{
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+
+
+
+.check
+{
+
+    .btn-check-outline-1{
+        color: var(--escan-secundario);
+        background-color: transparent;
+        border: 1px solid var(--escan-secundario);
+    }
+
+    
+    .btn-check-1:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
+        color: var(--escan-fondo);
+        background-color: var(--escan-secundario);
+        border-color: var(--escan-secundario);
+    }
+    
+
+   
+
+    
+    .btn-check-1 + .btn:hover {
+        color: var(--escan-fondo);
+        background-color: var(--escan-secundario);
+        border-color: var(--escan-secundario);
+    }
+
+
+     
+    .btn-check-outline-2{
+        color: var(--escan-primario);
+        background-color: transparent;
+        border: 1px solid var(--escan-primario);
+    }
+
+      
+    .btn-check-2:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
+        color: var(--escan-fondo);
+        background-color: var(--escan-primario);
+        border-color: var(--escan-primario);
+    }
+
+    .btn-check-2 + .btn:hover {
+        color: var(--escan-fondo);
+        background-color: var(--escan-primario);
+        border-color: var(--escan-primario);
+    }
+    
+
+    
+    .btn-check-outline-3{
+        color: var(--escan-opcional);
+        background-color: transparent;
+        border: 1px solid var(--escan-opcional);
+    }
+
+      
+    .btn-check-3:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
+        color: var(--escan-fondo);
+        background-color: var(--escan-opcional);
+        border-color: var(--escan-opcional);
+    }
+
+    .btn-check-3 + .btn:hover {
+        color: var(--escan-fondo);
+        background-color: var(--escan-opcional);
+        border-color: var(--escan-opcional);
+    }
+    
+
+    input {
+        width: 100%;
+        height: 100%;
+      }
+    
+}
+
+.contenedor-boton{
+  text-align: right;
+  button{
+    font-size: 1.5em;
+  }
+
+
+  @include Tamano_Menor(md){
+    button{
+      width: 100%;
+    }
+}
+
+}
