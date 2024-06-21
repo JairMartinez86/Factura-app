@@ -177,6 +177,9 @@ export class EstadoCuentaComponent {
                 this.Permisos.cmbBodega.deselectAllItems();
                 this.Permisos.DatosCliente = this.DatosCliente;
                 this.Permisos.cmbBodega.select(this.DatosCliente.Bodegas);
+                this.Permisos.cmbBodega.select(this.DatosCliente.Bodegas);
+                this.Permisos.cmbVendedor.select([this.DatosCliente.CodVendedor]);
+                this.Permisos.cmbListaPrecio.select([this.DatosCliente.IdConceptoPrecio]);
 
               }
 
