@@ -180,6 +180,8 @@ export class EstadoCuentaComponent {
                 this.Permisos.cmbBodega.select(this.DatosCliente.Bodegas);
                 this.Permisos.cmbVendedor.select([this.DatosCliente.CodVendedor]);
                 this.Permisos.cmbListaPrecio.select([this.DatosCliente.IdConceptoPrecio]);
+                this.Permisos.SimboloMoneda = (this.cFunciones.MonedaLocal == this.DatosCliente.Moneda? this.SimboloMonedaLocal : this.SimboloMonedaSistema);
+                this.Permisos.V_RefrescarFormato();
 
               }
 

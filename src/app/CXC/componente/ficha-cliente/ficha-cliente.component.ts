@@ -149,7 +149,9 @@ export class FichaClienteComponent {
 
     document.getElementById("btn-Guardar-Permiso-Cartera")?.setAttribute("disabled", "disabled");
 
-
+    this.DatosCliente.IdConceptoPrecio = this.DatosCliente.IdConceptoPrecio[0];
+    this.DatosCliente.CodVendedor = this.DatosCliente.CodVendedor[0];
+    this.DatosCliente.Limite = Number(String(this.DatosCliente.Limite).replaceAll(",", ""));
     
     this.POST.GuardarPermiso(this.DatosCliente).subscribe(
       {
@@ -204,9 +206,13 @@ export class FichaClienteComponent {
       }
     );
 
+    this.V_RefrescarFormato();
 
   }
 
+  public V_RefrescarFormato(){
+    this.DatosCliente.Limite = this.cFunciones.NumFormat(this.DatosCliente.Limite, "2" )
+  }
 
   
   ngDoCheck() {

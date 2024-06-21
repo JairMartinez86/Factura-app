@@ -7,7 +7,7 @@ export interface iFichaCliente{
     Telefono: string;
     Direccion : string;
     Moneda: string;
-    Limite: number;
+    Limite: any;
     Disponible: number;
     SaldoDolar : number;
     SaldoCordoba : number;
@@ -17,8 +17,8 @@ export interface iFichaCliente{
     UltimoRocMoneda : string;
     MonedaSistema : string;
     MonedaLocal : string;
-    IdConceptoPrecio: number;
-    CodVendedor: string;
+    IdConceptoPrecio: any;
+    CodVendedor: any;
     CuentaClave: boolean;
     SuspendidoMoroso: boolean;
     ConfianzaFactSiempre: boolean;
