@@ -122,7 +122,7 @@ export class EstadoCuentaComponent {
     );
 
 
-    this.GET.GetDatos(tipo, param).subscribe(
+    this.GET.GetDatos(tipo, param, this.MostrarPermisos).subscribe(
       {
         next: (s) => {
 

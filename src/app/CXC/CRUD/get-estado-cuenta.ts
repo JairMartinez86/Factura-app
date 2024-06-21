@@ -19,8 +19,8 @@ export class getEstadoCuenta{
 
     }
 
-    public GetDatos(Tipo : string, param : string) : Observable<string>{
-      return this.http.get<any>(this._Cnx.Url() + "CXC/EstadoCuenta/Datos?Tipo=" + Tipo + "&Param=" + param);
+    public GetDatos(Tipo : string, param : string , Permiso : boolean) : Observable<string>{
+      return this.http.get<any>(this._Cnx.Url() + "CXC/EstadoCuenta/Datos?Tipo=" + Tipo + "&Param=" + param + "&Permiso=" + Permiso);
    }
     
    
