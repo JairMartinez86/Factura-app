@@ -1,6 +1,6 @@
-import { Component, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {  GlobalPositionStrategy, IgxCardModule, IgxComboComponent, IgxComboModule, IgxDatePickerModule, IgxIconModule, OverlaySettings } from 'igniteui-angular';
+import { GlobalPositionStrategy, IgxCardModule, IgxComboComponent, IgxComboModule, IgxDatePickerModule, IgxIconModule, OverlaySettings } from 'igniteui-angular';
 import { CommonModule } from '@angular/common';
 import { Validacion } from 'src/app/SHARED/class/validacion';
 import { scaleInCenter, scaleOutCenter } from 'igniteui-angular/animations';
@@ -13,6 +13,7 @@ import { WaitComponent } from 'src/app/SHARED/componente/wait/wait.component';
 import { DialogErrorComponent } from 'src/app/SHARED/componente/dialog-error/dialog-error.component';
 import { iDatos } from 'src/app/SHARED/interface/i-Datos';
 import { getEstadoCuenta } from '../../GET/get-estado-cuenta';
+import { DialogoConfirmarComponent } from 'src/app/SHARED/componente/dialogo-confirmar/dialogo-confirmar.component';
 
 
 @Component({
@@ -35,25 +36,26 @@ export class EstadoCuentaComponent {
 
   lstClientes: iCliente[] = [];
 
-  public lstEstadoCuenta :  MatTableDataSource<iEstadoCuenta>;
+  public lstEstadoCuenta: MatTableDataSource<iEstadoCuenta>;
   displayedColumns: string[] = ["col1"];
 
-  SimboloMonedaLocal : string = "C$"
-  SimboloMonedaSistema : string = "$"
+  SimboloMonedaLocal: string = "C$"
+  SimboloMonedaSistema: string = "$"
 
-  MonedaLocal : string = "CORDOBA"
-  MonedaSistema : string = "DOLAR"
+  MonedaLocal: string = "CORDOBA"
+  MonedaSistema: string = "DOLAR"
 
-  MostrarSaldoCordoba : boolean = false;
-  MostrarSaldoDolar : boolean = false;
+  MostrarSaldoCordoba: boolean = false;
+  MostrarSaldoDolar: boolean = false;
 
-  MostrarCorrienteCordoba : boolean = false;
-  MostrarCorrienteDolar : boolean = false;
+  MostrarCorrienteCordoba: boolean = false;
+  MostrarCorrienteDolar: boolean = false;
 
-  public DatosCliente : any;
+  public DatosCliente: any;
+  private DatosPdfCordoba: any;
+  private DatosPdfDolar: any;
 
-
-  public constructor(public cFunciones: Funciones, private GET : getEstadoCuenta){
+  public constructor(public cFunciones: Funciones, private GET: getEstadoCuenta) {
 
     this.val.add("cmbCliente", "1", "LEN>", "0", "Cliente", "Seleccione un cliente.");
     this.V_CargarDatos("Clientes", "");
@@ -67,7 +69,9 @@ export class EstadoCuentaComponent {
     this.lstEstadoCuenta?.data?.splice(0, this.lstEstadoCuenta.data.length);
     this.lstEstadoCuenta?._updateChangeSubscription();
     this.DatosCliente = undefined;
-    
+    this.DatosPdfCordoba = undefined;
+    this.DatosPdfDolar = undefined;
+
     this.MostrarCorrienteCordoba = false;
     this.MostrarSaldoCordoba = false;
     this.MostrarCorrienteDolar = false;
@@ -98,7 +102,7 @@ export class EstadoCuentaComponent {
 
 
 
-  public V_CargarDatos(tipo : string, param : string): void {
+  public V_CargarDatos(tipo: string, param: string): void {
 
 
     let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(
@@ -127,41 +131,45 @@ export class EstadoCuentaComponent {
             }
           } else {
             let Datos: iDatos = _json["d"];
-        
-            
-            if(Datos.Nombre == "Clientes"){
+
+
+            if (Datos.Nombre == "Clientes") {
               this.lstClientes = Datos.d;
             }
-            else{
+            else {
 
 
               this.DatosCliente = Datos.d[0];
+              this.DatosPdfCordoba = Datos.d[2];
+              this.DatosPdfDolar = Datos.d[3];
               this.lstEstadoCuenta = new MatTableDataSource(Datos.d[1]);
               this.lstEstadoCuenta._updateChangeSubscription();
+
 
               this.MostrarCorrienteCordoba = false;
               this.MostrarSaldoCordoba = false;
               this.MostrarCorrienteDolar = false;
               this.MostrarSaldoDolar = false;
-              
-              if(this.lstEstadoCuenta.data.filter(f => f.Corriente != 0 && f.IdMoneda == this.cFunciones.MonedaLocal).length > 0) this.MostrarCorrienteCordoba = true;
-              if(this.lstEstadoCuenta.data.filter(f => f.Corriente !=0  && f.IdMoneda != this.cFunciones.MonedaLocal).length > 0) this.MostrarCorrienteDolar= true;
 
-              
-              if(this.lstEstadoCuenta.data.filter(f => (f.De1a30Dias + f.De31a60Dias + f.De61a90Dias + f.De91a120Dias + f.De121aMasDias) != 0 && f.IdMoneda == this.cFunciones.MonedaLocal).length > 0) this.MostrarSaldoCordoba = true;
-              if(this.lstEstadoCuenta.data.filter(f => (f.De1a30Dias + f.De31a60Dias + f.De61a90Dias + f.De91a120Dias + f.De121aMasDias) != 0 && f.IdMoneda != this.cFunciones.MonedaLocal).length > 0) this.MostrarSaldoDolar = true;
+              if (this.lstEstadoCuenta.data.filter(f => f.Corriente != 0 && f.IdMoneda == this.cFunciones.MonedaLocal).length > 0) this.MostrarCorrienteCordoba = true;
+              if (this.lstEstadoCuenta.data.filter(f => f.Corriente != 0 && f.IdMoneda != this.cFunciones.MonedaLocal).length > 0) this.MostrarCorrienteDolar = true;
 
 
-            
+              if (this.lstEstadoCuenta.data.filter(f => (f.De1a30Dias + f.De31a60Dias + f.De61a90Dias + f.De91a120Dias + f.De121aMasDias) != 0 && f.IdMoneda == this.cFunciones.MonedaLocal).length > 0) this.MostrarSaldoCordoba = true;
+              if (this.lstEstadoCuenta.data.filter(f => (f.De1a30Dias + f.De31a60Dias + f.De61a90Dias + f.De91a120Dias + f.De121aMasDias) != 0 && f.IdMoneda != this.cFunciones.MonedaLocal).length > 0) this.MostrarSaldoDolar = true;
+
+
+
+
             }
 
-             
+
           }
 
         },
         error: (err) => {
           dialogRef.close();
-        
+
 
           if (this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) {
             this.cFunciones.DIALOG.open(DialogErrorComponent, {
@@ -182,54 +190,144 @@ export class EstadoCuentaComponent {
 
 
 
-  public V_MostrarMaestro(Tipo: string, Moneda : string) : any {
-    
-    if(Tipo == "Corriente"){
-      return this.lstEstadoCuenta?.data?.filter(f => f.Haber == 0 && f.Corriente != 0);
+  public V_MostrarMaestro(Tipo: string, Moneda: string): any {
+
+    if (Tipo == "Corriente") {
+      return this.lstEstadoCuenta?.data?.filter(f => f.Haber == 0 && f.Corriente != 0 && f.IdMoneda == Moneda);
     }
-    else
-    {
-      return this.lstEstadoCuenta?.data?.filter(f => f.Haber == 0 && f.Corriente == 0);
+    else {
+      return this.lstEstadoCuenta?.data?.filter(f => f.Haber == 0 && f.Corriente == 0 && f.IdMoneda == Moneda);
     }
-   
+
   }
 
 
-  public V_MostrarDetalle(NoDocOrigen : string)
-  {
-    this.lstEstadoCuenta?.data?.forEach(f =>{
-     
-      if(NoDocOrigen == f.NoDocOrigen || f.AplicadoA == NoDocOrigen){
-        f.Expandir = !f.Expandir ;
+  public V_MostrarDetalle(NoDocOrigen: string) {
+    this.lstEstadoCuenta?.data?.forEach(f => {
+
+      if (NoDocOrigen == f.NoDocOrigen || f.AplicadoA == NoDocOrigen) {
+        f.Expandir = !f.Expandir;
       }
-      else{
+      else {
         f.Expandir = false;
       }
     });
   }
 
-  public V_Expandir(NoDocOrigen : string) : iEstadoCuenta[] {
+  public V_Expandir(NoDocOrigen: string): iEstadoCuenta[] {
     return this.lstEstadoCuenta?.data.filter(f => (f.AplicadoA == NoDocOrigen || f.NoDocOrigen == NoDocOrigen) && f.Expandir);
   }
 
-  public V_TotalSaldo(tipo : string, Moneda : string) : number
-  {
+  public V_TotalSaldo(tipo: string, Moneda: string): number {
 
-    let Saldo : number = 0;
+    let Saldo: number = 0;
 
-    if(tipo == "Corriente")
-    {
+    if (tipo == "Corriente") {
       Saldo = this.lstEstadoCuenta?.data?.filter(f => f.IdMoneda == Moneda).reduce((acc, cur) => acc + cur.Corriente, 0);
     }
-    else{
+    else {
       Saldo = this.lstEstadoCuenta?.data?.filter(f => f.IdMoneda == Moneda).reduce((acc, cur) => (acc + cur.De1a30Dias + cur.De31a60Dias + cur.De61a90Dias + cur.De91a120Dias + cur.De121aMasDias), 0);
-   
+
     }
 
 
 
-      return Saldo;
+    return Saldo;
   }
+
+
+  public async V_Imprimir() {
+
+
+    this.val.EsValido();
+
+ 
+
+    if (this.val.Errores != "") {
+      this.cFunciones.DIALOG.open(DialogErrorComponent, {
+        data: this.val.Errores,
+      });
+
+      return;
+    }
+
+ 
+
+
+    let dialogRef: MatDialogRef<DialogoConfirmarComponent> = this.cFunciones.DIALOG.open(
+      DialogoConfirmarComponent,
+      {
+        panelClass: window.innerWidth < 992 ? "escasan-dialog-full" : "escasan-dialog",
+        disableClose: true
+      }
+    );
+
+
+    dialogRef.afterOpened().subscribe(s => {
+      dialogRef.componentInstance.textBoton1 = this.MonedaLocal;
+      dialogRef.componentInstance.textBoton2 = this.MonedaSistema;
+      dialogRef.componentInstance.Set_StyleBtn1("width: 150px");
+      dialogRef.componentInstance.Set_StyleBtn2("width: 150px");
+      dialogRef.componentInstance.SetMensajeHtml("<p style='text-align: center;'><b>IMPRIMIR</b></p><p style='text-align: center'><b style='color: blue'>Estado de Cuenta</b></p>")
+
+    });
+
+
+
+
+    dialogRef.afterClosed().subscribe(s => {
+
+
+
+
+
+      if (dialogRef.componentInstance.retorno == "1") {
+        this.V_GenerarDoc(this.DatosPdfCordoba, this.cFunciones.MonedaLocal);
+      }
+      else {
+        this.V_GenerarDoc(this.DatosPdfDolar, this.cFunciones.MonedaSistema);
+      }
+
+    });
+
+
+
+
+  }
+
+
+
+  private V_GenerarDoc(DatosPdf: any, Moneda: string) {
+
+
+    let byteArray = new Uint8Array(atob(DatosPdf).split('').map(char => char.charCodeAt(0)));
+
+    var file = new Blob([byteArray], { type: 'application/pdf' });
+
+
+    let url = URL.createObjectURL(file);
+
+
+    var fileLink = document.createElement('a');
+    fileLink.href = url;
+    fileLink.download = this.DatosCliente?.Cliente + " " + Moneda;
+
+
+    let tabOrWindow: any = window.open('', '_blank');
+    tabOrWindow.document.body.appendChild(fileLink);
+
+    tabOrWindow.document.write("<html><head><title>" + this.DatosCliente?.Cliente + " " + Moneda + "</title></head><body>"
+      + '<embed width="100%" height="100%" name="plugin" src="' + url + '" '
+      + 'type="application/pdf" internalinstanceid="21"></body></html>');
+
+    tabOrWindow.focus();
+
+
+
+  }
+
+
+
 
   private ngDoCheck() {
 
@@ -250,7 +348,7 @@ export class EstadoCuentaComponent {
         closeOnOutsideClick: true
       };
     }
- 
+
 
 
   }

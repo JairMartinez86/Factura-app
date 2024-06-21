@@ -70,9 +70,35 @@ form {
   }
   
   
-  
+  .contenedor-boton{
+    background-color: var(--escan-primario);
+    font-size: 1em;
+
+    
+    @include Tamano(xxl){
+        font-size: 1.5em;
+    }
+
+    @include Tamano(xl){
+        font-size: 1.2em;
+    }
+
+    @include Tamano(lg){
+        font-size: 1.2em;
+    }
 
 
+
+
+
+    button{
+        width: 100%;
+        height: 100%;
+        font-size: 1.2em;
+      }
+    
+  }
+ 
 
 
 .card-resumen {

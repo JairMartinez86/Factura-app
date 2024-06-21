@@ -127,11 +127,18 @@
                             <div class="valor">{{DatosCliente?.Plazo | number:'1.0-0'}}</div>
                         </div>
 
-                        <div class="col-12 limite mb-1">
+                        <div class="col-8 limite mb-1">
                             <div class="primario mb-2">Limite</div>
                             <div class="valor mb-2">{{this.cFunciones.MonedaLocal == DatosCliente?.Moneda?
                                 SimboloMonedaLocal : SimboloMonedaSistema }} {{DatosCliente?.Limite | number:'1.2-2'}}
                             </div>
+                        </div>
+
+                        <div class="col-4 contenedor-boton">
+                            <button type="button" class="btn btn-primario" id="btnImprimir-Reporte-Costo-Factura"
+                            (click)="V_Imprimir();"><i class="fa-solid fa-file-pdf fa-beat-fade fa-xl"></i>
+                            Imprimir</button>
+
                         </div>
 
 
@@ -267,7 +274,7 @@
 
                     <div class="row">
                         <table class="table table-hover  table-sm tabla-layout" mat-table
-                            [dataSource]="V_MostrarMaestro('Vencido', MonedaLocal)">
+                            [dataSource]="V_MostrarMaestro('Vencido', this.cFunciones.MonedaLocal)">
 
 
 
@@ -418,7 +425,7 @@
 
                     <div class="row">
                         <table class="table table-hover  table-sm tabla-layout" mat-table
-                            [dataSource]="V_MostrarMaestro('Corriente', MonedaLocal)">
+                            [dataSource]="V_MostrarMaestro('Corriente', this.cFunciones.MonedaLocal)">
 
 
 
@@ -486,7 +493,7 @@
                                                     <tr>
                                                         <span class="row">
 
-                                                            <td class="col-6">{{doc.AplicadoA}}</td>
+                                                            <td class="col-6">{{doc.NoDocOrigen}}</td>
                                                             <td class="col-6"><span class="cargo"
                                                                     [ngClass]="doc.AplicadoA != '' ? 'abono' : 'cargo'">{{doc.AplicadoA
                                                                     != '' ? "Abono" : "Cargo"}}</span></td>
@@ -581,7 +588,7 @@
 
                     <div class="row">
                         <table class="table table-hover  table-sm tabla-layout" mat-table
-                            [dataSource]="V_MostrarMaestro('Vencido', MonedaSistema)">
+                            [dataSource]="V_MostrarMaestro('Vencido', this.cFunciones.MonedaSistema)">
 
 
 
@@ -732,7 +739,7 @@
 
                     <div class="row">
                         <table class="table table-hover  table-sm tabla-layout" mat-table
-                            [dataSource]="V_MostrarMaestro('Corriente', MonedaSistema)">
+                            [dataSource]="V_MostrarMaestro('Corriente', this.cFunciones.MonedaSistema)">
 
 
 

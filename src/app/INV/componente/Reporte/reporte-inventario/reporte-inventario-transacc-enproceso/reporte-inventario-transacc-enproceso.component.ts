@@ -100,7 +100,7 @@ private V_GenerarDoc(Datos: iDatos, Exportar: boolean) {
 
 
     let url = URL.createObjectURL(file);
-    console.log(url)
+ 
    
     var fileLink = document.createElement('a');
     fileLink.href = url;

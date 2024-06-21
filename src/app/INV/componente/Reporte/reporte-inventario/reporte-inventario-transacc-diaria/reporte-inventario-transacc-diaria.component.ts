@@ -141,7 +141,7 @@ export class ReporteInventarioTransaccDiariaComponent {
 
 
         let url = URL.createObjectURL(file);
-        console.log(url)
+    
        
         var fileLink = document.createElement('a');
         fileLink.href = url;
