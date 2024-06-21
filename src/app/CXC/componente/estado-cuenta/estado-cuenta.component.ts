@@ -175,7 +175,7 @@ export class EstadoCuentaComponent {
 
               if(this.MostrarPermisos){
                 this.Permisos.cmbBodega.deselectAllItems();
-                this.Permisos.DatosCliente = this.DatosCliente;
+                this.Permisos.DatosCliente = JSON.parse(JSON.stringify(this.DatosCliente));
                 this.Permisos.cmbBodega.select(this.DatosCliente.Bodegas);
                 this.Permisos.cmbBodega.select(this.DatosCliente.Bodegas);
                 this.Permisos.cmbVendedor.select([this.DatosCliente.CodVendedor]);
