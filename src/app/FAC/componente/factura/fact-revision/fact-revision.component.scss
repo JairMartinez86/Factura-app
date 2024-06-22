@@ -7,29 +7,41 @@
   min-width: var(--min-width);
 }
 
+
+::ng-deep {
+
+  html,
+  body {
+    max-height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+  }
+}
+
+
 table {
   margin-bottom: 60px;
   position: relative;
   overflow-y: scroll;
 }
 
-.altura
-{
+.altura {
   min-height: 200vh;
 }
 
 thead {
-  position: absolute;  
+  position: absolute;
 
-  .etiqueta-producto{
+  .etiqueta-producto {
     text-align: center;
     display: flex;
 
-    div{
+    div {
       width: 90%;
     }
-  
-    div:last-child{
+
+    div:last-child {
       width: 10%;
       padding-top: 5px;
       margin-right: 12px;
@@ -39,7 +51,7 @@ thead {
     }
   }
 
- 
+
 }
 
 
@@ -49,7 +61,7 @@ thead {
   overflow-x: hidden;
   top: 0;
   height: 60px;
-  
+
 }
 
 .contenedor,
