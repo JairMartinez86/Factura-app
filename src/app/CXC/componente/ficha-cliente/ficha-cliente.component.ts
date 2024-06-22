@@ -152,6 +152,7 @@ export class FichaClienteComponent {
     this.DatosCliente.IdConceptoPrecio = this.DatosCliente.IdConceptoPrecio[0];
     this.DatosCliente.CodVendedor = this.DatosCliente.CodVendedor[0];
     this.DatosCliente.Limite = Number(String(this.DatosCliente.Limite).replaceAll(",", ""));
+    this.DatosCliente.Plazo = Number(String(this.DatosCliente.Plazo).replaceAll(",", ""));
     
     this.POST.GuardarPermiso(this.DatosCliente).subscribe(
       {
@@ -212,6 +213,30 @@ export class FichaClienteComponent {
 
   public V_RefrescarFormato(){
     this.DatosCliente.Limite = this.cFunciones.NumFormat(this.DatosCliente.Limite, "2" )
+    this.DatosCliente.Plazo = this.cFunciones.NumFormat(this.DatosCliente.Plazo, "0" )
+  }
+
+  public V_Limpiar(){
+    this.cmbBodega.deselectAllItems();
+    this.cmbListaPrecio.deselectAllItems();
+    this.cmbVendedor.deselectAllItems();
+
+
+    this.DatosCliente.Moneda = this.cFunciones.MonedaLocal;
+    this.DatosCliente.IdConceptoPrecio = [];
+    this.DatosCliente.CodVendedor = [];
+    this.DatosCliente.Limite = 0;
+    this.DatosCliente.Plazo = 0
+    this.DatosCliente.CuentaClave = false;
+    this.DatosCliente.SuspendidoMoroso = false;
+    this.DatosCliente.ConfianzaFactSiempre = false;
+    this.DatosCliente.ConfianzaFactVencido = false;
+    this.DatosCliente.ConfianzaFactUnaVez = false;
+    this.DatosCliente.Estado = "Activo";
+    this.DatosCliente.Bodegas = [];
+  
+    this.V_RefrescarFormato();
+  
   }
 
   
@@ -233,7 +258,7 @@ export class FichaClienteComponent {
     this.val.addFocus("cmbEstado", "btn-Guardar-Permiso-Cartera", undefined);
 
     this.val.addNumberFocus("txtLimite", 2);
-    this.val.addNumberFocus("txtPlazo", 2);
+    this.val.addNumberFocus("txtPlazo", 0);
 
 
   }

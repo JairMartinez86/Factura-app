@@ -83,6 +83,7 @@ export class EstadoCuentaComponent {
     this.MostrarSaldoCordoba = false;
     this.MostrarCorrienteDolar = false;
     this.MostrarSaldoDolar = false;
+    this.Permisos?.V_Limpiar();
 
     if (event.added.length) {
       if (event.newValue.length > 1) event.newValue.splice(0, 1);
