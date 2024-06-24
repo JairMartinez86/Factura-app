@@ -69,6 +69,22 @@ export class RegistroFacturaComponent {
 
   public CargarDocumentos(): void {
 
+
+    
+    this.val.EsValido();
+
+
+    if (this.val.Errores != "") {
+
+        this.cFunciones.DIALOG.open(DialogErrorComponent, {
+            data:
+                "<ul>" + this.val.Errores + "</ul>",
+        });
+        return;
+
+    }
+
+
     let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(
       WaitComponent,
       {
@@ -688,6 +704,7 @@ export class RegistroFacturaComponent {
     this.val.addFocus("txtFecha2", "btnBuscarFactura", "click");
 
     this.CargarDocumentos();
+   
   }
 
 
