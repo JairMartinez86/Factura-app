@@ -23,6 +23,22 @@
     margin: 0 0 1em 1em;
 }
 
+
+::ng-deep {
+    
+    ol, ul{
+        padding-left: 10px;
+    }
+    
+    .mat-mdc-dialog-container-with-actions .mat-mdc-dialog-content{
+        padding-left: 5px;
+        padding-right: 5px ;
+    }
+    
+}
+
+
+
 .bold{
     font-weight: bold;
     color: black,
