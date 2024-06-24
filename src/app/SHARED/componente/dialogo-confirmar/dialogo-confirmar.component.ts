@@ -13,6 +13,7 @@ export class DialogoConfirmarComponent {
   public mensaje: any;
   public textBoton1 : string ="";
   public textBoton2 : string ="";
+  public MostrarCerrar : boolean = false;
 
   constructor(private sanitizer: DomSanitizer, public hostElement: ElementRef, public dialogRef: MatDialogRef<DialogoConfirmarComponent>) { }
 

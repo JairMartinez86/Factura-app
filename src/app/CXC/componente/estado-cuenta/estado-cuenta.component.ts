@@ -287,6 +287,7 @@ export class EstadoCuentaComponent {
         disableClose: true
       }
     );
+    dialogRef.componentInstance.MostrarCerrar = true;
 
 
     dialogRef.afterOpened().subscribe(s => {

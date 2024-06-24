@@ -1,7 +1,7 @@
 <div class="escasan-dialog" if="dialog-confirmar">
 
     <div class="btn-contenedor-cerrar">
-        <button  class="close-button custom-cerrar" (click)="V_Cerrar();">
+        <button  class="close-button custom-cerrar" (click)="V_Cerrar();" *ngIf="MostrarCerrar">
           <mat-icon class="close-icon" color="warn">close</mat-icon>
         </button>
       </div>
