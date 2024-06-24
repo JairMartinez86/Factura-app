@@ -79,13 +79,15 @@
     }
   }
 
-
-table{
+  .tabla-1
+  .tabla-2{
     width: 100%;
     position: relative;
 
+  }
 
-     
+.tabla-1{
+
     @include Tamano(xs) {
         margin-top: 150px;
     }
@@ -104,13 +106,18 @@ table{
         margin-top: 50px;
     }
 
- 
-    
-  
+}
+
+.tabla-2{
 
 
+    margin-top: 50px;
 
 }
+
+
+
+
 
 .contenedor-pag {
     position: fixed;

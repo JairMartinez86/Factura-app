@@ -58,7 +58,7 @@ export class RegistroFacturaComponent {
   ) {
 
     this.val.add("txtFecha1", "1", "LEN>", "0", "Fecha Inicio", "Ingrese una fecha valida.");
-    this.val.add("txtFecha2", "1", "LEN>", "0", "Fecha Fdinal", "Ingrese una fecha valida.");
+    this.val.add("txtFecha2", "1", "LEN>", "0", "Fecha Final", "Ingrese una fecha valida.");
     this.val.add("txtBuscar", "1", "LEN>=", "0", "Buscar", "");
 
     this.val.Get("txtFecha1").setValue(this.cFunciones.ShortFechaServidor());
@@ -69,20 +69,23 @@ export class RegistroFacturaComponent {
 
   public CargarDocumentos(): void {
 
+    if(this.TipoDocumento != "Proforma" && !this.EsCola)
+      {
+        this.val.EsValido();
 
+
+        if (this.val.Errores != "") {
     
-    this.val.EsValido();
+            this.cFunciones.DIALOG.open(DialogErrorComponent, {
+                data:
+                    "<ul>" + this.val.Errores + "</ul>",
+            });
+            return;
+    
+        }
+      }
 
-
-    if (this.val.Errores != "") {
-
-        this.cFunciones.DIALOG.open(DialogErrorComponent, {
-            data:
-                "<ul>" + this.val.Errores + "</ul>",
-        });
-        return;
-
-    }
+   
 
 
     let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(
@@ -690,18 +693,23 @@ export class RegistroFacturaComponent {
     if(this.EsCola)clearInterval(this.interval);
   }
 
-  private ngAfterViewInit() {
-
-
+  ngDoCheck(){
     if(window.innerWidth < this.cFunciones.TamanoPantalla("md")) if(this.datepiker != undefined) this.datepiker.mode="dialog";
     if(window.innerWidth < this.cFunciones.TamanoPantalla("md")) if(this.datepiker2 != undefined) this.datepiker2.mode="dialog";
 
+        ///CAMBIO DE FOCO
+        this.val.addFocus("txtFecha1", "txtFecha2", undefined);
+        this.val.addFocus("txtFecha2", "btnBuscarFactura", "click");
 
+  }
+
+  private ngAfterViewInit() {
+
+
+  
     if(this.EsCola)this.startTimer();
 
-    ///CAMBIO DE FOCO
-    this.val.addFocus("txtFecha1", "txtFecha2", undefined);
-    this.val.addFocus("txtFecha2", "btnBuscarFactura", "click");
+
 
     this.CargarDocumentos();
    
