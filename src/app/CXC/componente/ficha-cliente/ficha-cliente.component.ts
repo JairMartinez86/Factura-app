@@ -63,6 +63,7 @@ export class FichaClienteComponent {
     this.val.add("chk-confianza-vencido", "1", "LEN>=", "0", "Cliente", "");
     this.val.add("chk-confianza-una-vez", "1", "LEN>=", "0", "Cliente", "");
     this.val.add("chk-cuenta-clave", "1", "LEN>=", "0", "Cliente", "");
+    this.val.add("txtObservaciones", "1", "LEN>", "0", "Cliente", "Ingrese una observacion.");
 
     this.val.Get("cmbBodega").disable();
 

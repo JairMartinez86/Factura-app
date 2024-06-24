@@ -26,5 +26,6 @@ export interface iFichaCliente{
     ConfianzaFactUnaVez: boolean;
     Estado: string;
     Bodegas: string[];
+    Observaciones : string;
     Usuario: string;
 }
