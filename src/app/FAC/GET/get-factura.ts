@@ -62,7 +62,7 @@ export class getFactura{
    }
 
     
-   public Get(Fecha1 :Date, Fecha2 : Date, Tipo : string, EsCola : boolean, ProformaVencida : boolean, usuario : string) : Observable<string>{
+   public Get(Fecha1 :string, Fecha2 : string, Tipo : string, EsCola : boolean, ProformaVencida : boolean, usuario : string) : Observable<string>{
       return this.http.get<any>(this._Cnx.Url() + "Factura/Get?Fecha1=" + Fecha1 + "&Fecha2=" + Fecha2 + "&Tipo=" + Tipo + "&EsCola=" + EsCola + "&ProformaVencida=" + ProformaVencida + "&usuario=" + usuario);
    }
    
