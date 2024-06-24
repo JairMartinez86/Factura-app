@@ -22,12 +22,20 @@ export class DialogoConfirmarComponent {
     
   }
 
+
+
   public v_Cancelar(){
     this.dialogRef.close();
     this.retorno="0";
 
   }
 
+  public V_Cerrar(){
+    this.dialogRef.close();
+    this.retorno="-1";
+    
+  }
+  
   public Set_StyleBtn1(style : string)
   {
     document.getElementById("btn-confirmar-1-escasan-dialog")?.setAttribute("style", style);

@@ -304,13 +304,14 @@ export class EstadoCuentaComponent {
     dialogRef.afterClosed().subscribe(s => {
 
 
-
-
-
       if (dialogRef.componentInstance.retorno == "1") {
         this.V_GenerarDoc(this.DatosPdfCordoba, this.cFunciones.MonedaLocal);
       }
-      else {
+      
+
+
+     
+      if (dialogRef.componentInstance.retorno == "0") {
         this.V_GenerarDoc(this.DatosPdfDolar, this.cFunciones.MonedaSistema);
       }
 
