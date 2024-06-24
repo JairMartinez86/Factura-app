@@ -580,7 +580,7 @@ export class Validacion {
 
 
     if (this.Errores != "") {
-      this.Errores = "<ul>" + this.Errores + "</ul>";
+      this.Errores = "<ul class='contenedor-validador'>" + this.Errores + "</ul>";
       return false;
     }
 

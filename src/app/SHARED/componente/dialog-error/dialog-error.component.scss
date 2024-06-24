@@ -21,7 +21,25 @@
     display: flex;
     align-items: center;
     word-break:break-all;
-    margin: 0 0 1em 1em;
+    text-align: justify;
+    margin: 0 0 0 0;
+}
+
+
+::ng-deep {
+    
+    .contenedor-validador{
+        padding-left: 5px;
+        ol, ul{
+            padding-left: 10px;
+        }
+    }
+    
+    .mat-mdc-dialog-container-with-actions .mat-mdc-dialog-content{
+        padding-left: 5px;
+        padding-right: 5px ;
+    }
+    
 }
 
 .bold{
