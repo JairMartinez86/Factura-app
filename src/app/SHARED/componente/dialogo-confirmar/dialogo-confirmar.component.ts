@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -9,6 +9,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class DialogoConfirmarComponent {
 
+  @ViewChild("msj", { static: false })
+  public msj: HTMLElement;
+  
   public retorno: string="0";
   public mensaje: any;
   public textBoton1 : string ="";
@@ -50,6 +53,8 @@ export class DialogoConfirmarComponent {
   
   public SetMensajeHtml(mensaje : string)
   {
+
+    document.getElementById("msj-confirmar")?.removeAttribute("class");
     this.mensaje = this.sanitizer.bypassSecurityTrustHtml(mensaje);
   }
 

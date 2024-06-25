@@ -297,7 +297,7 @@ export class EstadoCuentaComponent {
       dialogRef.componentInstance.textBoton2 = this.MonedaSistema;
       dialogRef.componentInstance.Set_StyleBtn1("width: 150px");
       dialogRef.componentInstance.Set_StyleBtn2("width: 150px");
-      dialogRef.componentInstance.SetMensajeHtml("<p style='text-align: center;'><b>IMPRIMIR</b></p><p style='text-align: center'><b style='color: blue'>Estado de Cuenta</b></p>")
+      dialogRef.componentInstance.SetMensajeHtml("<div style='text-align: center'><h6 style='text-align: center;'><b>IMPRIMIR</b></h6><p style='text-align: center; margin-top:5px;margin-bottom:5px'><b style='color: blue'>Estado de Cuenta</b></p><div>")
 
     });
 
