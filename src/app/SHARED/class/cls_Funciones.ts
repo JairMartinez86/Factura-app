@@ -68,7 +68,7 @@ export class Funciones {
 
 
 
-    {IdAcceso:0,  Activo: false, EsMenu: true,  Id:"idNavReporteInv", Caption: "Reporte Inventario" , MenuPadre: "", Clase : "fa-solid fa-print fa-lg", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: true,  Id:"idNavReporteInv", Caption: "Detalle Reporte Inventario" , MenuPadre: "", Clase : "fa-solid fa-print fa-lg", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-TransInv", Caption: "Transacciones de Inventario" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-TransInvproc", Caption: "Transacciones en Proceso" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-rev-consecutivo", Caption: "Control de Consecutividad" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
