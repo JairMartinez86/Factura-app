@@ -28,7 +28,7 @@ import { iDatos } from 'src/app/SHARED/interface/i-Datos';
 export class EstadoCuentaComponent {
 
   public val = new Validacion();
-  public overlaySettings: OverlaySettings = {};
+
 
   @ViewChildren(IgxComboComponent)
   public lstCmb: QueryList<IgxComboComponent>;
@@ -363,22 +363,6 @@ export class EstadoCuentaComponent {
 
 
     this.val.Combo(this.lstCmb);
-
-
-
-    if (this.cmbCliente != undefined) this.cmbCliente.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-
-
-    this.overlaySettings = {};
-
-    if (window.innerWidth <= 992) {
-      this.overlaySettings = {
-        positionStrategy: new GlobalPositionStrategy({ openAnimation: scaleInCenter, closeAnimation: scaleOutCenter }),
-        modal: true,
-        closeOnOutsideClick: true
-      };
-    }
-
 
 
   }

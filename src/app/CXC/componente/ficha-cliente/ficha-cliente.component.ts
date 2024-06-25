@@ -24,7 +24,7 @@ import { scaleInCenter, scaleOutCenter } from 'igniteui-angular/animations';
 })
 export class FichaClienteComponent {
   public val = new Validacion();
-  public overlaySettings: OverlaySettings = {};
+  
 
   
   @ViewChild("cmbPlazo", { static: false })
@@ -264,10 +264,10 @@ export class FichaClienteComponent {
   ngDoCheck() {
 
     this.val.Combo(this.lstCmb);
-    if (this.cmbBodega != undefined) this.cmbBodega.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+    /*if (this.cmbBodega != undefined) this.cmbBodega.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
     if (this.cmbListaPrecio != undefined) this.cmbListaPrecio.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
     if (this.cmbPlazo != undefined) this.cmbPlazo.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-    if (this.cmbVendedor != undefined) this.cmbVendedor.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+    if (this.cmbVendedor != undefined) this.cmbVendedor.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";*/
 
 
 
@@ -291,15 +291,6 @@ export class FichaClienteComponent {
   ngOnInit(): void {
 
 
-    this.overlaySettings = {};
-
-    if (window.innerWidth <= 992) {
-      this.overlaySettings = {
-        positionStrategy: new GlobalPositionStrategy({ openAnimation: scaleInCenter, closeAnimation: scaleOutCenter }),
-        modal: true,
-        closeOnOutsideClick: true
-      };
-    }
 
   }
 

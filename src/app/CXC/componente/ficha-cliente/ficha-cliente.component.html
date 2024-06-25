@@ -29,7 +29,7 @@
                         <igx-combo class="cmbListaPrecio" #cmbListaPrecio [data]="lstConceptoPrecio" valueKey="IdConceptoPrecio" [(ngModel)]="DatosCliente.IdConceptoPrecio"
                             displayKey="Descripcion" id="cmbListaPrecio" formControlName="cmbListaPrecio"
                             placeholder="Seleccione una lista." searchPlaceholder="Seleccione una lista..."
-                            [autoFocusSearch]="true" [overlaySettings]="overlaySettings"
+                            [autoFocusSearch]="true"
                             (selectionChanging)="this.val.V_SingleSelection($event);"
                             (keyup)="v_Enter_ConceptoPrecio($event);">
                             <label igxLabel>Lista Precio</label>
@@ -62,7 +62,7 @@
                         <igx-combo class="cmbPlazo" #cmbPlazo [data]="lstPlazo" valueKey="IdPlazo" [(ngModel)]="DatosCliente.IdPlazo"
                         displayKey="Plazo" id="cmbPlazo" formControlName="cmbPlazo"
                         placeholder="Seleccione un plazo." searchPlaceholder="Seleccione un plazo..."
-                        [autoFocusSearch]="true" [overlaySettings]="overlaySettings"
+                        [autoFocusSearch]="true"
                         (selectionChanging)="this.val.V_SingleSelection($event);"
                         (keyup)="v_Enter_Plazo($event);">
                         <label igxLabel>Plazo</label>
@@ -91,7 +91,7 @@
                 <igx-combo class="cmbVendedor" #cmbVendedor [data]="lstVendedores" valueKey="Codigo" displayKey="Key" [(ngModel)]="DatosCliente.CodVendedor" 
                     id="cmbVendedor" formControlName="cmbVendedor" placeholder="Seleccione un vendedor."
                     searchPlaceholder="Seleccione un vendedor..." [autoFocusSearch]="true"
-                    [overlaySettings]="overlaySettings" (selectionChanging)="this.val.V_SingleSelection($event);"
+                     (selectionChanging)="this.val.V_SingleSelection($event);"
                     (keyup)="v_Enter_Vendedor($event);">
                     <label igxLabel>Vendedor</label>
                     <igx-prefix><i class="bi bi-person-fill"></i></igx-prefix>
@@ -179,7 +179,7 @@
                             <igx-combo class="ComboBodega" #cmbBodega [data]="lstBodega" valueKey="Codigo"
                                 displayKey="Key" id="cmbBodega" formControlName="cmbBodega"
                                 placeholder="Seleccione una Bodega." searchPlaceholder="Seleccione una bodega..."
-                                [autoFocusSearch]="true" [overlaySettings]="overlaySettings"
+                                [autoFocusSearch]="true"
                                 (selectionChanging)="V_Select_Bodega($event)" (keyup)="V_Enter_Bodega($event);" [(ngModel)]="DatosCliente.Bodegas" >
                                 <label igxLabel>Bodega</label>
                                 <igx-prefix><i class="bi bi-shop"></i></igx-prefix>

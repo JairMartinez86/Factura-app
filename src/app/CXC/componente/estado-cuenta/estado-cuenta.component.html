@@ -7,7 +7,7 @@
                     <igx-combo class="cmbCliente" #cmbCliente [data]="lstClientes" valueKey="Codigo" displayKey="Key"
                         id="cmbCliente" formControlName="cmbCliente" placeholder="Seleccione un Cliente."
                         searchPlaceholder="Seleccione un cliente..." [autoFocusSearch]="true"
-                        [overlaySettings]="overlaySettings" (selectionChanging)="V_Select_Cliente($event);">
+                        (selectionChanging)="V_Select_Cliente($event);">
                         <label igxLabel>Cliente</label>
                         <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
 
