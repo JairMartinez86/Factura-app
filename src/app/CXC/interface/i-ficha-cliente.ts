@@ -3,6 +3,7 @@ export interface iFichaCliente{
     Cliente: string;
     Ruc : string;
     Correo: string;
+    IdPlazo: any;
     Plazo: any;
     Telefono: string;
     Direccion : string;

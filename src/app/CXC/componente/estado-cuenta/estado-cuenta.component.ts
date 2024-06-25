@@ -148,6 +148,7 @@ export class EstadoCuentaComponent {
                 this.Permisos.lstVendedores = Datos.d[1];
                 this.Permisos.lstBodega = Datos.d[2];
                 this.Permisos.lstConceptoPrecio = Datos.d[3];
+                this.Permisos.lstPlazo = Datos.d[4];
               }
             }
             else {
@@ -181,6 +182,7 @@ export class EstadoCuentaComponent {
                 this.Permisos.cmbBodega.select(this.DatosCliente.Bodegas);
                 this.Permisos.cmbVendedor.select([this.DatosCliente.CodVendedor]);
                 this.Permisos.cmbListaPrecio.select([this.DatosCliente.IdConceptoPrecio]);
+                this.Permisos.cmbPlazo.select([this.DatosCliente.IdPlazo]);
                 this.Permisos.SimboloMoneda = (this.cFunciones.MonedaLocal == this.DatosCliente.Moneda? this.SimboloMonedaLocal : this.SimboloMonedaSistema);
                 this.Permisos.V_RefrescarFormato();
 

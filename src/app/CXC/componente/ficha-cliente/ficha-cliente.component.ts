@@ -26,6 +26,10 @@ export class FichaClienteComponent {
   public val = new Validacion();
   public overlaySettings: OverlaySettings = {};
 
+  
+  @ViewChild("cmbPlazo", { static: false })
+  public cmbPlazo: IgxComboComponent;
+
   @ViewChild("cmbVendedor", { static: false })
   public cmbVendedor: IgxComboComponent;
 
@@ -40,9 +44,11 @@ export class FichaClienteComponent {
 
   lstVendedores: iVendedor[] = [];
   lstConceptoPrecio : any[] = [];
+  lstPlazo : any[] = [];
 
   public SimboloMoneda : string = "";
   public DatosCliente: iFichaCliente = {} as iFichaCliente;
+  private Plazo : number;
 
   
   @ViewChildren(IgxComboComponent)
@@ -54,7 +60,7 @@ export class FichaClienteComponent {
     this.val.add("cmbMoneda", "1", "LEN>", "0", "Cliente", "Seleccione una moneda.");
     this.val.add("cmbListaPrecio", "1", "LEN>", "0", "Cliente", "Seleccione una lista de precio.");
     this.val.add("txtLimite", "1", "NUM>=", "0", "Cliente", "Ingrese un limite valido.");
-    this.val.add("txtPlazo", "1", "NUM>=", "0", "Cliente", "Ingrese un plazo valido.");
+    this.val.add("cmbPlazo", "1", "NUM>=", "0", "Cliente", "Seleccione un plazo valido.");
     this.val.add("cmbVendedor", "1", "LEN>", "0", "Cliente", "Seleccione un vendedor.");
     this.val.add("cmbEstado", "1", "LEN>", "0", "Cliente", "Seleccione un estado.");
     this.val.add("cmbBodega", "1", "LEN>=", "0", "Cliente", "Seleccione una Bodega.");
@@ -77,6 +83,17 @@ export class FichaClienteComponent {
       let _Item: any = cmb._focusedItem.value;
       this.cmbVendedor.setSelectedItem(_Item.IdConceptoPrecio);
       this.val.Get("cmbListaPrecio").setValue([_Item.IdConceptoPrecio]);
+    }
+  }
+
+
+  public v_Enter_Plazo(event: any) {
+    if (event.key == "Enter") {
+      let cmb: any = this.cmbPlazo.dropdown;
+      let _Item: any = cmb._focusedItem.value;
+      this.cmbVendedor.setSelectedItem(_Item.IdPlazo);
+      this.val.Get("cmbPlazo").setValue([_Item.IdPlazo]);
+      this.Plazo = _Item.Plazo;
     }
   }
 
@@ -153,7 +170,8 @@ export class FichaClienteComponent {
     this.DatosCliente.IdConceptoPrecio = this.DatosCliente.IdConceptoPrecio[0];
     this.DatosCliente.CodVendedor = this.DatosCliente.CodVendedor[0];
     this.DatosCliente.Limite = Number(String(this.DatosCliente.Limite).replaceAll(",", ""));
-    this.DatosCliente.Plazo = Number(String(this.DatosCliente.Plazo).replaceAll(",", ""));
+    this.DatosCliente.IdPlazo = this.DatosCliente.IdPlazo[0];
+    this.DatosCliente.Plazo = this.Plazo;
     
     this.POST.GuardarPermiso(this.DatosCliente).subscribe(
       {
@@ -221,12 +239,14 @@ export class FichaClienteComponent {
     this.cmbBodega.deselectAllItems();
     this.cmbListaPrecio.deselectAllItems();
     this.cmbVendedor.deselectAllItems();
+    this.cmbPlazo.deselectAllItems();
 
 
     this.DatosCliente.Moneda = this.cFunciones.MonedaLocal;
     this.DatosCliente.IdConceptoPrecio = [];
     this.DatosCliente.CodVendedor = [];
     this.DatosCliente.Limite = 0;
+    this.DatosCliente.IdPlazo = undefined;
     this.DatosCliente.Plazo = 0
     this.DatosCliente.CuentaClave = false;
     this.DatosCliente.SuspendidoMoroso = false;

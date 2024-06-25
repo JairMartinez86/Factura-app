@@ -57,14 +57,23 @@
 
 
                     <div class="col-12 col-sm-12 col-md-6 mb-1">
-                        <div class="input-group">
-                            <div class="form-floating">
-                                <input type="text" id="txtPlazo" class="form-control" placeholder="Plazo" [(ngModel)]="DatosCliente.Plazo" 
-                                    aria-label="Plazo" formControlName="txtPlazo">
-                                <label for="txtPlazo">Plazo</label>
-                            </div>
 
-                        </div>
+
+                        <igx-combo class="cmbPlazo" #cmbPlazo [data]="lstPlazo" valueKey="IdPlazo" [(ngModel)]="DatosCliente.IdPlazo"
+                        displayKey="Plazo" id="cmbPlazo" formControlName="cmbPlazo"
+                        placeholder="Seleccione un plazo." searchPlaceholder="Seleccione un plazo..."
+                        [autoFocusSearch]="true" [overlaySettings]="overlaySettings"
+                        (selectionChanging)="this.val.V_SingleSelection($event);"
+                        (keyup)="v_Enter_Plazo($event);">
+                        <label igxLabel>Plazo</label>
+                        <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
+                        <ng-template igxComboClearIcon>
+                            <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                        </ng-template>
+                    </igx-combo>
+
+
+                
                     </div>
 
                 </div>
