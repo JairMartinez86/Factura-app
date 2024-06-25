@@ -67,6 +67,14 @@
                         (keyup)="v_Enter_Plazo($event);">
                         <label igxLabel>Plazo</label>
                         <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
+
+                        
+                        <ng-template igxComboItem let-display let-key="valueKey">
+                            <span>{{ display.Plazo | number:'1.2-2'}}</span>
+                        </ng-template>
+
+
+
                         <ng-template igxComboClearIcon>
                             <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
                         </ng-template>
