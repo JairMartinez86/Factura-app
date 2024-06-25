@@ -274,8 +274,8 @@ export class FichaClienteComponent {
     ///CAMBIO DE FOCO
     this.val.addFocus("cmbMoneda", "txtLimite", undefined);
     this.val.addFocus("txtLimite", "cmbListaPrecio", undefined);
-    this.val.addFocus("cmbListaPrecio", "txtPlazo", undefined);
-    this.val.addFocus("txtPlazo", "cmbEstado", undefined);
+    this.val.addFocus("cmbListaPrecio", "cmbPlazo", undefined);
+    this.val.addFocus("cmbPlazo", "cmbEstado", undefined);
     this.val.addFocus("cmbEstado", "btn-Guardar-Permiso-Cartera", undefined);
 
     this.val.addNumberFocus("txtLimite", 2);
