@@ -279,7 +279,6 @@ export class FichaClienteComponent {
     this.val.addFocus("cmbEstado", "btn-Guardar-Permiso-Cartera", undefined);
 
     this.val.addNumberFocus("txtLimite", 2);
-    this.val.addNumberFocus("txtPlazo", 0);
 
 
   }
