@@ -360,10 +360,8 @@ export class EstadoCuentaComponent {
 
 
   private ngDoCheck() {
-
-
     this.val.Combo(this.lstCmb);
-
+    this.val.ComboOverLay(this.lstCmb, []);
 
   }
 

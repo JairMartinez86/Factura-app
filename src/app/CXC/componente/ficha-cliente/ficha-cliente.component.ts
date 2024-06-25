@@ -60,7 +60,7 @@ export class FichaClienteComponent {
     this.val.add("cmbMoneda", "1", "LEN>", "0", "Cliente", "Seleccione una moneda.");
     this.val.add("cmbListaPrecio", "1", "LEN>", "0", "Cliente", "Seleccione una lista de precio.");
     this.val.add("txtLimite", "1", "NUM>=", "0", "Cliente", "Ingrese un limite valido.");
-    this.val.add("cmbPlazo", "1", "NUM>=", "0", "Cliente", "Seleccione un plazo valido.");
+    this.val.add("cmbPlazo", "1", "LEN>", "0", "Cliente", "Seleccione un plazo valido.");
     this.val.add("cmbVendedor", "1", "LEN>", "0", "Cliente", "Seleccione un vendedor.");
     this.val.add("cmbEstado", "1", "LEN>", "0", "Cliente", "Seleccione un estado.");
     this.val.add("cmbBodega", "1", "LEN>=", "0", "Cliente", "Seleccione una Bodega.");
@@ -91,7 +91,7 @@ export class FichaClienteComponent {
     if (event.key == "Enter") {
       let cmb: any = this.cmbPlazo.dropdown;
       let _Item: any = cmb._focusedItem.value;
-      this.cmbVendedor.setSelectedItem(_Item.IdPlazo);
+      this.cmbPlazo.setSelectedItem(_Item.IdPlazo);
       this.val.Get("cmbPlazo").setValue([_Item.IdPlazo]);
       this.Plazo = _Item.Plazo;
     }
@@ -264,11 +264,7 @@ export class FichaClienteComponent {
   ngDoCheck() {
 
     this.val.Combo(this.lstCmb);
-    /*if (this.cmbBodega != undefined) this.cmbBodega.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-    if (this.cmbListaPrecio != undefined) this.cmbListaPrecio.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-    if (this.cmbPlazo != undefined) this.cmbPlazo.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-    if (this.cmbVendedor != undefined) this.cmbVendedor.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";*/
-
+    this.val.ComboOverLay(this.lstCmb,  ["cmbBodega"]);
 
 
   }

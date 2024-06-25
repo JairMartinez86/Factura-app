@@ -135,10 +135,11 @@ export class ReporteInventarioTransaccionesComponent {
   }
 
 
-  private ngDoCheck(){
-    if (this.Filtro?.cmbTipoMov != undefined) this.Filtro.cmbTipoMov.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
 
-  }
+  private ngDoCheck() {
+    this.Filtro?.val?.ComboOverLay(this.Filtro.lstCmb, []);
+
+}
 
 
 
@@ -153,18 +154,7 @@ export class ReporteInventarioTransaccionesComponent {
       this.Filtro.val.addFocus("cmbTipoMov", "btnImprimir-Reporte-Inv-Transacciones", "click");
       
 
-     
-  
-      this.Filtro.overlaySettings = {};
-  
-      if (window.innerWidth <= 992) {
-        this.Filtro.overlaySettings = {
-          positionStrategy: new GlobalPositionStrategy({ openAnimation: scaleInCenter, closeAnimation: scaleOutCenter }),
-          modal: true,
-          closeOnOutsideClick: true
-        };
-      }
-   
+    
   
   
     }

@@ -20,7 +20,6 @@ export class ReporteInventarioFiltro6Component {
   public val = new Validacion();
   lstTipoMov: iTipoMov[] = [];
 
-  public overlaySettings: OverlaySettings = {};
 
   @ViewChildren(IgxComboComponent)
   public lstCmb: QueryList<IgxComboComponent>;

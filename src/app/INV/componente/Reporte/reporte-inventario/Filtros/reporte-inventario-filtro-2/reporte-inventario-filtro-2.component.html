@@ -53,7 +53,6 @@
                         <igx-combo class="ComboBodega" #cmbBodega [data]="lstBodega" valueKey="Codigo" displayKey="Key" id="cmbBodega"
                             formControlName="cmbBodega" placeholder="Seleccione una Bodega."
                             searchPlaceholder="Seleccione una bodega..." [autoFocusSearch]="true"
-                            [overlaySettings]="overlaySettings"
                             (selectionChanging)="V_Select_Bodega($event)" (keyup)="V_Enter_Bodega($event);">
                             <label igxLabel>Bodega</label>
                             <igx-prefix><i class="bi bi-shop"></i></igx-prefix>
@@ -85,7 +84,7 @@
                 <div class="row">
                     <igx-combo #cmbProducto1 [data]="lstProductos1" valueKey="Codigo" displayKey="Key" id="cmbProducto1"
                         formControlName="cmbProducto1" placeholder="Producto" [autoFocusSearch]="true"
-                        [overlaySettings]="overlaySettings" [itemHeight]='64'
+                        [itemHeight]='64'
                         (selectionChanging)="val.V_SingleSelection($event);">
                         <label igxLabel>Del Codigo</label>
     
@@ -134,7 +133,7 @@
                 <div class="row">
                     <igx-combo #cmbProducto2 [data]="lstProductos2" valueKey="Codigo" displayKey="Key" id="cmbProducto2"
                         formControlName="cmbProducto2" placeholder="Producto" [autoFocusSearch]="true"
-                        [overlaySettings]="overlaySettings" [itemHeight]='64'
+                        [itemHeight]='64'
                         (selectionChanging)="val.V_SingleSelection($event);">
                         <label igxLabel>Al Codigo</label>
     
@@ -188,7 +187,6 @@
                 <igx-combo class="cmbTipoMov" #cmbTipoMov [data]="lstTipoMov" valueKey="Codigo" displayKey="TipoMov1" id="cmbTipoMov"
                     formControlName="cmbTipoMov" placeholder="Seleccione un Tipo."
                     searchPlaceholder="Seleccione una Tipo..." [autoFocusSearch]="true"
-                    [overlaySettings]="overlaySettings"
                     (selectionChanging)="val.V_SingleSelection($event);">
                     <label igxLabel>Tipo Movimiento</label>
                     <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>

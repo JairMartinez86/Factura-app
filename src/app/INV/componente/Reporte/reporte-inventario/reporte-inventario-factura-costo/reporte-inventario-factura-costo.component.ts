@@ -169,11 +169,8 @@ export class ReporteInventarioFacturaCostoComponent {
   }
 
 
-  private ngDoCheck(){
-  
-    if (this.Filtro?.cmbBodega != undefined) this.Filtro.cmbBodega.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-
-
+  private ngDoCheck() {
+    this.Filtro?.val?.ComboOverLay(this.Filtro.lstCmb, ["cmbBodega"]);
 }
 
 
@@ -195,15 +192,6 @@ export class ReporteInventarioFacturaCostoComponent {
 
      
   
-      this.Filtro.overlaySettings = {};
-  
-      if (window.innerWidth <= 992) {
-        this.Filtro.overlaySettings = {
-          positionStrategy: new GlobalPositionStrategy({ openAnimation: scaleInCenter, closeAnimation: scaleOutCenter }),
-          modal: true,
-          closeOnOutsideClick: true
-        };
-      }
    
   
   

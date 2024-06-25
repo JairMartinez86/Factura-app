@@ -30,7 +30,7 @@ export class ReporteInventarioFiltro2Component {
   lstProductos2: iProducto[] = [];
   public BodSeleccionadas : iBodega[];
 
-  public overlaySettings: OverlaySettings = {};
+
 
   @ViewChild("datepiker", { static: false })
   public datepiker: any;
@@ -186,9 +186,6 @@ export class ReporteInventarioFiltro2Component {
 
   private ngDoCheck() {
     this.val.ResetCssError();
-
-    if(window.innerWidth < this.cFunciones.TamanoPantalla("md")) if(this.datepiker != undefined) this.datepiker.mode="dialog";
-    if(window.innerWidth < this.cFunciones.TamanoPantalla("md")) if(this.datepiker2 != undefined) this.datepiker2.mode="dialog";
 
   }
 }

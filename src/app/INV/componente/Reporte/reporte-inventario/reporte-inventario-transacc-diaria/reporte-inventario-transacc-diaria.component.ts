@@ -172,22 +172,17 @@ export class ReporteInventarioTransaccDiariaComponent {
     }
 
 
-
-    private ngDoCheck(){
-  
-
-        if (this.Filtro?.cmbBodega != undefined) this.Filtro.cmbBodega.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-        if (this.Filtro?.cmbProducto1 != undefined) this.Filtro.cmbProducto1.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-        if (this.Filtro?.cmbProducto2 != undefined) this.Filtro.cmbProducto2.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-        if (this.Filtro?.cmbTipoMov != undefined) this.Filtro.cmbTipoMov.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
-    
+    private ngDoCheck() {
+        this.Filtro?.val?.ComboOverLay(this.Filtro.lstCmb,  ["cmbBodega"]);
     
     }
 
+    
+
+
     private ngAfterViewInit() {
 
-
-        this.Filtro.val.Combo(this.Filtro.lstCmb);
+        this.Filtro?.val.Combo(this.Filtro.lstCmb);
     
     
         ///CAMBIO DE FOCO
@@ -199,16 +194,6 @@ export class ReporteInventarioTransaccDiariaComponent {
         this.Filtro.val.addFocus("cmbProducto2", "btnImprimir-Reporte-Inv-transac-proceso", "click");
       
     
-        this.Filtro.overlaySettings = {};
-    
-        if (window.innerWidth <= 992) {
-          this.Filtro.overlaySettings = {
-            positionStrategy: new GlobalPositionStrategy({ openAnimation: scaleInCenter, closeAnimation: scaleOutCenter }),
-            modal: true,
-            closeOnOutsideClick: true
-          };
-        }
-     
     
     
       }

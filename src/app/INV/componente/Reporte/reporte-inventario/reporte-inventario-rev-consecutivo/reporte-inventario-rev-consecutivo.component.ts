@@ -139,11 +139,12 @@ export class ReporteInventarioRevConsecutivoComponent {
 
 
 
-  private ngDoCheck(){
 
-    if (this.Filtro?.cmbSerie != undefined) this.Filtro.cmbSerie.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+  private ngDoCheck() {
+    this.Filtro?.val?.ComboOverLay(this.Filtro.lstCmb, []);
 
-  }
+}
+
 
   private ngAfterViewInit() {
 
@@ -156,15 +157,7 @@ export class ReporteInventarioRevConsecutivoComponent {
     this.Filtro.val.addFocus("cmbSerie", "btnImprimir-Reporte-Inv-rev-consecutivo", "click");
 
 
-    this.Filtro.overlaySettings = {};
-
-    if (window.innerWidth <= 992) {
-      this.Filtro.overlaySettings = {
-        positionStrategy: new GlobalPositionStrategy({ openAnimation: scaleInCenter, closeAnimation: scaleOutCenter }),
-        modal: true,
-        closeOnOutsideClick: true
-      };
-    }
+  
 
 
 

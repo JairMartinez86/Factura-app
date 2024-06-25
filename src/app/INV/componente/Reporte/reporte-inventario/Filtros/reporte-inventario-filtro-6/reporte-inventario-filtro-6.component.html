@@ -48,7 +48,6 @@
                 <igx-combo class="cmbTipoMov" #cmbTipoMov [data]="lstTipoMov" valueKey="Codigo" displayKey="TipoMov1" id="cmbTipoMov"
                 formControlName="cmbTipoMov" placeholder="Seleccione un Tipo."
                 searchPlaceholder="Seleccione una Tipo..." [autoFocusSearch]="true"
-                [overlaySettings]="overlaySettings"
                 (selectionChanging)="val.V_SingleSelection($event);">
                 <label igxLabel>Tipo Movimiento</label>
                 <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>

@@ -50,7 +50,6 @@
                 <igx-combo class="ComboBodega" #cmbBodega [data]="lstBodega" valueKey="Codigo" displayKey="Key" id="cmbBodega"
                     formControlName="cmbBodega" placeholder="Seleccione una Bodega."
                     searchPlaceholder="Seleccione una bodega..." [autoFocusSearch]="true"
-                    [overlaySettings]="overlaySettings"
                     (selectionChanging)="V_Select_Bodega($event)" (keyup)="V_Enter_Bodega($event);">
                     <label igxLabel>Bodega</label>
                     <igx-prefix><i class="bi bi-shop"></i></igx-prefix>

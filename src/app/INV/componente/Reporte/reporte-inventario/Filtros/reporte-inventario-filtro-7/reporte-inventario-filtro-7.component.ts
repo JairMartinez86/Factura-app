@@ -23,7 +23,6 @@ export class ReporteInventarioFiltro7Component {
   lstBodega: iBodega[] = [];
   public BodSeleccionadas : iBodega[];
 
-  public overlaySettings: OverlaySettings = {};
 
   @ViewChild("datepiker", { static: false })
   public datepiker: any;
