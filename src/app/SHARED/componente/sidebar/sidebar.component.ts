@@ -40,7 +40,7 @@ export class SidebarComponent {
   @ViewChild(DynamicFormDirective, { static: true }) DynamicFrom!: DynamicFormDirective;
   public ErrorServidor: boolean = false;
   subscription: Subscription = {} as Subscription;
-  private Perfil : iPerfil[] = [];
+  private Perfil: iPerfil[] = [];
 
 
   constructor(
@@ -65,17 +65,17 @@ export class SidebarComponent {
         (this.href && this.href.length === 0))
     ) {
 
-    
+
       if (element.tagName.toString().toLocaleLowerCase() == "a" && element.getAttribute("href") == "#" || element.tagName.toString().toLocaleLowerCase() == "i") {
 
         if (element.tagName.toString().toLocaleLowerCase() == "i") {
-         
+
           element = <HTMLElement>event.target;
           element = <HTMLElement>element.parentElement;
 
         }
-       
-        if(element?.id == undefined) return
+
+        if (element?.id == undefined) return
         this.v_Abrir_Form(element.id);
       }
 
@@ -128,9 +128,9 @@ export class SidebarComponent {
       this.DynamicFrom.viewContainerRef.clear();
       let RegProforma: ComponentRef<RegistroFacturaComponent> = this.DynamicFrom.viewContainerRef.createComponent(RegistroFacturaComponent);
       RegProforma.instance.TipoDocumento = "Proforma";
-      if(id == "aRegistroProformaVen")RegProforma.instance.ProformaVencida = true;
+      if (id == "aRegistroProformaVen") RegProforma.instance.ProformaVencida = true;
     }
-    
+
 
 
     if (id == "idNavCola") {
@@ -141,7 +141,7 @@ export class SidebarComponent {
     }
 
 
-    
+
     if (id == "aAutorizaRequisa") {
       this.DynamicFrom.viewContainerRef.clear();
       let AutorizaRequiza: ComponentRef<RequisaAutorizaComponent> = this.DynamicFrom.viewContainerRef.createComponent(RequisaAutorizaComponent);
@@ -157,7 +157,7 @@ export class SidebarComponent {
       let LiberarBonif: ComponentRef<LiberacionBonificacionComponent> = this.DynamicFrom.viewContainerRef.createComponent(LiberacionBonificacionComponent);
     }
 
-  
+
 
 
 
@@ -200,7 +200,7 @@ export class SidebarComponent {
       let aTranResumen: ComponentRef<ReporteInventarioTransaccionesResumenComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioTransaccionesResumenComponent);
     }
 
-    
+
     if (id == "aReporte-FacturaCosto") {
       this.DynamicFrom.viewContainerRef.clear();
       let aFacturaCosto: ComponentRef<ReporteInventarioFacturaCostoComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioFacturaCostoComponent);
@@ -208,28 +208,28 @@ export class SidebarComponent {
 
 
 
-    
 
 
-    
-
-  //CARTERA
-
-  if (id == "aCXC-Estado-Cuenta") {
-    this.DynamicFrom.viewContainerRef.clear();
-    let aEstadoCuenta: ComponentRef<EstadoCuentaComponent> = this.DynamicFrom.viewContainerRef.createComponent(EstadoCuentaComponent);
-    aEstadoCuenta.instance.MostrarPermisos = false;
-  }
 
 
-  if (id == "aCXC-Permiso-Cartera") {
-    this.DynamicFrom.viewContainerRef.clear();
-    let aPermisoCartera: ComponentRef<EstadoCuentaComponent> = this.DynamicFrom.viewContainerRef.createComponent(EstadoCuentaComponent);
-    aPermisoCartera.instance.MostrarPermisos = true;
-  }
+
+    //CARTERA
+
+    if (id == "aCXC-Estado-Cuenta") {
+      this.DynamicFrom.viewContainerRef.clear();
+      let aEstadoCuenta: ComponentRef<EstadoCuentaComponent> = this.DynamicFrom.viewContainerRef.createComponent(EstadoCuentaComponent);
+      aEstadoCuenta.instance.MostrarPermisos = false;
+    }
 
 
-  
+    if (id == "aCXC-Permiso-Cartera") {
+      this.DynamicFrom.viewContainerRef.clear();
+      let aPermisoCartera: ComponentRef<EstadoCuentaComponent> = this.DynamicFrom.viewContainerRef.createComponent(EstadoCuentaComponent);
+      aPermisoCartera.instance.MostrarPermisos = true;
+    }
+
+
+
 
 
     if (id == "idNavAccesoWeb") {
@@ -238,7 +238,7 @@ export class SidebarComponent {
     }
 
 
-    
+
 
     if (id == "aSalir") {
       this.ErrorServidor = true;
@@ -247,52 +247,51 @@ export class SidebarComponent {
     }
   }
 
-  
-  
-  private ActualizarDatosServidor() : void{
+
+
+  private ActualizarDatosServidor(): void {
     this.ErrorServidor = false;
 
 
     this.Conexion.FechaServidor(this.cFunciones.User).subscribe(
       {
-        next : (data) => {
-          
-          let _json : any = JSON.parse(data);
+        next: (data) => {
 
-        if (_json["esError"] == 1) {
-          if(this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined){
-            this.cFunciones.DIALOG.open(DialogErrorComponent, {
-              id: "error-servidor-msj",
-              data: _json["msj"].Mensaje,
+          let _json: any = JSON.parse(data);
+
+          if (_json["esError"] == 1) {
+            if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
+              this.cFunciones.DIALOG.open(DialogErrorComponent, {
+                id: "error-servidor-msj",
+                data: _json["msj"].Mensaje,
+              });
+            }
+          } else {
+            let Datos: iDatos[] = _json["d"];
+
+            this.cFunciones.FechaServidor(Datos[0].d);
+            this.cFunciones.SetTiempoDesconexion(Number(Datos[1].d));
+            this._SrvLogin.UpdFecha(String(Datos[0].d));
+            this.cFunciones.Lotificar = Datos[2].d;
+
+            let Perfil: iPerfil[] = Datos[3].d;
+            let index: number = -1;
+
+            this.Perfil.splice(0, this.Perfil.length);
+            this.cFunciones.ACCESO.forEach(f => {
+
+              index = Perfil.findIndex(w => w.Id == f.Id);
+
+              if (index != -1) this.Perfil.push(f);
+
+
             });
+
+
+
           }
-        } else {
-          let Datos: iDatos[] = _json["d"];
 
-          this.cFunciones.FechaServidor(Datos[0].d);
-          this.cFunciones.SetTiempoDesconexion(Number(Datos[1].d));
-          this._SrvLogin.UpdFecha(String(Datos[0].d));
-          this.cFunciones.Lotificar = Datos[2].d;
-
-          let Perfil : iPerfil[] = Datos[3].d;
-          let index : number = -1;
-
-          this.Perfil.splice(0, this.Perfil.length);
-          this.cFunciones.ACCESO.forEach(f =>{
-
-            index = Perfil.findIndex( w => w.Id == f.Id);
-
-            if(index != -1) this.Perfil.push(f);
-
-            
-          });
-
-
-
-        }
-		
-		 if(this.cFunciones.DIALOG.getDialogById("error-servidor") != undefined) 
-          {
+          if (this.cFunciones.DIALOG.getDialogById("error-servidor") != undefined) {
             this.cFunciones.DIALOG.getDialogById("error-servidor")?.close();
           }
 
@@ -300,45 +299,44 @@ export class SidebarComponent {
         },
         error: (err) => {
 
-			  
-		   this.ErrorServidor = true;
-			
-			  
-			  if(this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) 
-			  {
-				this.cFunciones.DIALOG.open(DialogErrorComponent, {
-				  id : "error-servidor",
-				  data: "<b class='error'>" + err.message + "</b>",
-				});
-			  }
-       
-       
-   
+
+          this.ErrorServidor = true;
+
+
+          /*if (this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) {
+            this.cFunciones.DIALOG.open(DialogErrorComponent, {
+              id: "error-servidor",
+              data: "<b class='error'>" + err.message + "</b>",
+            });
+          }*/
+
+
+
 
         },
-        complete : ( ) => { 
+        complete: () => {
 
         }
       }
     );
-    
+
   }
 
 
-  public Menu() : any[]{
+  public Menu(): any[] {
     return this.Perfil.filter(f => f.MenuPadre == "")
   }
 
-  public SubMenu(Menu : string) : any[]{
+  public SubMenu(Menu: string): any[] {
     return this.Perfil.filter(f => f.MenuPadre == Menu);
   }
 
 
-  
+
   ngOnInit() {
 
     this.subscription = interval(10000).subscribe(val => this.ActualizarDatosServidor())
-    
+
     //INSERTAR SCRIPT
     /*
     const script = this.renderer.createElement("script");
