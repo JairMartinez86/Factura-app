@@ -352,10 +352,23 @@ export class EstadoCuentaComponent {
 
     tabOrWindow.focus();
 
+    this.downloadFile(url, Moneda);
+
 
 
   }
 
+  private downloadFile(url : any, Moneda : string) {
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = this.DatosCliente?.Cliente + " " + Moneda+ ".pdf";
+    document.body.appendChild(a);
+    a.click();
+    a.remove()
+
+    console.log("asds")
+
+  }
 
 
 
