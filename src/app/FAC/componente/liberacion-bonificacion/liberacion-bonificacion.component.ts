@@ -148,7 +148,7 @@ export class LiberacionBonificacionComponent {
     this.val.Get("cmbProducto").setValue("");
 
     if (event.added.length) {
-      if (window.innerWidth <= this.cFunciones.TamanoPantalla("md")) this.cmbProducto.close();
+      this.cmbProducto.close();
 
       this.val.Get("cmbProducto").setValue(event.newValue);
 
@@ -161,6 +161,7 @@ export class LiberacionBonificacionComponent {
       let cmb: any = this.cmbProducto.dropdown;
       let _Item: iProducto = cmb._focusedItem.value;
       this.cmbProducto.select([_Item.Codigo]);
+      this.cmbProducto.close();
     }
   }
 
@@ -175,6 +176,7 @@ export class LiberacionBonificacionComponent {
       if (window.innerWidth <= this.cFunciones.TamanoPantalla("md")) this.cmbCliente.close();
 
       this.val.Get("cmbCliente").setValue(event.newValue[0]);
+      this.cmbCliente.close();
 
     }
   }
@@ -185,6 +187,7 @@ export class LiberacionBonificacionComponent {
       let cmb: any = this.cmbCliente.dropdown;
       let _Item: iCliente = cmb._focusedItem.value;
       this.cmbCliente.select([_Item.Codigo]);
+      this.cmbCliente.close();
     }
   }
 
@@ -198,6 +201,7 @@ export class LiberacionBonificacionComponent {
       if (window.innerWidth <= this.cFunciones.TamanoPantalla("md")) this.cmbBodega.close();
 
       this.val.Get("cmbBodega").setValue(event.newValue[0]);
+      this.cmbBodega.close();
 
     }
   }
@@ -208,6 +212,7 @@ export class LiberacionBonificacionComponent {
       let cmb: any = this.cmbBodega.dropdown;
       let _Item: iBodega = cmb._focusedItem.value;
       this.cmbBodega.select([_Item.Codigo]);
+      this.cmbBodega.close();
     }
   }
 

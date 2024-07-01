@@ -149,7 +149,7 @@ export class LiberacionPrecioComponent {
     this.val.Get("cmbProducto").setValue("");
 
     if (event.added.length) {
-      if (window.innerWidth <= this.cFunciones.TamanoPantalla("md")) this.cmbProducto.close();
+      this.cmbProducto.close();
 
       this.val.Get("cmbProducto").setValue(event.newValue);
 
@@ -162,6 +162,7 @@ export class LiberacionPrecioComponent {
       let cmb: any = this.cmbProducto.dropdown;
       let _Item: iProducto = cmb._focusedItem.value;
       this.cmbProducto.select([_Item.Codigo]);
+      this.cmbProducto.close();
     }
   }
 
