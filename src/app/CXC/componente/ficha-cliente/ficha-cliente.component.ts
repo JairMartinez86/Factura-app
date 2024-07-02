@@ -167,13 +167,16 @@ export class FichaClienteComponent {
 
     document.getElementById("btn-Guardar-Permiso-Cartera")?.setAttribute("disabled", "disabled");
 
-    this.DatosCliente.IdConceptoPrecio = this.DatosCliente.IdConceptoPrecio[0];
-    this.DatosCliente.CodVendedor = this.DatosCliente.CodVendedor[0];
-    this.DatosCliente.Limite = Number(String(this.DatosCliente.Limite).replaceAll(",", ""));
-    this.DatosCliente.IdPlazo = this.DatosCliente.IdPlazo[0];
-    this.DatosCliente.Plazo = this.Plazo;
+    let copy = Object.assign({}, this.DatosCliente)
+
+
+    copy.IdConceptoPrecio = copy.IdConceptoPrecio[0];
+    copy.CodVendedor = copy.CodVendedor[0];
+    copy.Limite = String(copy.Limite).replaceAll(",", "");
+    copy.IdPlazo = copy.IdPlazo[0];
+    copy.Plazo = this.Plazo;
     
-    this.POST.GuardarPermiso(this.DatosCliente).subscribe(
+    this.POST.GuardarPermiso(copy).subscribe(
       {
         next: (s) => {
 
@@ -197,11 +200,9 @@ export class FichaClienteComponent {
               id: "servidor-msj",
               data: Datos.d,
             });
+            this.V_RefrescarFormato();
 
 
-  
-
-  
 
           }
 
@@ -226,12 +227,12 @@ export class FichaClienteComponent {
       }
     );
 
-    this.V_RefrescarFormato();
+   
 
   }
 
   public V_RefrescarFormato(){
-    this.DatosCliente.Limite = this.cFunciones.NumFormat(this.DatosCliente.Limite, "2" )
+    this.DatosCliente.Limite = this.cFunciones.NumFormat(Number(String(this.DatosCliente.Limite).replaceAll(",", "")), "2" )
     this.DatosCliente.Plazo = this.cFunciones.NumFormat(this.DatosCliente.Plazo, "0" )
   }
 
@@ -245,7 +246,7 @@ export class FichaClienteComponent {
     this.DatosCliente.Moneda = this.cFunciones.MonedaLocal;
     this.DatosCliente.IdConceptoPrecio = [];
     this.DatosCliente.CodVendedor = [];
-    this.DatosCliente.Limite = 0;
+    this.DatosCliente.Limite = "0";
     this.DatosCliente.IdPlazo = undefined;
     this.DatosCliente.Plazo = 0
     this.DatosCliente.CuentaClave = false;
@@ -255,6 +256,7 @@ export class FichaClienteComponent {
     this.DatosCliente.ConfianzaFactUnaVez = false;
     this.DatosCliente.Estado = "Activo";
     this.DatosCliente.Bodegas = [];
+    this.DatosCliente.Observaciones = "";
   
     this.V_RefrescarFormato();
   
