@@ -48,7 +48,7 @@ export class FichaClienteComponent {
 
   public SimboloMoneda : string = "";
   public DatosCliente: iFichaCliente = {} as iFichaCliente;
-  private Plazo : number;
+
 
   
   @ViewChildren(IgxComboComponent)
@@ -93,7 +93,6 @@ export class FichaClienteComponent {
       let _Item: any = cmb._focusedItem.value;
       this.cmbPlazo.setSelectedItem(_Item.IdPlazo);
       this.val.Get("cmbPlazo").setValue([_Item.IdPlazo]);
-      this.Plazo = _Item.Plazo;
     }
   }
 
@@ -168,13 +167,14 @@ export class FichaClienteComponent {
     document.getElementById("btn-Guardar-Permiso-Cartera")?.setAttribute("disabled", "disabled");
 
     let copy = Object.assign({}, this.DatosCliente)
+    let pl  = this.lstPlazo.find(f => f.IdPlazo == copy.IdPlazo[0]);
 
 
     copy.IdConceptoPrecio = copy.IdConceptoPrecio[0];
     copy.CodVendedor = copy.CodVendedor[0];
     copy.Limite = String(copy.Limite).replaceAll(",", "");
     copy.IdPlazo = copy.IdPlazo[0];
-    copy.Plazo = this.Plazo;
+    copy.Plazo = pl?.Plazo;
     
     this.POST.GuardarPermiso(copy).subscribe(
       {
