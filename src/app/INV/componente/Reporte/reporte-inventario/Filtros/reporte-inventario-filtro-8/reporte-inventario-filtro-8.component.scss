@@ -1,0 +1,44 @@
+.cmbCliente {
+
+    background-color: var(--escan-secundario);
+  
+    i,
+    label{
+      color: white;
+    }
+  
+    
+  
+  }
+  
+
+
+  ::ng-deep {
+
+
+
+    .cmbCliente .igx-input-group__input {
+      color: white;
+    }
+  
+  
+    .cmbCliente.igx-combo ::placeholder {
+      color: white;
+    }
+  
+    .cmbCliente.igx-combo:hover ::placeholder {
+      font-size: 1.1em;
+      font-weight: bold;
+      color: white;
+    }
+  
+    .cmbCliente .igx-input-group__input:focus,
+    .cmbCliente .igx-input-group__input,
+    .cmbCliente .igx-icon{
+          color: white ;
+      }
+  
+  
+  }
+  
+  

@@ -27,6 +27,7 @@ import { ReporteInventarioTransaccionesResumenComponent } from 'src/app/INV/comp
 import { ReporteInventarioFacturaCostoComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-factura-costo/reporte-inventario-factura-costo.component';
 import { EstadoCuentaComponent } from 'src/app/CXC/componente/estado-cuenta/estado-cuenta.component';
 import { ReporteInventarioColumnarExistenciaComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-columnar-existencia/reporte-inventario-columnar-existencia.component';
+import { ReporteInventarioVentaClienteComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-venta-cliente/reporte-inventario-venta-cliente.component';
 
 const SCRIPT_PATH = 'ttps://cdn.jsdelivr.net/npm/bootstrap5-toggle@5.0.4/css/bootstrap5-toggle.min.css';
 declare let gapi: any;
@@ -215,10 +216,14 @@ export class SidebarComponent {
       let aColumnarExistencia: ComponentRef<ReporteInventarioColumnarExistenciaComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioColumnarExistenciaComponent);
     }
 
+    if (id == "aReporte-VentasPorCliente") {
+      this.DynamicFrom.viewContainerRef.clear();
+      let aVentasPorCliente: ComponentRef<ReporteInventarioVentaClienteComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioVentaClienteComponent);
+    }
 
 
 
-
+   
     
 
     //CARTERA

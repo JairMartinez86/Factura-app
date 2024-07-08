@@ -74,6 +74,8 @@ export class ReporteInventarioService {
                         //Datos[5].d SUB GRUPO
                         //Datos[6].d SERIES
                         //Datos[7].d TIPO MOV
+                        //Datos[8].d CLIENTES
+
 
 
 
@@ -104,7 +106,12 @@ export class ReporteInventarioService {
                         F7.Datos = [Datos[0].d];
 
 
-                        this.Salida.emit([F2, F3, F4, F5, F6, F7]);
+                        let F8 : iReporteService = {} as iReporteService;
+                        F8.Filtro = "Filtro8";
+                        F8.Datos = [Datos[8].d];
+
+
+                        this.Salida.emit([F2, F3, F4, F5, F6, F7, F8]);
 
 
 

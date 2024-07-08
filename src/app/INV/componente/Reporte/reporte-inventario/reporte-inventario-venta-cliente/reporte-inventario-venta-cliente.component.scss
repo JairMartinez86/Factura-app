@@ -1,0 +1,66 @@
+h4{
+    text-align: center;
+}
+
+.contenedor-boton{
+    display: flex;
+  align-items: center;
+  justify-content:right;
+
+  button{
+    font-size: 1.5em;
+  }
+
+  button:first-child{
+    margin-right: 10px;
+  }
+}
+
+
+
+
+.check-delivery{
+    text-align: right;
+}
+
+.btn-delivery-outline{
+    color: var(--escan-opcional);
+    background-color: transparent;
+    border: 1px solid var(--escan-opcional);
+}
+
+.btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
+    color: var(--escan-fondo);
+    background-color: var(--escan-opcional);
+    border-color: var(--escan-opcional);
+}
+
+
+.btn-delivery + .btn:hover {
+    color: var(--escan-fondo);
+    background-color: var(--escan-opcional);
+    border-color: var(--escan-opcional);
+}
+
+
+
+.btn{
+    font-size: 1.5em;
+}
+
+
+
+::ng-deep {
+
+    #cmbTipoMov,
+    #cmbPresupuesto,
+    .check {
+      display: none;
+    }
+  
+  }
+
+
+
+
+  

@@ -113,9 +113,28 @@ export class ReporteInventarioFiltro2Component {
     }
   }
 
+  public V_Enter_Producto1(event: any) {
+    if (event.key == "Enter") {
+      let cmb: any = this.cmbProducto1.dropdown;
+      let _Item: iProducto = cmb._focusedItem?.value;
+      this.cmbProducto1.setSelectedItem(_Item?.Codigo);
+      this.val.Get("cmbProducto1").setValue([_Item?.Codigo]);
+
+    }
+  }
 
 
 
+
+  public V_Enter_Producto2(event: any) {
+    if (event.key == "Enter") {
+      let cmb: any = this.cmbProducto2.dropdown;
+      let _Item: iProducto = cmb._focusedItem?.value;
+      this.cmbProducto2.setSelectedItem(_Item?.Codigo);
+      this.val.Get("cmbProducto2").setValue([_Item?.Codigo]);
+
+    }
+  }
 
 
   ngOnInit() {
