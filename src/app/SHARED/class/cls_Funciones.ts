@@ -75,7 +75,11 @@ export class Funciones {
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-TransaccInv", Caption: "Transacciones de Inventario" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-TransaccInvResumen", Caption: "Resumen Inventario" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-FacturaCosto", Caption: "Costo Factura" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-ColumnarExistencia", Caption: "Columnar Existencia" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
 
+
+
+    
     /****************************************CARTERA*************************************** */ 
     {IdAcceso:0,  Activo: false, EsMenu: true,  Id:"idNavCXCCliente", Caption: "Cartera" , MenuPadre: "", Clase : "fa-solid fa-user-tie fa-lg", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aCXC-Estado-Cuenta", Caption: "Estado Cuenta" , MenuPadre: "idNavCXCCliente", Clase : "fa-solid fa-briefcase", Modulo: "FACT", Usuario: ""},

@@ -1,25 +1,30 @@
 import { Component, ViewChild } from '@angular/core';
+import { ReporteInventarioFiltro4Component } from "../Filtros/reporte-inventario-filtro-4/reporte-inventario-filtro-4.component";
 import { ReporteInventarioFiltro7Component } from "../Filtros/reporte-inventario-filtro-7/reporte-inventario-filtro-7.component";
-import { ReporteInventarioService } from 'src/app/INV/Servicio/reporte-inventario.service';
 import { postReporteInv } from '../../POST/post-Reporte';
 import { Funciones } from 'src/app/SHARED/class/cls_Funciones';
+import { DialogErrorComponent } from 'src/app/SHARED/componente/dialog-error/dialog-error.component';
 import { WaitComponent } from 'src/app/SHARED/componente/wait/wait.component';
 import { iParamReporte } from 'src/app/INV/Interface/I-Param-Reporte';
-import { DialogErrorComponent } from 'src/app/SHARED/componente/dialog-error/dialog-error.component';
 import { iDatos } from 'src/app/SHARED/interface/i-Datos';
-import { GlobalPositionStrategy } from 'igniteui-angular';
-import { scaleInCenter, scaleOutCenter } from 'igniteui-angular/animations';
+import { ReporteInventarioService } from 'src/app/INV/Servicio/reporte-inventario.service';
+import { IgxDatePickerModule, IgxIconModule } from 'igniteui-angular';
 
 @Component({
-    selector: 'app-reporte-inventario-factura-costo',
+    selector: 'app-reporte-inventario-columnar-existencia',
     standalone: true,
-    templateUrl: './reporte-inventario-factura-costo.component.html',
-    styleUrl: './reporte-inventario-factura-costo.component.scss',
-    imports: [ReporteInventarioFiltro7Component]
+    templateUrl: './reporte-inventario-columnar-existencia.component.html',
+    styleUrl: './reporte-inventario-columnar-existencia.component.scss',
+    imports: [ReporteInventarioFiltro4Component, ReporteInventarioFiltro7Component, IgxDatePickerModule, IgxIconModule]
 })
-export class ReporteInventarioFacturaCostoComponent {
-  @ViewChild("Filtro", { static: false })
-  public Filtro: ReporteInventarioFiltro7Component;
+export class ReporteInventarioColumnarExistenciaComponent {
+  @ViewChild("Filtro1", { static: false })
+  public Filtro1: ReporteInventarioFiltro7Component;
+
+
+  @ViewChild("Filtro2", { static: false })
+  public Filtro2: ReporteInventarioFiltro4Component;
+
 
   constructor(public servicio: ReporteInventarioService, private POST: postReporteInv, public cFunciones: Funciones
   ) {
@@ -30,22 +35,37 @@ export class ReporteInventarioFacturaCostoComponent {
   public V_Imprimir(Exportar: boolean): void {
 
 
-      
-      this.Filtro.val.EsValido();
 
 
-      if (this.Filtro.val.Errores != "") {
+      this.Filtro1.val.EsValido();
+      this.Filtro2.val.EsValido();
+
+      if (this.Filtro1.val.Errores != "") {
 
           this.cFunciones.DIALOG.open(DialogErrorComponent, {
               data:
-                  "<ul>" + this.Filtro.val.Errores + "</ul>",
+                  "<ul>" + this.Filtro1.val.Errores + "</ul>",
           });
           return;
 
       }
 
 
-      document.getElementById("btnImprimir-Reporte-Inv-transac-diaria")?.setAttribute("disabled", "disabled");
+
+      if (this.Filtro2.val.Errores != "") {
+
+          this.cFunciones.DIALOG.open(DialogErrorComponent, {
+              data:
+                  "<ul>" + this.Filtro2.val.Errores + "</ul>",
+          });
+          return;
+
+      }
+
+
+
+
+      document.getElementById("btnImprimir-Reporte-Inv-columnar-existencia")?.setAttribute("disabled", "disabled");
 
       let dialogRef: any = this.cFunciones.DIALOG.getDialogById("wait");
 
@@ -63,26 +83,28 @@ export class ReporteInventarioFacturaCostoComponent {
       }
 
       let d: iParamReporte = {} as iParamReporte;
-      d.Param = [this.Filtro.val.Get("cmbBodega").value, this.Filtro.val.Get("txtFecha1").value, this.Filtro.val.Get("txtFecha2").value]
+      d.Param = [this.Filtro1.val.Get("txtFecha2").value, "", this.Filtro2.val.Get("cmbPresupuesto").value[0], this.Filtro2.val.Get("cmbProveedor").value[0], this.Filtro2.val.Get("cmbFamilia").value[0], this.Filtro2.val.Get("cmbSubFamilia").value[0]];
+      d.TipoReporte = "Columnar Existencia";
+      d.Exportar = Exportar;
+
+
+
+
 
       let Bodegas: String = "";
 
-      if (d.Param[0] != "") {
+      if (d.Param[2].length > 0) {
           Bodegas = ">";
-          d.Param[0].forEach((e: any) => {
+          d.Param[2].forEach((e: any) => {
               Bodegas +=   e + "@";
           });
-          d.Param[0] = Bodegas;
+          
       }
 
 
+      d.Param[1] = Bodegas;
 
-      d.Param[0] = Bodegas;
-      d.Param[1] = this.cFunciones.DateFormat(d.Param[1], "dd/MM/yyyy");
-      d.Param[2] = this.cFunciones.DateFormat(d.Param[2], "dd/MM/yyyy");;
 
-      d.TipoReporte = "Factura Costo";
-      d.Exportar = Exportar;
 
       this.POST.Imprimir(d).subscribe(
           {
@@ -106,7 +128,7 @@ export class ReporteInventarioFacturaCostoComponent {
               },
               error: (err) => {
 
-                  document.getElementById("btnImprimir-Reporte-Inv-transac-diaria")?.removeAttribute("disabled");
+                  document.getElementById("btnImprimir-Reporte-Inv-columnar-existencia")?.removeAttribute("disabled");
 
                   dialogRef.close();
 
@@ -119,7 +141,7 @@ export class ReporteInventarioFacturaCostoComponent {
 
               },
               complete: () => {
-                  document.getElementById("btnImprimir-Reporte-Inv-transac-diaria")?.removeAttribute("disabled");
+                  document.getElementById("btnImprimir-Reporte-Inv-columnar-existencia")?.removeAttribute("disabled");
 
               }
           }
@@ -138,8 +160,8 @@ export class ReporteInventarioFacturaCostoComponent {
 
 
       let url = URL.createObjectURL(file);
+      console.log(url)
 
-     
       var fileLink = document.createElement('a');
       fileLink.href = url;
       fileLink.download = Datos.Nombre;
@@ -154,50 +176,44 @@ export class ReporteInventarioFacturaCostoComponent {
           document.body.removeChild(fileLink);
       }
       else {
-          let tabOrWindow: any = window.open('',  '_blank');
+          let tabOrWindow: any = window.open('', '_blank');
           tabOrWindow.document.body.appendChild(fileLink);
 
-          tabOrWindow.document.write("<html><head><title>"+Datos.Nombre+"</title></head><body>"
-              + '<embed width="100%" height="100%" name="plugin" src="'+ url+ '" '
+          tabOrWindow.document.write("<html><head><title>" + Datos.Nombre + "</title></head><body>"
+              + '<embed width="100%" height="100%" name="plugin" src="' + url + '" '
               + 'type="application/pdf" internalinstanceid="21"></body></html>');
 
           tabOrWindow.focus();
       }
 
-  
+
 
   }
 
 
   private ngDoCheck() {
-    this.Filtro?.val?.ComboOverLay(this.Filtro.lstCmb, ["cmbBodega"]);
+    this.Filtro1?.val?.ComboOverLay(this.Filtro1.lstCmb, ["cmbBodega"]);
+
 }
 
 
 
   private ngAfterViewInit() {
 
+    this.Filtro1.val.Combo(this.Filtro1.lstCmb);
+    this.Filtro2.val.Combo(this.Filtro2.lstCmb);
 
-      this.Filtro.val.Combo(this.Filtro.lstCmb);
-  
-  
       ///CAMBIO DE FOCO
-      this.Filtro.val.addFocus("txtFecha1", "txtFecha2", undefined);
-      this.Filtro.val.addFocus("txtFecha2", "cmbBodega", undefined);
-      this.Filtro.val.addFocus("cmbBodega", "btnImprimir-Reporte-Inv-transac-proceso", "click");
-      
-
-     
-  
-   
-  
-  
-    }
-
-    
+       this.Filtro1.val.addFocus("txtFecha1", "txtFecha2", undefined);
+       this.Filtro1.val.addFocus("txtFecha2", "cmbBodega", undefined);
+       this.Filtro1.val.addFocus("cmbBodega", "cmbPresupuesto", undefined);
+       this.Filtro1.val.addFocus("cmbPresupuesto", "cmbProveedor", undefined);
+       this.Filtro1.val.addFocus("cmbProveedor", "cmbFamilia", undefined);
+       this.Filtro1.val.addFocus("cmbFamilia", "cmbSubFamilia", undefined);
+       this.Filtro1.val.addFocus("cmbSubFamilia", "btnImprimir-Reporte-Inv-columnar-existencia", "click");
+  }
 
   private ngOnInit() {
-      this.servicio.V_Iniciar();
-
-  }
+    this.servicio.V_Iniciar();
+}
 }
