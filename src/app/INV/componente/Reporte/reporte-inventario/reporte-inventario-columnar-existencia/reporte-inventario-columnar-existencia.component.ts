@@ -9,13 +9,14 @@ import { iParamReporte } from 'src/app/INV/Interface/I-Param-Reporte';
 import { iDatos } from 'src/app/SHARED/interface/i-Datos';
 import { ReporteInventarioService } from 'src/app/INV/Servicio/reporte-inventario.service';
 import { IgxDatePickerModule, IgxIconModule } from 'igniteui-angular';
+import { ReporteInventarioFiltro2Component } from "../Filtros/reporte-inventario-filtro-2/reporte-inventario-filtro-2.component";
 
 @Component({
     selector: 'app-reporte-inventario-columnar-existencia',
     standalone: true,
     templateUrl: './reporte-inventario-columnar-existencia.component.html',
     styleUrl: './reporte-inventario-columnar-existencia.component.scss',
-    imports: [ReporteInventarioFiltro4Component, ReporteInventarioFiltro7Component, IgxDatePickerModule, IgxIconModule]
+    imports: [ReporteInventarioFiltro4Component, IgxDatePickerModule, IgxIconModule, ReporteInventarioFiltro2Component]
 })
 export class ReporteInventarioColumnarExistenciaComponent {
   @ViewChild("Filtro1", { static: false })
@@ -83,7 +84,7 @@ export class ReporteInventarioColumnarExistenciaComponent {
       }
 
       let d: iParamReporte = {} as iParamReporte;
-      d.Param = [this.Filtro1.val.Get("txtFecha2").value, "", this.Filtro2.val.Get("cmbPresupuesto").value[0], this.Filtro2.val.Get("cmbProveedor").value[0], this.Filtro2.val.Get("cmbFamilia").value[0], this.Filtro2.val.Get("cmbSubFamilia").value[0]];
+      d.Param = [this.Filtro1.val.Get("txtFecha2").value, "", this.Filtro2.val.Get("cmbPresupuesto").value[0], this.Filtro2.val.Get("cmbProveedor").value[0], this.Filtro2.val.Get("cmbFamilia").value[0], this.Filtro2.val.Get("cmbSubFamilia").value[0], this.Filtro1.val.Get("cmbProducto1").value[0], this.Filtro1.val.Get("cmbProducto2").value[0], this.Filtro2.Negativo];
       d.TipoReporte = "Columnar Existencia";
       d.Exportar = Exportar;
 
@@ -93,9 +94,9 @@ export class ReporteInventarioColumnarExistenciaComponent {
 
       let Bodegas: String = "";
 
-      if (d.Param[2].length > 0) {
+      if (d.Param[1].length > 0) {
           Bodegas = ">";
-          d.Param[2].forEach((e: any) => {
+          d.Param[1].forEach((e: any) => {
               Bodegas +=   e + "@";
           });
           
@@ -160,7 +161,7 @@ export class ReporteInventarioColumnarExistenciaComponent {
 
 
       let url = URL.createObjectURL(file);
-      console.log(url)
+     
 
       var fileLink = document.createElement('a');
       fileLink.href = url;

@@ -46,6 +46,8 @@ export class ReporteInventarioFiltro4Component implements OnInit {
 
   private DatosFiltro : iReporteService;
 
+  public Negativo : boolean = false;
+
 
   constructor(public cFunciones: Funciones, public servicio: ReporteInventarioService) {
 
@@ -53,12 +55,14 @@ export class ReporteInventarioFiltro4Component implements OnInit {
     this.val.add("cmbProveedor", "1", "LEN>=", "0", "", "");
     this.val.add("cmbFamilia", "1", "LEN>=", "0", "", "");
     this.val.add("cmbSubFamilia", "1", "LEN>=", "0", "", "");
+    this.val.add("btn-check-negativo", "1", "LEN>=", "0", "", "");
 
     this.val.Get("cmbFamilia").setValue("");
     this.val.Get("cmbProveedor").setValue("");
     this.val.Get("cmbFamilia").setValue("");
     this.val.Get("cmbSubFamilia").setValue("");
-
+    this.val.Get("btn-check-negativo").setValue(this.Negativo);
+    
   }
   
 

@@ -82,7 +82,7 @@ export class ReporteInventarioTransaccDiariaComponent {
         d.Param[4] = this.cFunciones.DateFormat(d.Param[4], "dd/MM/yyyy");
         d.Param[5] = this.cFunciones.DateFormat(d.Param[5], "dd/MM/yyyy");;
 
-        console.log(d)
+       
 
         d.TipoReporte = "Detalle Transacciones Inventario";
         d.Exportar = Exportar;
