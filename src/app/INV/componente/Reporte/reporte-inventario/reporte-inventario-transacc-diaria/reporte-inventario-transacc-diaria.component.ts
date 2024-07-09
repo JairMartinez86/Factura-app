@@ -80,7 +80,7 @@ export class ReporteInventarioTransaccDiariaComponent {
         
         d.Param[2] = Bodegas;
         d.Param[4] = this.cFunciones.DateFormat(d.Param[4], "dd/MM/yyyy");
-        d.Param[5] = this.cFunciones.DateFormat(d.Param[5], "dd/MM/yyyy");;
+        d.Param[5] = this.cFunciones.DateFormat(d.Param[5], "dd/MM/yyyy");
 
        
 

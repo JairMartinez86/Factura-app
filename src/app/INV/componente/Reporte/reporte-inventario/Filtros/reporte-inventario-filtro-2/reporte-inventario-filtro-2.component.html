@@ -85,7 +85,7 @@
                     <igx-combo #cmbProducto1 [data]="lstProductos1" valueKey="Codigo" displayKey="Key" id="cmbProducto1"
                         formControlName="cmbProducto1" placeholder="Producto" [autoFocusSearch]="true"
                         [itemHeight]='64'
-                        (selectionChanging)="val.V_SingleSelection($event);" (keyup)="V_Enter_Producto1($event);">
+                        (selectionChanging)="v_Select_Producto1($event)" (keyup)="V_Enter_Producto1($event);">
                         <label igxLabel>Del Codigo</label>
     
     
@@ -134,7 +134,7 @@
                     <igx-combo #cmbProducto2 [data]="lstProductos2" valueKey="Codigo" displayKey="Key" id="cmbProducto2"
                         formControlName="cmbProducto2" placeholder="Producto" [autoFocusSearch]="true"
                         [itemHeight]='64'
-                        (selectionChanging)="val.V_SingleSelection($event);" (keyup)="V_Enter_Producto2($event);">
+                        (selectionChanging)="v_Select_Producto2($event)" (keyup)="V_Enter_Producto2($event);">
                         <label igxLabel>Al Codigo</label>
     
     

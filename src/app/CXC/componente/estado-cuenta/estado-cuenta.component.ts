@@ -1,4 +1,4 @@
-import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GlobalPositionStrategy, IgxCardModule, IgxComboComponent, IgxComboModule, IgxDatePickerModule, IgxIconModule, OverlaySettings } from 'igniteui-angular';
 import { CommonModule } from '@angular/common';
@@ -62,7 +62,7 @@ export class EstadoCuentaComponent {
   @ViewChild("Permisos", { static: false })
   public Permisos: FichaClienteComponent;
 
-  public constructor(public cFunciones: Funciones, private GET: getEstadoCuenta) {
+  public constructor(public cFunciones: Funciones, private GET: getEstadoCuenta, private changeDetectorRef: ChangeDetectorRef) {
 
     this.val.add("cmbCliente", "1", "LEN>", "0", "Cliente", "Seleccione un cliente.");
     this.V_CargarDatos("Clientes", "");
@@ -280,6 +280,7 @@ export class EstadoCuentaComponent {
     }
 
  
+    this.changeDetectorRef.detach(); // Detach change detection before the dialog opens. 
 
 
     let dialogRef: MatDialogRef<DialogoConfirmarComponent> = this.cFunciones.DIALOG.open(
@@ -305,6 +306,8 @@ export class EstadoCuentaComponent {
 
 
     dialogRef.afterClosed().subscribe(s => {
+
+      this.changeDetectorRef.reattach(); // Reattach change detection after the dialog closes.
 
 
       if (dialogRef.componentInstance.retorno == "1") {

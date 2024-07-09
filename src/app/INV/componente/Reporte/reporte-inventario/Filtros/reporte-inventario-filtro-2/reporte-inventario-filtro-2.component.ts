@@ -69,8 +69,8 @@ export class ReporteInventarioFiltro2Component {
     this.val.add("txtFecha2", "1", "LEN>", "0", "Fecha Final", "Ingrese una fecha valida.");
     this.val.add("cmbBodega", "1", "LEN>=", "0", "", "");
     this.val.add("cmbTipoMov", "1", "LEN>=", "0", "", "");
-    this.val.add("cmbProducto1", "1", "LEN>=", "0", "", "");
-    this.val.add("cmbProducto2", "1", "LEN>=", "0", "", "");
+    this.val.add("cmbProducto1", "1", "LEN>=", "0", "Producto", "Seleccione");
+    this.val.add("cmbProducto2", "1", "LEN>=", "0", "Producto", "Seleccione");
     
 
     
@@ -113,6 +113,22 @@ export class ReporteInventarioFiltro2Component {
     }
   }
 
+
+  public v_Select_Producto1(event: any): void {
+    
+    this.val.replace("cmbProducto2", "1", "LEN>=", "0", "");
+
+    if (event.added.length) {
+      if (event.newValue.length > 1) event.newValue.splice(0, 1);
+
+      this.val.Get("cmbProducto1").setValue(event.newValue[0]);
+      this.cmbProducto1.close();
+
+      this.val.replace("cmbProducto2", "1", "LEN>", "0", "Seleccione el producto final");
+
+    }
+  }
+
   public V_Enter_Producto1(event: any) {
     if (event.key == "Enter") {
       let cmb: any = this.cmbProducto1.dropdown;
@@ -125,8 +141,25 @@ export class ReporteInventarioFiltro2Component {
 
 
 
+  public v_Select_Producto2(event: any): void {
+    
+    this.val.replace("cmbProducto1", "1", "LEN>=", "0", "");
+
+    if (event.added.length) {
+      if (event.newValue.length > 1) event.newValue.splice(0, 1);
+
+      this.val.Get("cmbProducto2").setValue(event.newValue[0]);
+      this.cmbProducto2.close();
+
+      this.val.replace("cmbProducto1", "1", "LEN>", "0", "Seleccione el primer producto");
+
+    }
+  }
+
 
   public V_Enter_Producto2(event: any) {
+
+
     if (event.key == "Enter") {
       let cmb: any = this.cmbProducto2.dropdown;
       let _Item: iProducto = cmb._focusedItem?.value;
@@ -203,8 +236,4 @@ export class ReporteInventarioFiltro2Component {
 
   }
 
-  private ngDoCheck() {
-    this.val.ResetCssError();
-
-  }
 }

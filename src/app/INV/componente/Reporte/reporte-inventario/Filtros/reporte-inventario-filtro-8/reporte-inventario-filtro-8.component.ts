@@ -48,7 +48,7 @@ export class ReporteInventarioFiltro8Component {
   constructor(public cFunciones: Funciones, public servicio: ReporteInventarioService) {
 
 
-    this.val.add("cmbCliente", "1", "LEN>=", "0", "", "");
+    this.val.add("cmbCliente", "1", "LEN>", "0", "Cliente", "Seleccione un cliente.");
     this.val.Get("cmbCliente").setValue("");
 
 

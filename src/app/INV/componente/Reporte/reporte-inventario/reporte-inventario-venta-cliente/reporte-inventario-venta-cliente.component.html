@@ -17,17 +17,33 @@
                                 <app-reporte-inventario-filtro-8 #Filtro1></app-reporte-inventario-filtro-8>
                             </div>
                             
+                            
     
-                            <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mb-2">
+                            <div class="col-12 col-sm-12 col-md-6 mb-2">
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-list fa-lg"></i></span>
                                     <div class="form-floating">
                                         <select class="form-select form-select-lg" aria-label="Tipo Porducto"
                                             id="cmbTipoProd" formControlName="cmbTipoProd">
+                                            <option value="0">Todos</option>
                                             <option value="1">Estrategico</option>
                                             <option value="2">Promotoria</option>
                                         </select>
                                         <label for="cmbTipoProd">Tipo Producto</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 mb-2">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-list fa-lg"></i></span>
+                                    <div class="form-floating">
+                                        <select class="form-select form-select-lg" aria-label="Moneda"
+                                            id="cmbMoneda" formControlName="cmbMoneda">
+                                            <option value="{{this.cFunciones.MonedaLocal}}">Cordoba</option>
+                                            <option value="{{this.cFunciones.MonedaSistema}}">Dolar</option>
+                                        </select>
+                                        <label for="cmbMoneda">Moneda</label>
                                     </div>
                                 </div>
                             </div>
@@ -66,11 +82,11 @@
                         <div class="contenedor-boton">
     
                             <button type="button" class="btn btn-primario" id="btnImprimir-Reporte-Inv-ventas-por-cliente"
-                                (click)="V_Imprimir(false);"><i class="fa-solid fa-file-pdf fa-beat-fade fa-xl"></i>
+                                (click)="V_Confirmar(false);"><i class="fa-solid fa-file-pdf fa-beat-fade fa-xl"></i>
                                 Imprimir</button>
     
                             <button type="button" class="btn btn-opcional" id="btnImprimir-Reporte-Inv-ventas-por-cliente"
-                                (click)="V_Imprimir(true);"><i class="fa-solid fa-file-excel fa-beat-fade fa-xl"></i>
+                                (click)="V_Confirmar(true);"><i class="fa-solid fa-file-excel fa-beat-fade fa-xl"></i>
                                 Exportar</button>
     
     
