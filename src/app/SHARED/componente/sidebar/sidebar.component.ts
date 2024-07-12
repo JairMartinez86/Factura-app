@@ -28,6 +28,7 @@ import { ReporteInventarioFacturaCostoComponent } from 'src/app/INV/componente/R
 import { EstadoCuentaComponent } from 'src/app/CXC/componente/estado-cuenta/estado-cuenta.component';
 import { ReporteInventarioColumnarExistenciaComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-columnar-existencia/reporte-inventario-columnar-existencia.component';
 import { ReporteInventarioVentaClienteComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-venta-cliente/reporte-inventario-venta-cliente.component';
+import { ReporteInventarioVentaSucursalComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-venta-sucursal/reporte-inventario-venta-sucursal.component';
 
 const SCRIPT_PATH = 'ttps://cdn.jsdelivr.net/npm/bootstrap5-toggle@5.0.4/css/bootstrap5-toggle.min.css';
 declare let gapi: any;
@@ -222,7 +223,10 @@ export class SidebarComponent {
     }
 
 
-
+    if (id == "aReporte-VentasPorSucursal") {
+      this.DynamicFrom.viewContainerRef.clear();
+      let aVentasPorSucursal: ComponentRef<ReporteInventarioVentaSucursalComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioVentaSucursalComponent);
+    }
    
     
 
