@@ -39,6 +39,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { FactLotificarComponent } from './FAC/componente/factura/fact-lotificar/fact-lotificar.component';
 import { FactPagoComponent } from './FAC/componente/factura/fact-pago/fact-pago.component';
 import { RequisaAutorizaComponent } from './FAC/componente/requisa/requisa-autoriza/requisa-autoriza.component';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { RequisaAutorizaComponent } from './FAC/componente/requisa/requisa-autor
     MatTableModule,
     IgxDatePickerModule,
     IgxInputGroupModule,
+    ScrollingModule,
      BackButtonDisableModule.forRoot({
       preserveScroll: true // DISABLE BACK
     })

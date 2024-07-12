@@ -12,6 +12,7 @@ import { DialogoConfirmarComponent } from 'src/app/SHARED/componente/dialogo-con
 import { WaitComponent } from 'src/app/SHARED/componente/wait/wait.component';
 import { iDatos } from 'src/app/SHARED/interface/i-Datos';
 
+
 @Component({
   selector: 'app-requisa-autoriza',
   templateUrl: './requisa-autoriza.component.html',
