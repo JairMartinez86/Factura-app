@@ -251,18 +251,15 @@ export class Validacion {
 
 
   
-  public async  ResetCssError()
+  public async ResetCssError()
   {
  
+    document.querySelectorAll('.igx-input-group').forEach((key : any) => {
+      key.classList.remove('igx-input-group--invalid');
+    });
 
-    setTimeout(() => {
-      document.querySelectorAll('.igx-input-group').forEach((key : any) => {
-        key.classList.remove('igx-input-group--invalid');
-      });
-    }, 300);
 
- 
-
+    
   }
 
 
@@ -470,7 +467,11 @@ export class Validacion {
         lstFocus.splice(i, 1);
       }
 
+      i = this.lstFrm.findIndex((f) => f.Id == id);
 
+      if (i != -1) {
+        this.lstFrm.splice(i, 1);
+      }
     });
 
 
