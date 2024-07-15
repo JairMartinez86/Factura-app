@@ -1,0 +1,29 @@
+h4{
+    text-align: center;
+}
+
+.contenedor-boton{
+    display: flex;
+  align-items: center;
+  justify-content:right;
+
+  button{
+    font-size: 1.5em;
+  }
+
+  button:first-child{
+    margin-right: 10px;
+  }
+}
+
+
+
+::ng-deep {
+
+    #txtFecha1,
+    #cmbTipoMov {
+      display: none;
+    }
+  
+  }
+

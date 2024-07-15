@@ -154,7 +154,7 @@ export class ReporteInventarioVentaClienteComponent {
 
     let d: iParamReporte = {} as iParamReporte;
      d.Param = [this.Filtro1.val.Get("cmbCliente").value[0], this.Filtro1.Filtro.val.Get("txtFecha1").value, this.Filtro1.Filtro.val.Get("txtFecha2").value,
-     "", this.Filtro1.Filtro.val.Get("cmbProducto1").value[0], this.Filtro1.Filtro.val.Get("cmbProducto2").value[0], this.Filtro2.val.Get("cmbProveedor").value[0],
+     this.Filtro1.val.Get("cmbBodega").value, this.Filtro1.Filtro.val.Get("cmbProducto1").value[0], this.Filtro1.Filtro.val.Get("cmbProducto2").value[0], this.Filtro2.val.Get("cmbProveedor").value[0],
      this.Filtro2.val.Get("cmbFamilia").value[0], this.Filtro2.val.Get("cmbSubFamilia").value[0], this.val.Get("cmbTipoProd").value, this.val.Get("cmbMoneda").value, this.Delivery, TipoReporte]
      d.TipoReporte = "Ventas Por Cliente";
      d.Exportar = Exportar;

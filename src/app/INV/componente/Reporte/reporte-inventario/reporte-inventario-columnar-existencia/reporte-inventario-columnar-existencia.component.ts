@@ -84,7 +84,7 @@ export class ReporteInventarioColumnarExistenciaComponent {
       }
 
       let d: iParamReporte = {} as iParamReporte;
-      d.Param = [this.Filtro1.val.Get("txtFecha2").value, "", this.Filtro2.val.Get("cmbPresupuesto").value[0], this.Filtro2.val.Get("cmbProveedor").value[0], this.Filtro2.val.Get("cmbFamilia").value[0], this.Filtro2.val.Get("cmbSubFamilia").value[0], this.Filtro1.val.Get("cmbProducto1").value[0], this.Filtro1.val.Get("cmbProducto2").value[0], this.Filtro2.Negativo];
+      d.Param = [this.Filtro1.val.Get("txtFecha2").value, this.Filtro1.val.Get("cmbBodega").value, this.Filtro2.val.Get("cmbPresupuesto").value[0], this.Filtro2.val.Get("cmbProveedor").value[0], this.Filtro2.val.Get("cmbFamilia").value[0], this.Filtro2.val.Get("cmbSubFamilia").value[0], this.Filtro1.val.Get("cmbProducto1").value[0], this.Filtro1.val.Get("cmbProducto2").value[0], this.Filtro2.Negativo];
       d.TipoReporte = "Columnar Existencia";
       d.Exportar = Exportar;
 
