@@ -8,26 +8,21 @@ import { iParamReporte } from 'src/app/INV/Interface/I-Param-Reporte';
 import { iDatos } from 'src/app/SHARED/interface/i-Datos';
 import { Funciones } from 'src/app/SHARED/class/cls_Funciones';
 import { ReporteInventarioFiltro4Component } from '../Filtros/reporte-inventario-filtro-4/reporte-inventario-filtro-4.component';
-import { ReporteInventarioFiltro8Component } from '../Filtros/reporte-inventario-filtro-8/reporte-inventario-filtro-8.component';
 import { postReporteInv } from '../../POST/post-Reporte';
-import { concat } from 'rxjs';
-import { GlobalPositionStrategy } from 'igniteui-angular';
-import { scaleInCenter, scaleOutCenter } from 'igniteui-angular/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Validacion } from 'src/app/SHARED/class/validacion';
-import { DialogoConfirmarComponent } from 'src/app/SHARED/componente/dialogo-confirmar/dialogo-confirmar.component';
-import { MatDialogRef } from '@angular/material/dialog';
+import { ReporteInventarioFiltro2Component } from '../Filtros/reporte-inventario-filtro-2/reporte-inventario-filtro-2.component';
 
 @Component({
-  selector: 'app-reporte-inventario-venta-cliente',
+  selector: 'app-reporte-inventario-venta-producto',
   standalone: true,
-  templateUrl: './reporte-inventario-venta-cliente.component.html',
-  styleUrl: './reporte-inventario-venta-cliente.component.scss',
-  imports: [ReporteInventarioFiltro8Component, ReporteInventarioFiltro4Component, FormsModule, ReactiveFormsModule]
+  imports: [ReporteInventarioFiltro2Component, ReporteInventarioFiltro4Component, FormsModule, ReactiveFormsModule],
+  templateUrl: './reporte-inventario-venta-producto.component.html',
+  styleUrl: './reporte-inventario-venta-producto.component.scss'
 })
-export class ReporteInventarioVentaClienteComponent {
+export class ReporteInventarioVentaProductoComponent {
   @ViewChild("Filtro1", { static: false })
-  public Filtro1: ReporteInventarioFiltro8Component;
+  public Filtro1: ReporteInventarioFiltro2Component;
 
 
   @ViewChild("Filtro2", { static: false })
@@ -49,93 +44,14 @@ export class ReporteInventarioVentaClienteComponent {
 
   }
 
-  public V_Confirmar(Exportar: boolean) {
 
 
-    this.val.EsValido();
-    this.Filtro1.Filtro.val.EsValido();
-
-
-
-    if (this.val.Errores != "") {
-      this.cFunciones.DIALOG.open(DialogErrorComponent, {
-        data: this.val.Errores,
-      });
-
-      return;
-    }
-
-    if (this.Filtro1.Filtro.val.Errores != "") {
-      this.cFunciones.DIALOG.open(DialogErrorComponent, {
-        data: this.Filtro1.Filtro.val.Errores,
-      });
-
-      return;
-    }
-
-
-    this.changeDetectorRef.detach(); // Detach change detection before the dialog opens. 
-
-
-    let dialogConfirmar: MatDialogRef<DialogoConfirmarComponent> = this.cFunciones.DIALOG.open(
-      DialogoConfirmarComponent,
-      {
-        panelClass: window.innerWidth < 992 ? "escasan-dialog-full" : "escasan-dialog",
-        disableClose: true
-      }
-    );
-   
-    
-    
-    dialogConfirmar.componentInstance.MostrarCerrar = true;
-    
-   
-
-    dialogConfirmar.afterOpened().subscribe(s => {
-
-
-      dialogConfirmar.componentInstance.textBoton1 = "CONSOLIDADO";
-      dialogConfirmar.componentInstance.textBoton2 = "DETALLE";
-      dialogConfirmar.componentInstance.Set_StyleBtn1("width: 150px");
-      dialogConfirmar.componentInstance.Set_StyleBtn2("width: 150px");
-      dialogConfirmar.componentInstance.SetMensajeHtml("<div style='text-align: center'><h6 style='text-align: center;'><b>IMPRIMIR</b></h6><p style='text-align: center; margin-top:5px;margin-bottom:5px'><b style='color: blue'>Tipo Reporte</b></p><div>")
-
-    });
-
- 
-
-    dialogConfirmar.afterClosed().subscribe(s => {
-
-      this.changeDetectorRef.reattach(); // Reattach change detection after the dialog closes.
-
-
-      if (dialogConfirmar.componentInstance.retorno == "1") {
-
-        this.V_Imprimir(Exportar, "C")
-      }
+  public V_Imprimir(Exportar: boolean): void {
 
 
 
 
-      if (dialogConfirmar.componentInstance.retorno == "0") {
-        this.V_Imprimir(Exportar, "D")
-      }
-
-    });
-
-
-
-
-  }
-
-
-
-  private V_Imprimir(Exportar: boolean, TipoReporte: string): void {
-
-
-
-
-    document.getElementById("btnImprimir-Reporte-Inv-ventas-por-cliente")?.setAttribute("disabled", "disabled");
+    document.getElementById("btnImprimir-Reporte-Inv-ventas-por-producto")?.setAttribute("disabled", "disabled");
 
     let dialogRef: any = this.cFunciones.DIALOG.getDialogById("wait");
 
@@ -153,27 +69,27 @@ export class ReporteInventarioVentaClienteComponent {
     }
 
     let d: iParamReporte = {} as iParamReporte;
-     d.Param = [this.Filtro1.val.Get("cmbCliente").value[0], this.Filtro1.Filtro.val.Get("txtFecha1").value, this.Filtro1.Filtro.val.Get("txtFecha2").value,
-     this.Filtro1.Filtro.val.Get("cmbBodega").value, this.Filtro1.Filtro.val.Get("cmbProducto1").value[0], this.Filtro1.Filtro.val.Get("cmbProducto2").value[0], this.Filtro2.val.Get("cmbProveedor").value[0],
-     this.Filtro2.val.Get("cmbFamilia").value[0], this.Filtro2.val.Get("cmbSubFamilia").value[0], this.val.Get("cmbTipoProd").value, this.val.Get("cmbMoneda").value, this.Delivery, TipoReporte]
-     d.TipoReporte = "Ventas Por Cliente";
+     d.Param = [this.Filtro1.val.Get("txtFecha1").value, this.Filtro1.val.Get("txtFecha2").value,
+     this.Filtro1.val.Get("cmbBodega").value, this.Filtro1.val.Get("cmbProducto1").value[0], this.Filtro1.val.Get("cmbProducto2").value[0], this.Filtro2.val.Get("cmbProveedor").value[0],
+     this.Filtro2.val.Get("cmbFamilia").value[0], this.Filtro2.val.Get("cmbSubFamilia").value[0], this.val.Get("cmbTipoProd").value, this.val.Get("cmbMoneda").value, this.Delivery]
+     d.TipoReporte = "Ventas Por Producto";
      d.Exportar = Exportar;
 
 
      let Bodegas: String = "";
 
-     if (d.Param[3].length > 0) {
+     if (d.Param[2].length > 0) {
          Bodegas = ">";
-         d.Param[3].forEach((e: any) => {
+         d.Param[2].forEach((e: any) => {
              Bodegas +=   e + "@";
          });
          
      }
 
     
+     d.Param[0] = this.cFunciones.DateFormat(d.Param[0], "dd/MM/yyyy");
      d.Param[1] = this.cFunciones.DateFormat(d.Param[1], "dd/MM/yyyy");
-     d.Param[2] = this.cFunciones.DateFormat(d.Param[2], "dd/MM/yyyy");
-     d.Param[3] = Bodegas;
+     d.Param[2] = Bodegas;
 
 
     this.POST.Imprimir(d).subscribe(
@@ -198,7 +114,7 @@ export class ReporteInventarioVentaClienteComponent {
         },
         error: (err) => {
 
-          document.getElementById("btnImprimir-Reporte-Inv-ventas-por-cliente")?.removeAttribute("disabled");
+          document.getElementById("btnImprimir-Reporte-Inv-ventas-por-producto")?.removeAttribute("disabled");
 
           dialogRef.close();
 
@@ -211,7 +127,7 @@ export class ReporteInventarioVentaClienteComponent {
 
         },
         complete: () => {
-          document.getElementById("btnImprimir-Reporte-Inv-ventas-por-cliente")?.removeAttribute("disabled");
+          document.getElementById("btnImprimir-Reporte-Inv-ventas-por-producto")?.removeAttribute("disabled");
 
 
         }
@@ -267,11 +183,9 @@ export class ReporteInventarioVentaClienteComponent {
 
 
     this.val.Combo(this.Filtro1?.lstCmb);
-    this.val.Combo(this.Filtro1?.Filtro.lstCmb);
     this.val.Combo(this.Filtro2?.lstCmb);
 
     ///CAMBIO DE FOCO
-    this.Filtro1?.val.addFocus("cmbCliente", "txtFecha1", undefined);
     this.Filtro1?.val.addFocus("txtFecha1", "txtFecha2", undefined);
     this.Filtro1?.val.addFocus("txtFecha2", "cmbBodega", undefined);
     this.Filtro1?.val.addFocus("cmbBodega", "cmbTipoProd", undefined);
@@ -281,7 +195,7 @@ export class ReporteInventarioVentaClienteComponent {
     this.Filtro1?.val.addFocus("cmbProducto2", "cmbProveedor", undefined);
     this.Filtro1?.val.addFocus("cmbProveedor", "cmbFamilia", undefined);
     this.Filtro1?.val.addFocus("cmbFamilia", "cmbSubFamilia", undefined);
-    this.Filtro1?.val.addFocus("cmbSubFamilia", "btnImprimir-Reporte-Inv-ventas-por-cliente", "click");
+    this.Filtro1?.val.addFocus("cmbSubFamilia", "btnImprimir-Reporte-Inv-ventas-por-producto", "click");
 
 
   }
