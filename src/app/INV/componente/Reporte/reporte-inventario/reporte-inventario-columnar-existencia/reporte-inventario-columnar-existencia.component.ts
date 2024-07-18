@@ -88,8 +88,7 @@ export class ReporteInventarioColumnarExistenciaComponent {
       d.TipoReporte = "Columnar Existencia";
       d.Exportar = Exportar;
 
-
-
+      d.Param[0] = this.cFunciones.DateFormat(d.Param[0], "dd/MM/yyyy");
 
 
       let Bodegas: String = "";

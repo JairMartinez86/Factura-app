@@ -79,6 +79,8 @@ export class Funciones {
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-VentasPorCliente", Caption: "Ventas por Cliente" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-VentasPorSucursal", Caption: "Venta Unidades (Sucursal)" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-VentasMensuales", Caption: "Venta Mensuales" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-MargenProducto", Caption: "Margen Productos" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
+
 
 
 

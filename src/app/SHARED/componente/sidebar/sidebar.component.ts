@@ -30,6 +30,7 @@ import { ReporteInventarioColumnarExistenciaComponent } from 'src/app/INV/compon
 import { ReporteInventarioVentaClienteComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-venta-cliente/reporte-inventario-venta-cliente.component';
 import { ReporteInventarioVentaSucursalComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-venta-sucursal/reporte-inventario-venta-sucursal.component';
 import { ReporteInventarioVentaMensualComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-venta-mensual/reporte-inventario-venta-mensual.component';
+import { ReporteInventarioMargenProductoComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-margen-producto/reporte-inventario-margen-producto.component';
 
 const SCRIPT_PATH = 'ttps://cdn.jsdelivr.net/npm/bootstrap5-toggle@5.0.4/css/bootstrap5-toggle.min.css';
 declare let gapi: any;
@@ -234,6 +235,13 @@ export class SidebarComponent {
       let aVentasMensuales: ComponentRef<ReporteInventarioVentaMensualComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioVentaMensualComponent);
     }
    
+    if (id == "aReporte-MargenProducto") {
+      this.DynamicFrom.viewContainerRef.clear();
+      let aMargenProducto: ComponentRef<ReporteInventarioMargenProductoComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioMargenProductoComponent);
+    }
+   
+
+    
     
 
     //CARTERA

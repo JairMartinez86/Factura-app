@@ -67,6 +67,10 @@ export class ReporteInventarioTransaccionesResumenComponent {
         d.TipoReporte = "Transacciones de Inventario Resumen";
         d.Exportar = Exportar;
 
+        d.Param[0] = this.cFunciones.DateFormat(d.Param[0], "dd/MM/yyyy");
+        d.Param[1] = this.cFunciones.DateFormat(d.Param[1], "dd/MM/yyyy");
+
+
         this.POST.Imprimir(d).subscribe(
             {
                 next: (data) => {
