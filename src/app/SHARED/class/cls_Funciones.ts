@@ -82,7 +82,7 @@ export class Funciones {
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-MargenProducto", Caption: "Margen Productos" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-VentasPorProducto", Caption: "Ventas Por Producto" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-VentasPorProveedor", Caption: "Ventas Por Proveedor" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
-
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-VentasPorVendedor", Caption: "Ventas Por Vendedor" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
 
     
     /****************************************CARTERA*************************************** */ 

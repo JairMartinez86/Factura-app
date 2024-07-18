@@ -1,0 +1,35 @@
+<div id="div-rpt-filtro-9" #rpt_inv_filtro9>
+
+    <form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
+
+
+        <div class="row">
+
+            <div class="col-12 mb-2">
+
+                <igx-combo class="cmbVendedor" #cmbvendedor [data]="lstVendedor" valueKey="Codigo" displayKey="Key" id="cmbVendedor"
+                    formControlName="cmbVendedor" placeholder="Seleccione un vendedor."
+                    searchPlaceholder="Seleccione un vendedor..." [autoFocusSearch]="true"
+                    (selectionChanging)="V_Select_Vendedor($event)" (keyup)="V_Enter_Vendedor($event);">
+                    <label igxLabel>Vendedor</label>
+                    <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
+
+
+                    <ng-template igxComboItem let-display let-key="valueKey">
+                        <span>{{ display[key] }} {{ display.Key }}</span>
+                    </ng-template>
+
+
+                    <ng-template igxComboClearIcon>
+                        <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                    </ng-template>
+                </igx-combo>
+
+            </div>
+        </div>
+
+  
+    </form>
+
+</div>
+
