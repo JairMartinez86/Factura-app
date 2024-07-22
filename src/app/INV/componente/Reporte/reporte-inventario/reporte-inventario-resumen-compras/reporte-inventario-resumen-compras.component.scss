@@ -1,0 +1,45 @@
+.contenedor{
+    margin-bottom: 50px;
+  }
+  
+  
+  
+  h4{
+      text-align: center;
+  }
+  
+  .contenedor-boton{
+      display: flex;
+    align-items: center;
+    justify-content:right;
+  
+    button{
+      font-size: 1.5em;
+    }
+  
+    button:first-child{
+      margin-right: 10px;
+    }
+  }
+  
+  
+
+  
+
+  
+  
+  ::ng-deep {
+  
+      #cmbFamilia,
+      #cmbPresupuesto,
+      #cmbSubFamilia,
+      .check {
+        display: none;
+      }
+    
+    }
+  
+  
+  
+  
+    

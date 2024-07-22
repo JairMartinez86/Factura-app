@@ -4,14 +4,113 @@
     </div>
     <div class="card-body">
 
-        <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-8 col-xxl-8 mb-1">
-                <app-reporte-inventario-filtro-2 #Filtro></app-reporte-inventario-filtro-2>
+        <form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+        
+                    <div class="row">
+                        <igx-combo #cmbProducto1 [data]="lstProductos1" valueKey="Codigo" displayKey="Key" id="cmbProducto1"
+                            formControlName="cmbProducto1" placeholder="Producto" [autoFocusSearch]="true"
+                            [itemHeight]='64'
+                            (selectionChanging)="v_Select_Producto1($event)" (keyup)="V_Enter_Producto1($event);">
+                            <label igxLabel>Del Codigo</label>
+        
+        
+        
+                            <ng-template igxComboItem let-display let-key="valueKey">
+                                <div class="combo">
+        
+                                    <div class="row">
+                                        <span class="combo-etiqueta"><b>Part. : </b> <b class="combo-etiqueta-part">{{
+                                                display.NoParte
+                                                }}</b></span>
+                                    </div>
+        
+                                    <div class="row">
+                                        <span>{{ display[key] }} {{ display.Producto }}</span>
+                                    </div>
+        
+        
+        
+        
+                                    <div class="row">
+                                        <div class="contenedor-prov">
+                                            <div class="right">
+                                                <span class="combo-etiqueta"><b>Prov. : </b></span>
+                                            </div>
+                                            <div>
+                                                <span class="combo-etiqueta"><b class="combo-etiqueta-prov">{{ display.Proveedor
+                                                        }}</b></span>
+                                            </div>
+                                        </div>
+        
+                                    </div>
+        
+                                </div>
+                            </ng-template>
+    
+                            <ng-template igxComboClearIcon>
+                                <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                            </ng-template>
+        
+                        </igx-combo>
+                        
+                    </div>
+        
+                    <div class="row">
+                        <igx-combo #cmbProducto2 [data]="lstProductos2" valueKey="Codigo" displayKey="Key" id="cmbProducto2"
+                            formControlName="cmbProducto2" placeholder="Producto" [autoFocusSearch]="true"
+                            [itemHeight]='64'
+                            (selectionChanging)="v_Select_Producto2($event)" (keyup)="V_Enter_Producto2($event);">
+                            <label igxLabel>Al Codigo</label>
+        
+        
+        
+                            <ng-template igxComboItem let-display let-key="valueKey">
+                                <div class="combo">
+        
+                                    <div class="row">
+                                        <span class="combo-etiqueta"><b>Part. : </b> <b class="combo-etiqueta-part">{{
+                                                display.NoParte
+                                                }}</b></span>
+                                    </div>
+        
+                                    <div class="row">
+                                        <span>{{ display[key] }} {{ display.Producto }}</span>
+                                    </div>
+        
+        
+        
+        
+                                    <div class="row">
+                                        <div class="contenedor-prov">
+                                            <div class="right">
+                                                <span class="combo-etiqueta"><b>Prov. : </b></span>
+                                            </div>
+                                            <div class="left">
+                                                <span class="combo-etiqueta"><b class="combo-etiqueta-prov">{{ display.Proveedor
+                                                        }}</b></span>
+                                            </div>
+                                        </div>
+        
+                                    </div>
+        
+                                </div>
+                            </ng-template>
+                            <ng-template igxComboClearIcon>
+                                <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                            </ng-template>
+                        
+                        </igx-combo>
+                    </div>
+        
+                </div>
+    
+              
             </div>
-
-          
-        </div>
-
+    
+        </form>
+       
  
  
 
@@ -20,7 +119,7 @@
     <div class="card-footer">
         <div class="row">
 
-            <div class="col-12 mb-1">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 mb-1">
                 <div class="contenedor-boton">
 
                     <button type="button" class="btn btn-primario" id="btnImprimir-Reporte-Inv-margen-producto"
