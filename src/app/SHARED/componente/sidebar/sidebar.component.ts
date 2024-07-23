@@ -35,6 +35,7 @@ import { ReporteInventarioVentaProductoComponent } from 'src/app/INV/componente/
 import { ReporteInventarioVentaProveedorComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-venta-proveedor/reporte-inventario-venta-proveedor.component';
 import { ReporteInventarioVentaVendedorComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-venta-vendedor/reporte-inventario-venta-vendedor.component';
 import { ReporteInventarioResumenComprasComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-resumen-compras/reporte-inventario-resumen-compras.component';
+import { ReporteInventarioValidacionComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-validacion/reporte-inventario-validacion.component';
 
 const SCRIPT_PATH = 'ttps://cdn.jsdelivr.net/npm/bootstrap5-toggle@5.0.4/css/bootstrap5-toggle.min.css';
 declare let gapi: any;
@@ -263,6 +264,11 @@ export class SidebarComponent {
     if (id == "aReporte-ResumenCompras") {
       this.DynamicFrom.viewContainerRef.clear();
       let aResumenCompras: ComponentRef<ReporteInventarioResumenComprasComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioResumenComprasComponent);
+    }
+    
+    if (id == "aReporte-ValidacionInventario") {
+      this.DynamicFrom.viewContainerRef.clear();
+      let aValidacionInventario: ComponentRef<ReporteInventarioValidacionComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioValidacionComponent);
     }
     
     

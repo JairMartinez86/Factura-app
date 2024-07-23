@@ -1,29 +1,25 @@
 import { Component, ViewChild } from '@angular/core';
 import { ReporteInventarioFiltro1Component } from "../Filtros/reporte-inventario-filtro-1/reporte-inventario-filtro-1.component";
-import { ReporteInventarioFiltro4Component } from "../Filtros/reporte-inventario-filtro-4/reporte-inventario-filtro-4.component";
 import { iDatos } from 'src/app/SHARED/interface/i-Datos';
-import { DialogErrorComponent } from 'src/app/SHARED/componente/dialog-error/dialog-error.component';
 import { postReporteInv } from '../../POST/post-Reporte';
 import { Funciones } from 'src/app/SHARED/class/cls_Funciones';
 import { WaitComponent } from 'src/app/SHARED/componente/wait/wait.component';
 import { iParamReporte } from 'src/app/INV/Interface/I-Param-Reporte';
-import { ReporteInventarioService } from 'src/app/INV/Servicio/reporte-inventario.service';
+import { DialogErrorComponent } from 'src/app/SHARED/componente/dialog-error/dialog-error.component';
+
 
 @Component({
-  selector: 'app-reporte-inventario-resumen-compras',
+  selector: 'app-reporte-inventario-validacion',
   standalone: true,
-  imports: [ReporteInventarioFiltro1Component, ReporteInventarioFiltro4Component],
-  templateUrl: './reporte-inventario-resumen-compras.component.html',
-  styleUrl: './reporte-inventario-resumen-compras.component.scss'
+  imports: [ReporteInventarioFiltro1Component],
+  templateUrl: './reporte-inventario-validacion.component.html',
+  styleUrl: './reporte-inventario-validacion.component.scss'
 })
-export class ReporteInventarioResumenComprasComponent {
-  @ViewChild("Filtro1", { static: false })
-  public Filtro1: ReporteInventarioFiltro1Component;
+export class ReporteInventarioValidacionComponent {
+  @ViewChild("Filtro", { static: false })
+  public Filtro: ReporteInventarioFiltro1Component;
 
-  @ViewChild("Filtro2", { static: false })
-  public Filtro2: ReporteInventarioFiltro4Component;
-
-  constructor(public servicio: ReporteInventarioService, private POST: postReporteInv, public cFunciones: Funciones
+  constructor(private POST: postReporteInv, public cFunciones: Funciones
   ) {
 
   }
@@ -34,13 +30,14 @@ export class ReporteInventarioResumenComprasComponent {
 
 
 
-      this.Filtro1.val.EsValido();
- 
-      if (this.Filtro1.val.Errores != "") {
+      this.Filtro.val.EsValido();
+
+
+      if (this.Filtro.val.Errores != "") {
 
           this.cFunciones.DIALOG.open(DialogErrorComponent, {
               data:
-                  "<ul>" + this.Filtro1.val.Errores + "</ul>",
+                  "<ul>" + this.Filtro.val.Errores + "</ul>",
           });
           return;
 
@@ -49,8 +46,7 @@ export class ReporteInventarioResumenComprasComponent {
 
 
 
-
-      document.getElementById("btnImprimir-Reporte-Inv-Resumen-Compras")?.setAttribute("disabled", "disabled");
+      document.getElementById("btnImprimir-Reporte-Inv-validacion")?.setAttribute("disabled", "disabled");
 
       let dialogRef: any = this.cFunciones.DIALOG.getDialogById("wait");
 
@@ -68,12 +64,11 @@ export class ReporteInventarioResumenComprasComponent {
       }
 
       let d: iParamReporte = {} as iParamReporte;
-      d.Param = [this.Filtro1.val.Get("txtFecha1").value, this.Filtro1.val.Get("txtFecha2").value, this.Filtro2.val.Get("cmbProveedor").value[0]]
-      d.TipoReporte = "Resumen Compras";
+      d.Param = [this.Filtro.val.Get("txtFecha1").value]
+      d.TipoReporte = "Validacion Inventario";
       d.Exportar = Exportar;
 
       d.Param[0] = this.cFunciones.DateFormat(d.Param[0], "dd/MM/yyyy");
-      d.Param[1] = this.cFunciones.DateFormat(d.Param[1], "dd/MM/yyyy");
 
 
       this.POST.Imprimir(d).subscribe(
@@ -98,7 +93,7 @@ export class ReporteInventarioResumenComprasComponent {
               },
               error: (err) => {
 
-                  document.getElementById("btnImprimir-Reporte-Inv-Resumen-Compras")?.removeAttribute("disabled");
+                  document.getElementById("btnImprimir-Reporte-Inv-validacion")?.removeAttribute("disabled");
 
                   dialogRef.close();
 
@@ -111,7 +106,7 @@ export class ReporteInventarioResumenComprasComponent {
 
               },
               complete: () => {
-                  document.getElementById("btnImprimir-Reporte-Inv-Resumen-Compras")?.removeAttribute("disabled");
+                  document.getElementById("btnImprimir-Reporte-Inv-validacion")?.removeAttribute("disabled");
 
               }
           }
@@ -164,17 +159,9 @@ export class ReporteInventarioResumenComprasComponent {
 
   private ngAfterViewInit() {
       ///CAMBIO DE FOCO
-      this.Filtro1.val.addFocus("cmbProveedor", "txtFecha1", undefined);
-      this.Filtro1.val.addFocus("txtFecha1", "txtFecha2", undefined);
-      this.Filtro1.val.addFocus("txtFecha2", "btnImprimir-Reporte-Inv-Resumen-Compras", "click");
+      this.Filtro.val.addFocus("txtFecha1", "btnImprimir-Reporte-Inv-validacion", "click");
 
   }
-
-   
-  private ngOnInit() {
-    this.servicio.V_Iniciar();
-
-}
 
 
 }
