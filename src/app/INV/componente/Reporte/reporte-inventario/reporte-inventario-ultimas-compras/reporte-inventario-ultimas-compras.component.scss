@@ -1,0 +1,72 @@
+@import "/src/assets/scss/media.scss";
+
+
+h4{
+    text-align: center;
+}
+
+.contenedor-boton{
+    display: flex;
+  align-items: center;
+  justify-content:right;
+
+  button{
+    font-size: 1.5em;
+  }
+
+  button:first-child{
+    margin-right: 10px;
+  }
+}
+
+.header-table{
+ background-color: var(--escan-primario);
+}
+.header-column{
+
+    span{
+        font-weight: bold;
+   
+        color: var(--escan-fondo);
+    }
+    
+}
+
+.center{
+    text-align: center;
+}
+
+.right{
+    text-align: right;
+}
+.bold{
+    font-weight: bold;
+}
+
+
+.header-table{
+ 
+    @include Tamano_Menor(lg) {
+        display: none;
+      }
+}
+
+
+.desktop{
+    display: initial;
+
+    @include Tamano_Menor(lg) {
+        display:none;
+      }
+}
+
+
+.mobile{
+    display: none;
+
+    @include Tamano_Menor(lg) {
+        display:initial;
+      }
+}
+
+

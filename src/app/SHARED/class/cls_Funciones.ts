@@ -85,6 +85,7 @@ export class Funciones {
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-VentasPorVendedor", Caption: "Ventas Por Vendedor" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-ResumenCompras", Caption: "Resumen Compras" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-ValidacionInventario", Caption: "Validacion Inventario" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-UltimasCompras", Caption: "Ultima Compra" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
 
     
     

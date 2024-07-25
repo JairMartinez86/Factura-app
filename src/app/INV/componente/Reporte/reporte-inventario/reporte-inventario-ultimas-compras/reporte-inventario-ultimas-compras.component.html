@@ -1,0 +1,190 @@
+<form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
+
+    <div class="row">
+
+
+        <div class="card">
+            <div class="card-header">
+                <h4>Ultima Compra</h4>
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-1">
+                        <div class="form-group">
+                            <div class="form-time-picker">
+                                <igx-date-picker #datepiker formControlName="txtFecha1" id="txtFecha1"
+                                    [inputFormat]="'dd/MM/yyyy'">
+                                    <label igxLabel>Desde</label>
+
+                                    <igx-picker-toggle igxPrefix>
+                                        <igx-icon igxPrefix><i class="bi bi-calendar primario"></i></igx-icon>
+                                    </igx-picker-toggle>
+
+                                    <igx-picker-clear igxSuffix>
+                                        <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                                    </igx-picker-clear>
+
+                                </igx-date-picker>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-12 col-md-6 col-lg-5 col-xl-4 mb-1">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+
+                            <div class="form-floating">
+                                <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar"
+                                    aria-label="Buscar" formControlName="txtBuscar" (keyup)="v_Filtrar($event)">
+                                <label for="txtBuscar">Buscar</label>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-12 mb-1">
+                        <div class="contenedor-boton">
+
+
+                            <button type="button" class="btn btn-primario" id="btnRefrescarReg"
+                                (click)="V_Imprimir(false);"><i class="fa-solid fa-arrows-rotate fa-spin fa-lg"></i>
+                                Refrescar</button>
+
+                            <button type="button" class="btn btn-opcional" id="btnImprimir-Reporte-Inv-ultima-compra"
+                                (click)="V_Imprimir(true);"><i class="fa-solid fa-file-excel fa-beat-fade fa-xl"></i>
+                                Exportar</button>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-12 header-table">
+                        <div class="row">
+                            <div class="col-4 mb-1">
+                                <div class="row">
+                                    <div class="col-6 header-column"><span>No Poliza</span></div>
+                                    <div class="col-6 col-lg-6 header-column center"><span>Fecha</span></div>
+                                    <div class="col-12 col-lg-12 header-column"><span>Producto</span></div>
+                                </div>
+                            </div>
+    
+                            <div class="col-6 mb-1">
+                                <div class="row">
+                                    <div class="col-lg-3 header-column right"><span>Cant</span></div>
+                                    <div class="col-lg-3 header-column right"><span>Bonif</span></div>
+                                    <div class="col-lg-3 header-column right"><span>Fob</span></div>
+                                    <div class="col-lg-3 header-column right"><span>Cif</span></div>
+                                </div>
+                            </div>
+    
+    
+                            <div class="col-2 mb-1">
+                                <div class="header-column right"><span>Costo Final</span></div>
+                            </div>
+                        </div>
+    
+                      
+
+
+                    </div>
+
+
+             
+
+                </div>
+
+                   
+                <div class="mat-elevation-z8  table-container">
+                    <table class="table table-hover table-bordered table-sm tabla-custom mat-elevation-z8"
+                        mat-table [dataSource]="lstDocumentos">
+
+                        <ng-container matColumnDef="col1">
+
+
+                            <td class="col-12" mat-cell *matCellDef="let det; let i = index;">
+
+                               
+
+                                <div class="row">
+
+                               
+      
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="row">
+                                            <div class="col-6 col-md-6  col-lg-6"><span>{{det.NoPoliza}}</span></div>
+                                            <div class="col-6 col-md-6 col-lg-6 center"><span>{{det.Fecha | date:"dd/MMM/yyyy"}}</span></div>
+
+                                            <div class="col-12"><span>{{det.Codigo}} {{det.Producto}}</span></div>
+                                            <div class="col-6 col-md-6 col-lg-5 col-xl-4"><span class="bold">L: </span>{{det.NoLote}}</div>
+                                            <div class="col-6 col-md-6 col-lg-5 col-xl-4"><span class="bold">V: </span>{{det.Vence | date : "dd-MMM-yyyy"}}</div>
+                                     
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-6 mobile">
+                                        <div class="row">
+                                            <div class="col-6 col-md-6"><span class="bold">Cant: </span><span>{{det.Cantidad | number : '1.0-0'}}</span></div>
+                                            <div class="col-6 col-md-6 right"><span class="bold">Fob: </span><span>{{det.CostoFOB | number : '1.2-2'}}</span></div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-6 col-md-6"><span class="bold">Bonif: </span><span>{{det.Bonificacion | number : '1.0-0'}}</span></div>
+                                            <div class="col-6 col-md-6 right"><span class="bold">Cif: </span><span>{{det.CostoCIF | number : '1.2-2'}}</span></div>
+                                            <div class="col-12 right"><span class="bold">Costo Final: </span><span>{{det.CostoFinal | number : '1.2-2'}}</span></div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-6  desktop">
+                                        <div class="row">
+                                            <div class="col-lg-3 right"><span>{{det.Cantidad | number : '1.0-0'}}</span></div>
+                                            <div class="col-lg-3 right"><span>{{det.Bonificacion | number : '1.0-0'}}</span></div>
+                                            <div class="col-lg-3 right"><span>{{det.CostoFOB | number : '1.2-2'}}</span></div>
+                                            <div class="col-lg-3 right"><span>{{det.CostoCIF | number : '1.2-2'}}</span></div>
+                                        </div>
+                                        
+                                    </div>
+
+
+                                    <div class="col-lg-2">
+                                        <div class="right"><span class="bold mobile">Costo Final: </span><span>{{det.CostoFinal | number : '1.2-2'}}</span></div>
+                                    </div>
+
+
+                                </div>
+
+
+
+                            </td>
+
+                        </ng-container>
+
+
+                        <div class="row mb-3 linea">
+
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                class="linea-bottom-secundario dashed">
+                            </tr>
+
+                        </div>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[100, 200]" class="mat-paginator-sticky"></mat-paginator>
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</form>
