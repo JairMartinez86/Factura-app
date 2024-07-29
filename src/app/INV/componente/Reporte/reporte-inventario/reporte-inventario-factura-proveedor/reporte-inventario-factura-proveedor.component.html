@@ -1,0 +1,51 @@
+<div class="contenedor">
+
+    <div class="row">
+    
+    
+        <div class="card">
+            <div class="card-header">
+                <h4>Facturacion Por Proveedor</h4>
+            </div>
+            <div class="card-body">
+    
+                <div class="row">
+                    <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
+                        <app-reporte-inventario-filtro-1 #Filtro></app-reporte-inventario-filtro-1>
+                    </div>
+    
+                </div>
+    
+    
+            </div>
+    
+            <div class="card-footer">
+                <div class="row">
+    
+                    <div class="col-12 mb-1">
+                        <div class="contenedor-boton">
+    
+                            <button type="button" class="btn btn-primario" id="btnImprimir-Reporte-Inv-factura-proveedor"
+                                (click)="V_Confirmar(false);"><i class="fa-solid fa-file-pdf fa-beat-fade fa-xl"></i>
+                                Imprimir</button>
+    
+                            <button type="button" class="btn btn-opcional" id="btnImprimir-Reporte-Inv-factura-proveedor"
+                                (click)="V_Confirmar(true);"><i class="fa-solid fa-file-excel fa-beat-fade fa-xl"></i>
+                                Exportar</button>
+    
+    
+    
+    
+                        </div>
+                    </div>
+    
+                </div>
+              </div>
+        </div>
+    
+    
+    
+    </div>
+    
+</div>
+

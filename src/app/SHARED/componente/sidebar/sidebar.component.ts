@@ -37,6 +37,8 @@ import { ReporteInventarioVentaVendedorComponent } from 'src/app/INV/componente/
 import { ReporteInventarioResumenComprasComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-resumen-compras/reporte-inventario-resumen-compras.component';
 import { ReporteInventarioValidacionComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-validacion/reporte-inventario-validacion.component';
 import { ReporteInventarioUltimasComprasComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-ultimas-compras/reporte-inventario-ultimas-compras.component';
+import { ReporteInventarioUltimoFobComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-ultimo-fob/reporte-inventario-ultimo-fob.component';
+import { ReporteInventarioFacturaProveedorComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-factura-proveedor/reporte-inventario-factura-proveedor.component';
 
 const SCRIPT_PATH = 'ttps://cdn.jsdelivr.net/npm/bootstrap5-toggle@5.0.4/css/bootstrap5-toggle.min.css';
 declare let gapi: any;
@@ -278,6 +280,15 @@ export class SidebarComponent {
       let aUltimasCompras: ComponentRef<ReporteInventarioUltimasComprasComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioUltimasComprasComponent);
     }
     
+    if (id == "aReporte-UltimoFob") {
+      this.DynamicFrom.viewContainerRef.clear();
+      let aUltimoFob: ComponentRef<ReporteInventarioUltimoFobComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioUltimoFobComponent);
+    }
+    
+    if (id == "aReporte-FactProv") {
+      this.DynamicFrom.viewContainerRef.clear();
+      let aUltimoFob: ComponentRef<ReporteInventarioFacturaProveedorComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioFacturaProveedorComponent);
+    }
     
     
 

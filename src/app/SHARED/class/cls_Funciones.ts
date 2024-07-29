@@ -86,8 +86,9 @@ export class Funciones {
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-ResumenCompras", Caption: "Resumen Compras" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-ValidacionInventario", Caption: "Validacion Inventario" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
     {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-UltimasCompras", Caption: "Ultima Compra" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-UltimoFob", Caption: "Ultimo Fob" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-FactProv", Caption: "Facturacion Por Proveedor" , MenuPadre: "idNavReporteInv", Clase : "", Modulo: "FACT", Usuario: ""},
 
-    
     
     /****************************************CARTERA*************************************** */ 
     {IdAcceso:0,  Activo: false, EsMenu: true,  Id:"idNavCXCCliente", Caption: "Cartera" , MenuPadre: "", Clase : "fa-solid fa-user-tie fa-lg", Modulo: "FACT", Usuario: ""},
