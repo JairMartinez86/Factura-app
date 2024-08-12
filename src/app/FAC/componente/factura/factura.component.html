@@ -340,7 +340,7 @@
                                             </div>
                     
                                             <div class="row">
-                                                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-1">
                                                     <div class="input-group">
                                                         <div class="form-floating">
                                                             <input type="text" id="txtOC" class="form-control" placeholder="OC"
@@ -351,8 +351,57 @@
                                                     </div>
                                                 </div>
                     
+                                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-1">
+                                                    <igx-combo #cmbOportunidad [data]="lstOportunidad" valueKey="Codigo"
+                                                    displayKey="Key" id="cmbOportunidad" formControlName="cmbOportunidad"
+                                                    placeholder="Oportunidad" searchPlaceholder="Seleccione una oportunidad..."
+                                                    [autoFocusSearch]="true" [overlaySettings]="overlaySettings"
+                                                    (selectionChanging)="v_Select_Oportunidad($event)"
+                                                    (keyup)="v_Enter_Oportunidad($event);" (closed)="v_Close_Oportunidad()"
+                                                    [itemHeight]='48'>
+                                                    <label igxLabel>Oportunidad</label>
+    
+                                                   
+                                                    <ng-template igxComboItem let-display let-key="valueKey">
+                                                        <div class="combo">
+        
+                                                           
+        
+                                                            <div class="row">
+                                                                <span>{{ display[key] }} {{ display.Nombre }}</span>
+                                                            </div>
+        
+        
+        
+        
+                                                            <div class="row">
+                                                                <div class="contenedor-contacto">
+                                                                    <div class="right">
+                                                                        <span class="combo-etiqueta"><b>Contacto : </b></span>
+                                                                    </div>
+                                                                    <div class="left">
+                                                                        <span class="combo-etiqueta"><b
+                                                                                class="combo-etiqueta-contacto">{{ display.Contacto
+                                                                                }}</b></span>
+                                                                    </div>
+                                                                </div>
+        
+                                                            </div>
+        
+                                                        </div>
+                                                    </ng-template>
+    
+    
+                                                    <ng-template igxComboClearIcon>
+                                                        <igx-icon></igx-icon>
+                                                    </ng-template>
+                                                </igx-combo>
+                                                </div>
+
                     
                                             </div>
+
+                                      
                     
                                         </div>
                                     </div>

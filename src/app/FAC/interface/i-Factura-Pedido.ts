@@ -43,6 +43,7 @@ export interface iFactPed{
     FechaRegistro : Date;
     UsuarioRegistra : string;
     Estado : string;
+    IdOportunidad : number;
     MotivoAnulacion : string;
     VentaDetalle : any[];
     VentaLote : any[];

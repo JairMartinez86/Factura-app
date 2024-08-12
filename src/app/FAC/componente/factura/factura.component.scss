@@ -64,6 +64,35 @@ span{
 
 
 
+.combo-etiqueta{
+
+  font-size: 0.8em;
+  
+  &-contacto{
+    color: var(--escan-primario);
+  }
+
+  
+}
+
+.contenedor-contacto{
+  display: flex;
+  flex-direction: row;
+  text-align: right;
+
+  
+  div:first-child{
+    width: 20%;
+  }
+  div:last-child{
+    width: 80%;
+  }
+}
+
+
+
+
+
 #btnGuardarFactura
 {
   display: none;

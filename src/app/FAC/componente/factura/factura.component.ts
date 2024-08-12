@@ -44,6 +44,7 @@ export class FacturaComponent {
   private CodBodega: string = "";
   public CodCliente: string = "";
   lstClientes: iCliente[] = [];
+  lstOportunidad: any[] = [];
   filteredClientes: Observable<iCliente[]> | undefined;
   private Fila_Doc: iFactPed = {} as iFactPed;
   public TipoFactura: string = "Factura";
@@ -121,7 +122,8 @@ export class FacturaComponent {
     this.val.add("chkContraEntrega", "1", "LEN>=", "0", "Contra Entrega", "");
     this.val.add("chkExportacion", "1", "LEN>=", "0", "Exportación", "");
     this.val.add("txtOC", "1", "LEN>=", "0", "Orden de Compra", "");
-
+    this.val.add("cmbOportunidad", "1", "LEN>=", "0", "Oportunidad", "");
+    
     this._Evento("Iniciar");
   }
 
@@ -263,6 +265,7 @@ export class FacturaComponent {
             this.lstClientes = Datos[0].d;
             this.lstBodega = Datos[1].d;
             this.lstVendedores = Datos[2].d;
+            this.lstOportunidad = Datos[3].d;
 
             if(!this.FactDelivery)
             {
@@ -1060,6 +1063,43 @@ export class FacturaComponent {
     }
   }
 
+
+
+  //OPORTUNIDAD
+
+  @ViewChild("cmbOportunidad", { static: false })
+  public cmbOportunidad: IgxComboComponent;
+
+  public v_Select_Oportunidad(event: any) {
+    if (event.added.length) {
+      if (event.newValue.length > 1) event.newValue.splice(0, 1);
+      let cmb : any = this.cmbOportunidad.dropdown;
+      let _Item: any = cmb._focusedItem?.value;
+      this.val.Get("cmbOportunidad").setValue(event.newValue[0]);
+
+      //if(window.innerWidth <= this.cFunciones.TamanoPantalla("md")) this.cmbOportunidad.close();
+      this.cmbOportunidad.close();
+    }
+  }
+
+  public v_Enter_Oportunidad(event: any) {
+    if (event.key == "Enter") {
+      this.isEvent = true;
+      let cmb: any = this.cmbOportunidad.dropdown;
+      let _Item: any = cmb._focusedItem.value;
+      this.cmbOportunidad.setSelectedItem(_Item.Codigo);
+      this.val.Get("cmbOportunidad").setValue([_Item.Codigo]);
+
+  
+    }
+  }
+
+  public v_Close_Oportunidad() {
+    // this.f_key_Enter(this.cmbVendedor.id);
+  }
+
+
+
   //████████████████████████████████████████████FICHA PRODUCTO████████████████████████████████████████████████████████████████████████
 
   @ViewChild("FichaProducto", { static: false })
@@ -1261,6 +1301,7 @@ export class FacturaComponent {
     this.Fila_Doc.UsuarioRegistra = this.cFunciones.User;
     this.Fila_Doc.TasaCambio = this.ConfirmarFactura.TC;
     this.Fila_Doc.Estado = "Solicitado";
+    this.Fila_Doc.IdOportunidad = this.val.Get("cmbOportunidad").value[0];
     this.Fila_Doc.MotivoAnulacion = "";
     this.Fila_Doc.VentaDetalle = this.RevisionFactura.lstDetalle;
 
@@ -1452,6 +1493,9 @@ export class FacturaComponent {
     this.val.Get("txtOC").setValue(this.Fila_Doc.OrdenCompra);
 
 
+    this.cmbOportunidad.setSelectedItem(this.Fila_Doc.IdOportunidad);
+    this.val.Get("cmbOportunidad").setValue([this.Fila_Doc.IdOportunidad]);
+
     let chk1: any = document.querySelector("#chkTipoFactura");
     chk1.bootstrapToggle("off");
     if (this.Fila_Doc.TipoVenta == "Credito") chk1.bootstrapToggle("on");
@@ -1536,6 +1580,7 @@ export class FacturaComponent {
     if (this.cmbCliente != undefined) this.cmbCliente.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
     if (this.cmbBodega != undefined) this.cmbBodega.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
     if (this.cmbVendedor != undefined) this.cmbVendedor.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
+    if (this.cmbOportunidad != undefined) this.cmbOportunidad.itemsWidth = (window.innerWidth <= 768 ? String(window.innerWidth) : "720") + "px";
 
 
 
