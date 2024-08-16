@@ -2,6 +2,7 @@ import { DatePipe, formatNumber } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { iPerfil } from '../interface/i-Perfiles';
+import { iToken } from '../interface/i-Token';
 
 
 @Injectable({
@@ -30,6 +31,7 @@ export class Funciones {
   public Bodega: string = "";
   public Lotificar: boolean = false;
   public ColaImpresionWeb: boolean = false;
+  public Token: iToken;
 
 
   public ACCESO: iPerfil[] = [

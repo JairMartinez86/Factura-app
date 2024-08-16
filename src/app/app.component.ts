@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { LoginService } from './SHARED/service/login.service';
 import { DisableService } from './SHARED/service/disable.service';
 
@@ -12,6 +12,7 @@ export class AppComponent {
   title = 'Factura Escasan';
  
  
+
   
 
   public constructor(private _SrvLogin: LoginService, private Disable: DisableService) {
@@ -23,7 +24,7 @@ export class AppComponent {
   ngOnInit() {
 
 
-    /*this.Disable.disable_DevTool();
+   /* this.Disable.disable_DevTool();
     this.Disable.disable_RightClick();
     this.Disable.disable_Reload();
     this._SrvLogin.V_Version();*/

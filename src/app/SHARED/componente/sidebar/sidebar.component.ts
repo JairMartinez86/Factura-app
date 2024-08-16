@@ -39,6 +39,7 @@ import { ReporteInventarioValidacionComponent } from 'src/app/INV/componente/Rep
 import { ReporteInventarioUltimasComprasComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-ultimas-compras/reporte-inventario-ultimas-compras.component';
 import { ReporteInventarioUltimoFobComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-ultimo-fob/reporte-inventario-ultimo-fob.component';
 import { ReporteInventarioFacturaProveedorComponent } from 'src/app/INV/componente/Reporte/reporte-inventario/reporte-inventario-factura-proveedor/reporte-inventario-factura-proveedor.component';
+import { iLogin } from '../../interface/i-login';
 
 const SCRIPT_PATH = 'ttps://cdn.jsdelivr.net/npm/bootstrap5-toggle@5.0.4/css/bootstrap5-toggle.min.css';
 declare let gapi: any;
@@ -94,6 +95,7 @@ export class SidebarComponent {
 
 
       if (element.tagName.toString().toLocaleLowerCase() == "a") event.preventDefault();
+      
 
     }
   }
@@ -331,8 +333,11 @@ export class SidebarComponent {
   private ActualizarDatosServidor(): void {
     this.ErrorServidor = false;
 
+    let s : string = localStorage.getItem("login")!;
+    let l : iLogin = JSON.parse(s);
 
-    this.Conexion.FechaServidor(this.cFunciones.User).subscribe(
+    //console.log(l.Token.refresh_token)
+    this.Conexion.FechaServidor(l.Token.refresh_token).subscribe(
       {
         next: (data) => {
 
@@ -355,6 +360,19 @@ export class SidebarComponent {
 
             let Perfil: iPerfil[] = Datos[3].d;
             let index: number = -1;
+
+
+            
+            this.cFunciones.Token = Datos[4].d;
+            l.Token = Datos[4].d;
+
+            localStorage.removeItem("login");
+            localStorage.removeItem("token");
+
+            localStorage.setItem("login", JSON.stringify(l));
+            localStorage.setItem("token", this.cFunciones.Token.access_token);
+
+           
 
             this.Perfil.splice(0, this.Perfil.length);
             this.cFunciones.ACCESO.forEach(f => {
@@ -379,16 +397,17 @@ export class SidebarComponent {
         error: (err) => {
 
 
+          
           this.ErrorServidor = true;
 
 
-          /*if (this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) {
+         /* if (this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) {
             this.cFunciones.DIALOG.open(DialogErrorComponent, {
               id: "error-servidor",
               data: "<b class='error'>" + err.message + "</b>",
             });
-          }*/
-
+          }
+*/
 
 
 
@@ -414,7 +433,7 @@ export class SidebarComponent {
 
   ngOnInit() {
 
-    this.subscription = interval(10000).subscribe(val => this.ActualizarDatosServidor())
+    this.subscription = interval(6000000).subscribe(val => this.ActualizarDatosServidor())
 
     //INSERTAR SCRIPT
     /*

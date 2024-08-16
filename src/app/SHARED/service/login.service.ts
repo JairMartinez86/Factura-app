@@ -32,7 +32,7 @@ export class LoginService {
       }
     );
     
-    this.GET.Login(user, pwd).subscribe(
+    this.GET.Autorize(user, pwd).subscribe(
       {
         next: (data) => {
 
@@ -46,29 +46,23 @@ export class LoginService {
             });
           } else {
 
-            let datos : iDatos[] =  _json["d"];
+            let datos : iDatos =  _json["d"];
 
-            let l : iLogin = datos[0].d[0];
+            let l : iLogin = datos.d;
             this.cFunciones.User = l.User;
             this.cFunciones.Nombre = l.Nombre;
             this.cFunciones.Rol = l.Rol;
             this.cFunciones.Bodega = l.Bodega;
             this.cFunciones.Lotificar = l.Lotificar;
             this.cFunciones.ColaImpresionWeb = l.ColaImpresionWeb;
-            this.cFunciones.FechaServidor(datos[1].d);
-            this.cFunciones.SetTiempoDesconexion(Number(datos[2].d));
-            l.FechaServer = datos[1].d;
-            l.TimeOut = Number(datos[2].d);
+            this.cFunciones.Token = l.Token;
+
+
+            this.Login(l);
+           
+  
     
-              localStorage.removeItem("login");
-
-              if(datos[0].d != undefined)
-              {
-                localStorage.setItem("login", JSON.stringify(l));
-
-              this.isLogin();
-              }
-
+             
               
           }
 
@@ -98,6 +92,76 @@ export class LoginService {
 
   }
 
+
+  private Login(l : iLogin){
+
+    document.getElementById("btnLogin")?.setAttribute("disabled", "disabled");
+
+    this.GET.Login(l).subscribe(
+      {
+        next: (data) => {
+
+          
+         
+          let _json: any =  JSON.parse(data);
+
+          if (_json["esError"] == 1) {
+            this.DIALOG.open(DialogErrorComponent, {
+              data: _json["msj"].Mensaje,
+            });
+          } else {
+
+            let datos : iDatos[] =  _json["d"];
+
+            let l : iLogin = datos[0].d;
+          
+            this.cFunciones.FechaServidor(datos[1].d);
+            this.cFunciones.SetTiempoDesconexion(Number(datos[2].d));
+            l.FechaServer = datos[1].d;
+            l.TimeOut = Number(datos[2].d);
+           
+    
+              localStorage.removeItem("login");
+              localStorage.removeItem("token");
+
+
+              if(datos[0].d != undefined)
+              {
+                localStorage.setItem("login", JSON.stringify(l));
+                localStorage.setItem("token", JSON.stringify(l.Token.access_token));
+
+              this.isLogin();
+              }
+
+              
+          }
+
+        },
+        error: (err) => {
+
+          document.getElementById("btnLogin")?.removeAttribute("disabled");
+
+   
+
+          if(this.DIALOG.getDialogById("error-servidor") == undefined) 
+          {
+            this.DIALOG.open(DialogErrorComponent, {
+              id: "error-servidor",
+              data: "<b class='error'>" + err.message + "</b>",
+            });
+          }
+
+        },
+        complete: () => { 
+        document.getElementById("btnLogin")?.removeAttribute("disabled");
+ 
+      }
+      }
+    );
+
+
+
+  }
   
   public isLogin(){
 
@@ -107,7 +171,7 @@ export class LoginService {
 
       let l : iLogin = JSON.parse(s);
 
-      
+    
     if(this.cFunciones.User == "")
     {
       this.cFunciones.User = l.User;
@@ -118,6 +182,7 @@ export class LoginService {
       this.cFunciones.ColaImpresionWeb = l.ColaImpresionWeb;
       this.cFunciones.FechaServidor(new Date(l.FechaServer));
       this.cFunciones.SetTiempoDesconexion(l.TimeOut);
+      this.cFunciones.Token = l.Token;
     }
 
 //console.log(l.FechaLogin)
@@ -161,7 +226,9 @@ export class LoginService {
       let l : iLogin = JSON.parse(s);
       l.FechaLogin = f;
       localStorage.removeItem("login");
+      localStorage.removeItem("login");
       localStorage.setItem("login", JSON.stringify(l));
+      localStorage.setItem("token", l.Token.access_token);
 
       this.isLogin();
     }

@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders, HttpXhrBackend } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/internal/Observable";
 import { Conexion } from "src/app/SHARED/class/Cadena_Conexion";
+import { iUsuario } from "src/app/SIS/Interface/Usuario";
+import { iLogin } from "../interface/i-login";
 
 
 @Injectable({
@@ -22,16 +24,52 @@ export class getServidor{
 
   }
 
-  public FechaServidor(user : string) : Observable<any>{
-    return this.http.get<any>(this._Cnx.Url() + "SIS/FechaServidor?user="+ user);
+  public FechaServidor(refresh_token : string) : Observable<any>{
+
+  
+    var options = {
+      'headers': {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+ localStorage.getItem("token")
+      }
+    };
+
+
+
+    return this.http.get<any>(this._Cnx.Url() + "SIS/FechaServidor?refresh_token="+ refresh_token , options);
  }
   
- public Login(user: string, pass : string) : Observable<any>{
-  return this.http.get<any>(this._Cnx.Url() + "SIS/Login?user=" + user + "&pass=" + pass);
+ public Autorize(user: string, pass : string) : Observable<any>{
+  return this.http.post<any>(this._Cnx.Url() + "SIS/Autorize?user=" + user + "&pass=" + pass,  { headers: { 'content-type': 'application/text' } });
+
+}
+
+
+public Login(l : iLogin) : Observable<any>{
+
+  var options = {
+    'headers': {
+      'Authorization': 'Bearer ' + l.Token.access_token,
+      'content-type': 'application/json'
+    }
+  };
+
+  
+return this.http.post<any>(this._Cnx.Url() + "SIS/Login",   JSON.stringify(l), options);
+
 }
 
 
 public AccesoWeb(user : string) : Observable<any>{
+
+  var options = {
+    'headers': {
+      'Authorization': 'Bearer ' + localStorage.getItem("token"),
+      'content-type': 'application/json'
+    }
+  };
+
+
   return this.http.get<any>(this._Cnx.Url() + "SIS/AccesoWeb?user=" + user);
 }
 

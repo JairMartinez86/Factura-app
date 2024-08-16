@@ -1,3 +1,5 @@
+import { iToken } from "./i-Token";
+
 export interface iLogin{
     User: string;
     Nombre : string;
@@ -10,4 +12,5 @@ export interface iLogin{
     ColaImpresionWeb : boolean;
     FechaServer : string;
     TimeOut: number;
+    Token : iToken;
 }
