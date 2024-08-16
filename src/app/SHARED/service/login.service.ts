@@ -122,13 +122,14 @@ export class LoginService {
            
     
               localStorage.removeItem("login");
-              localStorage.removeItem("token");
-
+              localStorage.removeItem("access_token");
+              localStorage.removeItem("refresh_token");
 
               if(datos[0].d != undefined)
               {
                 localStorage.setItem("login", JSON.stringify(l));
-                localStorage.setItem("token", JSON.stringify(l.Token.access_token));
+                localStorage.setItem("token", l.Token.access_token);
+                localStorage.setItem("refresh_token", l.Token.refresh_token);
 
               this.isLogin();
               }
@@ -227,8 +228,10 @@ export class LoginService {
       l.FechaLogin = f;
       localStorage.removeItem("login");
       localStorage.removeItem("login");
+      localStorage.removeItem("refresh_token");
       localStorage.setItem("login", JSON.stringify(l));
       localStorage.setItem("token", l.Token.access_token);
+      localStorage.setItem("refresh_token", l.Token.refresh_token);
 
       this.isLogin();
     }
@@ -237,6 +240,9 @@ export class LoginService {
 
   public CerrarSession(){
     localStorage.removeItem("login");
+    localStorage.removeItem("login");
+      localStorage.removeItem("refresh_token");
+    
     this._Router.navigate(['/Login'], { skipLocationChange: false });
   }
 

@@ -368,11 +368,12 @@ export class SidebarComponent {
 
             localStorage.removeItem("login");
             localStorage.removeItem("token");
+            localStorage.removeItem("refresh_token");
 
             localStorage.setItem("login", JSON.stringify(l));
             localStorage.setItem("token", this.cFunciones.Token.access_token);
+            localStorage.setItem("refresh_token", l.Token.refresh_token);
 
-           
 
             this.Perfil.splice(0, this.Perfil.length);
             this.cFunciones.ACCESO.forEach(f => {
