@@ -333,11 +333,8 @@ export class SidebarComponent {
   private ActualizarDatosServidor(): void {
     this.ErrorServidor = false;
 
-    let s : string = localStorage.getItem("login")!;
-    let l : iLogin = JSON.parse(s);
 
-    //console.log(l.Token.refresh_token)
-    this.Conexion.FechaServidor(l.Token.refresh_token).subscribe(
+    this.Conexion.FechaServidor().subscribe(
       {
         next: (data) => {
 
@@ -363,16 +360,8 @@ export class SidebarComponent {
 
 
             
-            this.cFunciones.Token = Datos[4].d;
-            l.Token = Datos[4].d;
+            this.cFunciones.ActualizarToken(Datos[4].d);
 
-            localStorage.removeItem("login");
-            localStorage.removeItem("token");
-            localStorage.removeItem("refresh_token");
-
-            localStorage.setItem("login", JSON.stringify(l));
-            localStorage.setItem("token", this.cFunciones.Token.access_token);
-            localStorage.setItem("refresh_token", l.Token.refresh_token);
 
 
             this.Perfil.splice(0, this.Perfil.length);

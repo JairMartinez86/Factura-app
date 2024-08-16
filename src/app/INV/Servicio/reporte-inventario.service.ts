@@ -48,13 +48,22 @@ export class ReporteInventarioService {
             }
         );
 
+        var options = {
+            'headers': {
+              'Authorization': 'Bearer ' + localStorage.getItem("token"),
+              'content-type': 'application/json'
+            }
+          };
 
-        this.http.get<any>(this._Cnx.Url() + "INV/Reporte/GetDatos").subscribe(
+
+        this.http.get<any>(this._Cnx.Url() + "INV/Reporte/GetDatos?refresh_token="+ localStorage.getItem("refresh_token"), options).subscribe(
             {
                 next: (s) => {
 
                     dialogRef.close();
                     let _json = JSON.parse(s);
+                    this.cFunciones.ActualizarToken(_json["token"]);
+
 
                     if (_json["esError"] == 1) {
                         if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {

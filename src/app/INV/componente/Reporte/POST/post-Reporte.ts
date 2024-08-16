@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/internal/Observable";
 import { iParamReporte } from "src/app/INV/Interface/I-Param-Reporte";
 import { Conexion } from "src/app/SHARED/class/Cadena_Conexion";
+import { iData } from "src/app/SIS/Interface/Data";
 
 @Injectable({
     providedIn: 'root',
@@ -23,8 +24,22 @@ export class postReporteInv {
     public Imprimir(d: iParamReporte): Observable<string> {
 
 
+        var options = {
+            'headers': {
+              'Authorization': 'Bearer ' + localStorage.getItem("token"),
+              'content-type': 'application/json'
+            }
+          };
 
-        return this.http.post<any>(this._Cnx.Url() + "INV/Reporte/Imprimir", JSON.stringify(d), { headers: { 'content-type': 'application/json' } });
+          
+
+        let data : iData = {} as iData;
+        data.d = d;
+        data.refresh_token = localStorage.getItem("refresh_token");
+
+        
+
+        return this.http.post<any>(this._Cnx.Url() + "INV/Reporte/Imprimir", data, options);
     }
 
 

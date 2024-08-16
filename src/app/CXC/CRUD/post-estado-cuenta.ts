@@ -24,12 +24,20 @@ export class postEstadoCuenta{
 
     GuardarPermiso(d : iFichaCliente) : Observable<string> { 
 
+        var options = {
+            'headers': {
+              'Authorization': 'Bearer ' + localStorage.getItem("token"),
+              'content-type': 'application/json'
+            }
+          };
 
-       /* let data : iData = {} as iData;
+          
+
+        let data : iData = {} as iData;
         data.d = d;
-        data.refresh_token = this.*/
+        data.refresh_token = localStorage.getItem("refresh_token");
 
-        return this.http.post<any>(this._Cnx.Url() + "CXC/EstadoCuenta/GuardarPermiso", JSON.stringify(d), { headers: { 'content-type': 'application/json' } });
+        return this.http.post<any>(this._Cnx.Url() + "CXC/EstadoCuenta/GuardarPermiso", JSON.stringify(data), options);
 
     }
 

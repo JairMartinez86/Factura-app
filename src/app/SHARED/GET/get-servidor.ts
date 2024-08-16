@@ -24,7 +24,7 @@ export class getServidor{
 
   }
 
-  public FechaServidor(refresh_token : string) : Observable<any>{
+  public FechaServidor() : Observable<any>{
 
   
     var options = {
@@ -36,7 +36,7 @@ export class getServidor{
 
 
 
-    return this.http.get<any>(this._Cnx.Url() + "SIS/FechaServidor?refresh_token="+ refresh_token , options);
+    return this.http.get<any>(this._Cnx.Url() + "SIS/FechaServidor?refresh_token="+ localStorage.getItem("refresh_token") , options);
  }
   
  public Autorize(user: string, pass : string) : Observable<any>{

@@ -70,6 +70,7 @@ export class ReporteInventarioUltimasComprasComponent {
 
                 dialogRef.close();
                 let _json = JSON.parse(data);
+                this.cFunciones.ActualizarToken(_json["token"]);
 
                 if (_json["esError"] == 1) {
                     if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {

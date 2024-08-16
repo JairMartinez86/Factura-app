@@ -1,4 +1,4 @@
 export interface iData{
     d : any;
-    refresh_token: string;
+    refresh_token: any;
 }

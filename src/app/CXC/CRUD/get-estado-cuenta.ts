@@ -20,7 +20,17 @@ export class getEstadoCuenta{
     }
 
     public GetDatos(Tipo : string, param : string , Permiso : boolean) : Observable<string>{
-      return this.http.get<any>(this._Cnx.Url() + "CXC/EstadoCuenta/Datos?Tipo=" + Tipo + "&Param=" + param + "&Permiso=" + Permiso);
+
+      
+      var options = {
+        'headers': {
+          'Authorization': 'Bearer ' + localStorage.getItem("token"),
+          'content-type': 'application/json'
+        }
+      };
+
+
+      return this.http.get<any>(this._Cnx.Url() + "CXC/EstadoCuenta/Datos?Tipo=" + Tipo + "&Param=" + param + "&Permiso=" + Permiso + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
    }
     
    

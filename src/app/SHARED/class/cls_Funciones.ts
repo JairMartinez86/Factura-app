@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { iPerfil } from '../interface/i-Perfiles';
 import { iToken } from '../interface/i-Token';
+import { iLogin } from '../interface/i-login';
 
 
 @Injectable({
@@ -116,6 +117,28 @@ export class Funciones {
 
 
 
+  public ActualizarToken(tk : iToken)
+  {
+    if(tk == undefined) return;
+
+    
+    let s : string = localStorage.getItem("login")!;
+    let l : iLogin = JSON.parse(s);
+
+
+    localStorage.removeItem("login");
+    localStorage.removeItem("token");
+    localStorage.removeItem("refresh_token");
+
+    l.Token = l.Token;
+    this.Token = tk;
+
+    
+    localStorage.setItem("token", this.Token.access_token);
+    localStorage.setItem("refresh_token", l.Token.refresh_token);
+    localStorage.setItem("login", JSON.stringify(l));
+    
+  }
 
 
   public FechaServidor(f: Date) {
