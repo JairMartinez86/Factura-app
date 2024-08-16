@@ -60,7 +60,7 @@ return this.http.post<any>(this._Cnx.Url() + "SIS/Login",   JSON.stringify(l), o
 }
 
 
-public AccesoWeb(user : string) : Observable<any>{
+public AccesoWeb() : Observable<any>{
 
   var options = {
     'headers': {
@@ -70,7 +70,7 @@ public AccesoWeb(user : string) : Observable<any>{
   };
 
 
-  return this.http.get<any>(this._Cnx.Url() + "SIS/AccesoWeb?user=" + user);
+  return this.http.get<any>(this._Cnx.Url() + "SIS/AccesoWeb?refresh_token=" + localStorage.getItem("refresh_token"), options );
 }
 
 

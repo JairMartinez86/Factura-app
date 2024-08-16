@@ -122,6 +122,7 @@ export class AccesoWebComponent {
 
           dialogRef.close();
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
@@ -188,13 +189,14 @@ export class AccesoWebComponent {
     );
 
 
-    this.GET.AccesoWeb(this.cFunciones.User).subscribe(
+    this.GET.AccesoWeb().subscribe(
       {
         next: (s) => {
 
           document.getElementById("btnRefresscar-acceso-web")?.removeAttribute("disabled");
           dialogRef.close();
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
