@@ -98,10 +98,15 @@ export class RegistroFacturaComponent {
 
     document.getElementById("btnRefrescar")?.setAttribute("disabled", "disabled");
 
-    this.GET.Get(this.cFunciones.DateFormat(this.val.Get("txtFecha1").value, "yyyy-MM-dd") , this.cFunciones.DateFormat(this.val.Get("txtFecha2").value, "yyyy-MM-dd") , this.TipoDocumento, this.EsCola, this.ProformaVencida, this.cFunciones.User).subscribe(
+   let Fecha1 : string = this.cFunciones.DateFormat(this.val.Get("txtFecha1").value, "dd/MM/yyyy");
+   let Fecha2 : string =  this.cFunciones.DateFormat(this.val.Get("txtFecha2").value, "dd/MM/yyyy");
+
+
+    this.GET.Get(Fecha1, Fecha2 , this.TipoDocumento, this.EsCola, this.ProformaVencida, this.cFunciones.User).subscribe(
       (s) => {
         dialogRef.close();
         let _json = JSON.parse(s);
+        this.cFunciones.ActualizarToken(_json["token"]);
 
         if (_json["esError"] == 1) {
           this.cFunciones.DIALOG.open(DialogErrorComponent, {
@@ -187,6 +192,7 @@ export class RegistroFacturaComponent {
 
 
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
@@ -317,6 +323,7 @@ export class RegistroFacturaComponent {
 
 
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
@@ -384,6 +391,7 @@ export class RegistroFacturaComponent {
 
 
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
@@ -465,6 +473,7 @@ export class RegistroFacturaComponent {
 
 
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
@@ -538,6 +547,7 @@ export class RegistroFacturaComponent {
 
 
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {

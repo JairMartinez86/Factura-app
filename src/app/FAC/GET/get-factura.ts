@@ -20,83 +20,215 @@ export class getFactura{
     }
 
     public DatosSucursal(CodBodega : string, TipoFactura : string) : Observable<string>{
-      return this.http.get<any>(this._Cnx.Url() + "Factura/DatosSucursal?CodBodega=" + CodBodega + "&TipoFactura=" + TipoFactura);
+
+      
+      var options = {
+         'headers': {
+           'Authorization': 'Bearer ' + localStorage.getItem("token"),
+           'content-type': 'application/json'
+         }
+       };
+
+
+
+      return this.http.get<any>(this._Cnx.Url() + "Factura/DatosSucursal?CodBodega=" + CodBodega + "&TipoFactura=" + TipoFactura + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
    }
     
     public Datos_Factura(user : string) : Observable<string>{
-       return this.http.get<any>(this._Cnx.Url() + "Factura/Datos?user=" + user);
+
+      
+      var options = {
+         'headers': {
+           'Authorization': 'Bearer ' + localStorage.getItem("token"),
+           'content-type': 'application/json'
+         }
+       };
+
+
+       return this.http.get<any>(this._Cnx.Url() + "Factura/Datos?user=" + user + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
     }
     
     public Datos_Credito(CodCliente : string) : Observable<string>{
-        return this.http.get<any>(this._Cnx.Url() + "Factura/DatosCredito?CodCliente=" + CodCliente);
+
+      var options = {
+         'headers': {
+           'Authorization': 'Bearer ' + localStorage.getItem("token"),
+           'content-type': 'application/json'
+         }
+       };
+
+
+        return this.http.get<any>(this._Cnx.Url() + "Factura/DatosCredito?CodCliente=" + CodCliente + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
      }
 
      public Datos_ClienteClave(CodCliente : string) : Observable<string>{
-        return this.http.get<any>(this._Cnx.Url() + "Factura/ClienteClave?CodCliente=" + CodCliente);
+
+      var options = {
+         'headers': {
+           'Authorization': 'Bearer ' + localStorage.getItem("token"),
+           'content-type': 'application/json'
+         }
+       };
+
+        return this.http.get<any>(this._Cnx.Url() + "Factura/ClienteClave?CodCliente=" + CodCliente + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
      }
      
 
 
 
      public Cargar_Productos(CodBodega : string) : Observable<string>{
-        return this.http.get<any>(this._Cnx.Url() + "Factura/CargarProductos?CodBodega=" + CodBodega);
+
+      var options = {
+         'headers': {
+           'Authorization': 'Bearer ' + localStorage.getItem("token"),
+           'content-type': 'application/json'
+         }
+       };
+       
+        return this.http.get<any>(this._Cnx.Url() + "Factura/CargarProductos?CodBodega=" + CodBodega + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
      }
 
 
      public Datos_Producto(CodProducto : string, CodBodega : string, CodCliente : string, user : string) : Observable<string>{
-        return this.http.get<any>(this._Cnx.Url() + "Factura/DatosProducto?CodProducto=" + CodProducto + "&CodBodega=" + CodBodega + "&CodCliente=" + CodCliente + "&user=" + user);
+
+      var options = {
+         'headers': {
+           'Authorization': 'Bearer ' + localStorage.getItem("token"),
+           'content-type': 'application/json'
+         }
+       };
+
+        return this.http.get<any>(this._Cnx.Url() + "Factura/DatosProducto?CodProducto=" + CodProducto + "&CodBodega=" + CodBodega + "&CodCliente=" + CodCliente + "&user=" + user + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
      }
      
      public BonificacionLibre(CodCliente : string, CodBodega : string) : Observable<string>{
-      return this.http.get<any>(this._Cnx.Url() + "Factura/BonificacionLibre?&CodCliente=" + CodCliente + "&CodBodega=" + CodBodega);
+
+      var options = {
+         'headers': {
+           'Authorization': 'Bearer ' + localStorage.getItem("token"),
+           'content-type': 'application/json'
+         }
+       };
+
+
+      return this.http.get<any>(this._Cnx.Url() + "Factura/BonificacionLibre?&CodCliente=" + CodCliente + "&CodBodega=" + CodBodega+ "&refresh_token=" + localStorage.getItem("refresh_token"), options);
    }
      
      public Direcciones(CodCliente : string) : Observable<string>{
-      return this.http.get<any>(this._Cnx.Url() + "Factura/Direcciones?CodCliente=" + CodCliente);
+      var options = {
+         'headers': {
+           'Authorization': 'Bearer ' + localStorage.getItem("token"),
+           'content-type': 'application/json'
+         }
+       };
+
+      return this.http.get<any>(this._Cnx.Url() + "Factura/Direcciones?CodCliente=" + CodCliente + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
    }
    
 
 
    public Productos_Liberados_Web_INESCASAN(CodCliente : string, CodBodega : String) : Observable<string>{
-      return this.http.get<any>(this._Cnx.Url() + "Factura/ProductoLiberadosInvEscasan?CodCliente=" + CodCliente + "&CodBodega=" + CodBodega);
+      var options = {
+         'headers': {
+           'Authorization': 'Bearer ' + localStorage.getItem("token"),
+           'content-type': 'application/json'
+         }
+       };
+
+      return this.http.get<any>(this._Cnx.Url() + "Factura/ProductoLiberadosInvEscasan?CodCliente=" + CodCliente + "&CodBodega=" + CodBodega + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
    }
 
     
    public Get(Fecha1 :string, Fecha2 : string, Tipo : string, EsCola : boolean, ProformaVencida : boolean, usuario : string) : Observable<string>{
-      return this.http.get<any>(this._Cnx.Url() + "Factura/Get?Fecha1=" + Fecha1 + "&Fecha2=" + Fecha2 + "&Tipo=" + Tipo + "&EsCola=" + EsCola + "&ProformaVencida=" + ProformaVencida + "&usuario=" + usuario);
+      var options = {
+         'headers': {
+           'Authorization': 'Bearer ' + localStorage.getItem("token"),
+           'content-type': 'application/json'
+         }
+       };
+
+      return this.http.get<any>(this._Cnx.Url() + "Factura/Get?Fecha1=" + Fecha1 + "&Fecha2=" + Fecha2 + "&Tipo=" + Tipo + "&EsCola=" + EsCola + "&ProformaVencida=" + ProformaVencida + "&usuario=" + usuario + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
    }
    
 
    public GetDetalle(IdVenta : string, User : string) : Observable<string>{
-      return this.http.get<any>(this._Cnx.Url() + "Factura/GetDetalle?IdVenta=" + IdVenta +  "&User=" + User);
+      var options = {
+         'headers': {
+           'Authorization': 'Bearer ' + localStorage.getItem("token"),
+           'content-type': 'application/json'
+         }
+       };
+
+      return this.http.get<any>(this._Cnx.Url() + "Factura/GetDetalle?IdVenta=" + IdVenta +  "&User=" + User + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
    }
 
 
    public Imprimir(IdVenta : string, ImprimirProforma : boolean, enviarCorreo: boolean) : Observable<string>{
-      return this.http.get<any>(this._Cnx.Url() + "Factura/Imprimir?IdVenta=" + IdVenta + "&ImprimirProforma=" + ImprimirProforma + "&enviarCorreo=" + enviarCorreo);
+      var options = {
+         'headers': {
+           'Authorization': 'Bearer ' + localStorage.getItem("token"),
+           'content-type': 'application/json'
+         }
+       };
+
+      return this.http.get<any>(this._Cnx.Url() + "Factura/Imprimir?IdVenta=" + IdVenta + "&ImprimirProforma=" + ImprimirProforma + "&enviarCorreo=" + enviarCorreo + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
    }
    
    public ImprimirA4(IdVenta : string) : Observable<string>{
-      return this.http.get<any>(this._Cnx.Url() + "Factura/ImprimirA4?IdVenta=" + IdVenta);
+      var options = {
+         'headers': {
+           'Authorization': 'Bearer ' + localStorage.getItem("token"),
+           'content-type': 'application/json'
+         }
+       };
+      return this.http.get<any>(this._Cnx.Url() + "Factura/ImprimirA4?IdVenta=" + IdVenta + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
    }
    
 
    public GetExistenciaUbicacion(CodProducto : string, CodBodega : string) : Observable<string>{
-      return this.http.get<any>(this._Cnx.Url() +  "Factura/GetExistenciaUbicacion?CodProducto=" + CodProducto +"&CodBodega=" +CodBodega);
+      var options = {
+         'headers': {
+           'Authorization': 'Bearer ' + localStorage.getItem("token"),
+           'content-type': 'application/json'
+         }
+       };
+      return this.http.get<any>(this._Cnx.Url() +  "Factura/GetExistenciaUbicacion?CodProducto=" + CodProducto +"&CodBodega=" +CodBodega + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
    }
 
 
    public GetFormaPago() : Observable<string>{
-      return this.http.get<any>(this._Cnx.Url() + "Factura/GetFormaPago");
+      var options = {
+         'headers': {
+           'Authorization': 'Bearer ' + localStorage.getItem("token"),
+           'content-type': 'application/json'
+         }
+       };
+      return this.http.get<any>(this._Cnx.Url() + "Factura/GetFormaPago?refresh_token=" + localStorage.getItem("refresh_token"), options);
    }
 
 
    public GetDatosLiberacionPrecio() : Observable<string>{
-      return this.http.get<any>(this._Cnx.Url() + "Factura/GetDatosLiberacionPrecio");
+
+      var options = {
+         'headers': {
+           'Authorization': 'Bearer ' + localStorage.getItem("token"),
+           'content-type': 'application/json'
+         }
+       };
+
+      return this.http.get<any>(this._Cnx.Url() + "Factura/GetDatosLiberacionPrecio?refresh_token=" + localStorage.getItem("refresh_token"), options);
    }
 
    public GetDatosLiberacionBonif() : Observable<string>{
-      return this.http.get<any>(this._Cnx.Url() + "Factura/GetDatosLiberacionBonif");
+
+      var options = {
+         'headers': {
+           'Authorization': 'Bearer ' + localStorage.getItem("token"),
+           'content-type': 'application/json'
+         }
+       };
+       
+      return this.http.get<any>(this._Cnx.Url() + "Factura/GetDatosLiberacionBonif?refresh_token=" + localStorage.getItem("refresh_token"), options );
    }
 
 }

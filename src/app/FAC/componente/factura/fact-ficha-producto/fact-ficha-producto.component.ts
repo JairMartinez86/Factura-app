@@ -224,6 +224,7 @@ export class FactFichaProductoComponent {
             ?.removeAttribute("disabled");
           dialogRef.close();
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
@@ -394,6 +395,7 @@ export class FactFichaProductoComponent {
 
           dialogRef.close();
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
@@ -576,6 +578,7 @@ export class FactFichaProductoComponent {
 
           dialogRef.close();
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
@@ -1190,6 +1193,7 @@ export class FactFichaProductoComponent {
 
 
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             dialogRef.close();
@@ -1226,6 +1230,7 @@ export class FactFichaProductoComponent {
                   next: (s) => {
 
                     let _json = JSON.parse(s);
+                    this.cFunciones.ActualizarToken(_json["token"]);
 
                     if (_json["esError"] == 1) {
                       if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {

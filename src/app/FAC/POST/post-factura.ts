@@ -7,6 +7,7 @@ import { iFacturaPagoCancelacion } from "../interface/i-Factura-Pago-Cancelacion
 import { iLiberarExixtencia } from "../interface/i-Liberar-Existencia";
 import { iLiberacionPrecio } from "../interface/i-Liberacion-Precio";
 import { iLiberacionBonif } from "../interface/i-Liberacion-Bonif";
+import { iData } from "src/app/SIS/Interface/Data";
 
 @Injectable({
     providedIn: 'root',
@@ -25,25 +26,82 @@ export class postFactura{
     }
 
     GuardarFactura(d : iFactPed) : Observable<string> { 
-        return this.http.post<any>(this._Cnx.Url() + "Factura/Guardar", JSON.stringify(d), { headers: { 'content-type': 'application/json' } });
+
+
+        var options = {
+            'headers': {
+              'Authorization': 'Bearer ' + localStorage.getItem("token"),
+              'content-type': 'application/json'
+            }
+          };
+
+          
+        let data : iData = {} as iData;
+        data.d = d;
+        data.refresh_token = localStorage.getItem("refresh_token");
+
+
+        
+        return this.http.post<any>(this._Cnx.Url() + "Factura/Guardar", JSON.stringify(data), options);
 
     }
 
     AnularFactura(IdDoc : string, Motivo: string, Usuario: string) : Observable<string> { 
-        return this.http.post<any>(this._Cnx.Url() + "Factura/Anular?IdDoc=" + IdDoc + "&Motivo=" + Motivo + "&Usuario=" + Usuario, { headers: { 'content-type': 'application/text' } });
+
+        
+        var options = {
+            'headers': {
+              'Authorization': 'Bearer ' + localStorage.getItem("token"),
+              'content-type': 'application/json'
+            }
+          };
+
+          
+
+
+        return this.http.post<any>(this._Cnx.Url() + "Factura/Anular?IdDoc=" + IdDoc + "&Motivo=" + Motivo + "&Usuario=" + Usuario + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
 
     }
 
     
    public ConvertirFactura(det: iFactPed) : Observable<string>{
 
-    return this.http.post<any>(this._Cnx.Url() + "Factura/ConvertirFactura", JSON.stringify(det), { headers: { 'content-type': 'application/json' } });
+    var options = {
+        'headers': {
+          'Authorization': 'Bearer ' + localStorage.getItem("token"),
+          'content-type': 'application/json'
+        }
+      };
+
+
+      
+      let data : iData = {} as iData;
+      data.d = det;
+      data.refresh_token = localStorage.getItem("refresh_token");
+
+
+    return this.http.post<any>(this._Cnx.Url() + "Factura/ConvertirFactura", JSON.stringify(data), options);
 
  }
 
  public PagarFactura(det: iFacturaPagoCancelacion) : Observable<string>{
 
-    return this.http.post<any>(this._Cnx.Url() + "Factura/PagarFactura", JSON.stringify(det), { headers: { 'content-type': 'application/json' } });
+    var options = {
+        'headers': {
+          'Authorization': 'Bearer ' + localStorage.getItem("token"),
+          'content-type': 'application/json'
+        }
+      };
+
+
+      
+      let data : iData = {} as iData;
+      data.d = det;
+      data.refresh_token = localStorage.getItem("refresh_token");
+
+
+
+    return this.http.post<any>(this._Cnx.Url() + "Factura/PagarFactura", JSON.stringify(data), options);
 
  }
 
@@ -53,7 +111,21 @@ export class postFactura{
     let d : iLiberarExixtencia = {} as iLiberarExixtencia;
     d.Prod = Prod;
     d.Usuario = Usuario;
-    return this.http.post<any>(this._Cnx.Url() + "Factura/LiberarExistencia", JSON.stringify(d), { headers: { 'content-type': 'application/json' } });
+
+    
+    var options = {
+        'headers': {
+          'Authorization': 'Bearer ' + localStorage.getItem("token"),
+          'content-type': 'application/json'
+        }
+      };
+
+    let data : iData = {} as iData;
+    data.d = d;
+    data.refresh_token = localStorage.getItem("refresh_token");
+
+
+    return this.http.post<any>(this._Cnx.Url() + "Factura/LiberarExistencia", JSON.stringify(data), options);
 
  }
  
@@ -61,7 +133,20 @@ export class postFactura{
  public LiberarPrecios(d : iLiberacionPrecio[]) : Observable<string>{
 
 
-    return this.http.post<any>(this._Cnx.Url() + "Factura/LiberarPrecios", JSON.stringify(d), { headers: { 'content-type': 'application/json' } });
+    
+    var options = {
+        'headers': {
+          'Authorization': 'Bearer ' + localStorage.getItem("token"),
+          'content-type': 'application/json'
+        }
+      };
+
+    let data : iData = {} as iData;
+    data.d = d;
+    data.refresh_token = localStorage.getItem("refresh_token");
+
+
+    return this.http.post<any>(this._Cnx.Url() + "Factura/LiberarPrecios", JSON.stringify(data), options);
 
  }
 
@@ -69,7 +154,20 @@ export class postFactura{
  public LiberarBonificacion(d : iLiberacionBonif[]) : Observable<string>{
 
 
-    return this.http.post<any>(this._Cnx.Url() + "Factura/LiberarBonificacion", JSON.stringify(d), { headers: { 'content-type': 'application/json' } });
+    
+    var options = {
+        'headers': {
+          'Authorization': 'Bearer ' + localStorage.getItem("token"),
+          'content-type': 'application/json'
+        }
+      };
+
+    let data : iData = {} as iData;
+    data.d = d;
+    data.refresh_token = localStorage.getItem("refresh_token");
+
+
+    return this.http.post<any>(this._Cnx.Url() + "Factura/LiberarBonificacion", JSON.stringify(data), options);
 
  }
 

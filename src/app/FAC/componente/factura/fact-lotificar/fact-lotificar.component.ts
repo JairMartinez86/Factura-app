@@ -13,6 +13,7 @@ import { WaitComponent } from 'src/app/SHARED/componente/wait/wait.component';
 import { from, groupBy } from 'rxjs';
 import { getFactura } from 'src/app/FAC/GET/get-factura';
 import { iVentaLote } from 'src/app/FAC/interface/i-Venta-Lote';
+import { iToken } from 'src/app/SHARED/interface/i-Token';
 
 @Component({
   selector: 'app-fact-lotificar',
@@ -447,7 +448,9 @@ public V_Total_Lotificado(det: iDetalleFactura, l: iVentaLote)
 
 
     
-            let datos : any = s;
+            let datos : any = s[0];
+            let tk : any = s[1];
+            this.cFunciones.ActualizarToken(tk);
    
             datos.forEach((fila : any) =>{
               lstUb.push(fila);

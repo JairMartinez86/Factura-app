@@ -125,12 +125,14 @@ export class Funciones {
     let s : string = localStorage.getItem("login")!;
     let l : iLogin = JSON.parse(s);
 
+ if(l == undefined) return;
+
 
     localStorage.removeItem("login");
     localStorage.removeItem("token");
     localStorage.removeItem("refresh_token");
 
-    l.Token = l.Token;
+    l.Token = tk;
     this.Token = tk;
 
     

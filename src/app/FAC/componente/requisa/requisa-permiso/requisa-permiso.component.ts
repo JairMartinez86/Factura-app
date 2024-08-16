@@ -125,6 +125,7 @@ export class RequisaPermisoComponent {
 
           dialogRef.close();
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
@@ -198,6 +199,7 @@ export class RequisaPermisoComponent {
           document.getElementById("btnRefresscar-permiso-requisa")?.removeAttribute("disabled");
           dialogRef.close();
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {

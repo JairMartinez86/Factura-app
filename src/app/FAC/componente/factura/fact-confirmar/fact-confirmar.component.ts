@@ -285,6 +285,7 @@ export class FactConfirmarComponent {
 
           dialogRef.close();
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             if(this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined){
@@ -377,6 +378,7 @@ export class FactConfirmarComponent {
 
           dialogRef.close();
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             if(this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined){
@@ -585,6 +587,7 @@ export class FactConfirmarComponent {
           document.getElementById("btnRefrescarConfirmar")?.removeAttribute("disabled");
           dialogRef.close();
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             if(this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined){
@@ -695,6 +698,7 @@ export class FactConfirmarComponent {
           document.getElementById("btnRefrescarConfirmar")?.removeAttribute("disabled");
           dialogRef.close();
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             if(this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined){

@@ -50,10 +50,11 @@ export class RequisaAutorizaComponent {
 
     document.getElementById("btnRefrescarRequisa")?.setAttribute("disabled", "disabled");
 
-    this.GET.GetRequisa(this.cFunciones.User).subscribe(
+    this.GET.GetRequisa().subscribe(
       (s) => {
         dialogRef.close();
         let _json = JSON.parse(s);
+        this.cFunciones.ActualizarToken(_json["token"]);
 
         if (_json["esError"] == 1) {
           this.cFunciones.DIALOG.open(DialogErrorComponent, {
@@ -129,7 +130,7 @@ export class RequisaAutorizaComponent {
 
 
 
-        this.GET.Autorizar(det.IdRequisa, this.cFunciones.User).subscribe(
+        this.GET.Autorizar(det.IdRequisa).subscribe(
           {
             next: (s) => {
 
@@ -137,6 +138,7 @@ export class RequisaAutorizaComponent {
            
               dialogRef.close();
               let _json = JSON.parse(s);
+              this.cFunciones.ActualizarToken(_json["token"]);
 
               if (_json["esError"] == 1) {
                 if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {

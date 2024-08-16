@@ -39,6 +39,8 @@ export class LoginService {
           
           dialogRef.close();
           let _json: any =  JSON.parse(data);
+          this.cFunciones.ActualizarToken(_json["token"]);
+
 
           if (_json["esError"] == 1) {
             this.DIALOG.open(DialogErrorComponent, {
@@ -46,9 +48,7 @@ export class LoginService {
             });
           } else {
 
-            let datos : iDatos =  _json["d"];
-
-            let l : iLogin = datos.d;
+            let l : iLogin = _json["d"];
             this.cFunciones.User = l.User;
             this.cFunciones.Nombre = l.Nombre;
             this.cFunciones.Rol = l.Rol;

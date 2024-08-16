@@ -310,6 +310,7 @@ export class FactPagoComponent {
 
 
           let _json = JSON.parse(s);
+          this.cFunciones.ActualizarToken(_json["token"]);
 
           if (_json["esError"] == 1) {
             if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
@@ -379,7 +380,8 @@ export class FactPagoComponent {
             dialogRef.close();
 
 
-            let _json: any =  JSON.parse(s);;
+            let _json: any =  JSON.parse(s);
+            this.cFunciones.ActualizarToken(_json["token"]);
 
             if (_json.esError == 1) {
 
