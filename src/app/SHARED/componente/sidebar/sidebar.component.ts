@@ -78,7 +78,7 @@ export class SidebarComponent {
         this.href == '#' ||
         (this.href && this.href.length === 0))
     ) {
-console.log("SADS")
+
       if (element.tagName.toString().toLocaleLowerCase() == "a" && element.getAttribute("href") == "#" || element.tagName.toString().toLocaleLowerCase() == "i") {
 
         if (element.tagName.toString().toLocaleLowerCase() == "i") {
@@ -106,7 +106,12 @@ console.log("SADS")
 
     if (id == "") return;
     if (id == "btnMenu") return;
-    if (id == "aInicio") return;
+
+
+    if (id == "aInicio"){
+      this.cFunciones.DIALOG.closeAll();
+      this.DynamicFrom.viewContainerRef.clear();
+    };
 
     
 
