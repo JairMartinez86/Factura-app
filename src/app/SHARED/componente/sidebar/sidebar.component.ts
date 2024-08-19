@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, Inject, Renderer2, ViewChild, ComponentRef } from '@angular/core';
+import { Component, HostListener, Input, Inject, Renderer2, ViewChild, ComponentRef, COMPILER_OPTIONS } from '@angular/core';
 import { DynamicFormDirective } from '../../directive/dynamic-form.directive';
 import { FacturaComponent } from 'src/app/FAC/componente/factura/factura.component';
 import * as $ from 'jquery';
@@ -78,8 +78,7 @@ export class SidebarComponent {
         this.href == '#' ||
         (this.href && this.href.length === 0))
     ) {
-
-
+console.log("SADS")
       if (element.tagName.toString().toLocaleLowerCase() == "a" && element.getAttribute("href") == "#" || element.tagName.toString().toLocaleLowerCase() == "i") {
 
         if (element.tagName.toString().toLocaleLowerCase() == "i") {
@@ -107,7 +106,9 @@ export class SidebarComponent {
 
     if (id == "") return;
     if (id == "btnMenu") return;
+    if (id == "aInicio") return;
 
+    
 
    
     if(this.ErrorServidor && id != "aSalir"){
