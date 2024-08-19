@@ -9,13 +9,9 @@ import { DialogErrorComponent } from "src/app/SHARED/componente/dialog-error/dia
 import { iDatos } from "src/app/SHARED/interface/i-Datos";
 import { iCliente } from "../../interface/i-Cliente";
 import {
-  ConnectedPositioningStrategy,
   GlobalPositionStrategy,
-  HorizontalAlignment,
   IgxComboComponent,
   OverlaySettings,
-  PositionSettings,
-  VerticalAlignment
 } from "igniteui-angular";
 import { scaleInCenter, scaleOutCenter } from 'igniteui-angular/animations';
 import { iBodega } from "../../interface/i-Bodega";
@@ -24,14 +20,12 @@ import { iVendedor } from "../../interface/i-venedor";
 import { FactConfirmarComponent } from "./fact-confirmar/fact-confirmar.component";
 import { Funciones } from "src/app/SHARED/class/cls_Funciones";
 import { FactFichaProductoComponent } from "./fact-ficha-producto/fact-ficha-producto.component";
-import { iDetalleFactura } from "../../interface/i-detalle-factura";
 import { FactRevisionComponent } from "./fact-revision/fact-revision.component";
 import { postFactura } from "../../POST/post-factura";
 import { iFactPed } from "../../interface/i-Factura-Pedido";
 import { DialogoConfirmarComponent } from "src/app/SHARED/componente/dialogo-confirmar/dialogo-confirmar.component";
 import { FactLotificarComponent } from "./fact-lotificar/fact-lotificar.component";
-import { iExistenciaUbicacion } from "../../interface/i-Existencia-Ubicacion";
-import { stripe } from "@igniteui/material-icons-extended";
+
 
 @Component({
   selector: "app-factura",

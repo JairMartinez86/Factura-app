@@ -13,7 +13,7 @@ import { WaitComponent } from 'src/app/SHARED/componente/wait/wait.component';
 import { from, groupBy } from 'rxjs';
 import { getFactura } from 'src/app/FAC/GET/get-factura';
 import { iVentaLote } from 'src/app/FAC/interface/i-Venta-Lote';
-import { iToken } from 'src/app/SHARED/interface/i-Token';
+import { iDatos } from 'src/app/SHARED/interface/i-Datos';
 
 @Component({
   selector: 'app-fact-lotificar',
@@ -447,42 +447,66 @@ public V_Total_Lotificado(det: iDetalleFactura, l: iVentaLote)
           next: (s) => {
 
 
-    
-            let datos : any = s[0];
-            let tk : any = s[1];
-            this.cFunciones.ActualizarToken(tk);
-   
-            datos.forEach((fila : any) =>{
-              lstUb.push(fila);
-            });
-            
-            
-
-
-            if (Reg >= TotalReg) {
-
+            let _json = JSON.parse(s);
+            this.cFunciones.ActualizarToken(_json["token"]);
+  
            
-              this.lstExistencia = lstUb;
-       
+            if (_json["esError"] == 1) {
+              if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
+                this.cFunciones.DIALOG.open(DialogErrorComponent, {
+                  id: "error-servidor-msj",
+                  data: _json["msj"].Mensaje,
+                });
+  
+  
+              }
+  
+            } else {
+              let DAT: iDatos = _json["d"];
 
-              let Exits =  JSON.parse(JSON.stringify(this.lstExistencia ));
-          
-          
-              this.lstDetalle.data.forEach(async (f : iDetalleFactura) =>{
-          
-                f.Lotificado =  await this.Lotificar( f.IdVenta, f.Index, f.Codigo, f.Cantidad, f.EsBonif,   f.FacturaNegativo, f.Servicios, Exits);
-          
+              let datos : any =  JSON.parse(DAT.d);
+
+     
+              datos.forEach((fila : any) =>{
+                lstUb.push(fila);
               });
-          
-          
               
-              this.lstDetalle._updateChangeSubscription();
+              
+  
+  
+              if (Reg >= TotalReg) {
+  
+             
+                this.lstExistencia = lstUb;
+         
+  
+                let Exits =  JSON.parse(JSON.stringify(this.lstExistencia ));
+            
+            
+                this.lstDetalle.data.forEach(async (f : iDetalleFactura) =>{
+            
+                  f.Lotificado =  await this.Lotificar( f.IdVenta, f.Index, f.Codigo, f.Cantidad, f.EsBonif,   f.FacturaNegativo, f.Servicios, Exits);
+            
+                });
+            
+            
+                
+                this.lstDetalle._updateChangeSubscription();
+  
+  
+              }
+  
+  
+              Reg += 1;
 
-
+        
+  
             }
 
+            
 
-            Reg += 1;
+    
+           
 
 
           },
