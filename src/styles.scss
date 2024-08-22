@@ -294,21 +294,6 @@ html {
 }
 */
 
-:host {
-  // position: relative;
-  // display: flex;
-   overflow: auto;
-   z-index: 0;
-   scrollbar-width: none;
-   -ms-overflow-style: none;        
- 
-   &::-webkit-scrollbar {
-     background: transparent;
-     width: 0;
-     height: 0;
-   }
- }
- 
 
 
 
@@ -319,7 +304,6 @@ body {
 
 body {
   margin: 0;
- 
 }
 
 * {

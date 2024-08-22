@@ -108,7 +108,12 @@ export class SidebarComponent {
     if (id == "btnMenu") return;
 
 
+   // document.getElementById("body")?.setAttribute("style", "overflow:auto");
+
+   
+
     if (id == "aInicio"){
+      $("#btnMenu").trigger("click");
       this.cFunciones.DIALOG.closeAll();
       this.DynamicFrom.viewContainerRef.clear();
     };
@@ -117,6 +122,7 @@ export class SidebarComponent {
 
    
     if(this.ErrorServidor && id != "aSalir"){
+      $("#btnMenu").trigger("click");
       this.cFunciones.DIALOG.closeAll();
       this.cFunciones.DIALOG.open(DialogErrorComponent, {
         data: "<b class='error'>" + "Obteniendo Información del servidor por favor espere." + "</b>",
@@ -142,12 +148,14 @@ export class SidebarComponent {
     }
 
     if (id == "aRegistroFactura") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let RegFactura: ComponentRef<RegistroFacturaComponent> = this.DynamicFrom.viewContainerRef.createComponent(RegistroFacturaComponent);
       RegFactura.instance.TipoDocumento = "Factura";
     }
 
     if (id == "aRegistroProforma" || id == "aRegistroProformaVen") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let RegProforma: ComponentRef<RegistroFacturaComponent> = this.DynamicFrom.viewContainerRef.createComponent(RegistroFacturaComponent);
       RegProforma.instance.TipoDocumento = "Proforma";
@@ -157,6 +165,7 @@ export class SidebarComponent {
 
 
     if (id == "idNavCola") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let RegProforma: ComponentRef<RegistroFacturaComponent> = this.DynamicFrom.viewContainerRef.createComponent(RegistroFacturaComponent);
       RegProforma.instance.TipoDocumento = "Factura";
@@ -166,16 +175,19 @@ export class SidebarComponent {
 
 
     if (id == "aAutorizaRequisa") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let AutorizaRequiza: ComponentRef<RequisaAutorizaComponent> = this.DynamicFrom.viewContainerRef.createComponent(RequisaAutorizaComponent);
     }
 
     if (id == "aLiberarPrecio") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let LiberarPrecio: ComponentRef<LiberacionPrecioComponent> = this.DynamicFrom.viewContainerRef.createComponent(LiberacionPrecioComponent);
     }
 
     if (id == "aLiberarBonificacion") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let LiberarBonif: ComponentRef<LiberacionBonificacionComponent> = this.DynamicFrom.viewContainerRef.createComponent(LiberacionBonificacionComponent);
     }
@@ -186,6 +198,7 @@ export class SidebarComponent {
 
 
     if (id == "aRequisaPermiso") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let ReqPerm: ComponentRef<RequisaPermisoComponent> = this.DynamicFrom.viewContainerRef.createComponent(RequisaPermisoComponent);
     }
@@ -198,102 +211,121 @@ export class SidebarComponent {
     //IVENTARIO
 
     if (id == "aReporte-TransInv") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aTransInv: ComponentRef<ReporteInventarioTransaccDiariaComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioTransaccDiariaComponent);
     }
 
     if (id == "aReporte-TransInvproc") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aTransInvProc: ComponentRef<ReporteInventarioTransaccEnprocesoComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioTransaccEnprocesoComponent);
     }
 
     if (id == "aReporte-rev-consecutivo") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aTransInvRecConecutivo: ComponentRef<ReporteInventarioRevConsecutivoComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioRevConsecutivoComponent);
     }
 
 
     if (id == "aReporte-TransaccInv") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aTransInv: ComponentRef<ReporteInventarioTransaccionesComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioTransaccionesComponent);
     }
 
     if (id == "aReporte-TransaccInvResumen") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aTranResumen: ComponentRef<ReporteInventarioTransaccionesResumenComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioTransaccionesResumenComponent);
     }
 
 
     if (id == "aReporte-FacturaCosto") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aFacturaCosto: ComponentRef<ReporteInventarioFacturaCostoComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioFacturaCostoComponent);
     }
 
 
     if (id == "aReporte-ColumnarExistencia") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aColumnarExistencia: ComponentRef<ReporteInventarioColumnarExistenciaComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioColumnarExistenciaComponent);
     }
 
     if (id == "aReporte-VentasPorCliente") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aVentasPorCliente: ComponentRef<ReporteInventarioVentaClienteComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioVentaClienteComponent);
     }
 
 
     if (id == "aReporte-VentasPorSucursal") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aVentasPorSucursal: ComponentRef<ReporteInventarioVentaSucursalComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioVentaSucursalComponent);
     }
 
     if (id == "aReporte-VentasMensuales") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aVentasMensuales: ComponentRef<ReporteInventarioVentaMensualComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioVentaMensualComponent);
     }
    
     if (id == "aReporte-MargenProducto") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aMargenProducto: ComponentRef<ReporteInventarioMargenProductoComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioMargenProductoComponent);
     }
    
 
     if (id == "aReporte-VentasPorProducto") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aVentaPorProducto: ComponentRef<ReporteInventarioVentaProductoComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioVentaProductoComponent);
     }
     
     if (id == "aReporte-VentasPorProveedor") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aVentasPorProveedor: ComponentRef<ReporteInventarioVentaProveedorComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioVentaProveedorComponent);
     }
 
     if (id == "aReporte-VentasPorVendedor") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aVentasPorVendedor: ComponentRef<ReporteInventarioVentaVendedorComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioVentaVendedorComponent);
     }
 
     if (id == "aReporte-ResumenCompras") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aResumenCompras: ComponentRef<ReporteInventarioResumenComprasComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioResumenComprasComponent);
     }
     
     if (id == "aReporte-ValidacionInventario") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aValidacionInventario: ComponentRef<ReporteInventarioValidacionComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioValidacionComponent);
     }
 
       
     if (id == "aReporte-UltimasCompras") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aUltimasCompras: ComponentRef<ReporteInventarioUltimasComprasComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioUltimasComprasComponent);
     }
     
     if (id == "aReporte-UltimoFob") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aUltimoFob: ComponentRef<ReporteInventarioUltimoFobComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioUltimoFobComponent);
     }
     
     if (id == "aReporte-FactProv") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aUltimoFob: ComponentRef<ReporteInventarioFacturaProveedorComponent> = this.DynamicFrom.viewContainerRef.createComponent(ReporteInventarioFacturaProveedorComponent);
     }
@@ -303,6 +335,7 @@ export class SidebarComponent {
     //CARTERA
 
     if (id == "aCXC-Estado-Cuenta") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aEstadoCuenta: ComponentRef<EstadoCuentaComponent> = this.DynamicFrom.viewContainerRef.createComponent(EstadoCuentaComponent);
       aEstadoCuenta.instance.MostrarPermisos = false;
@@ -310,6 +343,7 @@ export class SidebarComponent {
 
 
     if (id == "aCXC-Permiso-Cartera") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let aPermisoCartera: ComponentRef<EstadoCuentaComponent> = this.DynamicFrom.viewContainerRef.createComponent(EstadoCuentaComponent);
       aPermisoCartera.instance.MostrarPermisos = true;
@@ -320,6 +354,7 @@ export class SidebarComponent {
 
 
     if (id == "idNavAccesoWeb") {
+      $("#btnMenu").trigger("click");
       this.DynamicFrom.viewContainerRef.clear();
       let Acceso: ComponentRef<AccesoWebComponent> = this.DynamicFrom.viewContainerRef.createComponent(AccesoWebComponent);
     }
@@ -328,6 +363,7 @@ export class SidebarComponent {
 
 
     if (id == "aSalir") {
+      $("#btnMenu").trigger("click");
       this.ErrorServidor = true;
       this._SrvLogin.CerrarSession();
 
