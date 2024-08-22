@@ -9,18 +9,7 @@
   overflow: auto;
 }
 */
-/*
-::ng-deep {
 
-  html,
-  body {
-    max-height: 100vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
-
-  }
-}
-*/
 
 table {
   margin-bottom: 60px;
@@ -29,7 +18,7 @@ table {
 }
 
 .altura {
-  min-height: 200vh;
+  min-height: 100vh;
 }
 
 thead {
