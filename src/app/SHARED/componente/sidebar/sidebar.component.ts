@@ -430,7 +430,7 @@ export class SidebarComponent {
 
   ngOnInit() {
 
-    this.subscription = interval(6000000).subscribe(val => this.ActualizarDatosServidor())
+    this.subscription = interval(60000).subscribe(val => this.ActualizarDatosServidor())
 
     //INSERTAR SCRIPT
     /*

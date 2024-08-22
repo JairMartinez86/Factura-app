@@ -3,11 +3,13 @@
 
 //████████████████████████████████████████████TABLE██████████████████████████████████████████████████████████████████████
 
-.frmRevision {
+/*.frmRevision {
   min-width: var(--min-width);
+  height: 100%;
+  overflow: auto;
 }
-
-
+*/
+/*
 ::ng-deep {
 
   html,
@@ -18,12 +20,12 @@
 
   }
 }
-
+*/
 
 table {
   margin-bottom: 60px;
   position: relative;
-  overflow-y: scroll;
+  overflow: auto;
 }
 
 .altura {

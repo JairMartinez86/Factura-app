@@ -49,13 +49,13 @@ form {
 
   ::ng-deep {
   
-    html,
+   /* html,
     body {
         max-height: 100vh;
         overflow-y: scroll;
         overflow-x: hidden;
 
-      }
+      }*/
   
     .cmbCliente.igx-combo ::placeholder {
       color: white;
@@ -286,7 +286,9 @@ form {
 
 }
 
-
+table{
+    overflow: auto;
+}
 
 .header-table {
 
