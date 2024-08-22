@@ -51,23 +51,8 @@ form {
   
 
   ::ng-deep {
-  
-   /* html,
-    body {
-        max-height: 100vh;
-        overflow-y: scroll;
-        overflow-x: hidden;
-
-      }*/
-  
 
 
-      .estado-cuenta{
-        overflow-y: scroll;
-        height: 1000px;
-        margin-bottom: 100px;
-    }
-  
     
     .cmbCliente.igx-combo ::placeholder {
       color: white;
