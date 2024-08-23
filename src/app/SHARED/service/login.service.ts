@@ -133,6 +133,13 @@ export class LoginService {
             this.cFunciones.SetTiempoDesconexion(Number(datos[2].d));
             l.FechaServer = datos[1].d;
             l.TimeOut = Number(datos[2].d);
+
+            localStorage.removeItem("login");
+            localStorage.removeItem("token");
+            localStorage.removeItem("refresh_token");
+  
+            localStorage.setItem("login", JSON.stringify(l));
+  
            
     
             this.cFunciones.ActualizarToken(l.Token);
