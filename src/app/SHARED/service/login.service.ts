@@ -38,8 +38,9 @@ export class LoginService {
 
           
           dialogRef.close();
+  
           let _json: any =  JSON.parse(data);
-          this.cFunciones.ActualizarToken(_json["token"]);
+
 
 
           if (_json["esError"] == 1) {
@@ -48,15 +49,28 @@ export class LoginService {
             });
           } else {
 
+
+
             let l : iLogin = _json["d"];
+
+            localStorage.removeItem("login");
+            localStorage.removeItem("token");
+            localStorage.removeItem("refresh_token");
+  
+            localStorage.setItem("login", JSON.stringify(l));
+  
+  
+  
+            this.cFunciones.ActualizarToken(_json["token"]);
+
+
             this.cFunciones.User = l.User;
             this.cFunciones.Nombre = l.Nombre;
             this.cFunciones.Rol = l.Rol;
             this.cFunciones.Bodega = l.Bodega;
             this.cFunciones.Lotificar = l.Lotificar;
             this.cFunciones.ColaImpresionWeb = l.ColaImpresionWeb;
-            this.cFunciones.Token = l.Token;
-
+         
 
             this.Login(l);
            
@@ -121,18 +135,10 @@ export class LoginService {
             l.TimeOut = Number(datos[2].d);
            
     
-              localStorage.removeItem("login");
-              localStorage.removeItem("access_token");
-              localStorage.removeItem("refresh_token");
+            this.cFunciones.ActualizarToken(l.Token);
 
-              if(datos[0].d != undefined)
-              {
-                localStorage.setItem("login", JSON.stringify(l));
-                localStorage.setItem("token", l.Token.access_token);
-                localStorage.setItem("refresh_token", l.Token.refresh_token);
 
-              this.isLogin();
-              }
+            this.isLogin();
 
               
           }

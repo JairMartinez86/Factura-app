@@ -139,7 +139,7 @@ export class Funciones {
     localStorage.setItem("token", this.Token.access_token);
     localStorage.setItem("refresh_token", l.Token.refresh_token);
     localStorage.setItem("login", JSON.stringify(l));
-    
+
   }
 
 
