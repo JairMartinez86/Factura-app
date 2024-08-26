@@ -113,10 +113,22 @@ export class SidebarComponent {
    
 
     if (id == "aInicio"){
+      this.ErrorServidor = false;
       $("#btnMenu").trigger("click");
       this.cFunciones.DIALOG.closeAll();
       this.DynamicFrom.viewContainerRef.clear();
+      return;
     };
+
+
+    
+    if (id == "aSalir") {
+      $("#btnMenu").trigger("click");
+      this.ErrorServidor = false;
+      this._SrvLogin.CerrarSession();
+      return;
+    }
+
 
     
 
@@ -362,12 +374,6 @@ export class SidebarComponent {
 
 
 
-    if (id == "aSalir") {
-      $("#btnMenu").trigger("click");
-      this.ErrorServidor = true;
-      this._SrvLogin.CerrarSession();
-
-    }
   }
 
 
@@ -379,6 +385,8 @@ export class SidebarComponent {
     this.Conexion.FechaServidor().subscribe(
       {
         next: (data) => {
+
+          this.ErrorServidor = false;
 
           let _json: any = JSON.parse(data);
           this.cFunciones.ActualizarToken(_json["token"]);
