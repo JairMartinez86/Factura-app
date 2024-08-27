@@ -6,6 +6,7 @@ export interface iEstadoCuenta{
     Debe: number,
     Haber : number;
     Saldo : number;
+    Acumulado : number;
     Corriente : number;
     Vencido : number;
     De1a30Dias : number;
