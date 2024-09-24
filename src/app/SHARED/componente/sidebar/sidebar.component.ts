@@ -56,7 +56,6 @@ export class SidebarComponent {
   subscription: Subscription = {} as Subscription;
   private Perfil: iPerfil[] = [];
 
-
   constructor(
     private renderer: Renderer2,
     @Inject(DOCUMENT) private document: HTMLDocument,
@@ -64,7 +63,23 @@ export class SidebarComponent {
     private Conexion: getServidor,
     public cFunciones: Funciones,
   ) {
-    this.ActualizarDatosServidor();
+    
+
+    if (this.cFunciones.DIALOG.getDialogById("dialog-wait") == undefined) {
+      let dialogRef: MatDialogRef<WaitComponent> = this.cFunciones.DIALOG.open(
+        WaitComponent,
+        {
+          panelClass: "escasan-dialog-full-blur",
+          data: "",
+          id: "dialog-wait"
+        }
+      );
+    }
+
+
+
+    
+
   }
 
 
@@ -386,10 +401,17 @@ export class SidebarComponent {
       {
         next: (data) => {
 
+
+          if (this.cFunciones.DIALOG.getDialogById("dialog-wait") != undefined) {
+            this.cFunciones.DIALOG.getDialogById("dialog-wait")?.close();
+          }
+
+
           this.ErrorServidor = false;
 
           let _json: any = JSON.parse(data);
           this.cFunciones.ActualizarToken(_json["token"]);
+         
 
           if (_json["esError"] == 1) {
             if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
@@ -437,7 +459,9 @@ export class SidebarComponent {
         },
         error: (err) => {
 
-
+          if (this.cFunciones.DIALOG.getDialogById("dialog-wait") != undefined) {
+              this.cFunciones.DIALOG.getDialogById("dialog-wait")?.close();
+            }
           
           this.ErrorServidor = true;
 
@@ -474,6 +498,8 @@ export class SidebarComponent {
 
   ngOnInit() {
 
+ 
+    this.ActualizarDatosServidor();
     this.subscription = interval(60000).subscribe(val => this.ActualizarDatosServidor())
 
     //INSERTAR SCRIPT

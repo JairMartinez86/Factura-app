@@ -14,13 +14,13 @@ import { iDatos } from '../interface/i-Datos';
 })
 export class LoginService {
 
- 
 
-  constructor(private _Router: Router, private cFunciones : Funciones,
+
+  constructor(private _Router: Router, private cFunciones: Funciones,
     private DIALOG: MatDialog, private GET: getServidor) { }
 
 
-  public Session(user : string, pwd : string) : void{
+  public Session(user: string, pwd: string): void {
 
     document.getElementById("btnLogin")?.setAttribute("disabled", "disabled");
 
@@ -29,21 +29,23 @@ export class LoginService {
       {
         panelClass: "escasan-dialog-full-blur",
         data: "",
+        id: "dialog-wait"
       }
     );
-    
+
     this.GET.Autorize(user, pwd).subscribe(
       {
         next: (data) => {
 
-          
-          dialogRef.close();
-  
-          let _json: any =  JSON.parse(data);
+
+          let _json: any = JSON.parse(data);
 
 
 
           if (_json["esError"] == 1) {
+
+            dialogRef.close();
+
             this.DIALOG.open(DialogErrorComponent, {
               data: _json["msj"].Mensaje,
             });
@@ -51,16 +53,16 @@ export class LoginService {
 
 
 
-            let l : iLogin = _json["d"];
+            let l: iLogin = _json["d"];
 
             localStorage.removeItem("login");
             localStorage.removeItem("token");
             localStorage.removeItem("refresh_token");
-  
+
             localStorage.setItem("login", JSON.stringify(l));
-  
-  
-  
+
+
+
             this.cFunciones.ActualizarToken(_json["token"]);
 
 
@@ -70,14 +72,14 @@ export class LoginService {
             this.cFunciones.Bodega = l.Bodega;
             this.cFunciones.Lotificar = l.Lotificar;
             this.cFunciones.ColaImpresionWeb = l.ColaImpresionWeb;
-         
+
 
             this.Login(l);
-           
-  
-    
-             
-              
+
+
+
+
+
           }
 
         },
@@ -87,8 +89,7 @@ export class LoginService {
 
           dialogRef.close();
 
-          if(this.DIALOG.getDialogById("error-servidor") == undefined) 
-          {
+          if (this.DIALOG.getDialogById("error-servidor") == undefined) {
             this.DIALOG.open(DialogErrorComponent, {
               id: "error-servidor",
               data: "<b class='error'>" + err.message + "</b>",
@@ -96,10 +97,10 @@ export class LoginService {
           }
 
         },
-        complete: () => { 
-        document.getElementById("btnLogin")?.removeAttribute("disabled");
- 
-      }
+        complete: () => {
+          document.getElementById("btnLogin")?.removeAttribute("disabled");
+
+        }
       }
     );
 
@@ -107,7 +108,7 @@ export class LoginService {
   }
 
 
-  private Login(l : iLogin){
+  private Login(l: iLogin) {
 
     document.getElementById("btnLogin")?.setAttribute("disabled", "disabled");
 
@@ -115,20 +116,25 @@ export class LoginService {
       {
         next: (data) => {
 
-          
-         
-          let _json: any =  JSON.parse(data);
+          let _json: any = JSON.parse(data);
 
           if (_json["esError"] == 1) {
+
+            if (this.cFunciones.DIALOG.getDialogById("dialog-wait") != undefined) {
+              this.cFunciones.DIALOG.getDialogById("dialog-wait")?.close();
+            }
+
+
+
             this.DIALOG.open(DialogErrorComponent, {
               data: _json["msj"].Mensaje,
             });
           } else {
 
-            let datos : iDatos[] =  _json["d"];
+            let datos: iDatos[] = _json["d"];
 
-            let l : iLogin = datos[0].d;
-          
+            let l: iLogin = datos[0].d;
+
             this.cFunciones.FechaServidor(datos[1].d);
             this.cFunciones.SetTiempoDesconexion(Number(datos[2].d));
             l.FechaServer = datos[1].d;
@@ -137,28 +143,32 @@ export class LoginService {
             localStorage.removeItem("login");
             localStorage.removeItem("token");
             localStorage.removeItem("refresh_token");
-  
+
             localStorage.setItem("login", JSON.stringify(l));
-  
-           
-    
+
+
+
             this.cFunciones.ActualizarToken(l.Token);
 
 
             this.isLogin();
 
-              
+
           }
 
         },
         error: (err) => {
 
+
+          if (this.cFunciones.DIALOG.getDialogById("dialog-wait") != undefined) {
+            this.cFunciones.DIALOG.getDialogById("dialog-wait")?.close();
+          }
+
           document.getElementById("btnLogin")?.removeAttribute("disabled");
 
-   
 
-          if(this.DIALOG.getDialogById("error-servidor") == undefined) 
-          {
+
+          if (this.DIALOG.getDialogById("error-servidor") == undefined) {
             this.DIALOG.open(DialogErrorComponent, {
               id: "error-servidor",
               data: "<b class='error'>" + err.message + "</b>",
@@ -166,52 +176,49 @@ export class LoginService {
           }
 
         },
-        complete: () => { 
-        document.getElementById("btnLogin")?.removeAttribute("disabled");
- 
-      }
+        complete: () => {
+          document.getElementById("btnLogin")?.removeAttribute("disabled");
+
+        }
       }
     );
 
 
 
   }
-  
-  public isLogin(){
 
-    let s : string = localStorage.getItem("login")!;
+  public isLogin() {
 
-    if(s != undefined){
+    let s: string = localStorage.getItem("login")!;
 
-      let l : iLogin = JSON.parse(s);
+    if (s != undefined) {
 
-    
-    if(this.cFunciones.User == "")
-    {
-      this.cFunciones.User = l.User;
-      this.cFunciones.Nombre = l.Nombre;
-      this.cFunciones.Rol = l.Rol;
-      this.cFunciones.Bodega = l.Bodega;
-      this.cFunciones.Lotificar = l.Lotificar;
-      this.cFunciones.ColaImpresionWeb = l.ColaImpresionWeb;
-      this.cFunciones.FechaServidor(new Date(l.FechaServer));
-      this.cFunciones.SetTiempoDesconexion(l.TimeOut);
-      this.cFunciones.Token = l.Token;
-    }
+      let l: iLogin = JSON.parse(s);
 
-//console.log(l.FechaLogin)
 
-      if(this.Diff(new Date(l.FechaLogin)) <= this.cFunciones.TiempoDesconexion())
-      {
+      if (this.cFunciones.User == "") {
+        this.cFunciones.User = l.User;
+        this.cFunciones.Nombre = l.Nombre;
+        this.cFunciones.Rol = l.Rol;
+        this.cFunciones.Bodega = l.Bodega;
+        this.cFunciones.Lotificar = l.Lotificar;
+        this.cFunciones.ColaImpresionWeb = l.ColaImpresionWeb;
+        this.cFunciones.FechaServidor(new Date(l.FechaServer));
+        this.cFunciones.SetTiempoDesconexion(l.TimeOut);
+        this.cFunciones.Token = l.Token;
+      }
 
-        if(this._Router.url !== '/Menu')
-        {
+      //console.log(l.FechaLogin)
+
+      if (this.Diff(new Date(l.FechaLogin)) <= this.cFunciones.TiempoDesconexion()) {
+
+        if (this._Router.url !== '/Menu') {
           this._Router.navigate(['/Menu'], { skipLocationChange: false });
         }
-       
+
         return;
       }
- 
+
     }
 
     localStorage.removeItem("login");
@@ -219,9 +226,9 @@ export class LoginService {
   }
 
 
-  Diff(FechaLogin : Date){
+  Diff(FechaLogin: Date) {
 
-    let FechaServidor : Date = new Date(this.cFunciones.FechaServer);
+    let FechaServidor: Date = new Date(this.cFunciones.FechaServer);
 
     var Segundos = Math.abs((FechaLogin.getTime() - FechaServidor.getTime()) / 1000);
     /*console.log(FechaServidor)
@@ -231,13 +238,13 @@ export class LoginService {
   }
 
 
-  public UpdFecha(f : string){
+  public UpdFecha(f: string) {
 
-    let s : string = localStorage.getItem("login")!;
-   
-   if(s != undefined){
+    let s: string = localStorage.getItem("login")!;
 
-      let l : iLogin = JSON.parse(s);
+    if (s != undefined) {
+
+      let l: iLogin = JSON.parse(s);
       l.FechaLogin = f;
       localStorage.removeItem("login");
       localStorage.removeItem("login");
@@ -251,18 +258,17 @@ export class LoginService {
 
   }
 
-  public CerrarSession(){
+  public CerrarSession() {
     localStorage.removeItem("login");
     localStorage.removeItem("login");
-      localStorage.removeItem("refresh_token");
-    
+    localStorage.removeItem("refresh_token");
+
     this._Router.navigate(['/Login'], { skipLocationChange: false });
   }
 
-  public V_Version()
-  {
+  public V_Version() {
     this.GET.Version();
   }
 
- 
+
 }
