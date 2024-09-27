@@ -6,6 +6,7 @@ import { postFactura } from 'src/app/FAC/POST/post-factura';
 import { iDatos } from '../interface/i-Datos';
 import { WaitComponent } from '../componente/wait/wait.component';
 import { Funciones } from '../class/cls_Funciones';
+import { iAnular } from '../interface/i-Anular';
 
 @Component({
   selector: 'app-anular',
@@ -62,8 +63,14 @@ export class AnularComponent {
     );
 
 
+    let d : iAnular = {} as iAnular;
+    d.IdDoc = this.IdDoc;
+    d.Motivo = this.val.Get("txtMotivo").value;
+    d.Usuario = this.cFunciones.User;
+    
 
-    this.POST.AnularFactura(this.IdDoc, this.val.Get("txtMotivo").value, this.cFunciones.User).subscribe(
+
+    this.POST.AnularFactura(d).subscribe(
       {
         next: (s) => {
 

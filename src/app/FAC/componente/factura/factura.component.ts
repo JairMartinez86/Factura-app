@@ -1380,7 +1380,7 @@ export class FacturaComponent {
 
           dialogRef.close();
           let _json = JSON.parse(s);
-
+        
           if (_json["esError"] == 1) {
             if (this.cFunciones.DIALOG.getDialogById("error-servidor-msj") == undefined) {
               this.cFunciones.DIALOG.open(DialogErrorComponent, {

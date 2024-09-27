@@ -8,6 +8,7 @@ import { iLiberarExixtencia } from "../interface/i-Liberar-Existencia";
 import { iLiberacionPrecio } from "../interface/i-Liberacion-Precio";
 import { iLiberacionBonif } from "../interface/i-Liberacion-Bonif";
 import { iData } from "src/app/SIS/Interface/Data";
+import { iAnular } from "src/app/SHARED/interface/i-Anular";
 
 @Injectable({
     providedIn: 'root',
@@ -46,7 +47,7 @@ export class postFactura{
 
     }
 
-    AnularFactura(IdDoc : string, Motivo: string, Usuario: string) : Observable<string> { 
+    AnularFactura(d : iAnular) : Observable<string> { 
 
         
         var options = {
@@ -56,10 +57,14 @@ export class postFactura{
             }
           };
 
-          
+         
+          let data : iData = {} as iData;
+          data.d = d;
+          data.refresh_token = localStorage.getItem("refresh_token");
 
 
-        return this.http.post<any>(this._Cnx.Url() + "Factura/Anular?IdDoc=" + IdDoc + "&Motivo=" + Motivo + "&Usuario=" + Usuario + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
+
+        return this.http.post<any>(this._Cnx.Url() + "Factura/Anular" , JSON.stringify(data), options);
 
     }
 

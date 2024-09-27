@@ -340,13 +340,13 @@ export class RegistroFacturaComponent {
             if(det.TipoDocumento == "Factura" || ImprimirProforma)
             {
               this.printPDFS(Datos[0].d);
-              if(Datos[1].d != undefined)this.printPDFS(Datos[1].d);
+              if(Datos.length > 1) if(Datos[1].d != undefined)this.printPDFS(Datos[1].d);
               
             }
             else
             {
               this.printPDFS(Datos[0].d);
-              if(Datos[1].d != undefined)this.printPDFS(Datos[1].d);
+              if(Datos.length > 1) if(Datos[1].d != undefined)this.printPDFS(Datos[1].d);
             }
 
             
