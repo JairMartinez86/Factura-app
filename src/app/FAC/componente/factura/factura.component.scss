@@ -76,17 +76,7 @@ span{
 }
 
 .contenedor-contacto{
-  display: flex;
-  flex-direction: row;
-  text-align: right;
-
-  
-  div:first-child{
-    width: 20%;
-  }
-  div:last-child{
-    width: 80%;
-  }
+  margin-left: 10px;
 }
 
 
