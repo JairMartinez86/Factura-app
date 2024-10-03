@@ -1395,7 +1395,7 @@ export class FacturaComponent {
             let Datos: iDatos[] = _json["d"];
             let Consecutivo: string = Datos[0].d;
 
-            if(Datos[1].d != undefined && this.Fila_Doc.TipoDocumento == "Factura") this.printPDFS(Datos[1].d);
+            if(Datos[1]?.d != undefined && this.Fila_Doc.TipoDocumento == "Factura") this.printPDFS(Datos[1].d);
 
 
             

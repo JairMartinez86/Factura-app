@@ -118,9 +118,9 @@ export class FactLotificarComponent {
 
           AgregarFaltante = false
 
-          let Key : string = CodProducto + this.CodBodega + "A00-00S/L";
+          let Key : string = CodProducto + this.CodBodega + "A00-00";
 
-          Lotificado += this.V_AgregarLote(IdVenta, Key, CodProducto, Cantidad, "A00-00", "S/L", undefined, 0, EsBonificado, FactNegativo, Servicios, Index, true);
+          Lotificado += this.V_AgregarLote(IdVenta, Key, CodProducto, Cantidad, "A00-00", "", undefined, 0, EsBonificado, FactNegativo, Servicios, Index, true);
           break;
         }
       }
@@ -132,8 +132,8 @@ export class FactLotificarComponent {
 
     if((FactNegativo || Servicios) && AgregarFaltante)
     {
-      let Key : string = CodProducto + this.CodBodega + "A00-00S/L";
-      Lotificado += this.V_AgregarLote(IdVenta, Key, CodProducto, Cantidad, "A00-00", "S/L", undefined, 0, EsBonificado, FactNegativo, Servicios, Index, true);
+      let Key : string = CodProducto + this.CodBodega + "A00-00";
+      Lotificado += this.V_AgregarLote(IdVenta, Key, CodProducto, Cantidad, "A00-00", "", undefined, 0, EsBonificado, FactNegativo, Servicios, Index, true);
     }
 
 
