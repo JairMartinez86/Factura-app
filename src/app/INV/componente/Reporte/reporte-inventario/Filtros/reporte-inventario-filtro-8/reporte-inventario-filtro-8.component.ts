@@ -89,7 +89,7 @@ export class ReporteInventarioFiltro8Component {
 
     this.servicio.Salida.subscribe((result: iReporteService[]) => {
 
-       let d : iReporteService = result.find(f => f.Filtro == "Filtro8")!;
+       let d : iReporteService = result.find(f => f.Filtro == "Filtro9")!;
 
        if(d == undefined) return;
        
