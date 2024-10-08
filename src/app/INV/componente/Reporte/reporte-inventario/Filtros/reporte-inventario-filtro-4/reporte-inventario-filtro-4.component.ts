@@ -57,7 +57,7 @@ export class ReporteInventarioFiltro4Component implements OnInit {
     this.val.add("cmbSubFamilia", "1", "LEN>=", "0", "", "");
     this.val.add("btn-check-negativo", "1", "LEN>=", "0", "", "");
 
-    this.val.Get("cmbFamilia").setValue("");
+    this.val.Get("cmbPresupuesto").setValue("");
     this.val.Get("cmbProveedor").setValue("");
     this.val.Get("cmbFamilia").setValue("");
     this.val.Get("cmbSubFamilia").setValue("");

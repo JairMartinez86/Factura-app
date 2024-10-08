@@ -60,6 +60,13 @@ export class Funciones {
     {IdAcceso:0,  Activo: false, EsMenu: false,  Id:"idNavCola", Caption: "Cola Impresión" , MenuPadre: "", Clase : "fa-solid fa-print fa-lg", Modulo: "FACT", Usuario: ""},
   
 
+     /**************************************REPORTE VENTA************************************* */ 
+    {IdAcceso:0,  Activo: false, EsMenu: true,  Id:"idNavReporteVTA", Caption: "Reporte Venta" , MenuPadre: "", Clase : "fa-solid fa-print fa-lg", Modulo: "FACT", Usuario: ""},
+    {IdAcceso:0,  Activo: false, EsMenu: false, Id:"aReporte-VTA-VtaPorNegocio", Caption: "Venta por linea de negocio" , MenuPadre: "idNavReporteVTA", Clase : "", Modulo: "FACT", Usuario: ""},
+
+
+
+
     /**************************************INVENTARIO************************************* */ 
 
     {IdAcceso:0,  Activo: false, EsMenu: true,  Id:"idNavIventario", Caption: "Inventario" , MenuPadre: "", Clase : "fa-regular fa-pen-to-square fa-lg", Modulo: "FACT", Usuario: ""},
