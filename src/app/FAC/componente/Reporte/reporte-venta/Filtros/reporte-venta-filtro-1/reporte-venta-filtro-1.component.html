@@ -3,26 +3,11 @@
     <form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
 
         <div class="row">
-            <div class="col-12 mb-1">
-
-                <igx-combo class="combo" #cmbPresupuesto [data]="lstGrupoPre" valueKey="IdGrupoPresupuestario" displayKey="Key" id="cmbPresupuesto"
-                    formControlName="cmbPresupuesto" placeholder="Seleccione un Grupo..."
-                    searchPlaceholder="Seleccione un Grupo..." [autoFocusSearch]="true"
-                    (selectionChanging)="V_Select_Presupuesto($event)" (keyup)="V_Enter_Presupuesto($event);">
-                    <label igxLabel>Grupo Presupuesto</label>
-                    <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
-          
-                    <ng-template igxComboClearIcon>
-                        <igx-icon (click)="V_Limpiar_Item('cmbPresupuesto');"><i class="fa-solid fa-eraser"></i></igx-icon>
-                    </ng-template>
-                </igx-combo>
-
-            </div>
-
+            
      
             <div class="col-12 mb-1">
 
-                <igx-combo class="combo" #cmbFamilia [data]="lstFamilia" valueKey="IdGrupo" displayKey="Key" id="cmbFamilia"
+                <igx-combo class="combo" #cmbFamilia [data]="lstFamilia" valueKey="Codigo" displayKey="Key" id="cmbFamilia"
                     formControlName="cmbFamilia" placeholder="Seleccione una Familia."
                     searchPlaceholder="Seleccione una Familia..." [autoFocusSearch]="true"
                     (selectionChanging)="V_Select_Familia($event)" (keyup)="V_Enter_Familia($event);">
@@ -39,7 +24,7 @@
 
             <div class="col-12 mb-1">
 
-                <igx-combo class="combo" #cmbSubFamilia [data]="lstSubFamilia" valueKey="IdSubGrupo" displayKey="Key" id="cmbSubFamilia"
+                <igx-combo class="combo" #cmbSubFamilia [data]="lstSubFamilia" valueKey="Codigo" displayKey="Key" id="cmbSubFamilia"
                     formControlName="cmbSubFamilia" placeholder="Seleccione una Sub Familia."
                     searchPlaceholder="Seleccione una Sub Familia..." [autoFocusSearch]="true"
                     (selectionChanging)="V_Select_SubFamilia($event)" (keyup)="V_Enter_SubFamilia($event);">
@@ -52,6 +37,23 @@
                 </igx-combo>
 
             </div>
+
+            <div class="col-12 mb-1">
+
+                <igx-combo class="comboPre" #cmbPresupuesto [data]="lstGrupoPre" valueKey="Codigo" displayKey="Key" id="cmbPresupuesto"
+                    formControlName="cmbPresupuesto" placeholder="Seleccione un Grupo..."
+                    searchPlaceholder="Seleccione un Grupo..." [autoFocusSearch]="true"
+                    (selectionChanging)="V_Select_Presupuesto($event)" (keyup)="V_Enter_Presupuesto($event);">
+                    <label igxLabel>Grupo Presupuesto</label>
+                    <igx-prefix><i class="fa-solid fa-list"></i></igx-prefix>
+          
+                    <ng-template igxComboClearIcon>
+                        <igx-icon (click)="V_Limpiar_Item('cmbPresupuesto');"><i class="fa-solid fa-eraser"></i></igx-icon>
+                    </ng-template>
+                </igx-combo>
+
+            </div>
+
         </div>
 
 

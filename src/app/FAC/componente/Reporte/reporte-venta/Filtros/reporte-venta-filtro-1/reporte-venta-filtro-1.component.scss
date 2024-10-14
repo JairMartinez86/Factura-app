@@ -1,0 +1,36 @@
+.comboPre {
+
+    background-color: var(--escan-primario);
+  
+    i,
+    label {
+      color: white;
+    }
+  }
+
+
+  ::ng-deep {
+
+
+
+    .comboPre.igx-combo ::placeholder {
+      color: white;
+    }
+  
+    .comboPre.igx-combo:hover ::placeholder {
+      font-size: 1.1em;
+      font-weight: bold;
+      color: white;
+    }
+  
+    .comboPre .igx-input-group__input:focus,
+    .comboPre .igx-input-group__input,
+    .comboPre .igx-icon{
+          color: white ;
+      }
+  
+  
+  
+  }
+  
+  

@@ -116,7 +116,7 @@ export class ReporteVentaFiltro1Component {
 
 
       let _Item: any = cmb._focusedItem?.value;
-      this.lstSubFamilia = this.DatosFiltro.Datos[3].filter((f : any) => f.IdGrupo == _Item.IdGrupo);
+      this.lstSubFamilia = this.DatosFiltro.Datos[1].filter((f : any) => f.IdGrupo == _Item.IdGrupo);
       
     }
 
