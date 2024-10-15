@@ -1,0 +1,105 @@
+<div class="contenedor">
+
+
+
+
+    <div class="card">
+        <div class="card-header">
+            <h4>Ventas Por Clasificacion de Producto</h4>
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-6 col-xxl-5  mb-1">
+                    <app-reporte-inventario-filtro-1 #Filtro1></app-reporte-inventario-filtro-1>
+
+                </div>
+
+              
+            </div>
+
+
+            <form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 col-xxl-2 mb-1">
+                     
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-list fa-lg"></i></span>
+                                <div class="form-floating">
+                                    
+                                        <select class="form-select form-select-lg" aria-label="Tipo Reporte" id="cmbTipo"
+                                        formControlName="cmbTipo">
+                                        <option value="E">Estrategico</option>
+                                        <option value="P">Promotoria</option>
+                                        <option value="B">Bolnasa</option>
+                                    </select>
+                                   
+                                    
+                                    <label for="cmbTipo">Tipo Reporte</label>
+                                </div>
+                            </div>
+                  
+                        
+                    </div>
+    
+                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 col-xxl-2 offset-xxl-1 mb-1">
+                       
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-list fa-lg"></i></span>
+                                <div class="form-floating">
+                                    
+                                        <select class="form-select form-select-lg" aria-label="Tipo Reporte" id="cmbMoneda"
+                                        formControlName="cmbMoneda">
+                                        <option value="{{this.cFunciones.MonedaLocal}}">Cordoba</option>
+                                        <option value="{{this.cFunciones.MonedaSistema}}">Dolares</option>
+                                    </select>
+                                   
+                                    
+                                    <label for="cmbMoneda">Moneda</label>
+                                </div>
+                            </div>
+                
+                        
+                    </div>
+                </div>
+    
+            </form>
+
+
+
+        </div>
+
+        <div class="card-footer">
+            <div class="row">
+
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-5 mb-1">
+                    <div class="contenedor-boton">
+
+                        <button type="button" class="btn btn-primario" id="btnImprimir-Reporte-venta-class-product"
+                            (click)="V_Imprimir(false);"><i class="fa-solid fa-file-pdf fa-beat-fade fa-xl"></i>
+                            Imprimir</button>
+
+                        <button type="button" class="btn btn-opcional" id="btnImprimir-Reporte-venta-class-product"
+                            (click)="V_Imprimir(true);"><i class="fa-solid fa-file-excel fa-beat-fade fa-xl"></i>
+                            Exportar</button>
+
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+</div>
