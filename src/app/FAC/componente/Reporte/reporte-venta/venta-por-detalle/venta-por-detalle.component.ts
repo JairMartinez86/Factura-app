@@ -1,39 +1,34 @@
 import { Component, ViewChild } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Validacion } from 'src/app/SHARED/class/validacion';
-import { Funciones } from 'src/app/SHARED/class/cls_Funciones';
 import { postReporteVta } from 'src/app/FAC/POST/post-Reporte-Venta';
+import { ReporteInventarioFiltro1Component } from 'src/app/INV/componente/Reporte/reporte-inventario/Filtros/reporte-inventario-filtro-1/reporte-inventario-filtro-1.component';
+import { iParamReporte } from 'src/app/INV/Interface/I-Param-Reporte';
+import { Funciones } from 'src/app/SHARED/class/cls_Funciones';
+import { Validacion } from 'src/app/SHARED/class/validacion';
 import { DialogErrorComponent } from 'src/app/SHARED/componente/dialog-error/dialog-error.component';
 import { WaitComponent } from 'src/app/SHARED/componente/wait/wait.component';
-import { iParamReporte } from 'src/app/INV/Interface/I-Param-Reporte';
 import { iDatos } from 'src/app/SHARED/interface/i-Datos';
-import { ReporteInventarioFiltro1Component } from "../../../../../INV/componente/Reporte/reporte-inventario/Filtros/reporte-inventario-filtro-1/reporte-inventario-filtro-1.component";
-import { ReporteVentaFiltro2Component } from "../Filtros/reporte-venta-filtro-2/reporte-venta-filtro-2.component";
-import { ReporteVentaService } from 'src/app/FAC/Servicio/reporte-venta.service';
 
 @Component({
-  selector: 'app-venta-por-clasificacion-producto',
+  selector: 'app-venta-por-detalle',
   standalone: true,
-  imports: [ReactiveFormsModule, ReporteInventarioFiltro1Component, ReporteVentaFiltro2Component],
-  templateUrl: './venta-por-clasificacion-producto.component.html',
-  styleUrl: './venta-por-clasificacion-producto.component.scss'
+  imports: [ReactiveFormsModule, ReporteInventarioFiltro1Component],
+  templateUrl: './venta-por-detalle.component.html',
+  styleUrl: './venta-por-detalle.component.scss'
 })
-export class VentaPorClasificacionProductoComponent {
+export class VentaPorDetalleComponent {
+
 
   @ViewChild("Filtro1", { static: false })
-  public Filtro1: ReporteInventarioFiltro1Component;
-
-
-  @ViewChild("Filtro2", { static: false })
-    public Filtro2: ReporteVentaFiltro2Component;
+    public Filtro1: ReporteInventarioFiltro1Component;
 
   public val = new Validacion();
 
-  public constructor( public cFunciones: Funciones, private POST : postReporteVta, private servicio : ReporteVentaService){
+  public constructor( public cFunciones: Funciones, private POST : postReporteVta){
     this.val.add("cmbTipo", "1", "LEN>", "0", "", "Seleccione un tipo de reporte");
     this.val.add("cmbMoneda", "1", "LEN>", "0", "", "Seleccione una moneda");
 
-    this.val.SetValue("cmbTipo", "E");
+    this.val.SetValue("cmbTipo", "Documento");
     this.val.SetValue("cmbMoneda", this.cFunciones.MonedaLocal);
     
   }
@@ -46,10 +41,9 @@ export class VentaPorClasificacionProductoComponent {
 
     ///CAMBIO DE FOCO
     this.Filtro1?.val.addFocus("txtFecha1", "txtFecha2", undefined);
-    this.Filtro1?.val.addFocus("txtFecha2", "cmbBodega", undefined);
-    this.Filtro1?.val.addFocus("cmbBodega", "cmbTipo", undefined);
+    this.Filtro1?.val.addFocus("txtFecha2", "cmbTipo", undefined);
     this.Filtro1?.val.addFocus("cmbTipo", "cmbMoneda", undefined);
-    this.Filtro1?.val.addFocus("cmbTipo", "btnImprimir-Reporte-venta-class-product", "click");
+    this.Filtro1?.val.addFocus("cmbTipo", "btnImprimir-Reporte-venta-por-detalle", "click");
 
 
    
@@ -78,7 +72,7 @@ export class VentaPorClasificacionProductoComponent {
 
 
 
-    document.getElementById("btnImprimir-Reporte-venta-class-product")?.setAttribute("disabled", "disabled");
+    document.getElementById("btnImprimir-Reporte-venta-por-detalle")?.setAttribute("disabled", "disabled");
 
     let dialogRef: any = this.cFunciones.DIALOG.getDialogById("wait");
 
@@ -99,25 +93,15 @@ export class VentaPorClasificacionProductoComponent {
 
 
     let d: iParamReporte = {} as iParamReporte;
-    d.Param = [this.Filtro1.val.GetValue("txtFecha1"), this.Filtro1.val.GetValue("txtFecha2"),  this.val.GetValue("cmbMoneda"), this.val.GetValue("cmbTipo"), this.Filtro2.val.Get("cmbBodega").value];
+    d.Param = [this.Filtro1.val.GetValue("txtFecha1"), this.Filtro1.val.GetValue("txtFecha2"),  this.val.GetValue("cmbMoneda"), this.val.GetValue("cmbTipo"), ""];
 
-
-    let Bodegas: String = "";
-
-    if (d.Param[4].length > 0) {
-        Bodegas = ">";
-        d.Param[4].forEach((e: any) => {
-            Bodegas +=   e + "@";
-        });
-        
-    }
 
 
     d.Param[0] = this.cFunciones.DateFormat(d.Param[0], "dd/MM/yyyy");
     d.Param[1] = this.cFunciones.DateFormat(d.Param[1], "dd/MM/yyyy");
-    d.Param[4] = Bodegas;
 
-    d.TipoReporte = "VentasPorClassProd";
+
+    d.TipoReporte = "VentasPorDetalle";
     d.Exportar = Exportar;
 
     this.POST.Imprimir(d).subscribe(
@@ -143,7 +127,7 @@ export class VentaPorClasificacionProductoComponent {
             },
             error: (err) => {
 
-                document.getElementById("btnImprimir-Reporte-venta-class-product")?.removeAttribute("disabled");
+                document.getElementById("btnImprimir-Reporte-venta-por-detalle")?.removeAttribute("disabled");
 
                 dialogRef.close();
 
@@ -156,7 +140,7 @@ export class VentaPorClasificacionProductoComponent {
 
             },
             complete: () => {
-                document.getElementById("btnImprimir-Reporte-venta-class-product")?.removeAttribute("disabled");
+                document.getElementById("btnImprimir-Reporte-venta-por-detalle")?.removeAttribute("disabled");
 
             }
         }
@@ -206,9 +190,6 @@ export class VentaPorClasificacionProductoComponent {
 
   }
 
-  private ngOnInit() {
-    this.servicio.V_Iniciar();
 
-}
 
 }

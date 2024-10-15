@@ -1,0 +1,32 @@
+<div id="div-rpt_VTA-filtro-2" #rpt_VTA_filtro2>
+
+    <form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
+
+
+        <div class="col-12 mb-1">
+    
+            <igx-combo class="ComboBodega" #cmbBodega [data]="lstBodega" valueKey="Codigo" displayKey="Key" id="cmbBodega"
+                formControlName="cmbBodega" placeholder="Seleccione una Bodega."
+                searchPlaceholder="Seleccione una bodega..." [autoFocusSearch]="true"
+                (selectionChanging)="V_Select_Bodega($event)" (keyup)="V_Enter_Bodega($event);">
+                <label igxLabel>Bodega</label>
+                <igx-prefix><i class="bi bi-shop"></i></igx-prefix>
+
+                <ng-template igxComboClearIcon>
+                    <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                </ng-template>
+            </igx-combo>
+
+        </div>
+        <div class="col-12 mb-1">
+            <igx-card  *ngFor="let bo of BodSeleccionadas">
+                <igx-card-header class="card-header">
+                    <p igxCardHeaderTitle class="card-titulo">{{ bo.Codigo }}</p>
+                    {{ bo.Bodega }}
+                </igx-card-header>
+            </igx-card>
+        </div>
+       
+    </form>
+
+</div>

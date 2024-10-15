@@ -1,0 +1,36 @@
+.ComboBodega {
+
+    background-color: var(--escan-primario);
+  
+    i,
+    label {
+      color: white;
+    }
+  }
+  
+
+  
+  ::ng-deep {
+  
+  
+  
+    .ComboBodega.igx-combo ::placeholder {
+      color: white;
+    }
+  
+    .ComboBodega.igx-combo:hover ::placeholder {
+      font-size: 1.1em;
+      font-weight: bold;
+      color: white;
+    }
+  
+    .ComboBodega .igx-input-group__input:focus,
+    .ComboBodega .igx-input-group__input,
+    .ComboBodega .igx-icon{
+          color: white ;
+      }
+  
+
+  
+  }
+  

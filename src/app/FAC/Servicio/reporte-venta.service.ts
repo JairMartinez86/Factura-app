@@ -80,6 +80,7 @@ export class ReporteVentaService {
                         //Datos[0].d GRUPO
                         //Datos[1].d SUB GRUPO
                         //Datos[2].d LINEA
+                        //Datos[3].d BODEGA
 
 
 
@@ -89,9 +90,13 @@ export class ReporteVentaService {
                         F1.Filtro = "Filtro1";
                         F1.Datos = [Datos[0].d, Datos[1].d, Datos[2].d];
 
+                        let F2 : iReporteService = {} as iReporteService;
+                        F2.Filtro = "Filtro2";
+                        F2.Datos = [Datos[3].d];
 
 
-                        this.Salida.emit([F1,]);
+
+                        this.Salida.emit([F1,F2,]);
 
 
 

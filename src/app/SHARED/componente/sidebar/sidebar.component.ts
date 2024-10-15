@@ -42,6 +42,7 @@ import { ReporteInventarioFacturaProveedorComponent } from 'src/app/INV/componen
 import { iLogin } from '../../interface/i-login';
 import { VentaPorLineaNegocioComponent } from 'src/app/FAC/componente/Reporte/reporte-venta/venta-por-linea-negocio/venta-por-linea-negocio.component';
 import { VentaPorClasificacionProductoComponent } from 'src/app/FAC/componente/Reporte/reporte-venta/venta-por-clasificacion-producto/venta-por-clasificacion-producto.component';
+import { VentaPorDetalleComponent } from 'src/app/FAC/componente/Reporte/reporte-venta/venta-por-detalle/venta-por-detalle.component';
 
 const SCRIPT_PATH = 'ttps://cdn.jsdelivr.net/npm/bootstrap5-toggle@5.0.4/css/bootstrap5-toggle.min.css';
 declare let gapi: any;
@@ -399,8 +400,14 @@ export class SidebarComponent {
       let aVtaPorClassProd: ComponentRef<VentaPorClasificacionProductoComponent> = this.DynamicFrom.viewContainerRef.createComponent(VentaPorClasificacionProductoComponent);
     }
 
+    if (id == "aReporte-VTA-vtaDetPorVenta") {
+      $("#btnMenu").trigger("click");
+      this.DynamicFrom.viewContainerRef.clear();
+      let aVtaPorDetalle: ComponentRef<VentaPorDetalleComponent> = this.DynamicFrom.viewContainerRef.createComponent(VentaPorDetalleComponent);
+    }
     
 
+    
 
     if (id == "idNavAccesoWeb") {
       $("#btnMenu").trigger("click");
