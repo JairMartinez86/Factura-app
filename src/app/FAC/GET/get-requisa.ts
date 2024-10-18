@@ -23,25 +23,25 @@ export class getRequisa {
 
     var options = {
       'headers': {
-        'Authorization': 'Bearer ' + localStorage.getItem("token"),
+        'Authorization': 'Bearer ' + localStorage.getItem("FAC_token"),
         'content-type': 'application/json'
       }
     };
   
 
-    return this.http.get<any>(this._Cnx.Url() + "INV/Requisa/Get?refresh_token=" + localStorage.getItem("refresh_token"), options);
+    return this.http.get<any>(this._Cnx.Url() + "INV/Requisa/Get?refresh_token=" + localStorage.getItem("FAC_refresh_token"), options);
   }
 
   Autorizar(IdRequisa: any): Observable<string> {
 
     var options = {
       'headers': {
-        'Authorization': 'Bearer ' + localStorage.getItem("token"),
+        'Authorization': 'Bearer ' + localStorage.getItem("FAC_token"),
         'content-type': 'application/json'
       }
     };
 
-    return this.http.get<any>(this._Cnx.Url() + "INV/Requisa/Autorizar?IdRequisa=" + IdRequisa + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
+    return this.http.get<any>(this._Cnx.Url() + "INV/Requisa/Autorizar?IdRequisa=" + IdRequisa + "&refresh_token=" + localStorage.getItem("FAC_refresh_token"), options);
 
   }
 
@@ -50,12 +50,12 @@ export class getRequisa {
 
     var options = {
       'headers': {
-        'Authorization': 'Bearer ' + localStorage.getItem("token"),
+        'Authorization': 'Bearer ' + localStorage.getItem("FAC_token"),
         'content-type': 'application/json'
       }
     };
 
-    return this.http.get<any>(this._Cnx.Url() + "INV/Requisa/GetPermiso?refresh_token=" + localStorage.getItem("refresh_token"), options);
+    return this.http.get<any>(this._Cnx.Url() + "INV/Requisa/GetPermiso?refresh_token=" + localStorage.getItem("FAC_refresh_token"), options);
   }
 
 }

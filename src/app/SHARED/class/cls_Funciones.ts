@@ -131,23 +131,23 @@ export class Funciones {
     if(tk == undefined) return;
 
     
-    let s : string = localStorage.getItem("login")!;
+    let s : string = localStorage.getItem("FAC_login")!;
     let l : iLogin = JSON.parse(s);
 
  if(l == undefined) return;
 
 
-    localStorage.removeItem("login");
-    localStorage.removeItem("token");
-    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("FAC_login");
+    localStorage.removeItem("FAC_token");
+    localStorage.removeItem("FAC_refresh_token");
 
     l.Token = tk;
     this.Token = tk;
 
     
-    localStorage.setItem("token", this.Token.access_token);
-    localStorage.setItem("refresh_token", l.Token.refresh_token);
-    localStorage.setItem("login", JSON.stringify(l));
+    localStorage.setItem("FAC_token", this.Token.access_token);
+    localStorage.setItem("FAC_refresh_token", l.Token.refresh_token);
+    localStorage.setItem("FAC_login", JSON.stringify(l));
 
   }
 

@@ -24,13 +24,13 @@ export class getEstadoCuenta{
       
       var options = {
         'headers': {
-          'Authorization': 'Bearer ' + localStorage.getItem("token"),
+          'Authorization': 'Bearer ' + localStorage.getItem("FAC_token"),
           'content-type': 'application/json'
         }
       };
 
 
-      return this.http.get<any>(this._Cnx.Url() + "CXC/EstadoCuenta/Datos?Tipo=" + Tipo + "&Param=" + param + "&Permiso=" + Permiso + "&refresh_token=" + localStorage.getItem("refresh_token"), options);
+      return this.http.get<any>(this._Cnx.Url() + "CXC/EstadoCuenta/Datos?Tipo=" + Tipo + "&Param=" + param + "&Permiso=" + Permiso + "&refresh_token=" + localStorage.getItem("FAC_refresh_token"), options);
    }
     
    

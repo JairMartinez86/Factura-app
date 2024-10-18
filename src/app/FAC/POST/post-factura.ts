@@ -31,7 +31,7 @@ export class postFactura{
 
         var options = {
             'headers': {
-              'Authorization': 'Bearer ' + localStorage.getItem("token"),
+              'Authorization': 'Bearer ' + localStorage.getItem("FAC_token"),
               'content-type': 'application/json'
             }
           };
@@ -39,7 +39,7 @@ export class postFactura{
           
         let data : iData = {} as iData;
         data.d = d;
-        data.refresh_token = localStorage.getItem("refresh_token");
+        data.refresh_token = localStorage.getItem("FAC_refresh_token");
 
 
         
@@ -52,7 +52,7 @@ export class postFactura{
         
         var options = {
             'headers': {
-              'Authorization': 'Bearer ' + localStorage.getItem("token"),
+              'Authorization': 'Bearer ' + localStorage.getItem("FAC_token"),
               'content-type': 'application/json'
             }
           };
@@ -60,7 +60,7 @@ export class postFactura{
          
           let data : iData = {} as iData;
           data.d = d;
-          data.refresh_token = localStorage.getItem("refresh_token");
+          data.refresh_token = localStorage.getItem("FAC_refresh_token");
 
 
 
@@ -73,7 +73,7 @@ export class postFactura{
 
     var options = {
         'headers': {
-          'Authorization': 'Bearer ' + localStorage.getItem("token"),
+          'Authorization': 'Bearer ' + localStorage.getItem("FAC_token"),
           'content-type': 'application/json'
         }
       };
@@ -82,7 +82,7 @@ export class postFactura{
       
       let data : iData = {} as iData;
       data.d = det;
-      data.refresh_token = localStorage.getItem("refresh_token");
+      data.refresh_token = localStorage.getItem("FAC_refresh_token");
 
 
     return this.http.post<any>(this._Cnx.Url() + "Factura/ConvertirFactura", JSON.stringify(data), options);
@@ -93,7 +93,7 @@ export class postFactura{
 
     var options = {
         'headers': {
-          'Authorization': 'Bearer ' + localStorage.getItem("token"),
+          'Authorization': 'Bearer ' + localStorage.getItem("FAC_token"),
           'content-type': 'application/json'
         }
       };
@@ -102,7 +102,7 @@ export class postFactura{
       
       let data : iData = {} as iData;
       data.d = det;
-      data.refresh_token = localStorage.getItem("refresh_token");
+      data.refresh_token = localStorage.getItem("FAC_refresh_token");
 
 
 
@@ -120,14 +120,14 @@ export class postFactura{
     
     var options = {
         'headers': {
-          'Authorization': 'Bearer ' + localStorage.getItem("token"),
+          'Authorization': 'Bearer ' + localStorage.getItem("FAC_token"),
           'content-type': 'application/json'
         }
       };
 
     let data : iData = {} as iData;
     data.d = d;
-    data.refresh_token = localStorage.getItem("refresh_token");
+    data.refresh_token = localStorage.getItem("FAC_refresh_token");
 
 
     return this.http.post<any>(this._Cnx.Url() + "Factura/LiberarExistencia", JSON.stringify(data), options);
@@ -141,14 +141,14 @@ export class postFactura{
     
     var options = {
         'headers': {
-          'Authorization': 'Bearer ' + localStorage.getItem("token"),
+          'Authorization': 'Bearer ' + localStorage.getItem("FAC_token"),
           'content-type': 'application/json'
         }
       };
 
     let data : iData = {} as iData;
     data.d = d;
-    data.refresh_token = localStorage.getItem("refresh_token");
+    data.refresh_token = localStorage.getItem("FAC_refresh_token");
 
 
     return this.http.post<any>(this._Cnx.Url() + "Factura/LiberarPrecios", JSON.stringify(data), options);
@@ -162,14 +162,14 @@ export class postFactura{
     
     var options = {
         'headers': {
-          'Authorization': 'Bearer ' + localStorage.getItem("token"),
+          'Authorization': 'Bearer ' + localStorage.getItem("FAC_token"),
           'content-type': 'application/json'
         }
       };
 
     let data : iData = {} as iData;
     data.d = d;
-    data.refresh_token = localStorage.getItem("refresh_token");
+    data.refresh_token = localStorage.getItem("FAC_refresh_token");
 
 
     return this.http.post<any>(this._Cnx.Url() + "Factura/LiberarBonificacion", JSON.stringify(data), options);

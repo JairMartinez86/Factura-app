@@ -25,7 +25,7 @@ export class postServidor{
 
         var options = {
             'headers': {
-              'Authorization': 'Bearer ' + localStorage.getItem("token"),
+              'Authorization': 'Bearer ' + localStorage.getItem("FAC_token"),
               'content-type': 'application/json'
             }
           };
@@ -34,7 +34,7 @@ export class postServidor{
 
         let data : iData = {} as iData;
         data.d = d;
-        data.refresh_token = localStorage.getItem("refresh_token");
+        data.refresh_token = localStorage.getItem("FAC_refresh_token");
 
         
 

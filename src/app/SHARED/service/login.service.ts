@@ -55,11 +55,11 @@ export class LoginService {
 
             let l: iLogin = _json["d"];
 
-            localStorage.removeItem("login");
-            localStorage.removeItem("token");
-            localStorage.removeItem("refresh_token");
+            localStorage.removeItem("FAC_login");
+            localStorage.removeItem("FAC_token");
+            localStorage.removeItem("FAC_refresh_token");
 
-            localStorage.setItem("login", JSON.stringify(l));
+            localStorage.setItem("FAC_login", JSON.stringify(l));
 
 
 
@@ -140,11 +140,11 @@ export class LoginService {
             l.FechaServer = datos[1].d;
             l.TimeOut = Number(datos[2].d);
 
-            localStorage.removeItem("login");
-            localStorage.removeItem("token");
-            localStorage.removeItem("refresh_token");
+            localStorage.removeItem("FAC_login");
+            localStorage.removeItem("FAC_token");
+            localStorage.removeItem("FAC_refresh_token");
 
-            localStorage.setItem("login", JSON.stringify(l));
+            localStorage.setItem("FAC_login", JSON.stringify(l));
 
 
 
@@ -189,7 +189,7 @@ export class LoginService {
 
   public isLogin() {
 
-    let s: string = localStorage.getItem("login")!;
+    let s: string = localStorage.getItem("FAC_login")!;
 
     if (s != undefined) {
 
@@ -221,7 +221,7 @@ export class LoginService {
 
     }
 
-    localStorage.removeItem("login");
+    localStorage.removeItem("FAC_login");
     this._Router.navigate(['/Login'], { skipLocationChange: false });
   }
 
@@ -240,18 +240,18 @@ export class LoginService {
 
   public UpdFecha(f: string) {
 
-    let s: string = localStorage.getItem("login")!;
+    let s: string = localStorage.getItem("FAC_login")!;
 
     if (s != undefined) {
 
       let l: iLogin = JSON.parse(s);
       l.FechaLogin = f;
-      localStorage.removeItem("login");
-      localStorage.removeItem("login");
-      localStorage.removeItem("refresh_token");
-      localStorage.setItem("login", JSON.stringify(l));
-      localStorage.setItem("token", l.Token.access_token);
-      localStorage.setItem("refresh_token", l.Token.refresh_token);
+      localStorage.removeItem("FAC_login");
+      localStorage.removeItem("FAC_login");
+      localStorage.removeItem("FAC_refresh_token");
+      localStorage.setItem("FAC_login", JSON.stringify(l));
+      localStorage.setItem("FAC_token", l.Token.access_token);
+      localStorage.setItem("FAC_refresh_token", l.Token.refresh_token);
 
       this.isLogin();
     }
@@ -259,9 +259,9 @@ export class LoginService {
   }
 
   public CerrarSession() {
-    localStorage.removeItem("login");
-    localStorage.removeItem("login");
-    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("FAC_login");
+    localStorage.removeItem("FAC_login");
+    localStorage.removeItem("FAC_refresh_token");
 
     this._Router.navigate(['/Login'], { skipLocationChange: false });
   }
