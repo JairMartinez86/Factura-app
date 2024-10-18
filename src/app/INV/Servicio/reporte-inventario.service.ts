@@ -50,19 +50,19 @@ export class ReporteInventarioService {
 
         var options = {
             'headers': {
-              'Authorization': 'Bearer ' + localStorage.getItem("token"),
+              'Authorization': 'Bearer ' + localStorage.getItem("FAC_token"),
               'content-type': 'application/json'
             }
           };
 
 
-        this.http.get<any>(this._Cnx.Url() + "INV/Reporte/GetDatos?refresh_token="+ localStorage.getItem("refresh_token"), options).subscribe(
+        this.http.get<any>(this._Cnx.Url() + "INV/Reporte/GetDatos?refresh_token="+ localStorage.getItem("FAC_refresh_token"), options).subscribe(
             {
                 next: (s) => {
 
                     dialogRef.close();
                     let _json = JSON.parse(s);
-                    this.cFunciones.ActualizarToken(_json["token"]);
+                    this.cFunciones.ActualizarToken(_json["FAC_token"]);
 
 
                     if (_json["esError"] == 1) {
