@@ -11,6 +11,7 @@ import { Validacion } from 'src/app/SHARED/class/validacion';
 import { IgxComboComponent, IgxComboModule, IgxIconModule } from 'igniteui-angular';
 import { iBodega } from 'src/app/FAC/interface/i-Bodega';
 import { ReactiveFormsModule } from '@angular/forms';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-sidebar-charts',
@@ -20,8 +21,6 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrl: './sidebar-charts.component.scss'
 })
 export class SidebarChatsComponent {
-
- 
 
   private datos_1 : number[] = [];
   private datos_2 : number[] = [];
@@ -52,6 +51,7 @@ export class SidebarChatsComponent {
   private ctx: Chart;
 
 
+landscape = window.matchMedia("(orientation: landscape)");
   constructor(private GET : getServidor, private cFunciones: Funciones){
 
 
@@ -60,6 +60,7 @@ export class SidebarChatsComponent {
 
     this.val.Get("cmbBodega").setValue([]);
 
+    
    
 
   }
@@ -242,64 +243,8 @@ export class SidebarChatsComponent {
     });
 
 
-    if(this.myChart == undefined)
-    {
-      this.myChart = new Chart("Charts_Venta_Neta", {
-        data: {
-            datasets: [{
-                type: 'bar',
-                label: this.Titulo[0],
-                data: this.datos_1,
-                backgroundColor: [
-                  'rgba(255, 69, 0, 0.4)',
-                
-  
-              ],borderColor: [
-                'rgba(255, 69, 0, 1)',
 
-  
-              ],
-              borderWidth: 1
-                
-            }, {
-                type: 'bar',
-                label: this.Titulo[1],
-                data: this.datos_2,
-                backgroundColor: [
-                  'rgba(0, 157, 67, 0.4)',
-
-  
-              ],
-              borderColor: [
-                'rgba(0, 157, 67, 1)',
-
-  
-              ],
-              borderWidth: 1
-            }],
-            labels: this.Meses
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-    });
-  
-     
-    }
-    else
-    {
-
-      this.myChart.data.datasets[0].data = this.datos_1;
-      this.myChart.data.datasets[1].data = this.datos_2;
-
-     
-      this.myChart.update();
-    }
-
+    this.Crear_Chart();
     
 
     
@@ -310,6 +255,7 @@ export class SidebarChatsComponent {
   }
  
 
+  
 
   
   public V_Select_Bodega(event: any) {
@@ -332,12 +278,125 @@ export class SidebarChatsComponent {
   }
 
 
-
   ngOnInit() {
+
+
+
+    this.landscape.addEventListener("change", (ev : any) => {
+     
+
+      this.Crear_Chart();
+
+    });
 
 
     this.V_CargarCharts();
    
+
+  }
+
+
+  private Crear_Chart()
+  {
+
+    this.myChart?.destroy();
+
+    this.myChart = new Chart("Charts_Venta_Neta", {
+      data: {
+          datasets: [{
+              type: 'bar',
+              label: this.Titulo[0],
+              data: this.datos_1,
+              backgroundColor: [
+                'rgba(255, 69, 0, 0.4)',
+              
+
+            ],borderColor: [
+              'rgba(255, 69, 0, 1)',
+
+
+            ],
+            borderWidth: 1,
+              
+          }, {
+              type: 'bar',
+              label: this.Titulo[1],
+              data: this.datos_2,
+              backgroundColor: [
+                'rgba(0, 157, 67, 0.4)',
+
+
+            ],
+            borderColor: [
+              'rgba(0, 157, 67, 1)',
+
+
+            ],
+            borderWidth: 1
+          }],
+          labels: this.Meses
+      },
+      options: {
+        responsive: true,
+        indexAxis: window.screen.orientation.angle == 90 ? "y" : "x",
+        animation: {
+          duration: 1000,
+          onComplete: function() {
+  
+            
+          }
+        },
+  
+        scales: {
+          x: {
+            display: true,
+          },
+          y: {
+            beginAtZero: true,
+            display: true,
+  
+            
+          }
+        },
+        plugins: {
+          datalabels: {
+            color: 'black',
+            anchor: 'end',
+            align: 'end',
+            rotation: window.screen.orientation.angle == 0 ? -45 : 0, 
+          font: {
+            weight: 'bold',
+            size:  window.innerWidth > this.cFunciones.TamanoPantalla("md")  ? 10: 6, 
+          },
+          
+            formatter: function(value : any, context : any) {
+  
+              var v : any = (Math.abs(value)/1000).toFixed(1);
+  
+            //  return Math.abs(value) > 999 ? Math.sign(value)* v + 'k' : Math.sign(value)*Math.abs(value)
+  
+  
+            return  value.toLocaleString('en-US', {
+                // add suffixes for thousands, millions, and billions
+                // the maximum number of decimal places to use
+                maximumFractionDigits: 2,
+                // specify the abbreviations to use for the suffixes
+                notation: 'compact',
+                compactDisplay: 'short'
+              });
+  
+  
+  
+            }
+          }
+    
+        }
+      }
+  ,
+      plugins: [ChartDataLabels],
+
+  });
+
 
   }
 
