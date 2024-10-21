@@ -56,8 +56,30 @@ h4{
 
   
   }
-  
 
+
+  #Charts_Venta_Neta{
+
+    @media (orientation: landscape) {
+      @include Tamano(xs) {
+        scale: (2.2);
+        margin-top: 150px;
+        margin-left: 270px;
+      }
+    }
+
+
+    @include Tamano(md) {
+      scale: (1);
+      margin-top: 0;
+      margin-left: 0;
+    }
+    
+
+  }
+  
+  
+/*
   #Charts_Venta_Neta{
 
     @include Tamano(xs) {
@@ -80,7 +102,7 @@ h4{
 
     
   
-  }
+  }*/
 
   .contenedor-boton{
     display: flex;

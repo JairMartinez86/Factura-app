@@ -162,11 +162,11 @@ export class SidebarChatsComponent {
   
     let myClonedObject : any[];
 
-    let Bodegas : string[] = this.cmbBodega.value;
+    let Bodegas : string[] = this.val.Get("cmbBodega").value;
 
     var Datos = JSON.parse(JSON.stringify(this.lstDatos));
 
-    if(this.cmbBodega.value.length == 0)
+    if(this.val.Get("cmbBodega").value.length == 0)
     {
       myClonedObject  = Object.assign([], Datos); 
     }
@@ -175,7 +175,6 @@ export class SidebarChatsComponent {
       myClonedObject  = Object.assign([], Datos.filter((f : any) =>  Bodegas.includes(f.Codigo))); 
     }
 
-    
     this.Total = 0;
 
     myClonedObject.forEach((f : any) => {
@@ -260,7 +259,7 @@ export class SidebarChatsComponent {
 
   
               ],
-              borderWidth: 3
+              borderWidth: 1
                 
             }, {
                 type: 'bar',
@@ -276,7 +275,7 @@ export class SidebarChatsComponent {
 
   
               ],
-              borderWidth: 3
+              borderWidth: 1
             }],
             labels: this.Meses
         },
@@ -315,13 +314,7 @@ export class SidebarChatsComponent {
   
   public V_Select_Bodega(event: any) {
 
-    if (event.added.length) {
-      let cmb: any = this.cmbBodega.dropdown;
-      this.val.Get("cmbBodega").setValue(event.newValue);
-      
-      
-     
-    }
+    this.val.Get("cmbBodega").setValue(event.newValue);
 
     this.Refrescar_Chart();
   }
