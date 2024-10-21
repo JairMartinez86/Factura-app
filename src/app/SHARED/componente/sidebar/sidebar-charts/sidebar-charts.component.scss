@@ -2,8 +2,9 @@
 @import "/src/assets/scss/media.scss";
 
 
-.contenedor{
-  margin-bottom: 100px;
+.card-body{
+  margin-bottom: 400px;
+  height: 100%;
 }
 
 .sucursal{
@@ -62,7 +63,7 @@ h4{
     @include Tamano(xs) {
       transform: rotate(90deg);
       scale: (1.7);
-      margin-top: 180px;
+      margin-top: 200px;
     }
 
     @include Tamano(md) {

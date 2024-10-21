@@ -124,6 +124,7 @@ export class SidebarComponent {
 
   public v_Abrir_Form(id: string): void {
 
+
     if (id == "") return;
     if (id == "btnMenu") return;
 
@@ -137,6 +138,10 @@ export class SidebarComponent {
       $("#btnMenu").trigger("click");
       this.cFunciones.DIALOG.closeAll();
       this.DynamicFrom.viewContainerRef.clear();
+
+      this.DynamicFrom.viewContainerRef.clear();
+      let chats: ComponentRef<SidebarChatsComponent> = this.DynamicFrom.viewContainerRef.createComponent(SidebarChatsComponent);
+      
       return;
     };
 
