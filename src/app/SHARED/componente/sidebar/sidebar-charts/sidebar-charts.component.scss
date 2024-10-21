@@ -4,7 +4,6 @@
 
 .card-body{
   margin-bottom: 400px;
-  height: 100%;
 }
 
 .sucursal{
@@ -57,52 +56,9 @@ h4{
   
   }
 
-/*
-  #Charts_Venta_Neta{
-
-    @media (orientation: landscape) {
-      @include Tamano(xs) {
-        scale: (2.2);
-        margin-top: 150px;
-        margin-left: 270px;
-      }
-    }
 
 
-    @include Tamano(md) {
-      scale: (1);
-      margin-top: 0;
-      margin-left: 0;
-    }
-    
-
-  }
   
-  */
-/*
-  #Charts_Venta_Neta{
-
-    @include Tamano(xs) {
-      transform: rotate(90deg);
-      scale: (2.2);
-      margin-top: 300px;
-    }
-
-    @include Tamano(md) {
-      transform: rotate(360deg);
-      scale: (1);
-      margin-top: 0px;
-    }
-
-    @include Tamano(lg) {
-      transform: rotate(360deg);
-      scale: (1);
-      margin-top: 0px;
-    }
-
-    
-  
-  }*/
 
   .contenedor-boton{
     display: flex;

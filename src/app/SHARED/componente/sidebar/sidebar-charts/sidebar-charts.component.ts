@@ -299,6 +299,7 @@ landscape = window.matchMedia("(orientation: landscape)");
   private Crear_Chart()
   {
 
+ 
     this.myChart?.destroy();
 
     this.myChart = new Chart("Charts_Venta_Neta", {
@@ -338,7 +339,7 @@ landscape = window.matchMedia("(orientation: landscape)");
       },
       options: {
         responsive: true,
-        indexAxis: window.screen.orientation.angle == 90 ? "y" : "x",
+        indexAxis: window.screen.orientation.angle == 90 || navigator.userAgent.includes("Android") ? "y" : "x",
         animation: {
           duration: 1000,
           onComplete: function() {
@@ -363,10 +364,10 @@ landscape = window.matchMedia("(orientation: landscape)");
             color: 'black',
             anchor: 'end',
             align: 'end',
-            rotation: window.screen.orientation.angle == 0 ? -45 : 0, 
+            rotation: window.screen.orientation.angle == 0 && !navigator.userAgent.includes("Android") ? -45 : 0, 
           font: {
             weight: 'bold',
-            size:  window.innerWidth > this.cFunciones.TamanoPantalla("md")  ? 10: 6, 
+            size: 10, 
           },
           
             formatter: function(value : any, context : any) {
@@ -396,6 +397,7 @@ landscape = window.matchMedia("(orientation: landscape)");
       plugins: [ChartDataLabels],
 
   });
+
 
 
   }
