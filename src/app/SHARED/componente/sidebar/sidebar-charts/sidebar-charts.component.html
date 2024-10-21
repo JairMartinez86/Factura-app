@@ -14,7 +14,7 @@
                     <h4>Total <span>{{ Total | number : '1.2-2'}}</span></h4>
                 </div>
 
-                <div class="col-10">
+                <div class="col-12 col-md-12 mb-1">
                     <form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
                         <igx-combo class="ComboBodega" #cmbBodega [data]="lstBodega" valueKey="Codigo" displayKey="Key" id="cmbBodega"
                         formControlName="cmbBodega" placeholder="Seleccione una Bodega."
@@ -33,7 +33,7 @@
     
                 </div>
 
-                <div class="col-2">
+                <div class="col-12 col-md-12 contenedor-boton mb-1">
                     <button type="button" class="btn btn-opcional" id="btn-Charts-Refrescar"
                     (click)="V_CargarCharts();"><i class="fa-solid fa-arrows-rotate fa-spin fa-lg"></i>
                     Refrescar</button>

@@ -1,4 +1,11 @@
 
+@import "/src/assets/scss/media.scss";
+
+
+.contenedor{
+  margin-bottom: 100px;
+}
+
 .sucursal{
     font-weight: bold;
 }
@@ -49,3 +56,41 @@ h4{
   
   }
   
+
+  #Charts_Venta_Neta{
+
+    @include Tamano(xs) {
+      transform: rotate(90deg);
+      scale: (1.7);
+      margin-top: 180px;
+    }
+
+    @include Tamano(md) {
+      transform: rotate(360deg);
+      scale: (1);
+      margin-top: 0px;
+    }
+
+    @include Tamano(lg) {
+      transform: rotate(360deg);
+      scale: (1);
+      margin-top: 0px;
+    }
+
+    
+  
+  }
+
+  .contenedor-boton{
+    display: flex;
+    align-items: center;
+    justify-content:right;
+  
+    button{
+      font-size: 1.5em;
+    }
+  }
+
+ 
+
+
