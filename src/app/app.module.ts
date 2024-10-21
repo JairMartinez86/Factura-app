@@ -40,6 +40,7 @@ import { FactLotificarComponent } from './FAC/componente/factura/fact-lotificar/
 import { FactPagoComponent } from './FAC/componente/factura/fact-pago/fact-pago.component';
 import { RequisaAutorizaComponent } from './FAC/componente/requisa/requisa-autoriza/requisa-autoriza.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import { SidebarChatsComponent } from "./SHARED/componente/sidebar/sidebar-charts/sidebar-charts.component";
 
 @NgModule({
   declarations: [
@@ -84,10 +85,11 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     IgxDatePickerModule,
     IgxInputGroupModule,
     ScrollingModule,
-     BackButtonDisableModule.forRoot({
-      preserveScroll: true // DISABLE BACK
-    })
-  ],
+    BackButtonDisableModule.forRoot({
+        preserveScroll: true // DISABLE BACK
+    }),
+    SidebarChatsComponent
+],
   providers: [
     { provide: MatPaginatorIntl, useValue: CustomPaginator() },
     { provide: LocationStrategy, useClass: HashLocationStrategy}

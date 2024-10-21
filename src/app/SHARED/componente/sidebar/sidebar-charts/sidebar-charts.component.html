@@ -1,0 +1,67 @@
+<div class="contenedor">
+
+
+
+
+    <div class="card">
+        <div class="card-header">
+
+            <div class="row">
+
+                <div class="col-12">
+                    <h4 class="sucursal">{{Sucursal}}</h4>
+                    <h4>Ventas {{ Titulo[0]}} - {{ Titulo[1] }}</h4>
+                    <h4>Total <span>{{ Total | number : '1.2-2'}}</span></h4>
+                </div>
+
+                <div class="col-10">
+                    <form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
+                        <igx-combo class="ComboBodega" #cmbBodega [data]="lstBodega" valueKey="Codigo" displayKey="Key" id="cmbBodega"
+                        formControlName="cmbBodega" placeholder="Seleccione una Bodega."
+                        searchPlaceholder="Seleccione una bodega..." [autoFocusSearch]="true"
+                        (selectionChanging)="V_Select_Bodega($event)" (keyup)="V_Enter_Bodega($event);">
+                        <label igxLabel>Bodega</label>
+                        <igx-prefix><i class="bi bi-shop"></i></igx-prefix>
+        
+                        <ng-template igxComboClearIcon>
+                            <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                        </ng-template>
+                    </igx-combo>
+                    </form>
+
+                    
+    
+                </div>
+
+                <div class="col-2">
+                    <button type="button" class="btn btn-opcional" id="btn-Charts-Refrescar"
+                    (click)="V_CargarCharts();"><i class="fa-solid fa-arrows-rotate fa-spin fa-lg"></i>
+                    Refrescar</button>
+                </div>
+
+            </div>
+            
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-8 offset-xxl-1 mb-1"><canvas  #Charts_Venta_Neta id="Charts_Venta_Neta"></canvas></div>
+
+
+            </div>
+
+
+        </div>
+
+        
+    </div>
+
+
+
+
+
+
+
+
+
+</div>

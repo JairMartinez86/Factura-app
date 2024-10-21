@@ -307,7 +307,6 @@ export class FacturaComponent {
           document.getElementById("btnRefrescar")?.removeAttribute("disabled");
           dialogRef.close();
 
-          console.log(err)
 
           if (this.cFunciones.DIALOG.getDialogById("error-servidor") == undefined) {
             this.cFunciones.DIALOG.open(DialogErrorComponent, {

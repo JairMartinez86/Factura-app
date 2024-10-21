@@ -75,6 +75,21 @@ public AccesoWeb() : Observable<any>{
 
 
 
+public GetCharts() : Observable<any>{
+
+  var options = {
+    'headers': {
+      'Authorization': 'Bearer ' + localStorage.getItem("FAC_token"),
+      'content-type': 'application/json'
+    }
+  };
+
+
+  return this.http.get<any>(this._Cnx.Url() + "SIS/GetCharts?refresh_token=" + localStorage.getItem("FAC_refresh_token"), options );
+}
+
+
+
 public  Version()
 {
 
