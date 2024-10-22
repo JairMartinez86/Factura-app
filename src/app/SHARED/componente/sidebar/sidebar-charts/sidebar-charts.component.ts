@@ -353,7 +353,6 @@ export class SidebarChatsComponent {
         scales: {
           x: {
             display: true,
-
           },
           y: {
             beginAtZero: true,
@@ -368,26 +367,34 @@ export class SidebarChatsComponent {
               }
             },
 
-            ticks: {
+           /* ticks: {
 
               callback: function (value: any, index, ticks) {
 
 
-                var v: any = (Math.abs(value) / 1000).toFixed(1);
+                if(!navigator.userAgent.includes("Android"))
+                {
+                  var v: any = (Math.abs(value) / 1000).toFixed(1);
 
 
-                return value.toLocaleString('en-US', {
-                  // add suffixes for thousands, millions, and billions
-                  // the maximum number of decimal places to use
-                  maximumFractionDigits: 2,
-                  // specify the abbreviations to use for the suffixes
-                  notation: 'compact',
-                  compactDisplay: 'short'
-                });
-
+                  return value.toLocaleString('en-US', {
+                    // add suffixes for thousands, millions, and billions
+                    // the maximum number of decimal places to use
+                    maximumFractionDigits: 2,
+                    // specify the abbreviations to use for the suffixes
+                    notation: 'compact',
+                    compactDisplay: 'short'
+                  });
+  
+                }
+                else
+                {
+                  return value;
+                }
+                
               }
             }
-
+*/
           }
         },
         plugins: {
