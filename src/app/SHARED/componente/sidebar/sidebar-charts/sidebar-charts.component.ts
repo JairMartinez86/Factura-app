@@ -405,7 +405,7 @@ export class SidebarChatsComponent {
             rotation: window.screen.orientation.angle == 0 && !navigator.userAgent.includes("Android") ? -45 : 0,
             font: {
               weight: 'bold',
-              size: 10,
+              size: 12,
             },
 
             formatter: function (value: any, context: any) {
