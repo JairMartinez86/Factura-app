@@ -49,9 +49,9 @@
             <div class="">
                 <div class="legend-title">
                     <div> Total {{Titulo[0]}}: <b> {{TotalAnio[0] |number : '1.2-2'}}</b></div>
-                   
+
                     <div> Total {{Titulo[1]}}: <b> {{TotalAnio[1] |number : '1.2-2'}}</b></div>
-                   
+
                 </div>
                 <div class="legend">
                     <igx-legend name="Legend" #legend orientation="Horizontal">
@@ -61,87 +61,92 @@
 
                     @if(EsMobile)
                     {
-                    <igx-data-chart name="Chart" #chart [legend]="legend" height="1000px" width="100%">
-                            <igx-category-y-axis name="yAxis" #yAxis label="Mes" useEnhancedIntervalManagement="true"
-                                enhancedIntervalPreferMoreCategoryLabels="true" [dataSource]="data" isInverted="true"
-                                gap="0.5" overlap="-0.1">
-                            </igx-category-y-axis>
+                    <igx-data-chart name="Chart" #chart [legend]="legend" height="1000px" width="100%"  #Charts_Venta_Neta>
+                        <igx-category-y-axis name="yAxis" #yAxis label="Mes" useEnhancedIntervalManagement="true"
+                            enhancedIntervalPreferMoreCategoryLabels="true" [dataSource]="data" isInverted="true"
+                            gap="0.5" overlap="-0.1">
+                        </igx-category-y-axis>
 
-                            <igx-numeric-x-axis name="xAxis" #xAxis title="Ventas {{this.Titulo[0]}} - {{this.Titulo[0]}}" minimumValue="0" maximumValue="{{MaxValue}}">
-                            </igx-numeric-x-axis>
+                        <igx-numeric-x-axis name="xAxis" #xAxis title="Ventas {{this.Titulo[0]}} - {{this.Titulo[0]}}"
+                            minimumValue="0" maximumValue="{{MaxValue}}">
+                        </igx-numeric-x-axis>
 
-                            <igx-category-highlight-layer name="CategoryHighlightLayer" #categoryHighlightLayer>
-                            </igx-category-highlight-layer>
-                            <igx-bar-series name="BarSeries1" #barSeries1 [xAxis]="xAxis" [yAxis]="yAxis" title="{{this.Titulo[0]}}"
-                                valueMemberPath="Mes1" [dataSource]="data" showDefaultTooltip="true"
-                                isTransitionInEnabled="true" isHighlightingEnabled="true" markerType="Hidden">
-                            </igx-bar-series>
-                            <igx-bar-series name="BarSeries2" #barSeries2 [xAxis]="xAxis" [yAxis]="yAxis" title="{{this.Titulo[1]}}"
-                                valueMemberPath="Mes2" [dataSource]="data" showDefaultTooltip="true"
-                                isTransitionInEnabled="true" isHighlightingEnabled="true" markerType="Hidden">
-                            </igx-bar-series>
-
-                            <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [dataSource]="data"
-                                xMemberPath="Mes1" yMemberPath="Mes1X" labelMemberPath="FormattedMes1"
-                                calloutTextColor="rgba(133, 6, 138, 1)" calloutBackground="rgba(0, 0, 0, 0)"
-                                calloutLeaderBrush="rgba(0, 0, 0, 0)">
-
-                            </igx-callout-layer>
-
-                            <igx-callout-layer [dataSource]="data" isAutoCalloutBehaviorEnabled="false"
-                                calloutPositionPadding="10" xMemberPath="Mes2" yMemberPath="Mes2X"
-                                labelMemberPath="FormattedM2024" calloutTextColor="rgba(133, 6, 138, 1)"
-                                calloutBackground="rgba(0, 0, 0, 0)" calloutLeaderBrush="rgba(0, 0, 0, 0)">
-                            </igx-callout-layer>
+                        <igx-category-highlight-layer name="CategoryHighlightLayer" #categoryHighlightLayer>
+                        </igx-category-highlight-layer>
 
 
-                            <igx-data-tool-tip-layer name="Tooltips" #tooltips>
-                            </igx-data-tool-tip-layer>
-                        </igx-data-chart>
+                        <igx-bar-series name="Mes1Series" #Mes1Series [xAxis]="xAxis" [yAxis]="yAxis"
+                            title="{{this.Titulo[0]}}" valueMemberPath="Mes1" labelMemberPath="FormattedMes1" [dataSource]="data"
+                              isTransitionInEnabled="true" isHighlightingEnabled="true"
+                            markerType="Hidden"
+                            brush="rgba(255, 69, 0, 0.6470588235294118)" outline="rgba(255, 69, 0, 1)">
+                        </igx-bar-series>
+
+
+                        <igx-bar-series name="Mes2Series" #Mes2Series [xAxis]="xAxis" [yAxis]="yAxis"
+                            title="{{this.Titulo[1]}}" valueMemberPath="Mes2" [dataSource]="data"
+                             isTransitionInEnabled="true" isHighlightingEnabled="true"
+                            markerType="Hidden"
+                            brush="rgba(0, 157, 67, 0.6470588235294118)" outline="rgba(0, 157, 67, 1)">
+                        </igx-bar-series>
+
+                        <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [dataSource]="data" xMemberPath="Mes1"
+                            yMemberPath="Mes1X" labelMemberPath="FormattedMes1" calloutTextColor="rgba(133, 6, 138, 1)"
+                            calloutBackground="rgba(0, 0, 0, 0)" calloutLeaderBrush="rgba(0, 0, 0, 0)">
+
+                        </igx-callout-layer>
+
+                        <igx-callout-layer [dataSource]="data" isAutoCalloutBehaviorEnabled="false"
+                            calloutPositionPadding="10" xMemberPath="Mes2" yMemberPath="Mes2X"
+                            labelMemberPath="FormattedM2024" calloutTextColor="rgba(133, 6, 138, 1)"
+                            calloutBackground="rgba(0, 0, 0, 0)" calloutLeaderBrush="rgba(0, 0, 0, 0)">
+                        </igx-callout-layer>
+
+
+                    </igx-data-chart>
 
 
                     }
                     @else
                     {
-                        <igx-data-chart height="500px" width="100%" [legend]="legend" isHorizontalZoomEnabled="false"
-                        isVerticalZoomEnabled="false" [dataSource]="data" id="char">
+                    <igx-data-chart height="500px" width="100%" [legend]="legend" isHorizontalZoomEnabled="false"
+                        isVerticalZoomEnabled="false" [dataSource]="data" >
 
 
-                        <igx-category-x-axis #xAxis label="Mes" overlap="0" gap="0.5" useClusteringMode="true" >
+                        <igx-category-x-axis #xAxis label="Mes" overlap="0" gap="0.5">
                         </igx-category-x-axis>
 
 
 
-                        <igx-numeric-y-axis #yAxis1 abbreviateLargeNumbers="true" title="Ventas {{this.Titulo[0]}} - {{this.Titulo[0]}}"
-                            titleLeftMargin="5" titleRightMargin="0" minimumValue="0" maximumValue="{{MaxValue}}">
+                        <igx-numeric-y-axis #yAxis1 abbreviateLargeNumbers="true"
+                            title="Ventas {{this.Titulo[0]}} - {{this.Titulo[0]}}" titleLeftMargin="5"
+                            titleRightMargin="0" minimumValue="0" maximumValue="{{MaxValue}}">
                         </igx-numeric-y-axis>
 
 
 
-                        <igx-column-series #M2023Series [xAxis]="xAxis" [yAxis]="yAxis1" valueMemberPath="Mes1" showDefaultTooltip="true"
-                            title="{{this.Titulo[0]}}" markerType="Hidden"
-                            brush="rgba(255, 69, 0, 0.6470588235294118)"
-                            outline="rgba(255, 69, 0, 1)">
+                        <igx-column-series #Mes1Series [xAxis]="xAxis" [yAxis]="yAxis1" valueMemberPath="Mes1"
+                            title="{{this.Titulo[0]}}" showDefaultTooltip="true" isHighlightingEnabled="true"
+                            brush="rgba(255, 69, 0, 0.6470588235294118)" outline="rgba(255, 69, 0, 1)">
                         </igx-column-series>
 
-                        <igx-column-series #M2024Series [xAxis]="xAxis" [yAxis]="yAxis1" valueMemberPath="Mes2" showDefaultTooltip="true"
-                            title="{{this.Titulo[1]}}" markerType="Hidden"
-                            brush="rgba(0, 157, 67, 0.6470588235294118)"
-                            outline="rgba(0, 157, 67, 1)">
+                        <igx-column-series #Mes2Series [xAxis]="xAxis" [yAxis]="yAxis1" valueMemberPath="Mes2"
+                            title="{{this.Titulo[1]}}" showDefaultTooltip="true" isHighlightingEnabled="true"
+                            brush="rgba(0, 157, 67, 0.6470588235294118)" outline="rgba(0, 157, 67, 1)">
                         </igx-column-series>
 
 
-                        <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [targetSeries]="M2023Series"
+                        <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [targetSeries]="Mes1Series"
                             useValueForAutoCalloutLabels="false" calloutLeaderBrush="Transparent"
                             calloutTextColor="Black" calloutBackground="Transparent" calloutPositionPadding="-5"
                             xMemberPath="Mes1X" yMemberPath="Mes1" labelMemberPath="FormattedMes1">
                         </igx-callout-layer>
 
 
-                        <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [targetSeries]="M2024Series"
+                        <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [targetSeries]="Mes2Series"
                             useValueForAutoCalloutLabels="false" calloutLeaderBrush="Transparent"
                             calloutTextColor="Black" calloutBackground="Transparent" calloutPositionPadding="-5"
-                            xMemberPath="Mes2X" yMemberPath="Mes2" labelMemberPath="FormattedMes2">
+                            xMemberPath="Mes2X" yMemberPath="Mes2" labelMemberPath="FormattedMes2" >
                         </igx-callout-layer>
 
                     </igx-data-chart>
@@ -154,7 +159,7 @@
 
 
 
-                   
+
 
 
 
@@ -175,3 +180,12 @@
 
 
 </div>
+
+
+<ng-template let-series="series" let-item="item" #seriesTooltip>
+    <div class="contenedor-Tooltip">
+        <span class="titulo">{{item.Mes}}</span>
+        <span><b class="label_1">{{this.Titulo[0]}}</b> {{item.Mes1 | number :'1.2-2'}}<br/></span>
+        <span><b class="label_2">{{this.Titulo[1]}}</b> {{item.Mes2 | number :'1.2-2'}}<br/></span>
+    </div>
+</ng-template>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, QueryList, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, QueryList, TemplateRef, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import Chart from 'chart.js/auto'
 import { getServidor } from 'src/app/SHARED/GET/get-servidor';
 import { WaitComponent } from '../../wait/wait.component';
@@ -12,7 +12,7 @@ import { IgxComboComponent, IgxComboModule, IgxIconModule } from 'igniteui-angul
 import { iBodega } from 'src/app/FAC/interface/i-Bodega';
 import { ReactiveFormsModule } from '@angular/forms';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { IgxDataChartCoreModule, IgxDataChartCategoryModule, IgxLegendModule, IgxCalloutLayerModule, IgxDataChartInteractivityModule, IgxDataChartAnnotationModule, IgxNumberAbbreviatorModule, IgxDataChartCategoryCoreModule, IgxCategoryChartModule, IgxDataChartVerticalCategoryModule, IgxDataChartComponent } from "igniteui-angular-charts"
+import { IgxDataChartCoreModule, IgxDataChartCategoryModule, IgxLegendModule, IgxCalloutLayerModule, IgxDataChartInteractivityModule, IgxDataChartAnnotationModule, IgxNumberAbbreviatorModule, IgxDataChartCategoryCoreModule, IgxCategoryChartModule, IgxDataChartVerticalCategoryModule, IgxDataChartComponent, IgxBarSeriesComponent } from "igniteui-angular-charts"
 
 @Component({
   selector: 'app-sidebar-charts',
@@ -44,7 +44,7 @@ export class SidebarChatsComponent {
   public Sucursal: string = "";
   public MaxValue: number = 0;
 
-  private myChart: Chart;
+  //private myChart: Chart;
 
 
 
@@ -61,6 +61,19 @@ export class SidebarChatsComponent {
   @ViewChild("cmbBodega", { static: false })
   public cmbBodega: IgxComboComponent;
 
+  @ViewChild("Charts_Venta_Neta", { static: false })
+  public myChart: IgxDataChartComponent;
+
+  @ViewChild("seriesTooltip", { static: false })
+  public seriesTooltip: TemplateRef<any>;
+  
+
+  
+  @ViewChild("Mes1Series", { static: false })
+  public Mes1Series: IgxBarSeriesComponent;
+  
+  @ViewChild("Mes2Series", { static: false })
+  public Mes2Series: IgxBarSeriesComponent;
 
   /*
   @ViewChild('Charts_Venta_Neta', { static: false })
@@ -321,6 +334,18 @@ export class SidebarChatsComponent {
       item.FormattedMes2 = this.formatNumber(item.Mes2);
     }
 
+
+  /*  this.Mes1Series.tooltipTemplate = this.seriesTooltip;
+    this.Mes2Series.tooltipTemplate = this.seriesTooltip;*/
+
+    console.log(this.Mes1Series)
+
+    this.Mes1Series.showDefaultTooltip = true;
+    this.Mes2Series.showDefaultTooltip = true;
+    this.Mes1Series.tooltipTemplate = this.seriesTooltip;
+    this.Mes2Series.tooltipTemplate = this.seriesTooltip;
+   // this.myChart.series.item(0).tooltipTemplate = this.seriesTooltip;
+   // this.myChart.series.item(1).tooltipTemplate = this.seriesTooltip;
 
 
   }

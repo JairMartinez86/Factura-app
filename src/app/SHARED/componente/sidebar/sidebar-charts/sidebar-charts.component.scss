@@ -72,3 +72,27 @@ h4{
   }
 
 
+  .contenedor-Tooltip{
+    .titulo{
+      font-weight: bold;
+      text-align: center;
+    }
+    .label_1{
+      background-color: rgba(255, 69, 0, 0.6470588235294118);
+      color: var(--escan-fondo);
+      padding: 5px;
+      margin-bottom: 5px;
+    }
+    .label_2{
+      background-color: rgba(0, 157, 67, 0.6470588235294118);
+      color: var(--escan-fondo);
+      padding: 5px;
+      margin-bottom: 5px;
+
+    }
+
+    span{
+      padding: 10px;
+      display: block;
+    }
+  }
