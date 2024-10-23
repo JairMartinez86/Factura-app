@@ -61,9 +61,11 @@ export class SidebarChatsComponent {
   @ViewChild("cmbBodega", { static: false })
   public cmbBodega: IgxComboComponent;
 
+
+  /*
   @ViewChild('Charts_Venta_Neta', { static: false })
   private ctx: Chart;
-
+*/
 
 
   landscape = window.matchMedia("(orientation: landscape)");
@@ -188,6 +190,197 @@ export class SidebarChatsComponent {
 
 
 
+
+
+
+  public V_Select_Bodega(event: any) {
+
+    this.val.Get("cmbBodega").setValue(event.newValue);
+
+    this.Refrescar_Chart();
+  }
+
+
+
+  public V_Enter_Bodega(event: any) {
+    if (event.key == "Enter") {
+      let cmb: any = this.cmbBodega.dropdown;
+      let _Item: iBodega = cmb._focusedItem?.value;
+      this.cmbBodega.setSelectedItem(_Item?.Codigo);
+      this.val.Get("cmbBodega").setValue([_Item?.Codigo]);
+
+    }
+  }
+
+
+
+  
+  private Refrescar_Chart(): void {
+
+
+    let myClonedObject: any[];
+
+    let Bodegas: string[] = this.val.Get("cmbBodega").value;
+    this.Sucursal = "";
+
+    var Datos = JSON.parse(JSON.stringify(this.lstDatos));
+
+    if (this.val.Get("cmbBodega").value.length == 0) {
+
+      myClonedObject = Object.assign([], Datos);
+    }
+    else {
+      if (this.val.Get("cmbBodega").value.length == 1) this.Sucursal = this.lstBodega.find(f => f.Codigo == this.val.GetValue("cmbBodega"))?.Key!;
+
+
+      myClonedObject = Object.assign([], Datos.filter((f: any) => Bodegas.includes(f.Codigo)));
+    }
+
+    this.TotalAnio = [0, 0];
+
+
+    var d1: any[] = myClonedObject.filter(w => w.Anio == Number(this.Titulo[0])).reduce((acc, item) => {
+
+      let accItem: any = acc.find((ai: any) => ai.Anio == item.Anio && ai.Mes == item.Mes)
+
+
+
+      if (accItem) {
+        accItem.VentaNeta += item.VentaNeta
+      } else {
+        acc.push(item)
+      }
+
+      this.TotalAnio[0] += item.VentaNeta;
+      return acc;
+    }, []);
+
+
+
+    var d2: any[] = myClonedObject.filter(w => w.Anio == Number(this.Titulo[1])).reduce((acc, item) => {
+
+      let accItem: any = acc.find((ai: any) => ai.Anio == item.Anio && ai.Mes == item.Mes)
+
+
+
+      if (accItem) {
+        accItem.VentaNeta += item.VentaNeta
+
+      } else {
+        acc.push(item)
+      }
+      this.TotalAnio[1] += item.VentaNeta;
+      return acc;
+    }, []);
+
+
+
+    d1 = d1.sort((a, b) => { return a.Mes - b.Mes; });
+    d2 = d2.sort((a, b) => { return a.Mes - b.Mes; });
+
+
+
+    this.datos_1.splice(0, this.datos_1.length);
+    d1.forEach(f => {
+      this.datos_1.push(f.VentaNeta);
+    });
+
+    this.datos_2.splice(0, this.datos_2.length);
+    d2.forEach(f => {
+      this.datos_2.push(f.VentaNeta);
+    });
+
+
+
+
+
+    this.data = [];
+    for (let i = 0; i <= this.Meses.length - 1; i++) {
+
+      this.data.push({ Mes: this.Meses[i], Mes1: this.datos_1[i], Mes2: this.datos_2[i] });
+    }
+
+
+    let max1  = Math.max(...this.datos_1.map(o => o));
+    let max2  = Math.max(...this.datos_2.map(o => o));
+
+    this.MaxValue = max1;
+    if(this.MaxValue < max2) this.MaxValue = max2;
+    this.MaxValue = this.MaxValue * 1.2;
+
+
+    for (let i = 0; i < this.data.length ; i++) {
+      const item = this.data[i];
+
+      // calculating x-offset for callouts
+      item.Mes1X = i;
+      item.Mes2X = i + (this.EsMobile ? 0.4 : 0) ;
+
+      // formatting values for callouts
+      item.FormattedMes1 = this.formatNumber(item.Mes1);
+      item.FormattedMes2 = this.formatNumber(item.Mes2);
+    }
+
+
+
+  }
+
+
+
+  ngOnInit() {
+
+    this.V_CargarCharts();
+
+    this.landscape.addEventListener("change", (ev: any) => {
+
+      if(navigator.userAgent.includes("Android")  ) 
+      {
+        if(this.landscape.matches)
+        {
+          this.EsMobile = false;
+        }
+        else
+        {
+          this.EsMobile = true;
+        }
+        
+      }
+      else
+      {
+        this.EsMobile = false;
+      }
+      
+
+      this.Refrescar_Chart();
+   
+
+    });
+
+
+   
+
+  }
+
+/*
+
+
+
+  ngOnInit() {
+
+    this.V_CargarCharts();
+
+    this.landscape.addEventListener("change", (ev: any) => {
+
+      this.Crear_Chart();
+     
+    });
+
+
+   
+
+  }
+
+
   private Refrescar_Chart(): void {
 
 
@@ -277,100 +470,14 @@ export class SidebarChatsComponent {
 
 
 
-    //this.Crear_Chart();
+    this.Crear_Chart();
 
-
-    this.data = [];
-    for (let i = 0; i <= this.Meses.length - 1; i++) {
-
-      this.data.push({ Mes: this.Meses[i], Mes1: this.datos_1[i], Mes2: this.datos_2[i] });
-    }
-
-
-    let max1  = Math.max(...this.datos_1.map(o => o));
-    let max2  = Math.max(...this.datos_2.map(o => o));
-
-    this.MaxValue = max1;
-    if(this.MaxValue < max2) this.MaxValue = max2;
-    this.MaxValue = this.MaxValue * 1.2;
-
-
-    for (let i = 0; i < this.data.length ; i++) {
-      const item = this.data[i];
-
-      // calculating x-offset for callouts
-      item.Mes1X = i;
-      item.Mes2X = i + (this.EsMobile ? 0.4 : 0) ;
-
-      // formatting values for callouts
-      item.FormattedMes1 = this.formatNumber(item.Mes1);
-      item.FormattedMes2 = this.formatNumber(item.Mes2);
-    }
 
 
 
   }
 
 
-
-
-
-  public V_Select_Bodega(event: any) {
-
-    this.val.Get("cmbBodega").setValue(event.newValue);
-
-    this.Refrescar_Chart();
-  }
-
-
-
-  public V_Enter_Bodega(event: any) {
-    if (event.key == "Enter") {
-      let cmb: any = this.cmbBodega.dropdown;
-      let _Item: iBodega = cmb._focusedItem?.value;
-      this.cmbBodega.setSelectedItem(_Item?.Codigo);
-      this.val.Get("cmbBodega").setValue([_Item?.Codigo]);
-
-    }
-  }
-
-
-  ngOnInit() {
-
-    this.V_CargarCharts();
-
-    this.landscape.addEventListener("change", (ev: any) => {
-
-
-      //this.Crear_Chart();
-      
-      if(navigator.userAgent.includes("Android")  ) 
-      {
-        if(this.landscape.matches)
-        {
-          this.EsMobile = false;
-        }
-        else
-        {
-          this.EsMobile = true;
-        }
-        
-      }
-      else
-      {
-        this.EsMobile = false;
-      }
-      
-
-      this.Refrescar_Chart();
-   
-
-    });
-
-
-   
-
-  }
 
 
   private Crear_Chart() {
@@ -470,6 +577,7 @@ export class SidebarChatsComponent {
                }
              }
  */
+/*
           }
         },
         plugins: {
@@ -538,5 +646,5 @@ export class SidebarChatsComponent {
     this.myChart.canvas.style.height = "600px";
   }
 
-
+*/
 }
