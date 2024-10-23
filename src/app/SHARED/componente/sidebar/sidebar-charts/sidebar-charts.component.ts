@@ -1,4 +1,4 @@
-import { Component, ElementRef, QueryList, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, QueryList, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import Chart from 'chart.js/auto'
 import { getServidor } from 'src/app/SHARED/GET/get-servidor';
 import { WaitComponent } from '../../wait/wait.component';
@@ -12,13 +12,26 @@ import { IgxComboComponent, IgxComboModule, IgxIconModule } from 'igniteui-angul
 import { iBodega } from 'src/app/FAC/interface/i-Bodega';
 import { ReactiveFormsModule } from '@angular/forms';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { IgxDataChartCoreModule, IgxDataChartCategoryModule, IgxLegendModule, IgxCalloutLayerModule, IgxDataChartInteractivityModule, IgxDataChartAnnotationModule, IgxNumberAbbreviatorModule, IgxDataChartCategoryCoreModule, IgxCategoryChartModule, IgxDataChartVerticalCategoryModule, IgxDataChartComponent } from "igniteui-angular-charts"
 
 @Component({
   selector: 'app-sidebar-charts',
   standalone: true,
-  imports: [CommonModule, IgxComboModule, ReactiveFormsModule, IgxIconModule],
+  imports: [CommonModule, IgxComboModule, ReactiveFormsModule, IgxIconModule, IgxLegendModule,
+    IgxDataChartCoreModule,
+    IgxDataChartCategoryModule,
+    IgxDataChartCategoryCoreModule,
+    IgxLegendModule,
+    IgxCalloutLayerModule,
+    IgxDataChartInteractivityModule,
+    IgxDataChartAnnotationModule,
+    IgxNumberAbbreviatorModule,
+    IgxCategoryChartModule,
+    IgxDataChartVerticalCategoryModule
+  ],
   templateUrl: './sidebar-charts.component.html',
-  styleUrl: './sidebar-charts.component.scss'
+  styleUrl: './sidebar-charts.component.scss',
+ // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarChatsComponent {
 
@@ -27,8 +40,9 @@ export class SidebarChatsComponent {
   public Titulo: string[] = ["", ""];
   private Meses: string[] = [];
   private lstDatos: any[] = [];
-  public Total: number;
+  public TotalAnio: number[] = [0, 0];
   public Sucursal: string = "";
+  public MaxValue: number = 0;
 
   private myChart: Chart;
 
@@ -51,7 +65,16 @@ export class SidebarChatsComponent {
   private ctx: Chart;
 
 
+
   landscape = window.matchMedia("(orientation: landscape)");
+
+
+
+
+  public data: any[];
+   EsMobile: boolean = navigator.userAgent.includes("Android") && !this.landscape.matches;
+
+  
   constructor(private GET: getServidor, private cFunciones: Funciones) {
 
 
@@ -63,10 +86,17 @@ export class SidebarChatsComponent {
 
 
 
+
   }
 
 
+  public formatNumber(num: number): string {
+    var ret = num;
+    if (num >= 1000000) return (num / 1000000.0).toFixed(1) + "M";
+    if (num >= 1000) return (num / 1000.0).toFixed(1) + "K";
 
+    return ret.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 
 
   public V_CargarCharts(): void {
@@ -179,7 +209,7 @@ export class SidebarChatsComponent {
       myClonedObject = Object.assign([], Datos.filter((f: any) => Bodegas.includes(f.Codigo)));
     }
 
-    this.Total = 0;
+    this.TotalAnio = [0, 0];
 
     myClonedObject.forEach((f: any) => {
       f.Codigo = "";
@@ -206,6 +236,7 @@ export class SidebarChatsComponent {
         acc.push(item)
       }
 
+      this.TotalAnio[0] += item.VentaNeta;
       return acc;
     }, []);
 
@@ -223,7 +254,7 @@ export class SidebarChatsComponent {
       } else {
         acc.push(item)
       }
-      this.Total += item.VentaNeta;
+      this.TotalAnio[1] += item.VentaNeta;
       return acc;
     }, []);
 
@@ -246,11 +277,35 @@ export class SidebarChatsComponent {
 
 
 
-    this.Crear_Chart();
+    //this.Crear_Chart();
 
 
+    this.data = [];
+    for (let i = 0; i <= this.Meses.length - 1; i++) {
+
+      this.data.push({ Mes: this.Meses[i], Mes1: this.datos_1[i], Mes2: this.datos_2[i] });
+    }
 
 
+    let max1  = Math.max(...this.datos_1.map(o => o));
+    let max2  = Math.max(...this.datos_2.map(o => o));
+
+    this.MaxValue = max1;
+    if(this.MaxValue < max2) this.MaxValue = max2;
+    this.MaxValue = this.MaxValue * 1.2;
+
+
+    for (let i = 0; i < this.data.length ; i++) {
+      const item = this.data[i];
+
+      // calculating x-offset for callouts
+      item.Mes1X = i;
+      item.Mes2X = i + (this.EsMobile ? 0.4 : 0) ;
+
+      // formatting values for callouts
+      item.FormattedMes1 = this.formatNumber(item.Mes1);
+      item.FormattedMes2 = this.formatNumber(item.Mes2);
+    }
 
 
 
@@ -282,18 +337,38 @@ export class SidebarChatsComponent {
 
   ngOnInit() {
 
-
+    this.V_CargarCharts();
 
     this.landscape.addEventListener("change", (ev: any) => {
 
 
-      this.Crear_Chart();
+      //this.Crear_Chart();
+      
+      if(navigator.userAgent.includes("Android")  ) 
+      {
+        if(this.landscape.matches)
+        {
+          this.EsMobile = false;
+        }
+        else
+        {
+          this.EsMobile = true;
+        }
+        
+      }
+      else
+      {
+        this.EsMobile = false;
+      }
+      
+
+      this.Refrescar_Chart();
+   
 
     });
 
 
-    this.V_CargarCharts();
-
+   
 
   }
 
@@ -367,34 +442,34 @@ export class SidebarChatsComponent {
               }
             },
 
-           /* ticks: {
-
-              callback: function (value: any, index, ticks) {
-
-
-                if(!navigator.userAgent.includes("Android"))
-                {
-                  var v: any = (Math.abs(value) / 1000).toFixed(1);
-
-
-                  return value.toLocaleString('en-US', {
-                    // add suffixes for thousands, millions, and billions
-                    // the maximum number of decimal places to use
-                    maximumFractionDigits: 2,
-                    // specify the abbreviations to use for the suffixes
-                    notation: 'compact',
-                    compactDisplay: 'short'
-                  });
-  
-                }
-                else
-                {
-                  return value;
-                }
-                
-              }
-            }
-*/
+            /* ticks: {
+ 
+               callback: function (value: any, index, ticks) {
+ 
+ 
+                 if(!navigator.userAgent.includes("Android"))
+                 {
+                   var v: any = (Math.abs(value) / 1000).toFixed(1);
+ 
+ 
+                   return value.toLocaleString('en-US', {
+                     // add suffixes for thousands, millions, and billions
+                     // the maximum number of decimal places to use
+                     maximumFractionDigits: 2,
+                     // specify the abbreviations to use for the suffixes
+                     notation: 'compact',
+                     compactDisplay: 'short'
+                   });
+   
+                 }
+                 else
+                 {
+                   return value;
+                 }
+                 
+               }
+             }
+ */
           }
         },
         plugins: {
@@ -429,7 +504,7 @@ export class SidebarChatsComponent {
             }
           },
 
-          legend:{
+          legend: {
             labels: {
               font: {
                 size: 15
@@ -445,7 +520,7 @@ export class SidebarChatsComponent {
           subtitle: {
             display: true,
             align: "center",
-            text: this.cFunciones.NumFormat(this.Total, "2"),
+            text: this.cFunciones.NumFormat(this.TotalAnio[1], "2"),
             color: "blue",
             font: {
               weight: 'bold',

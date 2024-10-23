@@ -14,40 +14,156 @@
 
                 <div class="col-12 col-md-12 mb-1">
                     <form class="mx-2" [formGroup]="val.ValForm" autocomplete="off">
-                        <igx-combo class="ComboBodega" #cmbBodega [data]="lstBodega" valueKey="Codigo" displayKey="Key" id="cmbBodega"
-                        formControlName="cmbBodega" placeholder="Seleccione una Bodega."
-                        searchPlaceholder="Seleccione una bodega..." [autoFocusSearch]="true"
-                        (selectionChanging)="V_Select_Bodega($event)" (keyup)="V_Enter_Bodega($event);">
-                        <label igxLabel>Bodega</label>
-                        <igx-prefix><i class="bi bi-shop"></i></igx-prefix>
-        
-                        <ng-template igxComboClearIcon>
-                            <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
-                        </ng-template>
-                    </igx-combo>
+                        <igx-combo class="ComboBodega" #cmbBodega [data]="lstBodega" valueKey="Codigo" displayKey="Key"
+                            id="cmbBodega" formControlName="cmbBodega" placeholder="Seleccione una Bodega."
+                            searchPlaceholder="Seleccione una bodega..." [autoFocusSearch]="true"
+                            (selectionChanging)="V_Select_Bodega($event)" (keyup)="V_Enter_Bodega($event);">
+                            <label igxLabel>Bodega</label>
+                            <igx-prefix><i class="bi bi-shop"></i></igx-prefix>
+
+                            <ng-template igxComboClearIcon>
+                                <igx-icon><i class="fa-solid fa-eraser"></i></igx-icon>
+                            </ng-template>
+                        </igx-combo>
                     </form>
 
-                    
-    
+
+
                 </div>
 
                 <div class="col-12 col-md-12 contenedor-boton mb-1">
                     <button type="button" class="btn btn-opcional" id="btn-Charts-Refrescar"
-                    (click)="V_CargarCharts();"><i class="fa-solid fa-arrows-rotate fa-spin fa-lg"></i>
-                    Refrescar</button>
+                        (click)="V_CargarCharts();"><i class="fa-solid fa-arrows-rotate fa-spin fa-lg"></i>
+                        Refrescar</button>
                 </div>
 
             </div>
-            
+
         </div>
         <div class="card-body">
 
-            <canvas    #Charts_Venta_Neta id="Charts_Venta_Neta"></canvas>
+            <!--<canvas    #Charts_Venta_Neta id="Charts_Venta_Neta"></canvas>-->
 
 
+
+            <div class="">
+                <div class="legend-title">
+                    <div> Total {{Titulo[0]}}: <b> {{TotalAnio[0] |number : '1.2-2'}}</b></div>
+                   
+                    <div> Total {{Titulo[1]}}: <b> {{TotalAnio[1] |number : '1.2-2'}}</b></div>
+                   
+                </div>
+                <div class="legend">
+                    <igx-legend name="Legend" #legend orientation="Horizontal">
+                    </igx-legend>
+                </div>
+                <div>
+
+                    @if(EsMobile)
+                    {
+                    <igx-data-chart name="Chart" #chart [legend]="legend" height="1000px" width="100%">
+                            <igx-category-y-axis name="yAxis" #yAxis label="Mes" useEnhancedIntervalManagement="true"
+                                enhancedIntervalPreferMoreCategoryLabels="true" [dataSource]="data" isInverted="true"
+                                gap="0.5" overlap="-0.1">
+                            </igx-category-y-axis>
+
+                            <igx-numeric-x-axis name="xAxis" #xAxis title="Ventas {{this.Titulo[0]}} - {{this.Titulo[0]}}" minimumValue="0" maximumValue="{{MaxValue}}">
+                            </igx-numeric-x-axis>
+
+                            <igx-category-highlight-layer name="CategoryHighlightLayer" #categoryHighlightLayer>
+                            </igx-category-highlight-layer>
+                            <igx-bar-series name="BarSeries1" #barSeries1 [xAxis]="xAxis" [yAxis]="yAxis" title="{{this.Titulo[0]}}"
+                                valueMemberPath="Mes1" [dataSource]="data" showDefaultTooltip="true"
+                                isTransitionInEnabled="true" isHighlightingEnabled="true" markerType="Hidden">
+                            </igx-bar-series>
+                            <igx-bar-series name="BarSeries2" #barSeries2 [xAxis]="xAxis" [yAxis]="yAxis" title="{{this.Titulo[1]}}"
+                                valueMemberPath="Mes2" [dataSource]="data" showDefaultTooltip="true"
+                                isTransitionInEnabled="true" isHighlightingEnabled="true" markerType="Hidden">
+                            </igx-bar-series>
+
+                            <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [dataSource]="data"
+                                xMemberPath="Mes1" yMemberPath="Mes1X" labelMemberPath="FormattedMes1"
+                                calloutTextColor="rgba(133, 6, 138, 1)" calloutBackground="rgba(0, 0, 0, 0)"
+                                calloutLeaderBrush="rgba(0, 0, 0, 0)">
+
+                            </igx-callout-layer>
+
+                            <igx-callout-layer [dataSource]="data" isAutoCalloutBehaviorEnabled="false"
+                                calloutPositionPadding="10" xMemberPath="Mes2" yMemberPath="Mes2X"
+                                labelMemberPath="FormattedM2024" calloutTextColor="rgba(133, 6, 138, 1)"
+                                calloutBackground="rgba(0, 0, 0, 0)" calloutLeaderBrush="rgba(0, 0, 0, 0)">
+                            </igx-callout-layer>
+
+
+                            <igx-data-tool-tip-layer name="Tooltips" #tooltips>
+                            </igx-data-tool-tip-layer>
+                        </igx-data-chart>
+
+
+                    }
+                    @else
+                    {
+                        <igx-data-chart height="500px" width="100%" [legend]="legend" isHorizontalZoomEnabled="false"
+                        isVerticalZoomEnabled="false" [dataSource]="data" id="char">
+
+
+                        <igx-category-x-axis #xAxis label="Mes" overlap="0" gap="0.5" useClusteringMode="true" >
+                        </igx-category-x-axis>
+
+
+
+                        <igx-numeric-y-axis #yAxis1 abbreviateLargeNumbers="true" title="Ventas {{this.Titulo[0]}} - {{this.Titulo[0]}}"
+                            titleLeftMargin="5" titleRightMargin="0" minimumValue="0" maximumValue="{{MaxValue}}">
+                        </igx-numeric-y-axis>
+
+
+
+                        <igx-column-series #M2023Series [xAxis]="xAxis" [yAxis]="yAxis1" valueMemberPath="Mes1" showDefaultTooltip="true"
+                            title="{{this.Titulo[0]}}" markerType="Hidden"
+                            brush="rgba(255, 69, 0, 0.6470588235294118)"
+                            outline="rgba(255, 69, 0, 1)">
+                        </igx-column-series>
+
+                        <igx-column-series #M2024Series [xAxis]="xAxis" [yAxis]="yAxis1" valueMemberPath="Mes2" showDefaultTooltip="true"
+                            title="{{this.Titulo[1]}}" markerType="Hidden"
+                            brush="rgba(0, 157, 67, 0.6470588235294118)"
+                            outline="rgba(0, 157, 67, 1)">
+                        </igx-column-series>
+
+
+                        <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [targetSeries]="M2023Series"
+                            useValueForAutoCalloutLabels="false" calloutLeaderBrush="Transparent"
+                            calloutTextColor="Black" calloutBackground="Transparent" calloutPositionPadding="-5"
+                            xMemberPath="Mes1X" yMemberPath="Mes1" labelMemberPath="FormattedMes1">
+                        </igx-callout-layer>
+
+
+                        <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [targetSeries]="M2024Series"
+                            useValueForAutoCalloutLabels="false" calloutLeaderBrush="Transparent"
+                            calloutTextColor="Black" calloutBackground="Transparent" calloutPositionPadding="-5"
+                            xMemberPath="Mes2X" yMemberPath="Mes2" labelMemberPath="FormattedMes2">
+                        </igx-callout-layer>
+
+                    </igx-data-chart>
+                    }
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                </div>
+            </div>
         </div>
 
-        
+
     </div>
 
 
