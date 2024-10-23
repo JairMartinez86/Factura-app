@@ -57,11 +57,16 @@
                     <igx-legend name="Legend" #legend orientation="Horizontal">
                     </igx-legend>
                 </div>
-                <div>
+                <div class="">
 
                     @if(EsMobile)
                     {
-                    <igx-data-chart name="Chart" #chart [legend]="legend" height="1000px" width="100%"  #Charts_Venta_Neta>
+                    <igx-data-chart id="Charts_Venta_Neta"  [legend]="legend" height="1000px" width="90%"  #Charts_Venta_Neta
+                    isHorizontalZoomEnabled="true"
+                    isVerticalZoomEnabled="true" 
+                    windowScaleVertical="0.75">
+
+
                         <igx-category-y-axis name="yAxis" #yAxis label="Mes" useEnhancedIntervalManagement="true"
                             enhancedIntervalPreferMoreCategoryLabels="true" [dataSource]="data" isInverted="true"
                             gap="0.5" overlap="-0.1">
@@ -109,8 +114,9 @@
                     }
                     @else
                     {
-                    <igx-data-chart height="500px" width="100%" [legend]="legend" isHorizontalZoomEnabled="false"
-                        isVerticalZoomEnabled="false" [dataSource]="data" >
+                    <igx-data-chart  id="Charts_Venta_Neta"  height="500px" width="90%" [legend]="legend" isHorizontalZoomEnabled="true"
+                        isVerticalZoomEnabled="true" [dataSource]="data" #Charts_Venta_Neta
+                        windowScaleHorizontal="0.75" >
 
 
                         <igx-category-x-axis #xAxis label="Mes" overlap="0" gap="0.5">
