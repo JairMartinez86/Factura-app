@@ -335,17 +335,12 @@ export class SidebarChatsComponent {
     }
 
 
-  /*  this.Mes1Series.tooltipTemplate = this.seriesTooltip;
-    this.Mes2Series.tooltipTemplate = this.seriesTooltip;*/
-
-    console.log(this.Mes1Series)
 
     this.Mes1Series.showDefaultTooltip = true;
     this.Mes2Series.showDefaultTooltip = true;
     this.Mes1Series.tooltipTemplate = this.seriesTooltip;
     this.Mes2Series.tooltipTemplate = this.seriesTooltip;
-   // this.myChart.series.item(0).tooltipTemplate = this.seriesTooltip;
-   // this.myChart.series.item(1).tooltipTemplate = this.seriesTooltip;
+
 
 
   }

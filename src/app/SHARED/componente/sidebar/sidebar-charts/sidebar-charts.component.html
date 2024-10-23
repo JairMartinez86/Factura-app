@@ -81,7 +81,7 @@
 
 
                         <igx-bar-series name="Mes1Series" #Mes1Series [xAxis]="xAxis" [yAxis]="yAxis"
-                            title="{{this.Titulo[0]}}" valueMemberPath="Mes1" labelMemberPath="FormattedMes1" [dataSource]="data"
+                            title="{{this.Titulo[0]}}" valueMemberPath="Mes1"  [dataSource]="data"
                               isTransitionInEnabled="true" isHighlightingEnabled="true"
                             markerType="Hidden"
                             brush="rgba(255, 69, 0, 0.6470588235294118)" outline="rgba(255, 69, 0, 1)">
@@ -89,7 +89,7 @@
 
 
                         <igx-bar-series name="Mes2Series" #Mes2Series [xAxis]="xAxis" [yAxis]="yAxis"
-                            title="{{this.Titulo[1]}}" valueMemberPath="Mes2" [dataSource]="data"
+                            title="{{this.Titulo[1]}}" valueMemberPath="Mes2"  [dataSource]="data"
                              isTransitionInEnabled="true" isHighlightingEnabled="true"
                             markerType="Hidden"
                             brush="rgba(0, 157, 67, 0.6470588235294118)" outline="rgba(0, 157, 67, 1)">
@@ -103,7 +103,7 @@
 
                         <igx-callout-layer [dataSource]="data" isAutoCalloutBehaviorEnabled="false"
                             calloutPositionPadding="10" xMemberPath="Mes2" yMemberPath="Mes2X"
-                            labelMemberPath="FormattedM2024" calloutTextColor="rgba(133, 6, 138, 1)"
+                            labelMemberPath="FormattedMes2" calloutTextColor="rgba(133, 6, 138, 1)"
                             calloutBackground="rgba(0, 0, 0, 0)" calloutLeaderBrush="rgba(0, 0, 0, 0)">
                         </igx-callout-layer>
 
