@@ -46,7 +46,7 @@
 
 
 
-            <div class="">
+            <div class="row mb-4">
                 <div class="legend-title">
                     <div> Total {{Titulo[0]}}: <b> {{TotalAnio[0] |number : '1.2-2'}}</b></div>
 
@@ -61,10 +61,9 @@
 
                     @if(EsMobile)
                     {
-                    <igx-data-chart id="Charts_Venta_Neta"  [legend]="legend" height="1000px" width="90%"  #Charts_Venta_Neta
-                    isHorizontalZoomEnabled="true"
-                    isVerticalZoomEnabled="true" 
-                    windowScaleVertical="1">
+                    <igx-data-chart id="Charts_Venta_Neta" [legend]="legend" height="1000px" width="90%"
+                        #Charts_Venta_Neta isHorizontalZoomEnabled="true" isVerticalZoomEnabled="true"
+                        windowScaleVertical="1">
 
 
                         <igx-category-y-axis name="yAxis" #yAxis label="Mes" useEnhancedIntervalManagement="true"
@@ -72,7 +71,7 @@
                             gap="0.5" overlap="-0.1">
                         </igx-category-y-axis>
 
-                        <igx-numeric-x-axis name="xAxis" #xAxis title="Ventas {{this.Titulo[0]}} - {{this.Titulo[0]}}"
+                        <igx-numeric-x-axis name="xAxis" #xAxis title="Ventas {{this.Titulo[0]}} - {{this.Titulo[1]}}"
                             minimumValue="0" maximumValue="{{MaxValue}}">
                         </igx-numeric-x-axis>
 
@@ -81,19 +80,19 @@
 
 
                         <igx-bar-series name="Mes1Series" #Mes1Series [xAxis]="xAxis" [yAxis]="yAxis"
-                            title="{{this.Titulo[0]}}" valueMemberPath="Mes1"  [dataSource]="data"
-                              isTransitionInEnabled="true" isHighlightingEnabled="true"
-                            markerType="Hidden"
+                            title="{{this.Titulo[0]}}" valueMemberPath="Mes1" [dataSource]="data"
+                            isTransitionInEnabled="true" isHighlightingEnabled="true" markerType="Hidden"
                             brush="rgba(255, 69, 0, 0.6470588235294118)" outline="rgba(255, 69, 0, 1)">
                         </igx-bar-series>
 
 
                         <igx-bar-series name="Mes2Series" #Mes2Series [xAxis]="xAxis" [yAxis]="yAxis"
-                            title="{{this.Titulo[1]}}" valueMemberPath="Mes2"  [dataSource]="data"
-                             isTransitionInEnabled="true" isHighlightingEnabled="true"
-                            markerType="Hidden"
+                            title="{{this.Titulo[1]}}" valueMemberPath="Mes2" [dataSource]="data"
+                            isTransitionInEnabled="true" isHighlightingEnabled="true" markerType="Hidden"
                             brush="rgba(0, 157, 67, 0.6470588235294118)" outline="rgba(0, 157, 67, 1)">
                         </igx-bar-series>
+
+
 
                         <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [dataSource]="data" xMemberPath="Mes1"
                             yMemberPath="Mes1X" labelMemberPath="FormattedMes1" calloutTextColor="rgba(133, 6, 138, 1)"
@@ -101,7 +100,7 @@
 
                         </igx-callout-layer>
 
-                        <igx-callout-layer [dataSource]="data" isAutoCalloutBehaviorEnabled="false"
+                        <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [dataSource]="data"
                             calloutPositionPadding="10" xMemberPath="Mes2" yMemberPath="Mes2X"
                             labelMemberPath="FormattedMes2" calloutTextColor="rgba(133, 6, 138, 1)"
                             calloutBackground="rgba(0, 0, 0, 0)" calloutLeaderBrush="rgba(0, 0, 0, 0)">
@@ -114,9 +113,12 @@
                     }
                     @else
                     {
-                    <igx-data-chart  id="Charts_Venta_Neta"  height="500px" width="90%" [legend]="legend" isHorizontalZoomEnabled="true"
-                        isVerticalZoomEnabled="true" [dataSource]="data" #Charts_Venta_Neta
-                        windowScaleHorizontal="1" >
+                    <igx-data-chart id="Charts_Venta_Neta" height="500px" width="90%" [legend]="legend"
+                        isHorizontalZoomEnabled="true" isVerticalZoomEnabled="true" [dataSource]="data"
+                        #Charts_Venta_Neta windowScaleHorizontal="1"
+                        markerBrushes="rgba(255, 69, 0, 1) rgba(0, 157, 67, 1)"
+                        markerOutlines="rgba(255, 69, 0, 1) rgba(0, 157, 67, 1)" brushes="Transparent Transparent"
+                        outlines="rgba(255, 69, 0, 1) rgba(0, 157, 67, 1)">
 
 
                         <igx-category-x-axis #xAxis label="Mes" overlap="0" gap="0.5">
@@ -125,8 +127,13 @@
 
 
                         <igx-numeric-y-axis #yAxis1 abbreviateLargeNumbers="true"
-                            title="Ventas {{this.Titulo[0]}} - {{this.Titulo[0]}}" titleLeftMargin="5"
+                            title="Ventas {{this.Titulo[0]}} - {{this.Titulo[1]}}" titleLeftMargin="5"
                             titleRightMargin="0" minimumValue="0" maximumValue="{{MaxValue}}">
+                        </igx-numeric-y-axis>
+
+                        <igx-numeric-y-axis #yAxis2 abbreviateLargeNumbers="false" title="{{Titulo[1]}}"
+                            majorStrokeThickness="0" minimumValue="0" labelLocation="OutsideRight"
+                            labelHorizontalAlignment="Left">
                         </igx-numeric-y-axis>
 
 
@@ -142,6 +149,19 @@
                         </igx-column-series>
 
 
+                        <igx-spline-area-series [xAxis]="xAxis" [yAxis]="yAxis2" valueMemberPath="Mes1" title=""
+                            markerType="Circle" thickness="3">
+                        </igx-spline-area-series>
+
+                        <igx-spline-area-series [xAxis]="xAxis" [yAxis]="yAxis2" valueMemberPath="Mes2" title=""
+                            markerType="Circle" thickness="3">
+                        </igx-spline-area-series>
+
+
+
+
+
+
                         <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [targetSeries]="Mes1Series"
                             useValueForAutoCalloutLabels="false" calloutLeaderBrush="Transparent"
                             calloutTextColor="Black" calloutBackground="Transparent" calloutPositionPadding="-5"
@@ -152,46 +172,231 @@
                         <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [targetSeries]="Mes2Series"
                             useValueForAutoCalloutLabels="false" calloutLeaderBrush="Transparent"
                             calloutTextColor="Black" calloutBackground="Transparent" calloutPositionPadding="-5"
-                            xMemberPath="Mes2X" yMemberPath="Mes2" labelMemberPath="FormattedMes2" >
+                            xMemberPath="Mes2X" yMemberPath="Mes2" labelMemberPath="FormattedMes2">
                         </igx-callout-layer>
 
+
+
+
+
+
+
                     </igx-data-chart>
+
                     }
-
-
-
-
-
-
-
-
-
-
-
-
 
                 </div>
             </div>
+
+            <div class="row">
+
+                <div class="col-12 col-md-12 col-lg-4 mb-4">
+                    <div class="legend-title">VENTAS FAMILIA {{Titulo[0]}} - {{Titulo[1]}}</div>
+                    <div class="legend">
+                        <igx-legend name="Legend" #legendFamilia orientation="Horizontal">
+                        </igx-legend>
+                    </div>
+
+                    <div class="">
+
+                        <igx-data-chart id="Charts_Venta_Neta_Familia" #Charts_Venta_Neta_Familiar height="500px"
+                            width="90%" [legend]="legendFamilia" isHorizontalZoomEnabled="false"
+                            isVerticalZoomEnabled="false">
+
+
+                            <igx-category-y-axis name="yAxisF" #yAxisF label="Col2" useEnhancedIntervalManagement="true"
+                                enhancedIntervalPreferMoreCategoryLabels="true" [dataSource]="lstDatosFamilia"
+                                isInverted="true" gap="0.5" overlap="-0.1">
+                            </igx-category-y-axis>
+
+                            <igx-numeric-x-axis name="xAxisF" #xAxisF
+                                title="Ventas {{this.Titulo[0]}} - {{this.Titulo[1]}}" minimumValue="0"
+                                maximumValue="{{MaxValueFamilia}}">
+                            </igx-numeric-x-axis>
+
+
+
+                            <igx-bar-series [xAxis]="xAxisF" [yAxis]="yAxisF" title="{{this.Titulo[0]}}"
+                                valueMemberPath="Valor1" [dataSource]="lstDatosFamilia" isTransitionInEnabled="true"
+                                isHighlightingEnabled="true" markerType="Hidden">
+                            </igx-bar-series>
+
+
+                            <igx-bar-series [xAxis]="xAxisF" [yAxis]="yAxisF" title="{{this.Titulo[1]}}"
+                                valueMemberPath="Valor2" [dataSource]="lstDatosFamilia" isTransitionInEnabled="true"
+                                isHighlightingEnabled="true" markerType="Hidden">
+                            </igx-bar-series>
+
+
+
+                            <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [dataSource]="lstDatosFamilia"
+                                xMemberPath="Valor1" yMemberPath="Valor1X" labelMemberPath="FormattedValor1"
+                                calloutTextColor="rgba(133, 6, 138, 1)" calloutBackground="rgba(0, 0, 0, 0)"
+                                calloutLeaderBrush="rgba(0, 0, 0, 0)">
+
+                            </igx-callout-layer>
+
+                            <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [dataSource]="lstDatosFamilia"
+                                calloutPositionPadding="10" xMemberPath="Valor2" yMemberPath="Valor2X"
+                                labelMemberPath="FormattedValor2" calloutTextColor="rgba(133, 6, 138, 1)"
+                                calloutBackground="rgba(0, 0, 0, 0)" calloutLeaderBrush="rgba(0, 0, 0, 0)">
+                            </igx-callout-layer>
+                            <igx-data-tool-tip-layer></igx-data-tool-tip-layer>
+                        </igx-data-chart>
+
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-12 col-lg-4 mb-4">
+
+                    <div class="legend-title">VENTAS SUB FAMILIA {{Titulo[0]}} - {{Titulo[1]}}</div>
+                    <div class="legend">
+                        <igx-legend name="Legend" #legendSubFamilia orientation="Horizontal">
+                        </igx-legend>
+                    </div>
+
+
+                    <div class="container-subfamilia">
+                     
+
+                        <igx-data-chart id="Charts_Venta_Neta_SubFamilia" #Charts_Venta_Neta_SubFamilia width="90%"
+                            height="3500px" [legend]="legendSubFamilia" isHorizontalZoomEnabled="false"
+                            isVerticalZoomEnabled="false">
+    
+    
+                            <igx-category-y-axis #yAxisSF label="Col2" useEnhancedIntervalManagement="true"
+                                enhancedIntervalPreferMoreCategoryLabels="true" [dataSource]="lstDatosSubFamilia"
+                                isInverted="true" gap="1.5" overlap="-0.1">
+                            </igx-category-y-axis>
+    
+                            <igx-numeric-x-axis #xAxisSF title="Ventas {{this.Titulo[0]}} - {{this.Titulo[1]}}"
+                                minimumValue="0" maximumValue="{{MaxValueSubFamilia}}">
+                            </igx-numeric-x-axis>
+    
+    
+    
+                            <igx-bar-series [xAxis]="xAxisSF" [yAxis]="yAxisSF" #Valor1SeriesF title="{{this.Titulo[0]}}"
+                                valueMemberPath="Valor1" [dataSource]="lstDatosSubFamilia" isTransitionInEnabled="true"
+                                isHighlightingEnabled="true" markerType="Hidden">
+                            </igx-bar-series>
+    
+    
+                            <igx-bar-series [xAxis]="xAxisSF" [yAxis]="yAxisSF" #Valor2SeriesF title="{{this.Titulo[1]}}"
+                                valueMemberPath="Valor2" [dataSource]="lstDatosSubFamilia" isTransitionInEnabled="true"
+                                isHighlightingEnabled="true" markerType="Hidden">
+                            </igx-bar-series>
+    
+    
+    
+    
+                            <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [dataSource]="lstDatosSubFamilia"
+                                [targetSeries]="Valor1SeriesF" xMemberPath="Valor1" yMemberPath="Valor1X"
+                                labelMemberPath="FormattedValor1" calloutTextColor="rgba(133, 6, 138, 1)"
+                                calloutBackground="rgba(0, 0, 0, 0)" calloutLeaderBrush="rgba(0, 0, 0, 0)">
+    
+                            </igx-callout-layer>
+    
+                            <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [dataSource]="lstDatosSubFamilia"
+                                [targetSeries]="Valor2SeriesF" calloutPositionPadding="10" xMemberPath="Valor2"
+                                yMemberPath="Valor2X" labelMemberPath="FormattedValor2"
+                                calloutTextColor="rgba(133, 6, 138, 1)" calloutBackground="rgba(0, 0, 0, 0)"
+                                calloutLeaderBrush="rgba(0, 0, 0, 0)">
+                            </igx-callout-layer>
+    
+    
+    
+                            <igx-data-tool-tip-layer></igx-data-tool-tip-layer>
+                        </igx-data-chart>
+                    </div>
+
+
+                </div>
+
+
+                <div class="col-12 col-md-12 col-lg-4 mb-4">
+
+                    <div class="legend-title">VENTAS LINEA {{Titulo[0]}} - {{Titulo[1]}}</div>
+                        <div class="legend">
+                            <igx-legend name="Legend" #legendLinea orientation="Horizontal">
+                            </igx-legend>
+                        </div>
+                        
+                    <div class="container-linea">
+                        
+    
+                        <div class="">
+    
+                            <igx-data-chart id="Charts_Venta_Neta_Linea" #Charts_Venta_Neta_Linea height="1000px"
+                                width="90%" [legend]="legendLinea" isHorizontalZoomEnabled="false"
+                                isVerticalZoomEnabled="false">
+    
+    
+                                <igx-category-y-axis name="yAxisL" #yAxisL label="Col2" useEnhancedIntervalManagement="true"
+                                    enhancedIntervalPreferMoreCategoryLabels="true" [dataSource]="lstDatosLinea"
+                                    isInverted="true" gap="1" overlap="-0.1">
+                                </igx-category-y-axis>
+    
+                                <igx-numeric-x-axis name="xAxisL" #xAxisL
+                                    title="Ventas {{this.Titulo[0]}} - {{this.Titulo[1]}}" minimumValue="0"
+                                    maximumValue="{{MaxValueLinea}}">
+                                </igx-numeric-x-axis>
+    
+    
+    
+                                <igx-bar-series [xAxis]="xAxisL" [yAxis]="yAxisL" title="{{this.Titulo[0]}}"
+                                    valueMemberPath="Valor1" [dataSource]="lstDatosLinea" isTransitionInEnabled="true"
+                                    isHighlightingEnabled="true" markerType="Hidden">
+                                </igx-bar-series>
+    
+    
+                                <igx-bar-series [xAxis]="xAxisL" [yAxis]="yAxisL" title="{{this.Titulo[1]}}"
+                                    valueMemberPath="Valor2" [dataSource]="lstDatosLinea" isTransitionInEnabled="true"
+                                    isHighlightingEnabled="true" markerType="Hidden">
+                                </igx-bar-series>
+    
+    
+    
+                                <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [dataSource]="lstDatosLinea"
+                                    xMemberPath="Valor1" yMemberPath="Valor1X" labelMemberPath="FormattedValor1"
+                                    calloutTextColor="rgba(133, 6, 138, 1)" calloutBackground="rgba(0, 0, 0, 0)"
+                                    calloutLeaderBrush="rgba(0, 0, 0, 0)">
+    
+                                </igx-callout-layer>
+    
+                                <igx-callout-layer isAutoCalloutBehaviorEnabled="false" [dataSource]="lstDatosLinea"
+                                    calloutPositionPadding="10" xMemberPath="Valor2" yMemberPath="Valor2X"
+                                    labelMemberPath="FormattedValor2" calloutTextColor="rgba(133, 6, 138, 1)"
+                                    calloutBackground="rgba(0, 0, 0, 0)" calloutLeaderBrush="rgba(0, 0, 0, 0)">
+                                </igx-callout-layer>
+                                <igx-data-tool-tip-layer></igx-data-tool-tip-layer>
+                            </igx-data-chart>
+    
+                        </div>
+                    </div>
+                   
+                </div>
+
+            </div>
+
+
         </div>
 
 
+
+
+
+
+
+
+
     </div>
 
 
-
-
-
-
-
-
-
-</div>
-
-
-<ng-template let-series="series" let-item="item" #seriesTooltip>
-    <div class="contenedor-Tooltip">
-        <span class="titulo">{{item.Mes}}</span>
-        <span><b class="label_1">{{this.Titulo[0]}}</b> {{item.Mes1 | number :'1.2-2'}}<br/></span>
-        <span><b class="label_2">{{this.Titulo[1]}}</b> {{item.Mes2 | number :'1.2-2'}}<br/></span>
-    </div>
-</ng-template>
+    <ng-template let-series="series" let-item="item" #seriesTooltip>
+        <div class="contenedor-Tooltip">
+            <span class="titulo">{{item.Mes}}</span>
+            <span><b class="label_1">{{this.Titulo[0]}}</b> {{item.Mes1 | number :'1.2-2'}}<br /></span>
+            <span><b class="label_2">{{this.Titulo[1]}}</b> {{item.Mes2 | number :'1.2-2'}}<br /></span>
+        </div>
+    </ng-template>

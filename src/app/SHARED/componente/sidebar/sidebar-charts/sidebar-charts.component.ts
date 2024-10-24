@@ -12,7 +12,8 @@ import { IgxComboComponent, IgxComboModule, IgxIconModule } from 'igniteui-angul
 import { iBodega } from 'src/app/FAC/interface/i-Bodega';
 import { ReactiveFormsModule } from '@angular/forms';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { IgxDataChartCoreModule, IgxDataChartCategoryModule, IgxLegendModule, IgxCalloutLayerModule, IgxDataChartInteractivityModule, IgxDataChartAnnotationModule, IgxNumberAbbreviatorModule, IgxDataChartCategoryCoreModule, IgxCategoryChartModule, IgxDataChartVerticalCategoryModule, IgxDataChartComponent, IgxBarSeriesComponent } from "igniteui-angular-charts"
+import { IgxDataChartCoreModule, IgxDataChartCategoryModule, IgxLegendModule, IgxCalloutLayerModule, IgxDataChartInteractivityModule, IgxDataChartAnnotationModule, IgxNumberAbbreviatorModule, IgxDataChartCategoryCoreModule, IgxCategoryChartModule, IgxDataChartVerticalCategoryModule, IgxDataChartComponent, IgxBarSeriesComponent, IgxZoomSliderDynamicModule } from "igniteui-angular-charts"
+import { iVentaNetaTipo } from 'src/app/SHARED/interface/i-Venta-Neta-Tipo';
 
 @Component({
   selector: 'app-sidebar-charts',
@@ -27,7 +28,8 @@ import { IgxDataChartCoreModule, IgxDataChartCategoryModule, IgxLegendModule, Ig
     IgxDataChartAnnotationModule,
     IgxNumberAbbreviatorModule,
     IgxCategoryChartModule,
-    IgxDataChartVerticalCategoryModule
+    IgxDataChartVerticalCategoryModule,
+    IgxZoomSliderDynamicModule,
   ],
   templateUrl: './sidebar-charts.component.html',
   styleUrl: './sidebar-charts.component.scss',
@@ -43,6 +45,17 @@ export class SidebarChatsComponent {
   public TotalAnio: number[] = [0, 0];
   public Sucursal: string = "";
   public MaxValue: number = 0;
+
+
+  public lstDatosFamilia: iVentaNetaTipo[] = [];
+  public MaxValueFamilia: number = 0;
+
+  
+  public lstDatosSubFamilia: iVentaNetaTipo[] = [];
+  public MaxValueSubFamilia: number = 0;
+
+  public lstDatosLinea: iVentaNetaTipo[] = [];
+  public MaxValueLinea: number = 0;
 
   //private myChart: Chart;
 
@@ -138,11 +151,22 @@ export class SidebarChatsComponent {
 
 
 
+    let Bodegas: String = "";
+
+    if (this.val.Get("cmbBodega").value.length > 0) {
+        Bodegas = ">";
+        this.val.Get("cmbBodega").value.Param[2].forEach((e: any) => {
+            Bodegas +=   e + "@";
+        });
+        
+    }
 
 
 
 
-    this.GET.GetCharts().subscribe(
+
+
+    this.GET.GetCharts(Bodegas).subscribe(
       {
         next: (s) => {
 
@@ -166,14 +190,18 @@ export class SidebarChatsComponent {
             this.lstDatos = Datos[1].d;
             this.Titulo = Datos[2].d;
             this.Meses = Datos[3].d;
+            this.lstDatosFamilia = Datos[4].d;
+            this.lstDatosSubFamilia = Datos[5].d;
+            this.lstDatosLinea = Datos[6].d;
 
             this.datos_1.splice(0, this.datos_1.length);
             this.datos_2.splice(0, this.datos_2.length);
 
 
+          
+            
+
             this.cmbBodega.setSelectedItem(this.cFunciones.Bodega);
-
-
 
 
           }
@@ -329,9 +357,13 @@ export class SidebarChatsComponent {
       item.Mes1X = i;
       item.Mes2X = i + (this.EsMobile ? 0.4 : 0) ;
 
+
       // formatting values for callouts
       item.FormattedMes1 = this.formatNumber(item.Mes1);
       item.FormattedMes2 = this.formatNumber(item.Mes2);
+
+      item.FormattedMes1A = this.cFunciones.NumFormat(item.Mes1, "2");
+      item.FormattedMes2A = this.cFunciones.NumFormat(item.Mes2, "2");
     }
 
 
@@ -343,7 +375,98 @@ export class SidebarChatsComponent {
 
 
 
+
+
+
+    //DATOS FAMILIA
+
+    this.lstDatosFamilia = this.lstDatosFamilia.sort((a, b) => { return  (b.Valor1 + b.Valor2) - (a.Valor1 + a.Valor2); });
+
+
+    for (let i = 0; i < this.lstDatosFamilia .length ; i++) {
+      const item = this.lstDatosFamilia[i];
+
+      if(i == 0)
+      {
+        this.MaxValueFamilia = item.Valor1;
+        if(this.MaxValueFamilia < item.Valor2) this.MaxValueFamilia = item.Valor2;
+        this.MaxValueFamilia = this.MaxValueFamilia * 1.2;
+      }
+
+      
+
+      // calculating x-offset for callouts
+      item.Valor1X = i;
+      item.Valor2X = i + 0.4 ;
+
+
+      // formatting values for callouts
+      item.FormattedValor1 = this.formatNumber(item.Valor1);
+      item.FormattedValor2 = this.formatNumber(item.Valor2);
+    }
+
+
+
+    //DATOS SUB FAMILIA
+
+    this.lstDatosSubFamilia = this.lstDatosSubFamilia.sort((a, b) => { return  (b.Valor1 + b.Valor2) - (a.Valor1 + a.Valor2); });
+
+
+    for (let i = 0; i < this.lstDatosSubFamilia .length ; i++) {
+      const item = this.lstDatosSubFamilia[i];
+
+      if(i == 0)
+      {
+        this.MaxValueSubFamilia = item.Valor1;
+        if(this.MaxValueSubFamilia < item.Valor2) this.MaxValueSubFamilia = item.Valor2;
+        this.MaxValueSubFamilia = this.MaxValueSubFamilia * 1.2;
+      }
+
+      
+
+      // calculating x-offset for callouts
+      item.Valor1X = i ;
+      item.Valor2X = i - 0.99;
+
+
+      // formatting values for callouts
+      item.FormattedValor1 = this.formatNumber(item.Valor1);
+      item.FormattedValor2 = this.formatNumber(item.Valor2);
+    }
+
+
+
+        //DATOS LINEA
+
+        this.lstDatosLinea = this.lstDatosLinea.sort((a, b) => { return  (b.Valor1 + b.Valor2) - (a.Valor1 + a.Valor2); });
+
+
+        for (let i = 0; i < this.lstDatosLinea .length ; i++) {
+          const item = this.lstDatosLinea[i];
+    
+          if(i == 0)
+          {
+            this.MaxValueLinea = item.Valor1;
+            if(this.MaxValueLinea < item.Valor2) this.MaxValueLinea = item.Valor2;
+            this.MaxValueLinea = this.MaxValueLinea * 1.2;
+          }
+    
+          
+    
+          // calculating x-offset for callouts
+          item.Valor1X = i;
+          item.Valor2X = i + 0.3;
+    
+    
+          // formatting values for callouts
+          item.FormattedValor1 = this.formatNumber(item.Valor1);
+          item.FormattedValor2 = this.formatNumber(item.Valor2);
+        }
+    
+
+
   }
+
 
 
 

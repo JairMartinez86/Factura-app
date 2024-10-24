@@ -75,7 +75,7 @@ public AccesoWeb() : Observable<any>{
 
 
 
-public GetCharts() : Observable<any>{
+public GetCharts(CodBodega : String) : Observable<any>{
 
   var options = {
     'headers': {
@@ -85,7 +85,7 @@ public GetCharts() : Observable<any>{
   };
 
 
-  return this.http.get<any>(this._Cnx.Url() + "SIS/GetCharts?refresh_token=" + localStorage.getItem("FAC_refresh_token"), options );
+  return this.http.get<any>(this._Cnx.Url() + "SIS/GetCharts?CodBodega=" +CodBodega + "&Mobile=" + false + "&refresh_token=" + localStorage.getItem("FAC_refresh_token"), options );
 }
 
 
